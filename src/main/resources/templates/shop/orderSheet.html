@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    img{
+        width: 100px;
+        height: 100px;
+
+    }
+
+</style>
+<body>
+    주문 페이지 입니다!
+    <div class="delivery-info">
+    <h5>배송지 정보</h5>
+
+    </div>
+    <hr>
+
+    <div class="consumer-info">
+        <h5>구매자 정보</h5>
+    </div>
+    <hr>
+    <div class="product-info">
+        <table>
+            <tr>
+                <th>배송 예상일</th>
+            </tr>
+            <tr>
+                <td > <img th:src="${pvo.p_image}"></td><br>
+                <td th:text="${pvo.p_name}"></td><br>
+                <td th:text="${pvo.p_price}"></td><br>
+            </tr>
+        </table>
+    </div>
+    <hr>
+
+    <div class="payment-info">
+        <h5>결제 정보</h5>
+    </div>
+
+    <form method="get" action="#">
+        <button>결제하기</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<body>
+<div>네브바에용 ㅎㅎ</div>
+<div class="search-box">
+    <div>
+        <form class="searchForm" action="/shop/list" method="get">
+            <input  type="text" id="keyword" name="keyword"   placeholder="검색어를 입력해주세요">
+            <button id="findBtn">검색</button>
+        </form>
+    </div>
+
+</div>
+</div>
+<nav>
+    <a class="cateBtn" href="/shop/list?main_category=의류"><button>의류</button></a>
+    <a class="cateBtn" href="/shop/list?main_category=식품"><button>식품</button></a>
+    <a class="cateBtn" href="/shop/list?main_category=운동용품"><button>운동용품</button></a>
+</nav>
+</body>
+
+</html>

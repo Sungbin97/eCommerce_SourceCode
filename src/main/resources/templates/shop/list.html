@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<style>
+    img{
+        width: 250px;
+        height: 250px;
+
+    }
+    .product-item{
+        display: inline-block;
+        margin: 20px;
+        border: 1px solid;
+    }
+    .category-box a{
+        margin: 10px;
+    }
+    .sort-box{
+
+    }
+    .search-img{
+        width: 100px;
+        height: 100px;
+    }
+</style>
+<body>
+<div>
+    <nav>
+        <a class="cateBtn" href="/shop/list?main_category=의류"><button>의류</button></a>
+        <a class="cateBtn" href="/shop/list?main_category=식품"><button>식품</button></a>
+        <a class="cateBtn" href="/shop/list?main_category=운동용품"><button>운동용품</button></a>
+    </nav>
+</div>
+<!--검색 바 -->
+<div class="search-box">
+
+    <div>
+        <form class="searchForm" action="/shop/list" method="get">
+        <input  type="text" id="keyword" name="keyword"   placeholder="검색어를 입력해주세요">
+        <button id="findBtn">검색</button>
+        </form>
+    </div>
+
+    <div class="bg-light" >
+        <table class="table table-hover bg-light">
+            <tbody id="selectView">
+<!--            <div> <p style="font-size:20px">&nbsp;&nbsp;추천 검색어 </p>-->
+<!--                <p style="font-size:15px">&nbsp;&nbsp;<strong>COAT </strong></p>-->
+<!--                <p style="font-size:15px">&nbsp;&nbsp;<strong>PANTS</strong> </p>-->
+<!--                <p style="font-size:15px">&nbsp;&nbsp;<strong>SNIKERS</strong> </p>-->
+<!--            </div>-->
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+<!--선택된 카테고리, 검색 키워드 보여주기-->
+<div class="find-result-box">
+    <div class="show-maincategory" th:if="${cri.main_category != null}">
+        <h2 th:text="${cri.main_category}"></h2>
+    </div>
+    <div class="show-subcategory" th:if="${cri.sub_category != null}">
+        <h3 th:text="${cri.sub_category}"></h3>
+    </div>
+
+    <div th:if="${cri.keyword != null}  and ${ #strings.isEmpty(cri.main_category)}">
+        <h2 >[[${cri.keyword}]]에 대한 검색 결과입니다.</h2>
+    </div>
+</div>
+<!--정렬 목록-->
+<div class="sort-box">
+<!--    <select>-->
+<!--        <option value="new">신제품순</option>-->
+<!--        <option value="priceasc">가격낮은순</option>-->
+<!--        <option value="pricedesc">가격높은순</option>-->
+<!--    </select>-->
+    <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='priceasc',keyword=${cri.keyword})}">가격낮은순</a>
+    <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='pricedesc',keyword=${cri.keyword})}">가격높은순</a>
+    <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='new',keyword=${cri.keyword})}">신상품순</a>
+</div>
+
+<!--카테고리 목록-->
+<div class="category-box">
+<!--    <div class="" th:if="${cri.keyword != null}  and ${ #strings.isEmpty(cri.main_category)}">-->
+
+<!--        <a class="cateBtn" th:href="@{/shop/list(main_category='의류',sub_category='',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword='')}">의류</a>-->
+<!--        <a class="cateBtn" th:href="@{/shop/list(main_category='식품',sub_category='',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword='')}">식품</a>-->
+<!--        <a class="cateBtn" th:href="@{/shop/list(main_category='운동용품',sub_category='',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword='')}">운동용품</a>-->
+<!--    </div>-->
+    <div class="" th:if="${cri.main_category =='의류' }" >
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='티셔츠',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">티셔츠</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='셔츠',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">셔츠</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='기능성티',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">기능성티</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='반팔티',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">반팔티</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='런닝복',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">런닝복</a>
+    </div>
+
+    <div class="" th:if="${cri.main_category =='식품' }" >
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='비타민C',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">비타민C</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='비타민D',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">비타민D</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='종합 비타민',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">종합 비타민</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='오메가3',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">오메가3</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='아르기닌',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">아르기닌</a>
+    </div>
+
+    <div class="" th:if="${cri.main_category =='운동용품' }" >
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='벤치프레스',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">벤치프레스</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='로잉머신',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">로잉머신</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='철봉',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">철봉</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='런닝머신',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">런닝머신</a>
+        <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category='덤벨',page=1,numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">덤벨</a>
+    </div>
+
+</div>
+
+<!--상품 목록 리스트-->
+<div>
+    <div class="product-container">
+            <div >
+                <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(p_no=${dto?.p_no})}">
+                    <img th:src="${dto.p_image}">
+                 <div>[[${dto?.p_name}]]([[${dto?.p_subcategory}]])</div>
+                    <div>[[${dto?.p_price}]]원</div>
+                </a>
+            </div>
+    </div>
+
+
+    <!--페이징-->
+
+    <div class="pagination">
+        <a class="page-item" th:if="${pagingVO.prev}"
+           th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">
+            <button class="page-link" >이전</button>
+        </a>
+        <th:block  th:with="start = ${pagingVO.start}, end = ${pagingVO.end}">
+            <a class="page-item"
+                th:with="start = ${pagingVO.start}, end = ${pagingVO.end} "
+                th:each="pageButton : ${#numbers.sequence(start, end)}"
+               th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${pageButton},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">
+                <button   th:text="${pageButton}"></button>
+            </a>
+        </th:block>
+        <a class="page-item" th:if="${pagingVO.next}"
+           th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${pagingVO.end+1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">
+            <button class="page-link" >다음</button>
+        </a>
+    </div>
+
+</div>
+<script th:inline="javascript">
+
+    $(document).ready(function (){
+
+        let selectView = $('#selectView');
+
+        function loadGetListBysearch(){
+            let keyword  = $('#keyword').val();
+            console.log("검색어 들옴?",keyword);
+            $.getJSON("/rest/getListBySearch/"+keyword,function (data){
+                console.log(data)
+                let str = "";
+                $(data).each(function (){
+                    console.log(this.p_image)
+                    str +=	'<tr> <td ><a href="/shop/read?p_no='+this.p_no+'"><img class="search-img" src="'+this.p_image+'"></a></td>';
+                    str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?p_no='+this.p_no+'">'+this.p_name+' <p style="font-size:8px;">'+this.p_subcategory+'</p></a>';
+                     str +=   '<p style="font-size:7px">'+this.p_price+'원</p></td>';
+                    str += '<hr/>';
+                })
+                selectView.html(str);
+            })
+
+        }
+        $("input[name='keyword']").keyup(function (){
+            loadGetListBysearch();
+        })
+
+    })
+</script>
+</body>
+</html>

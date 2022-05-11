@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.team4.mapper.JH.ShopMapper">
+    <select id="getListAll" resultType="com.green.team4.vo.JH.ProductVO">
+         select * from product where p_no>0
+    </select>
+    <select id="getListWithCategory" resultType="com.green.team4.vo.JH.ProductVO">
+        select * from product where p_category = #{p_category}
+    </select>
+
+
+    <select id="getOne" resultType="com.green.team4.vo.JH.ProductVO">
+        select * from product where p_no=#{p_no}
+    </select>
+    <insert id="insert">
+        insert into product (p_name,p_maincategory,p_price,p_amount,p_image,p_subcategory,p_color,p_information)
+            values (#{p_name},#{p_maincategory},#{p_price},#{p_amount},#{p_image},#{p_subcategory},#{p_color},#{p_information})
+    </insert>
+
+
+<!--    데이터 수 구하기-->
+<!--    <select id="getTotalProductCount" resultType="int">-->
+<!--        select count(p_no) from product;-->
+<!--    </select>-->
+<!--    <select id="getTotalProductCountbyCategory" resultType="int">-->
+<!--        select count(p_no) from product where p_category=#{p_category}-->
+<!--    </select>-->
+    <select id="getTotalProductCountbyCategory" resultType="int">
+        select count(p_no) from product where p_category=#{p_category}
+    </select>
+
+
+
+    <!--    페이징-->
+
+    <select id="getListByCategoryAndPage" resultType="com.green.team4.vo.JH.ProductVO"
+            parameterType="Map" >
+        select * from product where p_category = #{p_category} order by p_no desc ,p_regdate desc
+            limit #{pagingVO.cri.startPage}, #{pagingVO.cri.numPerPage}
+
+    </select>
+
+<!--   하위 카테고리-->
+
+    <select id="getCategory" resultType="com.green.team4.vo.JH.ProductVO">
+        select distinct p2.p_category,p2.p_cateCodeRef from product p1
+        left join product p2 on p2.p_catecodeRef = p1.p_catecode
+        left join product p3 on p3.p_catecodeRef = p2.p_catecode
+        where p2.p_cateCodeRef=#{p_cateCodeRef}
+        order by p1.p_catecode;
+    </select>
+
+
+    <select id="getListByFind" resultType="com.green.team4.vo.JH.ProductVO">
+		select * from product
+        where
+        <include refid="keyword"></include>
+        <include refid="mainCategory"></include> <include refid="subCategory"></include>
+         <include refid="sort"></include>
+            limit #{startPage}, #{numPerPage}
+    </select>
+    <select id="getTotaldatabyFind" resultType="int">
+		select count(p_no)
+		from product
+		where
+        <include refid="keyword"></include>
+        <include refid="mainCategory"></include>
+        <include refid="subCategory"></include>
+
+    </select>
+    <select id="getListBySearch" resultType="com.green.team4.vo.JH.ProductVO">
+        select * from product
+        where p_name like concat('%',#{keyword},'%')
+        order by p_no desc limit 5
+    </select>
+    <sql id="keyword">
+
+        <if test="keyword != null and keyword != '' "  >
+             p_name like concat('%',#{keyword},'%')
+        </if>
+
+
+    </sql>
+    <sql id="mainCategory">
+
+        <if test="main_category != null and main_category != ''">
+            <if test="main_category == '의류'">
+                p_maincategory ='의류'
+            </if>
+            <if test="main_category == '식품'">
+                 p_maincategory ='식품'
+            </if>
+            <if test="main_category == '운동용품'">
+               p_maincategory ='운동용품'
+            </if>
+        </if>
+
+    </sql>
+    <sql id="subCategory">
+        <if test="sub_category != null and sub_category != ''">
+            <if test="sub_category == '비타민C'">
+                and  p_subcategory = '비타민C'
+            </if>
+            <if test="sub_category == '비타민D'">
+                and  p_subcategory = '비타민D'
+            </if>
+            <if test="sub_category == '종합 비타민'">
+                and  p_subcategory = '종합 비타민'
+            </if>
+            <if test="sub_category == '오메가3'">
+                and  p_subcategory = '오메가3'
+            </if>
+            <if test="sub_category == '아르기닌'">
+                and  p_subcategory = '아르기닌'
+            </if>
+            <if test="sub_category == '티셔츠'">
+                and  p_subcategory = '티셔츠'
+            </if>
+            <if test="sub_category == '셔츠'">
+                and  p_subcategory ='셔츠'
+            </if>
+            <if test="sub_category == '기능성티'">
+                and  p_subcategory = '기능성티'
+            </if>
+            <if test="sub_category == '런닝복'">
+                and  p_subcategory ='런닝복'
+            </if>
+            <if test="sub_category == '반팔티'">
+                and  p_subcategory ='반팔티'
+            </if>
+            <if test="sub_category == '벤치프레스'">
+                and  p_subcategory = '벤치프레스'
+            </if>
+            <if test="sub_category == '로잉머신'">
+                and  p_subcategory = '로잉머신'
+            </if>
+            <if test="sub_category == '철봉'">
+                and  p_subcategory ='철봉'
+            </if>
+            <if test="sub_category == '런닝머신'">
+                and  p_subcategory = '런닝머신'
+            </if>
+            <if test="sub_category == '덤벨'">
+                and  p_subcategory = '덤벨'
+            </if>
+        </if>
+    </sql>
+    <sql id="sort">
+
+           <if test="sort == '' ">
+               order by p_no desc
+           </if>
+            <if test="sort == 'new' ">
+                order by p_no desc
+            </if>
+            <if test="sort == 'pricedesc' ">
+                order by p_price desc
+            </if>
+            <if test="sort == 'priceasc' ">
+                order by p_price asc
+            </if>
+
+
+    </sql>
+</mapper>

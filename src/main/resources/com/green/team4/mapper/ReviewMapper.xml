@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.team4.mapper.JH.ReviewMapper">
+    <select id="getReviewList" resultType="com.green.team4.vo.JH.ReviewVO">
+        select * from review where p_no= #{p_no}
+    </select>
+
+    <insert id="write">
+        insert into review (p_no,rv_content,rv_writer) values (#{p_no},#{rv_content},#{rv_writer})
+    </insert>
+
+   <delete id="delete">
+       delete from review where rv_no = #{rv_no}
+   </delete>
+</mapper>
