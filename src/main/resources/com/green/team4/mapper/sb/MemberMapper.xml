@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.team4.mapper.sb.MemberMapper">
+
+    <insert id="insert">
+        insert into member_tbl (name, resNum, addr, phone, email)
+        values (#{name}, #{resNum}, #{addr}, #{phone}, #{email})
+    </insert>
+
+    <select id="getAll" resultType="com.green.team4.vo.MemberVO">
+        select * from member_tbl
+    </select>
+
+    <select id="getOne" resultType="com.green.team4.vo.MemberVO">
+        select * from member_tbl
+            where mno=#{mno}
+    </select>
+
+    <update id="update">
+        update member_tbl
+            set phone=#{phone}, email=#{email}, addr=#{addr}
+                where mno=#{mno}
+    </update>
+
+    <delete id="delete">
+        delete from member_tbl where mno=#{mno}
+    </delete>
+
+</mapper>
