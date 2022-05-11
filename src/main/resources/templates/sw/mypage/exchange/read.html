@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>마이페이지-취소/반품/교환-하나조회</h2>
+
+    <!-- MemberInfo -->
+    <h3>취소/반품/교환 세부내용</h3>
+    <form>
+        <!-- 숨김 데이터 -->
+        <input type="hidden" name="mno" th:value="${exchangeVO.mno}" readonly>
+        <input type="hidden" name="ono" th:value="${exchangeVO.ono}" readonly>
+        <input type="hidden" name="eno" th:value="${exchangeVO.eno}" readonly>
+        <input type="hidden" name="p_no" th:value="${exchangeVO.p_no}" readonly>
+        <input type="hidden" name="pno" th:value="${exchangeVO.pno}" readonly>
+        <!-- 표시 데이터 -->
+        신청 정보
+        <ul>
+            <li>
+                <label th:for="exCategory">카테고리</label>
+                <input type="text" name="exCategory" th:value="${exchangeVO.exCategory}" readonly>
+            </li>
+            <li>
+                <label th:for="exContent">신청 사유</label>
+                <input type="text" name="exContent" th:value="${exchangeVO.exContent}" readonly>
+            </li>
+            <li>
+                <label th:for="exStartDate">접수일</label>
+                <input type="text" name="exStartDate" th:value="${exchangeVO.exStartDate}" readonly>
+            </li>
+            <li>
+                <label th:for="exStatus">진행 상태</label>
+                <input type="text" name="exStatus" th:value="${exchangeVO.exStatus}" readonly>
+            </li>
+            <li th:each="exchangeFile : ${exchangeVO.exchangeFilesList}" th:data-file="${exchangeFile.getThumbnailURL()}">
+                <img th:src="|/display?fileName=${exchangeFile.getThumbnailURL()}|">
+            </li>
+        </ul>
+        구매 정보
+        <ul>
+            <li>
+                <label th:for="p_name">상품이름</label>
+                <input type="text" name="p_name" th:value="${exchangeVO.p_name}" readonly>
+            </li>
+            <li>
+                <label th:for="count">주문수량</label>
+                <input type="text" name="count" th:value="${exchangeVO.count}" readonly>
+            </li>
+            <li>
+                <label th:for="productPrice">상품 총 금액</label>
+                <input type="text" name="productPrice" th:value="${exchangeVO.productPrice}" readonly>
+            </li>
+            <li>
+                <label th:for="shipFee">배송비</label>
+                <input type="text" name="shipFee" th:value="${exchangeVO.shipFee}" readonly>
+            </li>
+            <li>
+                <label th:for="totalPrice">총 결제금액</label>
+                <input type="text" name="totalPrice" th:value="${exchangeVO.totalPrice}" readonly>
+            </li>
+        </ul>
+        결제 정보
+        <ul>
+            <li>
+                <label th:for="payName">결제수단</label>
+                <input type="text" name="payName" th:value="${exchangeVO.payName}" readonly>
+            </li>
+            <li>
+                <label th:for="payContent">결제수단 세부정보</label>
+                <input type="text" name="payContent" th:value="${exchangeVO.payContent}" readonly>
+            </li>
+        </ul>
+    </form>
+    <hr/>
+
+</body>
+<script>
+
+</script>
+</html>

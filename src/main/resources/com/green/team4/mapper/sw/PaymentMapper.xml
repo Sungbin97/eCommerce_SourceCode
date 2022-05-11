@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.team4.mapper.sw.PaymentMapper">
+
+    <!-- paymentInfo 데이터 등록 -->
+    <insert id="insert">
+        insert into tbl_paymentInfo (mno, pno, payName, payContent )
+            values (#{mno}, #{pno}, #{payName}, #{payContent})
+    </insert>
+
+    <!-- paymentInfo 데이터 전체 가져오기(mno 단위) -->
+    <select id="getAll" resultType="com.green.team4.vo.sw.PaymentVO">
+        select * from tbl_paymentInfo where mno=#{mno}
+    </select>
+
+    <!-- paymentInfo 데이터 하나 가져오기(pno 단위) -->
+    <select id="getOne" resultType="com.green.team4.vo.sw.PaymentVO">
+        select * from tbl_paymentInfo where pno=#{pno}
+    </select>
+
+    <!-- paymentInfo 데이터 수정 -->
+    <update id="update">
+        update tbl_paymentInfo
+            set payName=#{payName}, payContent=#{payContent}
+                where pno=#{pno}
+    </update>
+
+    <!-- paymentInfo 데이터 삭제 -->
+    <delete id="delete">
+        delete from tbl_paymentInfo where pno=#{pno}
+    </delete>
+
+</mapper>

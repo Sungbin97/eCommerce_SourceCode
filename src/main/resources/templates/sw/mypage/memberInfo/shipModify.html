@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>마이페이지-배송지 수정화면</h2>
+
+    <form th:action="@{/sw/mypage/memberInfo/shipModify}" th:method="post">
+        <input type="hidden" name="mno" th:value="${shipmentVO.mno}" readonly>
+        <input type="hidden" name="sno" th:value="${shipmentVO.sno}" readonly>
+        <div>
+            <label th:for="shipAddress">배송지 주소</label>
+            <input type="text" name="shipAddress" th:value="${shipmentVO.shipAddress}">
+        </div>
+        <input type="submit" value="배송지 수정등록">
+    </form>
+</body>
+</html>

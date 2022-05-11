@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.team4.mapper.sw.DeliveryMapper">
+
+    <!-- Delivery 데이터 하나 가져오기(ono 단위) -->
+    <select id="getOne" resultType="com.green.team4.vo.sw.DeliveryVO">
+        select * from tbl_delivery where ono = #{ono}
+    </select>
+
+</mapper>

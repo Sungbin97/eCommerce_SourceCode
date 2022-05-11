@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>마이페이지-결제수단 정보 신규등록화면</h2>
+
+    <form th:action="@{/sw/mypage/memberInfo/payAdd}" method="post">
+        <input type="hidden" name="mno" th:value="${mno}" readonly>
+        <div>
+            <label th:for="payName">결제수단 유형</label>
+            <input type="text" name="payName" placeholder="휴대폰/신용카드/체크카드 중 택1 하세요">
+        </div>
+        <div>
+            <label th:for="payContent">결제수단 내용</label>
+            <input type="text" name="payContent" placeholder="해당하는 번호를 입력하세요(카드번호, 휴대폰 번호 등)">
+        </div>
+        <input type="submit" value="신규 등록">
+    </form>
+</body>
+</html>

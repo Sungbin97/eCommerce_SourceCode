@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>마이페이지-주문세부내역</h2>
+
+    <!-- Order -->
+    <h3>주문세부내역</h3>
+    <form>
+        <!-- 숨김 데이터 -->
+        <input type="hidden" name="mno" th:value="${orderVO.mno}" readonly>
+        <input type="hidden" name="ono" th:value="${orderVO.ono}" readonly>
+        <input type="hidden" name="p_no" th:value="${orderVO.p_no}" readonly>
+        <input type="hidden" name="pno" th:value="${orderVO.pno}" readonly>
+        <!-- 표시 데이터 -->
+        주문자 정보
+        <ul>
+            <li>
+                <label th:for="name">주문자 성명</label>
+                <input type="text" name="name" th:value="${orderVO.name}" readonly>
+            </li>
+            <li>
+                <label th:for="phoneNum">주문자 연락처</label>
+                <input type="text" name="phoneNum" th:value="${orderVO.phoneNum}" readonly>
+            </li>
+        </ul>
+        받는사람 정보
+        <ul>
+            <li>
+                <label th:for="receiverName">받는사람 성명</label>
+                <input type="text" name="receiverName" th:value="${orderVO.receiverName}" readonly>
+            </li>
+            <li>
+                <label th:for="receiverPhone">받는사람 연락처</label>
+                <input type="text" name="receiverPhone" th:value="${orderVO.receiverPhone}" readonly>
+            </li>
+            <li>
+                <label th:for="delAddr">배송주소</label>
+                <input type="text" name="delAddr" th:value="${orderVO.delAddr}" readonly>
+            </li>
+            <li>
+                <label th:for="message">주문 요청사항 메세지</label>
+                <input type="text" name="message" th:value="${orderVO.message}" readonly>
+            </li>
+        </ul>
+        주문 상품 내용
+        <ul>
+            <li>
+                <label th:for="p_name">주문 상품명</label>
+                <input type="text" name="p_name" th:value="${orderVO.p_name}" readonly>
+            </li>
+            <li>
+                <label th:for="count">주문 수량</label>
+                <input type="text" name="count" th:value="${orderVO.count}" readonly>
+            </li>
+        </ul>
+        결제 내역
+        <ul>
+            <li>
+                <label th:for="productPrice">상품 총 금액</label>
+                <input type="text" name="productPrice" th:value="${orderVO.productPrice}" readonly>
+            </li>
+            <li>
+                <label th:for="shipFee">배송비</label>
+                <input type="text" name="shipFee" th:value="${orderVO.shipFee}" readonly>
+            </li>
+            <li>
+                <label th:for="totalPrice">총 결제금액</label>
+                <input type="text" name="totalPrice" th:value="${orderVO.totalPrice}" readonly>
+            </li>
+            <li>
+                <label th:for="payName">결제수단</label>
+                <input type="text" name="payName" th:value="${orderVO.payName}" readonly>
+            </li>
+            <li>
+                <label th:for="payContent">결제수단 세부내용</label>
+                <input type="text" name="payContent" th:value="${orderVO.payContent}" readonly>
+            </li>
+            <li>
+                <label th:for="orderDate">주문일시</label>
+                <input type="text" name="orderDate" th:value="${orderVO.orderDate}" readonly>
+            </li>
+            <li>
+                <label th:for="orderStatus">주문상태</label>
+                <input type="text" name="orderStatus" th:value="${orderVO.orderStatus}" readonly>
+            </li>
+        </ul>
+    </form>
+    <hr/>
+
+</body>
+<script>
+
+</script>
+</html>

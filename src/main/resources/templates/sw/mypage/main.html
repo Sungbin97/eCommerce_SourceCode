@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>마이페이지 메인</h2>
+
+    <form action="/sw/mypage/memberInfo/read" method="get">
+        <input type="text" name="mno" th:value="${mno}">
+        <input type="submit" value="개인정보관리">
+    </form>
+    <form action="/sw/mypage/cart/read" method="get">
+        <input type="text" name="mno" th:value="${mno}">
+        <input type="submit" value="장바구니">
+    </form>
+    <form action="/sw/mypage/order/list" method="get">
+        <input type="text" name="mno" th:value="${mno}">
+        <input type="submit" value="주문내역">
+    </form>
+    <form action="/sw/mypage/exchange/list" method="get">
+        <input type="text" name="mno" th:value="${mno}">
+        <input type="submit" value="취소/반품/교환">
+    </form>
+
+</body>
+</html>

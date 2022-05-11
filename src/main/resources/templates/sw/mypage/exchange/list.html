@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>마이페이지-취소/반품/교환 조회</h2>
+
+    <h3>취소/반품/교환 List</h3>
+        <table id="exchangeTable">
+            <thead>
+                <tr>
+                    <th>접수일</th>
+                    <th>EX번호</th>
+                    <th>상품명</th>
+                    <th>진행상태</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="exchange : ${exList}">
+                    <td th:text="${exchange.exStartDate}"></td>
+                    <td><a th:href="@{/sw/mypage/exchange/read(eno=${exchange.eno})}" th:text="${exchange.eno}"></a></td>
+                    <td th:text="${exchange.p_name}"></td>
+                    <td th:text="${exchange.exStatus}"></td>
+                    <!-- 데이터 삭제 시 controller 전송용 form -->
+                    <td>
+                        <form th:action="@{/sw/mypage/exchange/delete}" th:method="post">
+                            <input type="hidden" name="mno" th:value="${exchange.mno}" readonly>
+                            <input type="hidden" name="eno" th:value="${exchange.eno}" readonly>
+                            <input type="submit" value="삭제">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <hr/>
+</body>
+<script>
+
+</script>
+</html>

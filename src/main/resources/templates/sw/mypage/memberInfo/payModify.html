@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>마이페이지-결제수단 정보 수정화면</h2>
+
+    <form th:action="@{/sw/mypage/memberInfo/payModify}" th:method="post">
+        <input type="hidden" name="mno" th:value="${paymentVO.mno}" readonly>
+        <input type="hidden" name="pno" th:value="${paymentVO.pno}" readonly>
+        <div>
+            <label th:for="payName">결제수단 유형</label>
+            <input type="text" name="payName" th:value="${paymentVO.payName}">
+        </div>
+        <div>
+            <label th:for="payContent">결제수단 내용</label>
+            <input type="text" name="payContent" th:value="${paymentVO.payContent}">
+        </div>
+        <input type="submit" value="결제정보 수정등록">
+    </form>
+</body>
+</html>
