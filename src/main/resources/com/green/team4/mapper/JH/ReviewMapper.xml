@@ -8,10 +8,30 @@
     </select>
 
     <insert id="write">
-        insert into review (pno,rv_content,rv_writer) values (#{pno},#{rv_content},#{rv_writer})
+        insert into review (pno,mno,rRating,likeHit,rImageURL,rContent,rRegdate,rUpdatedate)
+        values (#{pno},#{mno},#{rRating},#{likeHit},#{rImageURL},#{rContent},#{rRegdate},#{rUpdatedate})
     </insert>
-
+<!--리뷰 갯수 구하기-->
    <delete id="delete">
        delete from review where rv_no = #{rv_no}
    </delete>
+
+
+
+<!--    평점 구하기-->
+    <select id="getRatingAvg" resultType="double">
+        select avg(rRating) from review where pno = #{pno}
+    </select>
+<!--평점 상품에 업데이트-->
+    <update id="updateRating">
+        update product set pRating = #{pRating} where pno=#{pno}
+    </update>
+
+    <!--    리뷰 갯수 구하기-->
+    <select id="getReviewsCount" resultType="int">
+        select count(*) from review where pno= #{pno}
+    </select>
+    <update id="updateReviewsCount">
+        update product set pReviewCnt = #{pReviewCnt} where pno=#{pno}
+    </update>
 </mapper>

@@ -125,8 +125,9 @@
             <div >
                 <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(pno=${dto?.pno})}">
                     <img th:src="${dto.pImage}">
-                 <div>[[${dto?.pName}]]([[${dto?.pSubCategory}]])</div>
-                    <div>[[${dto?.pPrice}]]원</div>
+                 <p>[[${dto?.pName}]]([[${dto?.pSubCategory}]])</p>
+                    <p>[[${dto?.pPrice}]]원</p>
+                    <p>평점 : [[${dto.pRating}]]([[${dto.pReviewCnt}]])</p>
                 </a>
             </div>
     </div>
@@ -162,7 +163,7 @@
 
         function loadGetListBysearch(){
             let keyword  = $('#keyword').val();
-            console.log("검색어 들옴?",keyword);
+            console.log("검색어 들어오나유?",keyword);
             $.getJSON("/rest/getListBySearch/"+keyword,function (data){
                 console.log(data)
                 let str = "";

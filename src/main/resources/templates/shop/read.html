@@ -60,13 +60,20 @@
         </form>
 
             <button id="detailBtn">상품 상세설명</button>
-            <button id="reviewBtn">리뷰</button>
+            <button id="reviewBtn">리뷰([[${pvo.pReviewCnt}]])</button>
             <button id="deliInfoBtn">배송환불사항</button>
+
+    </div>
+    <div class="reply_not_div">
 
     </div>
     <div class="product-detailed">
 
     </div>
+    <div class="repy_pageInfo_div">
+
+    </div>
+
 
 
 
@@ -75,6 +82,7 @@
     $(document).ready(function (){
 
         let detaildiv = $(".product-detailed")
+        let reviewdiv = $(".review-header")
 
         let pno = [[${pvo.pno}]]
 
@@ -82,16 +90,22 @@
         function loadReviews(){
             $.getJSON("/rest/getreviews/" + pno,function (data){
                 let str ="";
+                let reviewHeader = "";
                 console.log(data);
                 $(data).each(function (){
 
-                    str += "<div><h5>"+ this.rv_writer +"</h5>";
-                    str += "<p>" + this.rv_content +"</p>";
+                    str += "<div><h5>회원"+ this.mno +"</h5>";
+                    str += "<p>내용 : " + this.rcontent +"</p>";
+                    str += "<p>평점 : " + this.rrating +"</p>";
                     str += "</div>";
                 })
+                reviewHeader += "<div><p>평점: " +[[${pvo.pRating}]]+"<span>("+ [[${pvo.pReviewCnt}]]+")</span></p>";
+
+                reviewdiv.html(reviewHeader)
                 detaildiv.html(str)
             })
         }
+
 
         function loadProductDetailed(){
             $.getJSON("/rest/getinfo/" + pno,function (data){

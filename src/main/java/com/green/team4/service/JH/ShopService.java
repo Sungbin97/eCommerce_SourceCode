@@ -34,4 +34,6 @@ public interface ShopService {
     public List<Product_optVO> getColors(String pCode);
     public List<Product_optVO> getSizes(String pCode);
     public List<Product_optVO> getOptList(String pCode);
+
+
 }

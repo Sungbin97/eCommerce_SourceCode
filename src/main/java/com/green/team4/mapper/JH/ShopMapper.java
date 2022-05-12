@@ -3,6 +3,7 @@ package com.green.team4.mapper.JH;
 import com.green.team4.vo.JH.ItemPageCriteria;
 
 import com.green.team4.vo.JH.Product_optVO;
+import com.green.team4.vo.JH.ReviewVO;
 import com.green.team4.vo.sb.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -47,6 +48,7 @@ public interface ShopMapper {
     public List<Product_optVO> getColors(String pCode);
     public List<Product_optVO> getSizes(String pCode);
     public List<Product_optVO> getOptList(String pCode);
+
 
 
 }

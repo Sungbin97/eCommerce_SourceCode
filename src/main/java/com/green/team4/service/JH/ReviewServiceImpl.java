@@ -2,6 +2,9 @@ package com.green.team4.service.JH;
 
 import com.green.team4.mapper.JH.ReviewMapper;
 import com.green.team4.vo.JH.ReviewVO;
+import com.green.team4.vo.JH.UpdateReplyVO;
+import com.green.team4.vo.JH.UpdaterReviewCntVO;
+import com.green.team4.vo.sb.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +22,47 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public void write(ReviewVO rvvo) {
-        reviewMapper.write(rvvo);
+    public void write(ReviewVO rvo) {
+        reviewMapper.write(rvo);
+        setReviewCnt(rvo.getPno());
+        setRating(rvo.getPno());
 
     }
 
     @Override
-    public boolean update(ReviewVO rvvo) {
-        return reviewMapper.update(rvvo)==1;
+    public boolean update(ReviewVO rvo) {
+        setReviewCnt(rvo.getPno());
+        setRating(rvo.getPno());
+
+        return reviewMapper.update(rvo)==1;
+
     }
 
     @Override
-    public boolean delete(int rv_no) {
-        return reviewMapper.delete(rv_no)==1;
+    public boolean delete(ReviewVO rvo) {
+        setReviewCnt(rvo.getPno());
+        setRating(rvo.getPno());
+        return reviewMapper.delete(rvo.getPno())==1;
+    }
+
+
+    //평점 업데이트
+    public void setRating(int pno){
+        Double ratingAvg = reviewMapper.getRatingAvg(pno);
+        if(ratingAvg == null){
+            ratingAvg=0.0;
+        }
+        UpdateReplyVO urvo = new UpdateReplyVO();
+        urvo.setPno(pno);
+        urvo.setPRating(ratingAvg);
+        reviewMapper.updateRating(urvo);
+
+    }
+    public void setReviewCnt(int pno){
+        int cnt=reviewMapper.getReviewsCount(pno);
+        UpdaterReviewCntVO urcvo = new UpdaterReviewCntVO();
+        urcvo.setPno(pno);
+        urcvo.setPReviewCnt(cnt);
+        reviewMapper.updateReviewsCount(urcvo);
     }
 }

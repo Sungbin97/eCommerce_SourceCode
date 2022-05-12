@@ -10,12 +10,15 @@ import java.util.Date;
 @Setter
 @Getter
 public class ReviewVO {
-    private int rv_no;
-    private int p_no ;
+    private int rno;
+    private int pno ;
+    private int mno ;
+    private int rRating;
+    private int likeHit ;
+    private String rImageURL ;
+    private String rContent;
+    private Date rRegdate;
+    private Date rUpdatedate;
 
-    private int rv_grade;
-    private String rv_content;
-    private String rv_writer ;
-    private Date rv_regDate;
-    private Date rv_updateDate;
+
 }

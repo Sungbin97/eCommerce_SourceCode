@@ -31,13 +31,13 @@ public class RestjhController {
     private ShopService shopService;
 
     // review 불러오기
-    @GetMapping("/getreviews/{p_no}")
-    public ResponseEntity<List<ReviewVO>> getreviews(@PathVariable ("p_no") int p_no){
+    @GetMapping("/getreviews/{pno}")
+    public ResponseEntity<List<ReviewVO>> getreviews(@PathVariable ("pno") int pno){
         log.info("getreviews 입장" );
-        log.info(" p_no " + p_no);
+        log.info(" p_no " + pno);
         ResponseEntity<List<ReviewVO>> responseEntity = null;
         try {
-            responseEntity = new ResponseEntity<>(reviewService.getReviewList(p_no), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(reviewService.getReviewList(pno), HttpStatus.OK);
         }catch (Exception e){
             responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
             e.printStackTrace();

@@ -15,6 +15,8 @@ public class ProductVO {
     private String pName;
     private String pMainCategory;
     private String pSubCategory;
+    private double pRating;
+    private int pReviewCnt;
     private int pPrice;
     private int pAmount;
     private Date pRegdate;

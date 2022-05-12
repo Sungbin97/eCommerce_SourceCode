@@ -8,9 +8,12 @@ public interface ReviewService {
 
     public List<ReviewVO> getReviewList(int pno);
 
-    public void write(ReviewVO rvvo);
+    public void write(ReviewVO rvo);
 
-    public boolean update(ReviewVO rvvo);
+    public boolean update(ReviewVO rvo);
 
-    public boolean delete(int rv_no);
+    public boolean delete(ReviewVO rvo);
+
+
+
 }
