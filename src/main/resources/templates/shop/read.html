@@ -33,14 +33,18 @@
         <p>[[${pvo.p_price}]]원</p><br>
 
 <!--        상품 사이즈 표-->
-        <div>
-            <button>XXL</button>
-            <button>XL</button>
-            <button>L</button>
-            <button>M</button>
-            <button>S</button>
-            <button>XS</button>
-        </div>
+<!--        <div th:if="${not #strings.isEmpty(pvo.p_size)}">-->
+<!--            <div th:if="${not #strings.isEmpty(pvo.p_amount)}">-->
+<!--                <div th:if="${pvo.p_maincategory.toString.equals('의류')}">-->
+<!--            <button th:each="size : ${}">XXL</button>-->
+<!--            <button>XL</button>-->
+<!--            <button>L</button>-->
+<!--            <button>M</button>-->
+<!--            <button>S</button>-->
+<!--            <button>XS</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
 <!--        수량-->
         <div>

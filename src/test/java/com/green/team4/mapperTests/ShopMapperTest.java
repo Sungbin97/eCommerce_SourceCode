@@ -47,7 +47,8 @@ public class ShopMapperTest {
         String[] cjpgs = {"clothes0.jpg","clothes1.jpg","clothes2.jpg","clothes3.jpg"};
         String[] fjpgs = {"food0.jpg","food1.jpg","food2.jpg","food3.jpg"};
         String[] ejpgs = {"equipment0.jpg","equipment1.jpg","equipment2.jpg","equipment3.jpg"};
-
+        String[] sizes = {"XXL","XL","L","M","S"};
+        String[] colors = {"red","green","blue","white","black"};
         for (int i = 0; i < 200; i++) {
             ProductVO pvo = new ProductVO();
             int randidx = (int)(Math.random()*maincategories.length);
@@ -57,21 +58,24 @@ public class ShopMapperTest {
 
                case "의류" : pvo.setP_subcategory(clothes[(int)(Math.random()*clothes.length)]);
                             pvo.setP_image( "/images/"+cjpgs[(int)(Math.random()*cjpgs.length)]);
+                            pvo.setP_size(sizes[(int)(Math.random()*sizes.length)]);
+                            pvo.setP_color(colors[(int)(Math.random()*colors.length)]);
                    break;
                case "식품" : pvo.setP_subcategory(food[(int)(Math.random()*food.length)]);
                             pvo.setP_image("/images/"+fjpgs[(int)(Math.random()*fjpgs.length)] );
                    break;
                case "운동용품" : pvo.setP_subcategory(equipment[(int)(Math.random()*equipment.length)]);
                              pvo.setP_image("/images/"+ejpgs[(int)(Math.random()*ejpgs.length)] );
+                             pvo.setP_color(colors[(int)(Math.random()*colors.length)]);
                    break;
 
 
            }
-            pvo.setP_price((int)(Math.random()*1100)+100);
-            pvo.setP_amount((int)(Math.random()*100));
+            pvo.setP_price((int)(Math.random()*11100)+1000);
+            pvo.setP_amount((int)(Math.random()*100)+1);
 
             pvo.setP_name("상품"+i);
-            pvo.setP_color("빨간색");
+            pvo.setP_code("코드"+i);
             pvo.setP_information("형 믿고 사");
             pvo.setP_delivery("무료배송");
 

@@ -23,4 +23,5 @@ public class ProductVO {
     private  String p_image;
     private  String p_information;
     private String p_delivery;
+    private String p_code;
 }

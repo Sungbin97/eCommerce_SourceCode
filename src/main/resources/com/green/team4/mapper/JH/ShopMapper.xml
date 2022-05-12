@@ -15,8 +15,9 @@
         select * from product where p_no=#{p_no}
     </select>
     <insert id="insert">
-        insert into product (p_name,p_maincategory,p_price,p_amount,p_image,p_subcategory,p_color,p_information)
-            values (#{p_name},#{p_maincategory},#{p_price},#{p_amount},#{p_image},#{p_subcategory},#{p_color},#{p_information})
+        insert into product (p_name,p_maincategory,p_price,p_amount,p_image,p_subcategory,p_color,p_information,p_size,p_code)
+            values (#{p_name},#{p_maincategory},#{p_price},#{p_amount},
+                    #{p_image},#{p_subcategory},#{p_color},#{p_information},#{p_size},#{p_code})
     </insert>
 
 
