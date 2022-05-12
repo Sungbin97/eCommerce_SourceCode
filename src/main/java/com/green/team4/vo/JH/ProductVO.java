@@ -13,7 +13,7 @@ import java.util.Date;
 public class ProductVO {
     private int p_no;
     private  String p_name;
-    private  String p_maincategory ;
+    private  String p_maincategory;
     private  String p_subcategory ;
     private  String p_size;
     private int p_price;
