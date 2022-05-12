@@ -20,11 +20,8 @@ import java.util.List;
 @RequestMapping("/rest")
 public class RestController {
 
-//    @Autowired
-//    private ReviewService reviewService;
     @Autowired
     private ReviewService reviewService;
-
 
     @Autowired
     private ShopService shopService;
