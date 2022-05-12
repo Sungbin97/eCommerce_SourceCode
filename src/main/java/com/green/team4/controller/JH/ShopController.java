@@ -40,19 +40,19 @@ public class ShopController {
 
     // 상품 상세페이지
     @GetMapping("/read")
-    public void read(int p_no , Model model){
+    public void read(int pno , Model model){
         log.info("read");
-        log.info("p_no : "+p_no);
+        log.info("p_no : "+pno);
 
-        model.addAttribute("pvo",shopService.getOne(p_no));
+        model.addAttribute("pvo",shopService.getOne(pno));
     }
 
     @GetMapping("/orderSheet")
-    public void orderGet(int p_no , Model model){
+    public void orderGet(int pno , Model model){
         log.info("orderSheet");
-        log.info("p_no : "+p_no);
+        log.info("p_no : "+pno);
 
-        model.addAttribute("pvo",shopService.getOne(p_no));
+        model.addAttribute("pvo",shopService.getOne(pno));
 
     }
     @GetMapping("/orderCompleted")

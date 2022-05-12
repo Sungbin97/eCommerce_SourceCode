@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ReviewService {
 
-    public List<ReviewVO> getReviewList(int p_no);
+    public List<ReviewVO> getReviewList(int pno);
 
     public void write(ReviewVO rvvo);
 

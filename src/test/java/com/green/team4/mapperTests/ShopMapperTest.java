@@ -3,10 +3,10 @@ package com.green.team4.mapperTests;
 import com.green.team4.mapper.JH.ShopMapper;
 import com.green.team4.vo.JH.ItemPageCriteria;
 import com.green.team4.vo.JH.PagingVO;
-import com.green.team4.vo.JH.ProductVO;
 
 
 
+import com.green.team4.vo.sb.ProductVO;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,32 +52,32 @@ public class ShopMapperTest {
         for (int i = 0; i < 200; i++) {
             ProductVO pvo = new ProductVO();
             int randidx = (int)(Math.random()*maincategories.length);
-            pvo.setP_maincategory(maincategories[randidx]);
+            pvo.setPMainCategory(maincategories[randidx]);
 
-           switch (pvo.getP_maincategory()){
+           switch (pvo.getPMainCategory()){
 
-               case "의류" : pvo.setP_subcategory(clothes[(int)(Math.random()*clothes.length)]);
-                            pvo.setP_image( "/images/"+cjpgs[(int)(Math.random()*cjpgs.length)]);
-                            pvo.setP_size(sizes[(int)(Math.random()*sizes.length)]);
-                            pvo.setP_color(colors[(int)(Math.random()*colors.length)]);
+               case "의류" : pvo.setPSubCategory(clothes[(int)(Math.random()*clothes.length)]);
+                            pvo.setPImage( "/images/"+cjpgs[(int)(Math.random()*cjpgs.length)]);
+
+
                    break;
-               case "식품" : pvo.setP_subcategory(food[(int)(Math.random()*food.length)]);
-                            pvo.setP_image("/images/"+fjpgs[(int)(Math.random()*fjpgs.length)] );
+               case "식품" : pvo.setPSubCategory(food[(int)(Math.random()*food.length)]);
+                            pvo.setPImage("/images/"+fjpgs[(int)(Math.random()*fjpgs.length)] );
                    break;
-               case "운동용품" : pvo.setP_subcategory(equipment[(int)(Math.random()*equipment.length)]);
-                             pvo.setP_image("/images/"+ejpgs[(int)(Math.random()*ejpgs.length)] );
-                             pvo.setP_color(colors[(int)(Math.random()*colors.length)]);
+               case "운동용품" : pvo.setPSubCategory(equipment[(int)(Math.random()*equipment.length)]);
+                             pvo.setPImage("/images/"+ejpgs[(int)(Math.random()*ejpgs.length)] );
+
                    break;
 
 
            }
-            pvo.setP_price((int)(Math.random()*11100)+1000);
-            pvo.setP_amount((int)(Math.random()*100)+1);
+            pvo.setPPrice((int)(Math.random()*11100)+1000);
+            pvo.setPAmount((int)(Math.random()*100)+1);
 
-            pvo.setP_name("상품"+i);
-            pvo.setP_code("코드"+i);
-            pvo.setP_information("형 믿고 사");
-            pvo.setP_delivery("무료배송");
+            pvo.setPName("상품"+i);
+            pvo.setPCode("코드"+i);
+            pvo.setPInformation("형 믿고 사");
+            pvo.setPDelivery("무료배송");
 
            mapper.insert(pvo);
         }

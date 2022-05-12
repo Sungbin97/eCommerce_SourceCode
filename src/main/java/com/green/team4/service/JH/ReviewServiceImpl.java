@@ -14,8 +14,8 @@ public class ReviewServiceImpl implements ReviewService{
     private ReviewMapper reviewMapper;
 
     @Override
-    public List<ReviewVO> getReviewList(int p_no) {
-        return reviewMapper.getReviewList(p_no);
+    public List<ReviewVO> getReviewList(int pno) {
+        return reviewMapper.getReviewList(pno);
     }
 
     @Override

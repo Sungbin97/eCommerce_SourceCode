@@ -24,13 +24,13 @@
 <div class="product-detailed-box">
 
     <div class="product-outline">
-        <img  th:src="${pvo.p_image}">
+        <img  th:src="${pvo.pImage}">
     </div>
 
     <div>
-        <h3>[[${pvo.p_name}]]</h3><br>
+        <h3>[[${pvo.pName}]]</h3><br>
 
-        <p>[[${pvo.p_price}]]원</p><br>
+        <p>[[${pvo.pPrice}]]원</p><br>
 
 <!--        상품 사이즈 표-->
 <!--        <div th:if="${not #strings.isEmpty(pvo.p_size)}">-->
@@ -46,16 +46,18 @@
 <!--            </div>-->
 <!--        </div>-->
 
+
+
 <!--        수량-->
         <div>
             <form>
                 수량 :
-                <input type=number name=p_amount value=1 min="1" max="99">
+                <input type=number name=pAmount value=1 min="1" max="99">
             </form>
         </div>
 
         <form role="form" id="orderForm" action="/shop/orderSheet" method="get">
-            <input type="hidden" name="p_no" th:value="${pvo.p_no}">
+            <input type="hidden" name="pno" th:value="${pvo.pno}">
             <button>구매하기</button>
             <button>장바구니 담기</button>
         </form>
@@ -77,11 +79,11 @@
 
         let detaildiv = $(".product-detailed")
 
-        let p_no = [[${pvo.p_no}]]
+        let pno = [[${pvo.pno}]]
 
 
         function loadReviews(){
-            $.getJSON("/rest/getreviews/" + p_no,function (data){
+            $.getJSON("/rest/getreviews/" + pno,function (data){
                 let str ="";
                 console.log(data);
                 $(data).each(function (){
@@ -95,11 +97,11 @@
         }
 
         function loadProductDetailed(){
-            $.getJSON("/rest/getinfo/" + p_no,function (data){
+            $.getJSON("/rest/getinfo/" + pno,function (data){
                 let str ="";
                 $(data).each(function (){
-                    str += "<div><h5>" + this.p_information +"</h5>"
-                    str += "<p>" + this.p_color +"</p>";
+                    str += "<div><h5>" + this.pinformation +"</h5>"
+                    str += "<p>" + this.pcolor +"</p>";
                     str += "</div>"
                 })
                 detaildiv.html(str)
@@ -107,10 +109,10 @@
         }
 
         function loadDeliDetailed(){
-            $.getJSON("/rest/getinfo/" + p_no,function (data){
+            $.getJSON("/rest/getinfo/" + pno,function (data){
                 let str ="";
                 $(data).each(function (){
-                    str += "<div><h5>" + this.p_delivery +"</h5>"
+                    str += "<div><h5>" + this.pdelivery +"</h5>"
                     str += "<p>" + "배송비 백만원 싫으면 직접가져가" +"</p>";
                     str += "</div>"
                 })

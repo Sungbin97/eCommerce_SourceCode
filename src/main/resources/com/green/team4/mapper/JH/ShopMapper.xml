@@ -3,21 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.team4.mapper.JH.ShopMapper">
-    <select id="getListAll" resultType="com.green.team4.vo.JH.ProductVO">
-         select * from product where p_no>0
+    <select id="getListAll" resultType="com.green.team4.vo.sb.ProductVO">
+         select * from product where pno>0
     </select>
-    <select id="getListWithCategory" resultType="com.green.team4.vo.JH.ProductVO">
-        select * from product where p_category = #{p_category}
-    </select>
+<!--    <select id="getListWithCategory" resultType="com.green.team4.vo.sb.ProductVO">-->
+<!--        select * from product where p_category = #{p_category}-->
+<!--    </select>-->
 
 
-    <select id="getOne" resultType="com.green.team4.vo.JH.ProductVO">
-        select * from product where p_no=#{p_no}
+    <select id="getOne" resultType="com.green.team4.vo.sb.ProductVO">
+        select * from product where pno=#{pno}
     </select>
     <insert id="insert">
-        insert into product (p_name,p_maincategory,p_price,p_amount,p_image,p_subcategory,p_color,p_information,p_size,p_code)
-            values (#{p_name},#{p_maincategory},#{p_price},#{p_amount},
-                    #{p_image},#{p_subcategory},#{p_color},#{p_information},#{p_size},#{p_code})
+        insert into product (pName,pMainCategory,pPrice,pAmount,pImage,pSubCategory,pColor,pInformation,pSize,pCode)
+            values (#{pName},#{pMainCategory},#{pPrice},#{pAmount},
+                    #{pImage},#{pSubCategory},#{pColor},#{pInformation},#{pSize},#{pCode})
     </insert>
 
 
@@ -28,33 +28,33 @@
 <!--    <select id="getTotalProductCountbyCategory" resultType="int">-->
 <!--        select count(p_no) from product where p_category=#{p_category}-->
 <!--    </select>-->
-    <select id="getTotalProductCountbyCategory" resultType="int">
-        select count(p_no) from product where p_category=#{p_category}
-    </select>
+<!--    <select id="getTotalProductCountbyCategory" resultType="int">-->
+<!--        select count(pno) from product where p=#{p_category}-->
+<!--    </select>-->
 
 
 
     <!--    페이징-->
 
-    <select id="getListByCategoryAndPage" resultType="com.green.team4.vo.JH.ProductVO"
-            parameterType="Map" >
-        select * from product where p_category = #{p_category} order by p_no desc ,p_regdate desc
-            limit #{pagingVO.cri.startPage}, #{pagingVO.cri.numPerPage}
+<!--    <select id="getListByCategoryAndPage" resultType="com.green.team4.vo.sb.ProductVO"-->
+<!--            parameterType="Map" >-->
+<!--        select * from product where pCategory = #{p_category} order by pno desc ,pRegdate desc-->
+<!--            limit #{pagingVO.cri.startPage}, #{pagingVO.cri.numPerPage}-->
 
-    </select>
+<!--    </select>-->
 
 <!--   하위 카테고리-->
 
-    <select id="getCategory" resultType="com.green.team4.vo.JH.ProductVO">
-        select distinct p2.p_category,p2.p_cateCodeRef from product p1
-        left join product p2 on p2.p_catecodeRef = p1.p_catecode
-        left join product p3 on p3.p_catecodeRef = p2.p_catecode
-        where p2.p_cateCodeRef=#{p_cateCodeRef}
-        order by p1.p_catecode;
-    </select>
+<!--    <select id="getCategory" resultType="com.green.team4.vo.sb.ProductVO">-->
+<!--        select distinct p2.p_category,p2.p_cateCodeRef from product p1-->
+<!--        left join product p2 on p2.p_catecodeRef = p1.p_catecode-->
+<!--        left join product p3 on p3.p_catecodeRef = p2.p_catecode-->
+<!--        where p2.p_cateCodeRef=#{p_cateCodeRef}-->
+<!--        order by p1.p_catecode;-->
+<!--    </select>-->
 
 
-    <select id="getListByFind" resultType="com.green.team4.vo.JH.ProductVO">
+    <select id="getListByFind" resultType="com.green.team4.vo.sb.ProductVO">
 		select * from product
         where
         <include refid="keyword"></include>
@@ -63,7 +63,7 @@
             limit #{startPage}, #{numPerPage}
     </select>
     <select id="getTotaldatabyFind" resultType="int">
-		select count(p_no)
+		select count(pno)
 		from product
 		where
         <include refid="keyword"></include>
@@ -71,15 +71,15 @@
         <include refid="subCategory"></include>
 
     </select>
-    <select id="getListBySearch" resultType="com.green.team4.vo.JH.ProductVO">
+    <select id="getListBySearch" resultType="com.green.team4.vo.sb.ProductVO">
         select * from product
-        where p_name like concat('%',#{keyword},'%')
-        order by p_no desc limit 5
+        where pName like concat('%',#{keyword},'%')
+        order by pno desc limit 5
     </select>
     <sql id="keyword">
 
         <if test="keyword != null and keyword != '' "  >
-             p_name like concat('%',#{keyword},'%')
+             pName like concat('%',#{keyword},'%')
         </if>
 
 
@@ -88,13 +88,13 @@
 
         <if test="main_category != null and main_category != ''">
             <if test="main_category == '의류'">
-                p_maincategory ='의류'
+                pMainCategory ='의류'
             </if>
             <if test="main_category == '식품'">
-                 p_maincategory ='식품'
+                pMainCategory ='식품'
             </if>
             <if test="main_category == '운동용품'">
-               p_maincategory ='운동용품'
+                pMainCategory ='운동용품'
             </if>
         </if>
 
@@ -102,65 +102,65 @@
     <sql id="subCategory">
         <if test="sub_category != null and sub_category != ''">
             <if test="sub_category == '비타민C'">
-                and  p_subcategory = '비타민C'
+                and  pSubCategory = '비타민C'
             </if>
             <if test="sub_category == '비타민D'">
-                and  p_subcategory = '비타민D'
+                and  pSubCategory = '비타민D'
             </if>
             <if test="sub_category == '종합 비타민'">
-                and  p_subcategory = '종합 비타민'
+                and  pSubCategory = '종합 비타민'
             </if>
             <if test="sub_category == '오메가3'">
-                and  p_subcategory = '오메가3'
+                and  pSubCategory = '오메가3'
             </if>
             <if test="sub_category == '아르기닌'">
-                and  p_subcategory = '아르기닌'
+                and  pSubCategory = '아르기닌'
             </if>
             <if test="sub_category == '티셔츠'">
-                and  p_subcategory = '티셔츠'
+                and  pSubCategory = '티셔츠'
             </if>
             <if test="sub_category == '셔츠'">
-                and  p_subcategory ='셔츠'
+                and  pSubCategory ='셔츠'
             </if>
             <if test="sub_category == '기능성티'">
-                and  p_subcategory = '기능성티'
+                and  pSubCategory = '기능성티'
             </if>
             <if test="sub_category == '런닝복'">
-                and  p_subcategory ='런닝복'
+                and  pSubCategory ='런닝복'
             </if>
             <if test="sub_category == '반팔티'">
-                and  p_subcategory ='반팔티'
+                and  pSubCategory ='반팔티'
             </if>
             <if test="sub_category == '벤치프레스'">
-                and  p_subcategory = '벤치프레스'
+                and  pSubCategory = '벤치프레스'
             </if>
             <if test="sub_category == '로잉머신'">
-                and  p_subcategory = '로잉머신'
+                and  pSubCategory = '로잉머신'
             </if>
             <if test="sub_category == '철봉'">
-                and  p_subcategory ='철봉'
+                and  pSubCategory ='철봉'
             </if>
             <if test="sub_category == '런닝머신'">
-                and  p_subcategory = '런닝머신'
+                and  pSubCategory = '런닝머신'
             </if>
             <if test="sub_category == '덤벨'">
-                and  p_subcategory = '덤벨'
+                and  pSubCategory = '덤벨'
             </if>
         </if>
     </sql>
     <sql id="sort">
 
            <if test="sort == '' ">
-               order by p_no desc
+               order by pno desc
            </if>
             <if test="sort == 'new' ">
-                order by p_no desc
+                order by pno desc
             </if>
             <if test="sort == 'pricedesc' ">
-                order by p_price desc
+                order by pPrice desc
             </if>
             <if test="sort == 'priceasc' ">
-                order by p_price asc
+                order by pPrice asc
             </if>
 
 

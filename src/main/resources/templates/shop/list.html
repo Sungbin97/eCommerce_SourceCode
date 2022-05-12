@@ -123,10 +123,10 @@
 <div>
     <div class="product-container">
             <div >
-                <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(p_no=${dto?.p_no})}">
-                    <img th:src="${dto.p_image}">
-                 <div>[[${dto?.p_name}]]([[${dto?.p_subcategory}]])</div>
-                    <div>[[${dto?.p_price}]]원</div>
+                <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(pno=${dto?.pno})}">
+                    <img th:src="${dto.pImage}">
+                 <div>[[${dto?.pName}]]([[${dto?.pSubCategory}]])</div>
+                    <div>[[${dto?.pPrice}]]원</div>
                 </a>
             </div>
     </div>
@@ -167,10 +167,10 @@
                 console.log(data)
                 let str = "";
                 $(data).each(function (){
-                    console.log(this.p_image)
-                    str +=	'<tr> <td ><a href="/shop/read?p_no='+this.p_no+'"><img class="search-img" src="'+this.p_image+'"></a></td>';
-                    str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?p_no='+this.p_no+'">'+this.p_name+' <p style="font-size:8px;">'+this.p_subcategory+'</p></a>';
-                     str +=   '<p style="font-size:7px">'+this.p_price+'원</p></td>';
+                    console.log(this.pImage)
+                    str +=	'<tr> <td ><a href="/shop/read?pno='+this.pno+'"><img class="search-img" src="'+this.pimage+'"></a></td>';
+                    str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?pno='+this.pno+'">'+this.pname+' <p style="font-size:8px;">'+this.psubCategory+'</p></a>';
+                     str +=   '<p style="font-size:7px">'+this.pprice+'원</p></td>';
                     str += '<hr/>';
                 })
                 selectView.html(str);

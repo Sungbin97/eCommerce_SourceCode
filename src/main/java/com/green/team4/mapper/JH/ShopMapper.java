@@ -1,7 +1,8 @@
 package com.green.team4.mapper.JH;
 
 import com.green.team4.vo.JH.ItemPageCriteria;
-import com.green.team4.vo.JH.ProductVO;
+
+import com.green.team4.vo.sb.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface ShopMapper {
     public int insert(ProductVO pvo);
     public int update(ProductVO pvo);
     public int delete(int pno);
-    public ProductVO getOne(int p_no);
+    public ProductVO getOne(int pno);
 
     //페이징 처리
 
