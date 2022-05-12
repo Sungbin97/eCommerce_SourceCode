@@ -2,6 +2,7 @@ package com.green.team4.service.JH;
 
 
 import com.green.team4.vo.JH.ItemPageCriteria;
+import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sb.ProductVO;
 
 import java.util.List;
@@ -28,4 +29,9 @@ public interface ShopService {
     public int getTotaldatabyFind(ItemPageCriteria cri);
 
     public List<ProductVO> getListBySearch(String keyword);
+
+//    옵션
+    public List<Product_optVO> getColors(String pCode);
+    public List<Product_optVO> getSizes(String pCode);
+    public List<Product_optVO> getOptList(String pCode);
 }

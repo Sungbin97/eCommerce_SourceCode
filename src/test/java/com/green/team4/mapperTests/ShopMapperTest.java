@@ -5,7 +5,6 @@ import com.green.team4.vo.JH.ItemPageCriteria;
 import com.green.team4.vo.JH.PagingVO;
 
 
-
 import com.green.team4.vo.sb.ProductVO;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -135,5 +134,15 @@ public class ShopMapperTest {
         //fCri.setSub_category2("프로틴바");
         System.out.println(mapper.getTotaldatabyFind(cri));
 
+    }
+    @Test
+    public void testColors(){
+
+        ProductVO pvo = new ProductVO();
+
+        pvo.setPCode("코드1");
+       // System.out.println(mapper.getColors(pvo.getPCode()));
+        System.out.println(mapper.getSizes(pvo.getPCode()));
+        //System.out.println(mapper.getOptList(pvo.getPCode()));
     }
 }

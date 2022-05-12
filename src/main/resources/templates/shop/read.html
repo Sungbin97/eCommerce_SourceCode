@@ -23,6 +23,7 @@
     상품 상세페이지입니다.
 <div class="product-detailed-box">
 
+</div>
     <div class="product-outline">
         <img  th:src="${pvo.pImage}">
     </div>
@@ -32,22 +33,18 @@
 
         <p>[[${pvo.pPrice}]]원</p><br>
 
-<!--        상품 사이즈 표-->
-<!--        <div th:if="${not #strings.isEmpty(pvo.p_size)}">-->
-<!--            <div th:if="${not #strings.isEmpty(pvo.p_amount)}">-->
-<!--                <div th:if="${pvo.p_maincategory.toString.equals('의류')}">-->
-<!--            <button th:each="size : ${}">XXL</button>-->
-<!--            <button>XL</button>-->
-<!--            <button>L</button>-->
-<!--            <button>M</button>-->
-<!--            <button>S</button>-->
-<!--            <button>XS</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
 
 
 
+
+<!--    상품 사이즈-->
+        <div th:each="size : ${sizes}">
+            <button th:name="${size.pSize}" th:text="${size.pSize}"  ></button>
+        </div>
+
+        <div th:each="color : ${colors}">
+            <button th:name="${color.pSize}" th:text="${color.pColor}"></button>
+        </div>
 <!--        수량-->
         <div>
             <form>
@@ -72,7 +69,7 @@
     </div>
 
 
-</div>
+
 
 <script th:inline="javascript">
     $(document).ready(function (){

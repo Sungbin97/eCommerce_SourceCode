@@ -16,14 +16,14 @@ public class AdProductMapperTests {
 
     @Test
     public void insert(){
-        ProductVO productVO = new ProductVO();
-        productVO.setPName("상품이름");
-        productVO.setPColor("보라");
-        productVO.setPSize("L");
-        productVO.setPAmount(5);
-        productVO.setPPrice(700000);
-        productVO.setPInformation("남성용스포츠웨어");
-        adProductMapper.insert(productVO);
+//        ProductVO productVO = new ProductVO();
+//        productVO.setPName("상품이름");
+//        productVO.setPColor("보라");
+//        productVO.setPSize("L");
+//        productVO.setPAmount(5);
+//        productVO.setPPrice(700000);
+//        productVO.setPInformation("남성용스포츠웨어");
+//        adProductMapper.insert(productVO);
     }
 
     @Test
