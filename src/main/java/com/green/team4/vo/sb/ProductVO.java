@@ -9,11 +9,12 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class AdProductVO {
+public class ProductVO {
 
     private int pno;
     private String pName;
-    private String pCategory ;
+    private String pMainCategory;
+    private String pSubCategory;
     private String pSize;
     private int pPrice;
     private int pAmount;
@@ -22,5 +23,6 @@ public class AdProductVO {
     private String pImage;
     private String pInformation;
     private String pDelivery;
-    private String fileUrl;
+    private String pImageURL;
+    private String pCode;
 }

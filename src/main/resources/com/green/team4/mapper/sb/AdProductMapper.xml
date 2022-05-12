@@ -12,11 +12,11 @@
                 #{pImage}, #{pAmount}, #{pCategory}, #{fileUrl})
     </insert>
 
-    <select id="getAll" resultType="com.green.team4.vo.sb.AdProductVO">
+    <select id="getAll" resultType="com.green.team4.vo.sb.ProductVO">
         select * from tbl_product
     </select>
 
-    <select id="getOne" resultType="com.green.team4.vo.sb.AdProductVO">
+    <select id="getOne" resultType="com.green.team4.vo.sb.ProductVO">
         select * from tbl_product
             where pno=#{pno}
     </select>
