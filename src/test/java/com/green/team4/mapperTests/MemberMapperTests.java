@@ -1,7 +1,7 @@
 package com.green.team4.mapperTests;
 
-import com.green.team4.mapper.MemberMapper;
-import com.green.team4.vo.MemberVO;
+import com.green.team4.mapper.sb.MemberMapper;
+import com.green.team4.vo.sb.MemberVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

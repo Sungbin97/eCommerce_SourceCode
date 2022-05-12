@@ -1,6 +1,6 @@
 package com.green.team4.service.sb;
 
-import com.green.team4.vo.MemberVO;
+import com.green.team4.vo.sb.MemberVO;
 
 import java.util.List;
 

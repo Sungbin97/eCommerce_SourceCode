@@ -1,7 +1,7 @@
 package com.green.team4.service.sb;
 
-import com.green.team4.mapper.MemberMapper;
-import com.green.team4.vo.MemberVO;
+import com.green.team4.mapper.sb.MemberMapper;
+import com.green.team4.vo.sb.MemberVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

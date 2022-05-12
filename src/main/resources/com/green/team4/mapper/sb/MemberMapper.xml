@@ -10,11 +10,11 @@
         values (#{name}, #{resNum}, #{addr}, #{phone}, #{email})
     </insert>
 
-    <select id="getAll" resultType="com.green.team4.vo.MemberVO">
+    <select id="getAll" resultType="com.green.team4.vo.sb.MemberVO">
         select * from member_tbl
     </select>
 
-    <select id="getOne" resultType="com.green.team4.vo.MemberVO">
+    <select id="getOne" resultType="com.green.team4.vo.sb.MemberVO">
         select * from member_tbl
             where mno=#{mno}
     </select>

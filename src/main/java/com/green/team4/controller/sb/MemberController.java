@@ -1,7 +1,7 @@
 package com.green.team4.controller.sb;
 
-import com.green.team4.service.MemberService;
-import com.green.team4.vo.MemberVO;
+import com.green.team4.service.sb.MemberService;
+import com.green.team4.vo.sb.MemberVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/member/*")
+@RequestMapping("/sb/member/*")
 @Log4j2
 @RequiredArgsConstructor
 public class MemberController {

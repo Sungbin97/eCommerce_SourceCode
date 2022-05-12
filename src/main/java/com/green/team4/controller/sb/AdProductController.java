@@ -1,7 +1,7 @@
 package com.green.team4.controller.sb;
 
-import com.green.team4.service.ProductService;
-import com.green.team4.vo.ProductVO;
+import com.green.team4.service.sb.ProductService;
+import com.green.team4.vo.sb.AdProductVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,11 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@RequestMapping("/product/*")
+@RequestMapping("/sb/product/*")
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class ProductController {
+public class AdProductController {
     @Value("${com.green.upload.path}") //application.properties 변수
     private String uploadPath;
 
@@ -33,7 +33,7 @@ public class ProductController {
 
     }
     @PostMapping("/upload")
-    public String uploadPost(ProductVO vo, Model model, @RequestParam("uploadFiles") MultipartFile file){
+    public String uploadPost(AdProductVO vo, Model model, @RequestParam("uploadFiles") MultipartFile file){
         System.out.println("fileName: " + file.getName());
         System.out.println("OriginalFileName: "+file.getOriginalFilename());
         System.out.println("Resource: "+ file.getResource());
@@ -45,7 +45,7 @@ public class ProductController {
 
     @GetMapping("/list")
     public void list(Model model, int pno){
-        List<ProductVO> list = productService.getAll();
+        List<AdProductVO> list = productService.getAll();
         model.addAttribute("list", list);
         model.addAttribute("getOne", productService.getOne(pno));
     }
@@ -56,7 +56,7 @@ public class ProductController {
     }
 
     @PostMapping("/modify")
-    public String modifyPost(ProductVO vo, Model model){
+    public String modifyPost(AdProductVO vo, Model model){
         log.info(vo.getPno()+"번 상품 수정");
         model.addAttribute("getOne", vo);
         productService.update(vo);

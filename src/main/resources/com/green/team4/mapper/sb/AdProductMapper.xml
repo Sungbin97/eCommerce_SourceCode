@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.green.team4.mapper.sb.ProductMapper">
+<mapper namespace="com.green.team4.mapper.sb.AdProductMapper">
 
     <insert id="insert">
         insert into tbl_product (pName, pPrice, pSize, pColor, pInformation,
@@ -12,11 +12,11 @@
                 #{pImage}, #{pAmount}, #{pCategory}, #{fileUrl})
     </insert>
 
-    <select id="getAll" resultType="com.green.team4.vo.ProductVO">
+    <select id="getAll" resultType="com.green.team4.vo.sb.AdProductVO">
         select * from tbl_product
     </select>
 
-    <select id="getOne" resultType="com.green.team4.vo.ProductVO">
+    <select id="getOne" resultType="com.green.team4.vo.sb.AdProductVO">
         select * from tbl_product
             where pno=#{pno}
     </select>

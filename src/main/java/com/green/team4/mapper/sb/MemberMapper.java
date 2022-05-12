@@ -1,6 +1,6 @@
 package com.green.team4.mapper.sb;
 
-import com.green.team4.vo.MemberVO;
+import com.green.team4.vo.sb.MemberVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

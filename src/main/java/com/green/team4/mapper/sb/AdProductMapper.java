@@ -1,12 +1,12 @@
-package com.green.team4.service.sb;
-
+package com.green.team4.mapper.sb;
 
 import com.green.team4.vo.sb.AdProductVO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-public interface ProductService {
-    int pno(AdProductVO vo);
+@Mapper
+public interface AdProductMapper {
     int insert(AdProductVO vo);
     List<AdProductVO> getAll();
     AdProductVO getOne(int pno);

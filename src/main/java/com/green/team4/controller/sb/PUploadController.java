@@ -1,6 +1,6 @@
 package com.green.team4.controller.sb;
 
-import com.green.team4.vo.UploadResultDTO;
+import com.green.team4.vo.sb.UploadResultDTO;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ import java.util.UUID;
 
 @RestController
 @Log4j2
-public class UploadController {
+public class PUploadController {
     @Value("${com.green.upload.path}") //application.properties 변수
     private String uploadPath;
 
