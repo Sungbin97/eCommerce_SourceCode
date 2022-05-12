@@ -40,7 +40,7 @@ public class AdProductController {
         vo.setPImage(file.getOriginalFilename());
         productService.insert(vo);
         System.out.println(vo);
-        return "redirect:/product/list?pno=1";
+        return "redirect:/sb/product/list?pno=1";
     }
 
     @GetMapping("/list")
@@ -60,13 +60,13 @@ public class AdProductController {
         log.info(vo.getPno()+"번 상품 수정");
         model.addAttribute("getOne", vo);
         productService.update(vo);
-        return "redirect:/product/modify?pno="+vo.getPno();
+        return "redirect:/sb/product/modify?pno="+vo.getPno();
     }
 
     @PostMapping("/remove")
     public String ProductRemove(int pno){
         productService.delete(pno);
         log.info(pno+"번 상품 삭제");
-        return "redirect:/product/list?pno=1";
+        return "redirect:/sb/product/list?pno=1";
     }
 }

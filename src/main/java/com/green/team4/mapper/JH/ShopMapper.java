@@ -1,7 +1,7 @@
 package com.green.team4.mapper.JH;
 
 import com.green.team4.vo.JH.ItemPageCriteria;
-import com.green.team4.vo.JH.ProductVO;
+import com.green.team4.vo.sb.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

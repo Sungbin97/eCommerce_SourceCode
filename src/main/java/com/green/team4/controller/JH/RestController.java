@@ -2,8 +2,8 @@ package com.green.team4.controller.JH;
 
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
-import com.green.team4.vo.JH.ProductVO;
 import com.green.team4.vo.JH.ReviewVO;
+import com.green.team4.vo.sb.ProductVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

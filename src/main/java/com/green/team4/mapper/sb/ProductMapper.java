@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface AdProductMapper {
+public interface ProductMapper {
     int insert(ProductVO vo);
     List<ProductVO> getAll();
     ProductVO getOne(int pno);

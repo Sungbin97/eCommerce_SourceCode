@@ -2,7 +2,7 @@ package com.green.team4.service.JH;
 
 import com.green.team4.mapper.JH.ShopMapper;
 import com.green.team4.vo.JH.ItemPageCriteria;
-import com.green.team4.vo.JH.ProductVO;
+import com.green.team4.vo.sb.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

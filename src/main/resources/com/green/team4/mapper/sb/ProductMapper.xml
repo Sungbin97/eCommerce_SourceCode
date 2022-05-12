@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.green.team4.mapper.sb.AdProductMapper">
+<mapper namespace="com.green.team4.mapper.sb.ProductMapper">
 
     <insert id="insert">
         insert into tbl_product (pName, pPrice, pSize, pColor, pInformation,
-                                 pImage, pAmount, pCategory, fileUrl)
+                                 pImage, pAmount, pMainCategory, pSubCategory, pImageURL, pCode, pDelivery)
         values (#{pName}, #{pPrice}, #{pSize}, #{pColor}, #{pInformation},
-                #{pImage}, #{pAmount}, #{pCategory}, #{fileUrl})
+                #{pImage}, #{pAmount}, #{pMainCategory}, #{pSubCategory}, #{pImageURL}, #{pCode}, #{pDelivery})
     </insert>
 
     <select id="getAll" resultType="com.green.team4.vo.sb.ProductVO">
@@ -24,7 +24,7 @@
     <update id="update">
         update tbl_product
             set pName=#{pName}, pPrice=#{pPrice}, pInformation=#{pInformation}, pSize=#{pSize},
-                pColor=#{pColor}, pImage=#{pImage}
+                pColor=#{pColor}, pImage=#{pImage}, pAmount=#{pAmount}
                 where pno=#{pno}
     </update>
 

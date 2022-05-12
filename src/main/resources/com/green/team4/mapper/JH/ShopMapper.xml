@@ -3,15 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.team4.mapper.JH.ShopMapper">
-    <select id="getListAll" resultType="com.green.team4.vo.JH.ProductVO">
+    <select id="getListAll" resultType="com.green.team4.vo.sb.ProductVO">
          select * from product where p_no>0
     </select>
-    <select id="getListWithCategory" resultType="com.green.team4.vo.JH.ProductVO">
+    <select id="getListWithCategory" resultType="com.green.team4.vo.sb.ProductVO">
         select * from product where p_category = #{p_category}
     </select>
 
 
-    <select id="getOne" resultType="com.green.team4.vo.JH.ProductVO">
+    <select id="getOne" resultType="com.green.team4.vo.sb.ProductVO">
         select * from product where p_no=#{p_no}
     </select>
     <insert id="insert">
@@ -36,7 +36,7 @@
 
     <!--    페이징-->
 
-    <select id="getListByCategoryAndPage" resultType="com.green.team4.vo.JH.ProductVO"
+    <select id="getListByCategoryAndPage" resultType="com.green.team4.vo.sb.ProductVO"
             parameterType="Map" >
         select * from product where p_category = #{p_category} order by p_no desc ,p_regdate desc
             limit #{pagingVO.cri.startPage}, #{pagingVO.cri.numPerPage}
@@ -45,7 +45,7 @@
 
 <!--   하위 카테고리-->
 
-    <select id="getCategory" resultType="com.green.team4.vo.JH.ProductVO">
+    <select id="getCategory" resultType="com.green.team4.vo.sb.ProductVO">
         select distinct p2.p_category,p2.p_cateCodeRef from product p1
         left join product p2 on p2.p_catecodeRef = p1.p_catecode
         left join product p3 on p3.p_catecodeRef = p2.p_catecode
@@ -54,7 +54,7 @@
     </select>
 
 
-    <select id="getListByFind" resultType="com.green.team4.vo.JH.ProductVO">
+    <select id="getListByFind" resultType="com.green.team4.vo.sb.ProductVO">
 		select * from product
         where
         <include refid="keyword"></include>
@@ -71,7 +71,7 @@
         <include refid="subCategory"></include>
 
     </select>
-    <select id="getListBySearch" resultType="com.green.team4.vo.JH.ProductVO">
+    <select id="getListBySearch" resultType="com.green.team4.vo.sb.ProductVO">
         select * from product
         where p_name like concat('%',#{keyword},'%')
         order by p_no desc limit 5

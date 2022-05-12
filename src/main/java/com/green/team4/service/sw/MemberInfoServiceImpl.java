@@ -31,6 +31,15 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         return memberInfoVO;
     }
 
+    // 회원정보 전체 가져오기
+    @Override
+    public List<MemberInfoVO> readAll() {
+        log.info("MemberInfoService => readAll 실행");
+        List<MemberInfoVO> memList = memberInfoMapper.getAll();
+        memList.forEach(System.out::println);
+        return memList;
+    }
+
     // 회원정보 수정
     @Override
     public int modify(MemberInfoVO memberInfoVO) {
