@@ -46,15 +46,16 @@ public class ReviewMapperTest {
     }
     @Test
     public void testInsertService(){
-        ReviewVO rvo = new ReviewVO();
-        rvo.setMno(1);
-        rvo.setPno(1);
-        rvo.setRContent("참 잘샀어요!fdsf" ) ;
-        rvo.setRRating(5);
-        rvo.setRRegdate(new Date());
-        rvo.setRUpdatedate(new Date());
-      reviewService.write(rvo);
+        for (int i = 0; i < 10; i++) {
+            ReviewVO rvo = new ReviewVO();
+            rvo.setMno(1);
+            rvo.setPno(1);
+            rvo.setRContent("참 잘샀어요!fdsf");
+            rvo.setRRating(5);
+            rvo.setRRegdate(new Date());
+            rvo.setRUpdatedate(new Date());
+            reviewService.write(rvo);
 
-
+        }
     }
 }

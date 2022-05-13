@@ -34,4 +34,9 @@
     <update id="updateReviewsCount">
         update product set pReviewCnt = #{pReviewCnt} where pno=#{pno}
     </update>
+
+    <select id="getReviewListWithPaging" resultType="com.green.team4.vo.JH.ReviewVO">
+        select * from review where pno = #{pno} order by rRegdate desc
+                 limit #{startPage}, #{numPerPage}
+    </select>
 </mapper>

@@ -64,16 +64,24 @@
             <button id="deliInfoBtn">배송환불사항</button>
 
     </div>
-    <div class="reply_not_div">
+    <div class="review_not_div">
 
     </div>
-    <div class="product-detailed">
+   <div class="review_div">
+
+   </div>
+    <div class="review_pageInfo_div">
+        <ul class="pageMaker">
+
+        </ul>
+    </div>
+
+    <div class="product-detailInfo">
 
     </div>
-    <div class="repy_pageInfo_div">
+    <div class="product-deleveryInfo">
 
     </div>
-
 
 
 
@@ -81,31 +89,148 @@
 <script th:inline="javascript">
     $(document).ready(function (){
 
-        let detaildiv = $(".product-detailed")
-        let reviewdiv = $(".review-header")
-
+        let detailInfo = $(".product-detailInfo")
+        let deleveryInfo = $(".product-deleveryInfo")
+       let review_div = $(".review_div")
+        let pagingdiv = $(".review_pageInfo_div")
+        let review_not_div = $(".review_not_div")
+        let pageMaker = $(".pageMaker")
         let pno = [[${pvo.pno}]]
+        let reviewCnt = [[${pvo.pReviewCnt}]]
 
-
+        //리뷰 불러오기
         function loadReviews(){
-            $.getJSON("/rest/getreviews/" + pno,function (data){
-                let str ="";
-                let reviewHeader = "";
-                console.log(data);
-                $(data).each(function (){
+            $.getJSON("/rest/getreviews" ,{pno:pno},function (data){
 
-                    str += "<div><h5>회원"+ this.mno +"</h5>";
-                    str += "<p>내용 : " + this.rcontent +"</p>";
-                    str += "<p>평점 : " + this.rrating +"</p>";
-                    str += "</div>";
-                })
-                reviewHeader += "<div><p>평점: " +[[${pvo.pRating}]]+"<span>("+ [[${pvo.pReviewCnt}]]+")</span></p>";
+                makeReplyContent(data)
+            })//getJson
+        }//loadreview
 
-                reviewdiv.html(reviewHeader)
-                detaildiv.html(str)
+
+        const cri = {
+            pno : [[${pvo.pno}]],
+            page : 1,
+            numperPage : 10
+        }
+        //리뷰 초기화
+        let replyListInit = function(cri){
+            $.getJSON("/rest/getreviews",cri,function (data){
+                makeReplyContent(data)
             })
         }
 
+        /* 리뷰 동적 생성 메서드 */
+        function makeReplyContent(data){
+
+            if(data.list.size === 0){
+
+                review_not_div.html('<span>리뷰가 없습니다.</span>');
+                review_div.html('');
+                detailInfo.html('')
+                deleveryInfo.html('');
+                pageMaker.html('');
+            }
+            else {
+
+                review_not_div.html('');
+                detailInfo.html('')
+                deleveryInfo.html('');
+                const list = data.list;
+                const pageInfo = data.pageInfo;
+                // const userId = '${member.memberId}';
+                let str ="";
+                $(list).each(function (i,obj){
+                    str += '<li>';
+                    str += '<div class="comment_wrap">';
+                    str += '<div class="reply_top">';
+                    /* 아이디 */
+                    str += '<p class="id_span">회원'+ obj.mno+'</p>';
+                    /* 날짜 */
+                    str += '<p class="date_span">'+ displayTime(obj.rregDate) +'</p>';
+                    /* 평점 */
+                    str += '<span class="rating_span">평점 : <span class="rating_value_span">'+ obj.rrating +'</span>점</span>';
+                    // if(obj.mno === userId){
+                    //     str += '<a class="update_reply_btn" href="'+ obj.replyId +'">수정</a><a class="delete_reply_btn" href="'+ obj.replyId +'">삭제</a>';
+                    // }
+                    str += '</div>'; //<div class="reply_top">
+                    str += '<div class="reply_bottom">';
+                    str += '<div class="reply_bottom_txt">'+ obj.rcontent +'</div>';
+                    str += '</div>';//<div class="reply_bottom">
+                    str += '</div>';//<div class="comment_wrap">
+                    str += '</li>';
+                });
+                review_div.html(str)
+                let review_pageMaker = '';
+                console.log(pageInfo)
+                /* prev */
+                if(pageInfo.prev){
+                    let prev_num = pageInfo.start -1;
+                    review_pageMaker += '<li class="pageMaker_btn prev">';
+                    review_pageMaker += '<a href="'+ prev_num +'">이전</a>';
+                    review_pageMaker += '</li>';
+                }
+                /* numbre btn */
+                for(let i = pageInfo.start; i < pageInfo.end+1; i++){
+                    review_pageMaker += '<li class="pageMaker_btn ';
+                    if(pageInfo.cri.page === i){
+                        review_pageMaker += 'active';
+                    }
+                    review_pageMaker += '">';
+                    review_pageMaker += '<a href="'+i+'">'+i+'</a>';
+                    review_pageMaker += '</li>';
+                }
+                /* next */
+                if(pageInfo.next){
+                    let next_num = pageInfo.end +1;
+                    review_pageMaker += '<li class="pageMaker_btn next">';
+                    review_pageMaker += '<a href="'+ next_num +'">다음</a>';
+                    review_pageMaker += '</li>';
+                }
+
+                pageMaker.html(review_pageMaker)
+            }
+        }
+        //페이지 이동
+        $(".pageMaker").on("click",'.pageMaker_btn a',function (e){
+            e.preventDefault();
+            let page = $(this).attr("href")
+            cri.page = page;
+            replyListInit(cri);
+        })
+        const displayTime = (timeValue) => {
+            var today = new Date();
+            var gap = today.getTime() - timeValue; // 오늘날짜에서 시간만 얻어옴 그래서 뺌
+            var dateObj = new Date(timeValue); // 댓글단 날짜 구함
+            console.log(dateObj)
+            var str = "";
+            //숫자 1자리는 자리수 맞추기 위해 3항 연산자로 0을 추가함 9=>09,11=>11
+            if (gap < 1000 * 60 * 60 * 24) {
+                //24시간이 안 지난 댓글은 시간 분,초 로 표시, 1000 ms + 60분 + 60초 + 24시간
+                var hh = dateObj.getHours();
+                var mi = dateObj.getMinutes();
+                var ss = dateObj.getSeconds();
+                var result = [
+                    (hh > 9 ? "" : "0") + hh, ":",
+                    (mi > 9 ? "" : "0") + mi, ":",
+                    (ss > 9 ? "" : "0") + ss
+                ].join(""); //배열의 요소를 공백으로 문자열 결합
+                console.log("시간 : ", result);
+                return result;
+            } else {
+                var yy = dateObj.getFullYear();
+                var mm = dateObj.getMonth() + 1; //월은 0부터 시작하므로 1을 더함
+                var dd = dateObj.getDate();
+                var result = [
+                    yy,
+                    "/",
+                    (mm > 9 ? "" : "0") + mm,
+                    "/",
+                    (dd > 9 ? "" : "0") + dd
+                ].join("");
+                console.log("시간 : ", result);
+                return result;
+            }
+        };
 
         function loadProductDetailed(){
             $.getJSON("/rest/getinfo/" + pno,function (data){
@@ -115,7 +240,11 @@
                     str += "<p>" + this.pcolor +"</p>";
                     str += "</div>"
                 })
-                detaildiv.html(str)
+                detailInfo.html(str)
+                review_not_div.html('');
+                review_div.html('');
+                deleveryInfo.html('');
+                pageMaker.html('');
             })
         }
 
@@ -127,10 +256,13 @@
                     str += "<p>" + "배송비 백만원 싫으면 직접가져가" +"</p>";
                     str += "</div>"
                 })
-                detaildiv.html(str)
+                deleveryInfo.html(str);
+                detailInfo.html('')
+                review_not_div.html('');
+                review_div.html('');
+                pageMaker.html('');
             })
         }
-
 
         $("#reviewBtn").click(function (){
 

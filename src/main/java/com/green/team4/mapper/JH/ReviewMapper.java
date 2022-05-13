@@ -1,5 +1,6 @@
 package com.green.team4.mapper.JH;
 
+import com.green.team4.vo.JH.ItemPageCriteria;
 import com.green.team4.vo.JH.ReviewVO;
 import com.green.team4.vo.JH.UpdateReplyVO;
 import com.green.team4.vo.JH.UpdaterReviewCntVO;
@@ -28,6 +29,9 @@ public interface ReviewMapper {
     //리뷰 갯수 구하기
     public int getReviewsCount(int pno);
     public int updateReviewsCount(UpdaterReviewCntVO urcvo);
+
+    //리뷰 페이징
+    public List<ReviewVO> getReviewListWithPaging(ItemPageCriteria cri);
 }
 
 

@@ -1,9 +1,7 @@
 package com.green.team4.service.JH;
 
 import com.green.team4.mapper.JH.ReviewMapper;
-import com.green.team4.vo.JH.ReviewVO;
-import com.green.team4.vo.JH.UpdateReplyVO;
-import com.green.team4.vo.JH.UpdaterReviewCntVO;
+import com.green.team4.vo.JH.*;
 import com.green.team4.vo.sb.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +41,14 @@ public class ReviewServiceImpl implements ReviewService{
         setReviewCnt(rvo.getPno());
         setRating(rvo.getPno());
         return reviewMapper.delete(rvo.getPno())==1;
+    }
+
+    @Override
+    public ReviewPageVO getReviewWithPaging(ItemPageCriteria cri) {
+        ReviewPageVO reviewPageVO = new ReviewPageVO();
+        reviewPageVO.setList(reviewMapper.getReviewListWithPaging(cri));
+        reviewPageVO.setPageInfo(new PagingVO(cri,reviewMapper.getReviewsCount(cri.getPno())));
+        return reviewPageVO;
     }
 
 
