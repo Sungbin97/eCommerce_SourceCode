@@ -1,0 +1,30 @@
+상품 테이블 쿼리
+
+create table tbl_product(
+    pno int primary key auto_increment,
+    pName varchar(30),
+    pMainCategory varchar(30),
+    pSubCategory varchar(30),
+    pSize varchar(30),
+    pPrice int,
+    pAmount int,
+    pColor varchar (20),
+    pRegdate varchar(30),
+    pImage varchar(50),
+    pImageURL varchar(150),
+    pInformation varchar(500),
+    pDelivery varchar(50),
+    pCode varchar(50)
+);
+
+메일 쿼리
+
+create table tbl_mail(
+    mno int,
+    email varchar(50)  null,
+    mailNo int auto_increment primary key ,
+    subject varchar(70),
+    text varchar(700),
+    reception varchar(1000),
+    foreign key (mno) references tbl_memberInfo (mno)
+);

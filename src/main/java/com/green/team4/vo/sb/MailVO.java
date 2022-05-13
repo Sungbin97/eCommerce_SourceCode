@@ -2,16 +2,18 @@ package com.green.team4.vo.sb;
 
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class MemberVO {
+public class MailVO {
     private int mno;
-    private String name;
-    private String resNum; //주민등록번호
-    private String addr; //주소
-    private String phone;
     private String email;
+    private int mailNo;
+    private String subject;
+    private String text;
+    private String reception;
 }

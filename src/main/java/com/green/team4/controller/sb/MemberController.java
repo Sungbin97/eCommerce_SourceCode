@@ -1,8 +1,6 @@
 package com.green.team4.controller.sb;
 
-import com.green.team4.service.sb.MemberService;
 import com.green.team4.service.sw.MemberInfoService;
-import com.green.team4.vo.sb.MemberVO;
 import com.green.team4.vo.sw.MemberInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private final MemberService memberService;
     private final MemberInfoService memberInfoService;
 
     @GetMapping("/member")

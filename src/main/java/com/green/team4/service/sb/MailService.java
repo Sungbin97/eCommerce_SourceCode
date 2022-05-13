@@ -1,5 +1,10 @@
-package com.green.team4.vo.sb;
+package com.green.team4.service.sb;
 
+import com.green.team4.mapper.sb.MailMapper;
+import com.green.team4.mapper.sw.MemberInfoMapper;
+import com.green.team4.vo.sb.MailVO;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,20 +13,26 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
+@Log4j2
+@RequiredArgsConstructor
 public class MailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendMail(){
+    private final MemberInfoMapper memberInfoMapper;
+    private final MailMapper mailMapper;
+
+    public int sendMail(MailVO vo){
         //수신 대상을 담을 ArrayList
         ArrayList<String> toUserList = new ArrayList<>();
 
         //수신 대상 추가
-        toUserList.add("csb3694@naver.com");
-        toUserList.add("swchung0521@gmail.com");
+        toUserList.add(vo.getEmail());
+        toUserList.forEach(i-> System.out.println("수신 대상 리스트: "+i));
 
         //수신 대상 개수
         int toUserSize = toUserList.size();
+        System.out.println("수신 대상 개수: "+toUserSize);
 
         //SimpleMailMessage (단순 텍스트 구성 메일 메시지 생성할 떄 이용)
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -30,12 +41,14 @@ public class MailService {
         simpleMailMessage.setTo((String[]) toUserList.toArray(new String[toUserSize]));
         
         //메일 제목
-        simpleMailMessage.setSubject("최성빈의 메일");
+        simpleMailMessage.setSubject(vo.getSubject());
 
         //메일 내용
-        simpleMailMessage.setText("ㅇㅈ바ㅣㅗㅓㄹㄷ지ㅗ릳죌ㄷㅈ");
+        simpleMailMessage.setText(vo.getText());
 
         //메일 발송
         javaMailSender.send(simpleMailMessage);
+
+        return mailMapper.insert(vo);
     }
 }
