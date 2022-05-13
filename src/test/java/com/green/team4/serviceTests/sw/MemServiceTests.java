@@ -45,6 +45,27 @@ public class MemServiceTests {
             mapper.insert(memberInfoVO);
         });
     }
+    @Test
+    public void insertOne(){
+        String[] gender = {"남성","여성"};
+        String[] auth = {"일반","에디터","관리자"};
+        String[] grade = {"일반","우수","최우수"};
+
+        MemberInfoVO memberInfoVO = new MemberInfoVO();
+        memberInfoVO.setId("Id");
+        memberInfoVO.setPassword("pw");
+        memberInfoVO.setName("최성빈");
+        memberInfoVO.setNickName("nickName");
+        memberInfoVO.setEmail("csb3694@naver.com");
+        memberInfoVO.setPhoneNum("010-3105-5347");
+        memberInfoVO.setGender(gender[(int)(Math.random()*2)]);
+        memberInfoVO.setSSNum("123-43556");
+        memberInfoVO.setAddress("금학로 91");
+        memberInfoVO.setAuth(auth[(int)(Math.random()*3)]);
+        memberInfoVO.setGrade(grade[(int)(Math.random()*3)]);
+
+        mapper.insert(memberInfoVO);
+    }
 
     @Test
     public void testReadOne(){ // 데이터 하나 가져오기

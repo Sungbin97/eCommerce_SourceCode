@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+<style>
+  .bd-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1071;
+    min-height: 4rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+  }
+  .bd-sidebar {
+    position: sticky;
+    top: 4rem;
+    z-index: 1000;
+    height: calc(100vh - 4rem);
+    background: #eee;
+    border-right: 1px solid rgba(0,0,0,.1);
+    overflow-y: auto;
+    min-width: 160px;
+    max-width: 220px;
+  }
+  .bd-sidebar .nav {
+    display: block;
+  }
+  .bd-sidebar .nav>li>a {
+    display: block;
+    padding: .25rem 1.5rem;
+    font-size: 90%;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+<header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active"><a class="nav-link" href="#">홈</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">1번 메뉴</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">2번 메뉴</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="col-3 bd-sidebar">
+      <ul class="nav">
+        <div>관리자 페이지</div>
+        <li>
+          <a href="/sb/member/member?mno=1">회원관리</a>
+          <a href="/sb/product/list?pno=1">상품관리</a>
+          <a href="/sb/product/upload">상품등록</a>
+          <a href="/sb/product/modify?pno=1">상품정보수정</a>
+          <a href="">주문/배송관리</a>
+          <a href="">각종 통계</a>
+          <a href="/sb/mail/list">EMAIL & SMS</a>
+          <a href="/sb/mail/write">개별 메일 전송</a>
+          <a href="/sb/mail/list">자동 메일 및 문자(예정)</a>
+        </li>
+      </ul>
+      <br>
+    </div>
+    <main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
+      <body>
+      <form method="post" action="/sb/product/upload" enctype="multipart/form-data">
+
+        <div class="inputArea">
+          <label>카테고리</label>
+          <select id="category" name="pMainCategory">
+            <option value="">전체</option>
+            <option value="의류">의류</option>
+            <option value="식품">식품</option>
+            <option value="장비">장비</option>
+          </select>
+        </div>
+
+        <div class="inputArea">
+          <label for="pName">상품명</label>
+          <input type="text" id="pName" name="pName" />
+        </div>
+
+        <div class="inputArea">
+          <label for="price">상품가격</label>
+          <input type="text" id="price" name="pPrice" />
+        </div>
+
+        <div class="inputArea">
+          <label for="size">사이즈</label>
+          <input type="text" id="size" name="pSize" />
+        </div>
+
+        <div class="inputArea">
+          <label for="color">색상</label>
+          <input type="text" id="color" name="pColor" />
+        </div>
+
+        <div class="inputArea">
+          <label for="color">수량</label>
+          <input type="text" id="amount" name="pAmount" />
+        </div>
+
+        <div class="inputArea">
+          <label for="des">상품소개</label>
+          <textarea rows="5" cols="50" id="des" name="pInformation"></textarea>
+        </div>
+        <input type="file" name="uploadFiles" multiple>
+
+        <input type="hidden" name="pImageURL" value="썸네일 이미지 저장경로">
+        <div class="uploadResult">
+        </div>
+        <input type="submit" value="최종 등록">
+      </form>
+      <button class="uploadBtn">이미지 등록</button>
+  </div>
+</div>
+</body>
+      <script>
+        function showUploadedImages(arr){
+          console.log(arr);
+          var divArea = $(".uploadResult")
+          var str = "";
+          for (var i =0; i<arr.length; i++) {
+            str+= "<div>"
+            var thumbnailURL = encodeURIComponent(arr[i].folderPath +"\\s_" +arr[i].uuid + "_" + arr[i].fileName);
+            var imageURL = encodeURIComponent(arr[i].folderPath +"\\" +arr[i].uuid + "_" + arr[i].fileName);
+            var url = document.querySelector('input[name="pImageURL"]');
+            url.value = "/display?fileName="+arr[i].thumbnailURL;
+            str+= "<img src='/display?fileName=" +arr[i].imageURL+"'>"
+            str+= "<button class='removeBtn' data-name='" + arr[i].imageURL +"'> 삭제 </button>"
+            str+= "</div>"
+          }
+          divArea.append(str);
+        }
+
+        $(".uploadResult").on("click", ".removeBtn", function (e){
+          console.log("삭제버튼눌림?");
+          var target=$(this);
+          var fileName=target.data('name'); // 1)
+          var targetDiv=$(this).closest("div");
+          console.log(fileName);
+          $.post('/removeFile', {fileName}, function (result){ // 2)
+            console.log(result)
+            if (result===true) targetDiv.remove();
+          })
+        })
+        $(".uploadBtn").click(function (e){
+          console.log("버튼들어오나")
+          var formData = new FormData();
+          var inputFile = $("input[type='file']");
+          var files = inputFile[0].files;
+          for (var i=0;i<files.length;i++){
+            console.log(files[i]);
+            formData.append("uploadFiles", files[i])
+          }
+          // 실제 업로드
+          $.ajax({
+            url:'/uploadAjax',
+            processData: false,
+            contentType: false,
+            data: formData,
+            type:'POST',
+            dataType:'json',
+            success :function (result){
+              console.log(result);
+              //나중에 화면 처리
+              showUploadedImages(result)
+            },
+            error:function (jqXHR, textStatus, errorThrown){
+              console.log(textStatus);
+            }
+          })
+        })
+      </script>
+    </main>
+</html>
