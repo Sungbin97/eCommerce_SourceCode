@@ -35,8 +35,8 @@ public class MemberController {
         return "redirect:/sb/member/modify?mno="+memberInfoVO.getMno();
     }
     @PostMapping("/remove")
-    public String MemberRemove(int mno){
-        memberInfoService.remove(mno);
+    public String MemberRemove(int mno,String delCategory, String delContent){
+        memberInfoService.remove(mno,delCategory,delContent);
         log.info(mno+"번 회원 삭제");
         return "redirect:/sb/member/member?mno=1";
     }
