@@ -64,11 +64,10 @@ public class MemberInfoController {
     }
 
     @PostMapping("/memDelete") // 회원 탈퇴 진행
-    public String delete(int mno, String delCategory, String delContent, LocalDateTime delDate){
+    public String delete(int mno, String delCategory, String delContent){
         log.info("MemberInfoController => delete(POST) 실행 => 받은 mno: "+mno);
         log.info("MemberInfoController => delete(POST) 실행 => 받은 delCategory: "+delCategory);
         log.info("MemberInfoController => delete(POST) 실행 => 받은 delContent: "+delContent);
-        log.info("MemberInfoController => delete(POST) 실행 => 받은 delDate: "+delDate);
         memberInfoService.remove(mno,delCategory,delContent);
         return "redirect:/sw/mypage/main?mno="+1; // ★ 추후 웹사이트 메인페이지로 돌아가는 것으로 수정 예정
     }
