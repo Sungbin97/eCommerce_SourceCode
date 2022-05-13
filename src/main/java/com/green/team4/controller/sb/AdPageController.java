@@ -14,8 +14,4 @@ public class AdPageController {
         System.out.println("adpgae");
     }
 
-    @GetMapping("/sb/uploadEx")
-    public void uploadEx(){
-
-    }
 }
