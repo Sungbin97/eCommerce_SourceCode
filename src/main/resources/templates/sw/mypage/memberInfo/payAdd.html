@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -20,4 +21,12 @@
         <input type="submit" value="신규 등록">
     </form>
 </body>
+<script>
+    $(document).ready(function (){
+        // 뒤로가기 버튼 클릭하면 동작
+        $("input[type=submit]").click(function (){
+            alert("결제수단 등록이 완료되었습니다. 이전 페이지로 돌아갑니다.")
+        })
+    })
+</script>
 </html>

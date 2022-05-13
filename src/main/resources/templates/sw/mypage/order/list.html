@@ -15,7 +15,8 @@
                 <tr>
                     <th>주문일시</th>
                     <th>주문번호</th>
-                    <th>주문상태</th>
+                    <th>결재상태</th>
+                    <th>배송상태</th>
                     <th>상품명</th>
                     <th>총 결제금액</th>
                 </tr>
@@ -24,7 +25,8 @@
                 <tr th:each="order : ${orderList}">
                     <td th:text="${order.orderDate}"></td>
                     <td><a th:href="@{/sw/mypage/order/read(ono=${order.ono})}" th:text="${order.ono}"></a></td>
-                    <td th:text="${order.orderStatus}"></td>
+                    <td th:text="${order.payStatus}"></td>
+                    <td th:text="${order.deliveryStatus}"></td>
                     <td th:text="${order.p_name}"></td>
                     <td th:text="${order.totalPrice}"></td>
 
@@ -43,7 +45,6 @@
                             <input type="hidden" name="ono" th:value="${order.ono}" readonly>
                             <input type="hidden" name="p_no" th:value="${order.p_no}" readonly>
                             <input type="hidden" name="pno" th:value="${order.pno}" readonly>
-
                             <input type="submit" value="취소/반품/교환 신청">
                         </form>
                     </td>
@@ -51,8 +52,16 @@
             </tbody>
         </table>
     <hr/>
+    <!-- Mypage 메인으로 돌아가기 버튼 -->
+    <button class="button" th:class="goBack">마이페이지 메인으로 돌아가기</button>
 </body>
 <script>
-
+    $(document).ready(function (){
+        // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
+        $(".goBack").click(function (){
+            var mno = $("input[name=mno]").val();
+            window.location.href = '/sw/mypage/main?mno='+mno;
+        })
+    })
 </script>
 </html>

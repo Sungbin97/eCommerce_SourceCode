@@ -33,8 +33,6 @@ dependencies {
 	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time', version: '3.0.4.RELEASE' // 별도 추가: 날짜 포맷 관련 추가 java 8 DateTime~
 	// https://mvnrepository.com/artifact/net.coobird/thumbnailator
 	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.12' // 썸네일 만들기
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.6.3'
 }
 
 tasks.named('test') {

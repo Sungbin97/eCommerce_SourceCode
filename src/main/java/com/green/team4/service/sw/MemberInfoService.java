@@ -2,12 +2,11 @@ package com.green.team4.service.sw;
 
 import com.green.team4.vo.sw.MemberInfoVO;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 public interface MemberInfoService {
 
     MemberInfoVO readOne(int mno);
-    List<MemberInfoVO> readAll();
     int modify(MemberInfoVO memberInfoVO);
-    int remove(int mno);
+    int remove(int mno,String delCategory, String delContent);
 }

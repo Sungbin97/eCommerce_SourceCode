@@ -1,8 +1,10 @@
 package com.green.team4.service.sw;
 
+import com.green.team4.mapper.sw.DeleteMemMapper;
 import com.green.team4.mapper.sw.MemberInfoMapper;
 import com.green.team4.mapper.sw.PaymentMapper;
 import com.green.team4.mapper.sw.ShipmentMapper;
+import com.green.team4.vo.sw.DeleteMemVO;
 import com.green.team4.vo.sw.MemberInfoVO;
 import com.green.team4.vo.sw.PaymentVO;
 import com.green.team4.vo.sw.ShipmentVO;
@@ -10,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -21,6 +24,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
     private final MemberInfoMapper memberInfoMapper;
     private final ShipmentMapper shipmentMapper;
     private final PaymentMapper paymentMapper;
+    private final DeleteMemMapper deleteMemMapper;
 
     // 회원정보 하나 가져오기
     @Override
@@ -51,11 +55,39 @@ public class MemberInfoServiceImpl implements MemberInfoService{
 
     // 회원정보 삭제(회원탈퇴) - 배송지 정보 및 결제 정보도 함께 삭제
     @Override
-    public int remove(int mno) {
+    public int remove(int mno,String delCategory, String delContent) {
         log.info("MemberInfoService => remove 실행 => 받은 mno: "+mno);
+        log.info("MemberInfoService => remove 실행 => 받은 delCategory: "+delCategory);
+        log.info("MemberInfoService => remove 실행 => 받은 delContent: "+delContent);
 
-        // 데이터 이동 ------------------------------------------------------------------------
-        memberInfoMapper.transfer(mno); // 탈퇴 회원 정보 복사 => 회원탈퇴 테이블에 복사 붙여넣기
+        // 탈퇴회원 데이터 입력(tbl_deleteMem) -------------------------------------------------
+        MemberInfoVO memberInfoVO = memberInfoMapper.getOne(mno);
+
+        // 기존 회원데이터 덮어쓰기
+        DeleteMemVO deleteMemVO = new DeleteMemVO();
+        deleteMemVO.setId(memberInfoVO.getId());
+        deleteMemVO.setPassword(memberInfoVO.getPassword());
+        deleteMemVO.setName(memberInfoVO.getName());
+        deleteMemVO.setNickName(memberInfoVO.getNickName());
+        deleteMemVO.setEmail(memberInfoVO.getEmail());
+        deleteMemVO.setPhoneNum(memberInfoVO.getPhoneNum());
+        deleteMemVO.setGender(memberInfoVO.getGender());
+        deleteMemVO.setSSNum(memberInfoVO.getSSNum());
+        deleteMemVO.setPostcode(memberInfoVO.getPostcode());
+        deleteMemVO.setAddress(memberInfoVO.getAddress());
+        deleteMemVO.setDetailAddress(memberInfoVO.getDetailAddress());
+        deleteMemVO.setAuth(memberInfoVO.getAuth());
+        deleteMemVO.setGrade(memberInfoVO.getGrade());
+
+        // 회원탈퇴 사유 가져와서 set
+        deleteMemVO.setDelCategory(delCategory);
+        deleteMemVO.setDelContent(delContent);
+        deleteMemVO.setDelDate(LocalDateTime.now());
+
+        // DB 저장
+        int delSaveCnt = deleteMemMapper.insert(deleteMemVO);
+
+        log.info("MemberInfoService => remove 실행 => deleteMemMapper 실행 후 입력된 데이터 개수: "+delSaveCnt);
 
         // 데이터 삭제 ------------------------------------------------------------------------
         // 배송지 정보 삭제

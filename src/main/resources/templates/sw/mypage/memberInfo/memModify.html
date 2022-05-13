@@ -7,12 +7,18 @@
 </head>
 <body>
     <h4>마이페이지-개인정보 수정완료 화면</h4>
-    <form action="/sw/mypage/memberInfo/read" method="get">
-        <div>
-            <label th:for="mno">mno(hidden 예정)</label>
-            <input type="text" name="mno" th:value="${memberInfo.mno}" readonly>
-        </div>
-        <input type="submit" value="개인정보화면으로 돌아가기">
-    </form>
+    <p>개인정보 수정이 완료되었습니다!</p>
+    <br/>
+
+    <!-- 뒤로가기 버튼 -->
+    <button class="button" th:class="goBack">뒤로가기</button>
 </body>
+<script>
+    $(document).ready(function (){
+        // 뒤로가기 버튼 클릭하면 동작
+        $(".goBack").click(function (){
+            history.back();
+        })
+    })
+</script>
 </html>

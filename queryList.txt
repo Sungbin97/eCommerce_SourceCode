@@ -1,0 +1,219 @@
+-- 데이터베이스 생성
+create database team4db;
+
+-- 데이터베이스 사용
+use team4db;
+
+-- 테이블 생성(테스트용)
+create table test_tbl(
+    tno int(30) primary key auto_increment,
+    name varchar(30) not null,
+    content varchar(40) not null
+);
+
+-- ------------------ 마이페이지_개인정보관리 작업(아래) -------------------------------
+
+-- 회원 기본정보 테이블 -- 수정(추가)★★ 2022.05.12
+create table tbl_memberInfo(
+   mno int(30) primary key auto_increment,
+   id varchar(50) not null,
+   password varchar(50) not null,
+   name varchar(50) not null,
+   nickName varchar(50) not null,
+   email varchar(50) not null,
+   phoneNum varchar(50) not null,
+   gender varchar(50) not null,
+   SSNum varchar(50) not null,
+   postcode varchar(50) not null, -- 우편번호
+   address varchar(50) not null, -- 기본주소
+   detailAddress varchar(50) not null, -- 세부주소
+   auth varchar(50) not null,
+   grade varchar(50) not null
+);
+
+-- 회원 배송지 정보 테이블 -- 수정★★ 2022.05.12
+create table tbl_shipmentInfo(
+    mno int(30) not null,
+    sno int(30) primary key auto_increment,
+    postcode varchar(50) not null,
+    address varchar(50) not null,
+    detailAddress varchar(50) not null,
+    foreign key (mno) references tbl_memberInfo (mno)
+);
+
+-- 결제 정보 테이블
+create table tbl_paymentInfo(
+    mno int(30) not null,
+    pno int(30) primary key auto_increment,
+    payName varchar(50),
+    payContent varchar(50),
+    foreign key (mno) references tbl_memberInfo (mno)
+);
+
+-- 탈퇴 회원 테이블 -- ★★ 2022.05.13 신규 추가
+create table tbl_deleteMem(
+    delNo int(30) primary key auto_increment,
+    id varchar(50) not null,
+    password varchar(50) not null,
+    name varchar(50) not null,
+    nickName varchar(50) not null,
+    email varchar(50) not null,
+    phoneNum varchar(50) not null,
+    gender varchar(50) not null,
+    SSNum varchar(50) not null,
+    postcode varchar(50) not null,
+    address varchar(50) not null,
+    detailAddress varchar(50) not null,
+    auth varchar(50) not null,
+    grade varchar(50) not null,
+    delDate DATETIME default now() not null, -- 탈퇴 날짜
+    delCategory varchar(50) not null, -- 탈퇴 이유 카테고리
+    delContent varchar(150) -- 탈퇴 이유 세부내용
+);
+
+drop table tbl_deleteMem;
+drop table tbl_shipmentInfo;
+drop table tbl_paymentInfo;
+drop table tbl_memberInfo;
+
+
+
+
+-- ------------------ 마이페이지_장바구니 작업(아래) -------------------------------
+
+-- 장바구니 테이블(상품 세부정보는 상품 table과 join하여 출력)
+create table tbl_cart(
+    mno int(30) not null,
+    cno int(30) primary key auto_increment,
+    p_no int(30) not null,
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (p_no) references tbl_product (p_no)
+);
+
+-- dummyData insert
+-- 상품 테이블 입력
+insert into tbl_product (p_name,p_category,p_size,p_price,p_amount,p_color,p_regdate,p_image,p_information,p_delivery)
+values ('testName1','food',100,20000,1,'green','05/07','image1','info1','배송');
+insert into tbl_product (p_name,p_category,p_size,p_price,p_amount,p_color,p_regdate,p_image,p_information,p_delivery)
+values ('testName4','clothes',100,30000,1,'yellow','05/07','image4','info4','배송');
+-- 장바구니 테이블 입력
+insert into tbl_cart (mno,p_no) values (8,2);
+
+-- 상품 table(example) *추후 수정 예정
+create table tbl_product(
+    p_no int(30) primary key auto_increment,
+    p_name varchar(50) not null,
+    p_category varchar(50) not null,
+    p_size varchar(50) not null,
+    p_price int(30) not null,
+    p_amount int(30) not null,
+    p_color varchar(50) not null,
+    p_regdate varchar(50) not null,
+    p_image varchar(50) not null,
+    p_information varchar(50) not null,
+    p_delivery varchar(50) not null
+);
+
+
+-- ------------------ 마이페이지_주문조회 작업(아래) -------------------------------
+
+-- 주문목록 테이블 입력
+create table tbl_order(
+    mno int(30) not null, -- 회원번호(tbl_memberInfo)
+    ono int(30) primary key auto_increment, -- 주문번호
+    p_no int(30) not null,  -- 상품번호(tbl_product)
+    pno int(30) not null, -- 결제수단 번호(tbl_paymentInfo)
+    delAddr varchar(50) not null, -- 배송지 주소
+    receiverName varchar(30) not null, -- 받는 사람 성명
+    receiverPhone varchar(50) not null, -- 밥는 사람 연락처
+    message varchar(50) not null, -- 주문/배송 관련 메세지
+    count int(30) not null, -- 주문개수
+    productPrice int(30) not null, -- 상품 총 금액
+    shipFee int(30) not null, -- 배송비
+    totalPrice int(30) not null, -- 총 결제금액
+    orderDate DATETIME default now(), -- 주문일시
+    payStatus varchar(50) not null, -- 결재 상태
+    deliveryStatus varchar(50) not null, -- 배송 상태
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (p_no) references tbl_product (p_no),
+    foreign key (pno) references tbl_paymentInfo (pno)
+);
+
+
+-- insert Dummy Data
+insert into tbl_order (mno, p_no, pno, delAddr, receiverName, receiverPhone, message, count, productPrice, shipFee, totalPrice, payStatus,deliveryStatus)
+values (8,1,2,'배송신청 주소 테스트','받는이 홍길동','1234-1234','문앞에 놓아주세요',5,1400000,3000,1403000,'확인 중','확인 중');
+insert into tbl_order (mno, p_no, pno, delAddr, receiverName, receiverPhone, message, count, productPrice, shipFee, totalPrice, payStatus,deliveryStatus)
+values (8,2,3,'배송신청 주소 테스트3','받는이 김길동','1234-1234','경비실에 맡겨주세요',5,5000,3000,8000,'확인 중','확인 중');
+
+-- 배송현황 테이블 입력(주문 배송)
+create table tbl_delivery(
+    mno int(30) not null, -- 회원번호(tbl_memberInfo)
+    ono int(30) not null, -- 주문번호(tbl_order)
+    dno int(30) primary key auto_increment, -- 배송번호
+    delCategory varchar(30) not null, -- 배송 종류(일반/특급 등)
+    delAddr varchar(50) not null, -- 배송지 주소
+    delCompany varchar(30) not null, -- 택배사
+    delStatus varchar(30) not null, -- 배송 상태
+    delLocation varchar(50) not null, -- 배송 현재 위치
+    delStartDate DATETIME default now(), -- 배송시작일시
+    delEndDate DATETIME default now(), -- 배송종료일시
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (ono) references tbl_order (ono)
+);
+
+-- insert Dummy Data
+insert into tbl_delivery (mno, ono, delCategory, delAddr, delCompany, delStatus, delLocation)
+values (8,3,'일반','배송신청 주소 테스트3','그린택배','출고 준비중','서울');
+insert into tbl_delivery (mno, ono, delCategory, delAddr, delCompany, delStatus, delLocation)
+values (8,4,'일반','배송신청 주소 테스트3','그린택배','출고 준비중','서울');
+insert into tbl_delivery (mno, ono, delCategory, delAddr, delCompany, delStatus, delLocation)
+values (9,1,'일반','배송신청 주소 테스트','그린택배','배송중','경기도 Hub');
+insert into tbl_delivery (mno, ono, delCategory, delAddr, delCompany, delStatus, delLocation)
+values (9,2,'일반','배송신청 주소 테스트','블루택배','배송 완료','분당');
+
+-- 취소/반품/교환 테이블
+create table tbl_exchange(
+    mno int(30) not null, -- 회원번호(tbl_memberInfo)
+    ono int(30) not null, -- 주문번호(tbl_order)
+    p_no int(30) not null,  -- 상품번호(tbl_product)
+    pno int(30) not null, -- 결제수단 번호(tbl_paymentInfo)
+    eno int(30) primary key auto_increment, -- 취소/반품/교환 번호
+    exCategory varchar(30) not null, -- 분류(취소/반품/교환 중 택1)
+    exContent varchar(100) not null, -- 사유 내용
+    exStatus varchar(50) not null, -- 진행 상태(접수중, 접수완료, 처리완료)
+    exStartDate DATETIME default now(), -- 배송시작일시
+    exEndDate DATETIME default now(), -- 배송종료일시
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (ono) references tbl_order (ono),
+    foreign key (p_no) references tbl_product (p_no),
+    foreign key (pno) references tbl_paymentInfo (pno)
+);
+
+-- 취소/반품/교환 신청 첨부파일 테이블
+create table tbl_exchangeFiles(
+    eno int(30) not null, -- 취소/반품/교환 신청번호
+    ino int(30) primary key auto_increment, -- 파일번호
+    img_name varchar(500) not null, -- 파일 이름
+    path varchar(500) not null, -- 파일 경로
+    uuid varchar(500) not null, -- 파일 UUID
+    foreign key (eno) references tbl_exchange (eno)
+);
+
+-- 찜한 상품 테이블 -- 추가★★ 2022.05.12
+create table tbl_interest(
+    mno int(30) not null, -- 회원 번호
+    itrNo int(30) primary key auto_increment, -- 찜 번호
+    p_no int(30) not null, -- 상품 번호
+    interestDate DATETIME default now(), -- 찜한 일자시간
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (p_no) references tbl_product (p_no)
+);
+
+drop table tbl_order;
+
+-- insert DummyData
+insert into tbl_interest (mno, p_no) values (8,1);
+insert into tbl_interest (mno, p_no) values (8,2);
+
+commit;

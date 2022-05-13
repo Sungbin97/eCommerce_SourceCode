@@ -25,7 +25,8 @@ public class OrderVO {
     private int shipFee; // 배송비
     private int totalPrice; // 총 결제금액
     private LocalDateTime orderDate; // 주문일시
-    private String orderStatus; // 주문상태
+    private String payStatus; // 결재 상태
+    private String deliveryStatus; // 배송 상태
 
     // tbl_memberInfo join 해서 가져올 칼럼
     private String name; // 주문자 성명 (tbl_memberInfo)

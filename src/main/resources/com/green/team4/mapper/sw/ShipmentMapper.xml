@@ -7,8 +7,8 @@
 
     <!-- shipmentInfo 데이터 등록 -->
     <insert id="insert">
-        insert into tbl_shipmentInfo (mno, sno, shipAddress)
-            values (#{mno}, #{sno}, #{shipAddress})
+        insert into tbl_shipmentInfo (mno,sno,postcode,address,detailAddress)
+            values (#{mno},#{sno},#{postcode},#{address},#{detailAddress})
     </insert>
 
     <!-- shipmentInfo 데이터 전체 가져오기(mno 단위) -->
@@ -24,7 +24,7 @@
     <!-- shipmentInfo 데이터 수정 -->
     <update id="update">
         update tbl_shipmentInfo
-            set shipAddress=#{shipAddress}
+            set postcode=#{postcode},address=#{address},detailAddress=#{detailAddress}
                 where sno=#{sno}
     </update>
 

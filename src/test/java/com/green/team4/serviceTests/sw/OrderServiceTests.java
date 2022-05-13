@@ -27,4 +27,13 @@ public class OrderServiceTests {
         OrderVO orderVO = orderService.readOne(ono);
         System.out.println(orderVO);
     }
+
+    @Test
+    public void testUpdate(){
+        OrderVO orderVO = orderService.readOne(2); // 기존 order 가져오기
+        orderVO.setPayStatus("결재 완료");
+        orderVO.setDeliveryStatus("배송 시작");
+        int result = orderService.modify(orderVO);
+        System.out.println("수정된 개수: "+result);
+    }
 }

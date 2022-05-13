@@ -12,6 +12,12 @@
         <input type="text" name="mno" th:value="${mno}">
         <input type="submit" value="개인정보관리">
     </form>
+
+    <form action="/sw/mypage/interest/read" method="get">
+        <input type="text" name="mno" th:value="${mno}">
+        <input type="submit" value="찜한 상품">
+    </form>
+
     <form action="/sw/mypage/cart/read" method="get">
         <input type="text" name="mno" th:value="${mno}">
         <input type="submit" value="장바구니">
