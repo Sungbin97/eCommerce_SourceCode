@@ -6,11 +6,11 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>마이페이지-장바구니</h2>
+    <h2>마이페이지-찜 목록</h2>
 
     <!-- Cart -->
-    <h3>장바구니 목록</h3>
-        <table id="cartTable">
+    <h3>찜 목록</h3>
+        <table id="itrTable">
             <thead>
                 <tr>
                     <th>상품번호</th>
@@ -21,23 +21,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="cart : ${cartList}">
-                    <td th:text="${cart.p_no}"></td>
-                    <td th:text="${cart.p_category}"></td>
-                    <td><a th:href="@{/sw/mypage/cart/read}" th:text="${cart.p_name}"></a></td>
+                <tr th:each="itr : ${itrList}">
+                    <td th:text="${itr.p_no}"></td>
+                    <td th:text="${itr.p_category}"></td>
+                    <td><a th:href="@{/sw/mypage/cart/read}" th:text="${itr.p_name}"></a></td>
                     <!-- 클릭하면 상품 상세화면으로 이동하는 href 속성 추가 예정 -->
-                    <td th:text="${cart.p_price}"></td>
-                    <td th:text="${cart.p_image}"></td>
+                    <td th:text="${itr.p_price}"></td>
+                    <td th:text="${itr.p_image}"></td>
                     <!-- 데이터 삭제 시 controller 전송용 form -->
                     <td>
-                        <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
-                            <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
-                            <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
-                            <input type="hidden" name="p_no" th:value="${cart.p_no}" readonly>
-                            <input type="hidden" name="p_category" th:value="${cart.p_category}" readonly>
-                            <input type="hidden" name="p_name" th:value="${cart.p_name}" readonly>
-                            <input type="hidden" name="p_price" th:value="${cart.p_price}" readonly>
-                            <input type="hidden" name="p_image" th:value="${cart.p_image}" readonly>
+                        <form th:action="@{/sw/mypage/interest/delete}" th:method="post">
+                            <input type="hidden" name="mno" th:value="${itr.mno}" readonly>
+                            <input type="hidden" name="itrNo" th:value="${itr.itrNo}" readonly>
+                            <input type="hidden" name="p_no" th:value="${itr.p_no}" readonly>
+                            <input type="hidden" name="p_category" th:value="${itr.p_category}" readonly>
+                            <input type="hidden" name="p_name" th:value="${itr.p_name}" readonly>
+                            <input type="hidden" name="p_price" th:value="${itr.p_price}" readonly>
+                            <input type="hidden" name="p_image" th:value="${itr.p_image}" readonly>
                             <input type="submit" value="삭제">
                         </form>
                     </td>
@@ -46,6 +46,7 @@
         </table>
     <hr/>
     <!-- Mypage 메인으로 돌아가기 버튼 -->
+    <input type="hidden" th:name="mno" th:value="${mno}">
     <button class="button" th:class="goBack">마이페이지 메인으로 돌아가기</button>
 </body>
 <script>
@@ -53,6 +54,7 @@
         // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
         $(".goBack").click(function (){
             var mno = $("input[name=mno]").val();
+            console.log(mno)
             window.location.href = '/sw/mypage/main?mno='+mno;
         })
     })

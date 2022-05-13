@@ -35,7 +35,9 @@ public class MemServiceTests {
             memberInfoVO.setPhoneNum("1234-"+i);
             memberInfoVO.setGender(gender[(int)(Math.random()*2)]);
             memberInfoVO.setSSNum("99999-"+i);
-            memberInfoVO.setAddress("경기도 성남시 분당구 운중동"+i);
+            memberInfoVO.setAddress("기본주소"+i);
+            memberInfoVO.setPostcode(""+(int)(Math.random()*(10000-9999)+9999));
+            memberInfoVO.setDetailAddress("세부주소"+i);
             memberInfoVO.setAuth(auth[(int)(Math.random()*3)]);
             memberInfoVO.setGrade(grade[(int)(Math.random()*3)]);
 
@@ -52,8 +54,7 @@ public class MemServiceTests {
 
     @Test
     public void testUpdate(){
-        MemberInfoVO memberInfoVO = new MemberInfoVO();
-        memberInfoVO.setMno(24);
+        MemberInfoVO memberInfoVO = service.readOne(24);
         memberInfoVO.setPassword("pw"+"수정");
         memberInfoVO.setNickName("nickName"+"수정");
         memberInfoVO.setEmail("email"+"수정"+"@test.com");
@@ -64,10 +65,10 @@ public class MemServiceTests {
         System.out.println("수정된 개수: "+result);
     }
 
-    @Test
-    public void testDelete(){
-        int mno = 24;
-        int result = service.remove(mno);
-        System.out.println("삭제된 개수: "+result);
-    }
+//    @Test .... 사용 X
+//    public void testDelete(){
+//        int mno = 25;
+//        int result = service.remove(15);
+//        System.out.println("삭제된 개수: "+result);
+//    }
 }

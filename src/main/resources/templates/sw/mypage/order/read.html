@@ -84,9 +84,16 @@
                 <label th:for="orderDate">주문일시</label>
                 <input type="text" name="orderDate" th:value="${orderVO.orderDate}" readonly>
             </li>
+        </ul>
+        주문 상태
+        <ul>
             <li>
-                <label th:for="orderStatus">주문상태</label>
-                <input type="text" name="orderStatus" th:value="${orderVO.orderStatus}" readonly>
+                <label th:for="orderStatus">결재상태</label>
+                <input type="text" name="orderStatus" th:value="${orderVO.payStatus}" readonly>
+            </li>
+            <li>
+                <label th:for="orderStatus">배송상태</label>
+                <input type="text" name="orderStatus" th:value="${orderVO.deliveryStatus}" readonly>
             </li>
         </ul>
     </form>

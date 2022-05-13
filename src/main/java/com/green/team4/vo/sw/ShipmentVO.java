@@ -11,5 +11,7 @@ public class ShipmentVO {
 
     private int mno;
     private int sno;
-    private String shipAddress;
+    private String postcode;
+    private String address;
+    private String detailAddress;
 }

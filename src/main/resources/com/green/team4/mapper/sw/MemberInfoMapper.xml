@@ -7,8 +7,8 @@
 
     <!-- MemberInfo 데이터 등록 -->
     <insert id="insert">
-        insert into tbl_memberInfo (id, password, name, nickName, email, phoneNum, gender, SSNum, address, auth, grade)
-            values (#{id}, #{password}, #{name}, #{nickName}, #{email}, #{phoneNum}, #{gender}, #{SSNum},#{address},#{auth},#{grade})
+        insert into tbl_memberInfo (id, password, name, nickName, email, phoneNum, gender, SSNum, postcode, address, detailAddress, auth, grade)
+            values (#{id}, #{password}, #{name}, #{nickName}, #{email}, #{phoneNum}, #{gender}, #{SSNum},#{postcode},#{address},#{detailAddress},#{auth},#{grade})
     </insert>
 
     <!-- MemberInfo 데이터 하나 가져오기 -->
@@ -19,16 +19,9 @@
     <!-- MemberInfo 데이터 수정 -->
     <update id="update">
         update tbl_memberInfo
-            set password=#{password}, nickName=#{nickName}, email=#{email}, phoneNum=#{phoneNum}, address=#{address}
+            set password=#{password}, nickName=#{nickName}, email=#{email}, phoneNum=#{phoneNum}, postcode=#{postcode}, address=#{address}, detailAddress=#{detailAddress}
                 where mno=#{mno}
     </update>
-
-    <!-- MemberInfo 데이터 이동(탈퇴 회원정보 복사 tbl_memberInfo => tbl_deleteMem) -->
-    <insert id="transfer">
-        insert into tbl_deleteMem (id, password, name, nickName, email, phoneNum, gender, SSNum, address, auth, grade)
-            select id, password, name, nickName, email, phoneNum, gender, SSNum, address, auth, grade from tbl_memberInfo
-                where mno=#{mno}
-    </insert>
 
     <!-- MemberInfo 데이터 삭제(탈퇴 회원정보 삭제) -->
     <delete id="delete">

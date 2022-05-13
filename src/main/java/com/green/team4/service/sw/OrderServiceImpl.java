@@ -32,4 +32,12 @@ public class OrderServiceImpl implements OrderService{
         log.info("OrderService => readOne 실행 후 받은 orderVO: "+orderVO);
         return orderVO;
     }
+
+    @Override
+    public int modify(OrderVO orderVO) { // 주문내역 수정(결재상태,배송상태만 수정) - 관리자 전용
+        log.info("OrderService => modify 실행 => 받은 orderVO: "+orderVO);
+        int result = orderMapper.update(orderVO);
+        log.info("OrderService => modify 실행 후 수정된 데이터 개수: "+result);
+        return result;
+    }
 }
