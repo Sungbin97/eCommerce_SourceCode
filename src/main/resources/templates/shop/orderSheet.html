@@ -4,46 +4,322 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
-    img{
-        width: 100px;
-        height: 100px;
-
+    .content_main{
+        min-height: 700px;
+        padding-right: 350px;
+        position: relative;
+    }
+    table{
+        border-collapse: collapse;
     }
 
+
+
+
+    .addressInfo_input{
+        display: none;
+    }
+    .order_point_input_btn{
+        display: block;
+    }
 </style>
 <body>
-    주문 페이지 입니다!
-    <div class="delivery-info">
-    <h5>배송지 정보</h5>
+    <div class="content_main">
+        <!-- 회원 정보 -->
+        <div class="memberInfo_div">
+            <table class="memberInfo_table">
+                <tbody>
+                    <tr>
+                        <th>주문자</th>
+                        <td th:text="${memberInfo.name} "></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <!-- 배송지 정보 -->
+        <div class="addressInfo_div">
+            <div class="addressInfoBtn_div">
+                <button class="addressBtn addressBtn_1" onclick="showAddress('1')">등록된 주소</button>
+                <button class="addressBtn addressBtn_2" onclick="showAddress('2')">직접 입력</button>
+            </div>
+            <div class="addressInfo_input_box">
+                <div class="addressInfo_input addressInfo_input_1" style="display: block">
+                    <table>
 
-    </div>
-    <hr>
+                        <tbody>
+                        <tr>
+                            <th>이름</th>
+                            <td>
+                                [[${memberInfo.name}]]
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>주소</th>
+                            <td>
+                               [[${memberInfo.addr}]]
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="addressInfo_input addressInfo_input_2">
+                    <table>
 
-    <div class="consumer-info">
-        <h5>구매자 정보</h5>
-    </div>
-    <hr>
-    <div class="product-info">
-        <table>
-            <tr>
-                <th>배송 예상일</th>
-            </tr>
-            <tr>
-                <td > <img th:src="${pvo.pImage}"></td><br>
-                <td th:text="${pvo.pName}"></td><br>
-                <td th:text="${pvo.pPrice}"></td><br>
-            </tr>
-        </table>
-    </div>
-    <hr>
+                        <tbody>
+                        <tr>
+                            <th>이름</th>
+                            <td>
+                                <input class="addressee_input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>주소</th>
+                            <td>
 
-    <div class="payment-info">
-        <h5>결제 정보</h5>
-    </div>
+                                <input class="address1_input" readonly="readonly"> <a class="address_search_btn" onclick="execution_daum_address()">주소 찾기</a><br>
+                                <input class="address2_input" readonly="readonly"><br>
+                                <input class="address3_input" readonly="readonly">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- 상품 정보 -->
+        <div class="productInfo_div">
+            <div class="goods_kind_div">
+                주문상품 <span class="goods_kind_div_kind"></span>종류 <span class="goods_kind_div_count"></span>개
+            </div>
+            <table class="product_subject_table">
+                <tr>
+                    <th>이미지</th>
+                    <th>상품 정보</th>
+                    <th>판매가</th>
+                </tr>
+            </table>
+            <table class="product_table" th:each="product :${orderlist}">
+                <tr>
+                    <td>이미지 url</td>
 
-    <form method="get" action="#">
-        <button>결제하기</button>
-    </form>
+
+
+                </tr>
+                <tr>
+                    <td class="product_price_td">
+                        <span th:text="${#numbers.formatInteger(product.salePrice, 0, 'COMMA')}+원"></span> | 수량 [[${product.itemCount}]]개
+                        <br><span th:text="${#numbers.formatInteger(product.totalPrice, 0, 'COMMA')}+원"></span>
+                        <br>[<span th:text="${#numbers.formatInteger(product.totalPoint, 0, 'COMMA')}+P"></span>]
+                        <input type="hidden" class="individual_pPrice_input" th:value="${product.pPrice}">
+                        <input type="hidden" class="individual_salePrice_input" th:value="${product.salePrice}">
+                        <input type="hidden" class="individual_totalPrice_input" th:value="${product.totalPrice}">
+                        <input type="hidden" class="individual_point_input" th:value="${product.point}">
+                        <input type="hidden" class="individual_totalPoint_input" th:value="${product.totalPoint}">
+                        <input type="hidden" class="individual_itemCount_input" th:value="${product.itemCount}">
+                        <input type="hidden" class="individual_pno_input" th:value="${product.pno}">
+                    </td>
+                    <hr>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 포인트 정보 -->
+        <div class="point_div">
+            <div class="point_div_subject">포인트 사용</div>
+            <table class="point_table">
+
+                <tr>
+                    <td>
+                        [[${memberInfo.point}]] | <input class="order_point_input" th:value="0">원
+                        <a class="order_point_input_btn order_point_input_btn_All" data-state="A">모두사용</a><br>
+                        <br><a class="order_point_input_btn order_point_input_btn_Cancel" data-state="C" style="display: none;">사용취소</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- 주문 종합 정보 -->
+        <div class="total_info_div">
+            <div class="total_info_price_div">
+                <ul>
+                    <li>
+                        <span class="price_span_label">상품 금액</span>
+                        <span class="totalPrice_span"></span>원
+                    </li>
+                    <li>
+                        <span class="price_span_label">배송비</span>
+                        <span class="delivery_price_span"></span>원
+                    </li>
+                    <li>
+                        <span class="price_span_label">할인금액</span>
+                        <span class="usePoint_span"></span>원
+                    </li>
+                    <li class="price_total_li">
+                        <strong class="price_span_label total_price_label">최종 결제 금액</strong>
+                        <strong class="strong_red">
+						<span class="total_price_red finalTotalPrice_span">
+
+						</span>원
+                        </strong>
+                    </li>
+                    <li class="point_li">
+                        <span class="price_span_label">적립예정 포인트</span>
+                        <span class="totalPoint_span"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+
+    <!--    주소div 보여주기-->
+    function showAddress(classname){
+        //모두 숨기기
+        $(".addressInfo_input").css("display","none")
+        // 하나만 보여주기
+        $(".addressInfo_input_"+classname).css("display","block")
+
+        //버튼 색상 변경
+        $(".addressBtn").css('backgroundColor', '#555')
+        $(".addressBtn_"+classname).css('backgroundColor', 'white')
+    }
+    // 포인트 사용1
+    $(".order_point_input").on("propertychange change keyup paste input",function (){
+
+        const maxPoint = parseInt([[${memberInfo.point}]])
+        let inputValue = parseInt($(this).val())
+        console.log(inputValue)
+        if(inputValue<0){
+            $(this).val(0)
+        }
+        else if(inputValue>maxPoint){
+            $(this).val(maxPoint)
+        }
+        setTotalInfo();
+    })
+    // 포인트 사용2(모두사용)
+    $(".order_point_input_btn").click(function (){
+        const maxPoint = parseInt([[${memberInfo.point}]])
+        let state = $(this).data("state");
+        console.log(state)
+        if(state == 'A'){
+            console.log("All")
+            $(".order_point_input").val(maxPoint);
+            $(".order_point_input_btn_All").css("display","none")
+            $(".order_point_input_btn_Cancel").css("display","block")
+        }
+        else if(state == 'C'){
+            console.log("Cancel")
+            $(".order_point_input").val(0);
+            $(".order_point_input_btn_All").css("display","block")
+            $(".order_point_input_btn_Cancel").css("display","none")
+        }
+        setTotalInfo();
+    })
+    /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
+    function setTotalInfo(){
+        let totalPrice = 0;				// 총 가격
+        let totalCount = 0;				// 총 갯수
+        let totalKind = 0;				// 총 종류
+        let totalPoint = 0;				// 총 마일리지
+        let deliveryPrice = 0;			// 배송비
+        let usePoint = 0;				// 사용 포인트(할인가격)
+        let finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
+
+        $(".product_price_td").each(function (index,ele){
+            console.log(ele)
+            totalPrice = parseInt($(ele).find(".individual_totalPrice_input").val())
+            totalCount = parseInt($(ele).find(".individual_itemCount_input").val())
+            totalPoint = parseInt($(ele).find(".individual_totalPoint_input").val())
+            totalKind = +1;
+        })
+        /* 배송비 결정 */
+        if(totalPrice >= 30000){
+            deliveryPrice = 0;
+        } else if(totalPrice == 0){
+            deliveryPrice = 0;
+        } else {
+            deliveryPrice = 3000;
+        }
+
+
+
+        usePoint = $(".order_point_input").val()
+
+        finalTotalPrice = totalPrice - usePoint + deliveryPrice;
+
+        /* 값 삽입 */
+        // 총 가격
+        $(".totalPrice_span").text(totalPrice.toLocaleString());
+        // 총 갯수
+        $(".goods_kind_div_count").text(totalCount);
+        // 총 종류
+        $(".goods_kind_div_kind").text(totalKind);
+        // 총 마일리지
+        $(".totalPoint_span").text(totalPoint.toLocaleString()+"P");
+        // 배송비
+        $(".delivery_price_span").text(deliveryPrice.toLocaleString());
+        // 최종 가격(총 가격 + 배송비)
+        $(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
+        // 할인가(사용 포인트)
+        $(".usePoint_span").text(usePoint.toLocaleString());
+    }
+    /* 다음 주소 연동 */
+    function execution_daum_address() {
+        console.log("동작");
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if (data.userSelectedType === 'R') {
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if (extraAddr !== '') {
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 추가해야할 코드
+                    // 주소변수 문자열과 참고항목 문자열 합치기
+                    addr += extraAddr;
+
+                } else {
+                    addr += ' ';
+                }
+                $(".address1_input").val(data.zonecode);
+                $(".address2_input").val(addr);
+                $(".address3_input").attr("readonly",false)
+                $(".address3_input").focus();
+            }
+        }).open();
+    }
+    //회원이 들어올때 기본적인 셋팅할것들
+    $(document).ready(function (){
+        setTotalInfo();
+    })
+</script>
 </html>

@@ -83,6 +83,8 @@
     <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='priceasc',keyword=${cri.keyword})}">가격낮은순</a>
     <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='pricedesc',keyword=${cri.keyword})}">가격높은순</a>
     <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='new',keyword=${cri.keyword})}">신상품순</a>
+    <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='ratingDesc',keyword=${cri.keyword})}">평점높은순</a>
+    <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='reviewCntDesc',keyword=${cri.keyword})}">리뷰많은순</a>
 </div>
 
 <!--카테고리 목록-->
@@ -123,7 +125,7 @@
 <div>
     <div class="product-container">
             <div >
-                <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(pno=${dto?.pno})}">
+                <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(pno=${dto?.pno},mno=1)}">
                     <img th:src="${dto.pImage}">
                  <p>[[${dto?.pName}]]([[${dto?.pSubCategory}]])</p>
                     <p>[[${dto?.pPrice}]]원</p>
@@ -131,7 +133,11 @@
                 </a>
             </div>
     </div>
+<!--    <form class="mnoForm">-->
+<!--        <input name="pno" type="hidden" th:value="2">-->
+<!--        <input name="mno" type="hidden" th:value="1">-->
 
+<!--    </form>-->
 
     <!--페이징-->
 
@@ -181,6 +187,12 @@
         $("input[name='keyword']").keyup(function (){
             loadGetListBysearch();
         })
+        // $(".product-item").click(function (e){
+        //     e.preventDefault();
+        //     let mnoForm = $(".mnoForm");
+        //     // mnoForm.find("input[name='mno']")
+        //     mnoForm.submit();
+        // })
 
     })
 </script>

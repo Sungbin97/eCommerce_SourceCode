@@ -2,7 +2,6 @@ package com.green.team4.service.JH;
 
 import com.green.team4.mapper.JH.ReviewMapper;
 import com.green.team4.vo.JH.*;
-import com.green.team4.vo.sb.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +50,31 @@ public class ReviewServiceImpl implements ReviewService{
         return reviewPageVO;
     }
 
+    @Override
+    public void updateLike(int rno) {
+        reviewMapper.updateLike(rno);
+    }
+
+    @Override
+    public void updateLikeCancel(int rno) {
+        reviewMapper.updateLikeCancel(rno);
+    }
+
+    @Override
+    public void insertLike(ReviewLikeVO dto) {
+        reviewMapper.insertLike(dto);
+    }
+
+    @Override
+    public void deleteLike(ReviewLikeVO dto) {
+        reviewMapper.deleteLike(dto);
+    }
+
+    @Override
+    public int checkLike(ReviewLikeVO dto) {
+        return reviewMapper.checkLike(dto);
+    }
+
 
     //평점 업데이트
     public void setRating(int pno){
@@ -58,7 +82,7 @@ public class ReviewServiceImpl implements ReviewService{
         if(ratingAvg == null){
             ratingAvg=0.0;
         }
-        UpdateReplyVO urvo = new UpdateReplyVO();
+        UpdateReviewVO urvo = new UpdateReviewVO();
         urvo.setPno(pno);
         urvo.setPRating(ratingAvg);
         reviewMapper.updateRating(urvo);

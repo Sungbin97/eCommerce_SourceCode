@@ -14,4 +14,8 @@ public class MemberVO {
     private String addr; //주소
     private String phone;
     private String email;
+
+    //강정현 추가
+    private int money;
+    private int point;
 }

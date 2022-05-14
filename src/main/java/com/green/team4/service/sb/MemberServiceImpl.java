@@ -45,4 +45,14 @@ public class MemberServiceImpl implements MemberService{
         log.info("회원정보 삭제");
         return memberMapper.delete(mno);
     }
+
+
+    
+    //주문 페이지 서비스
+    
+    //멤버 조회
+    @Override
+    public MemberVO getMemberInfo(String email) {
+        return memberMapper.getMemberInfo(email);
+    }
 }

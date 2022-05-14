@@ -1,10 +1,6 @@
 package com.green.team4.mapper.JH;
 
-import com.green.team4.vo.JH.ItemPageCriteria;
-import com.green.team4.vo.JH.ReviewVO;
-import com.green.team4.vo.JH.UpdateReplyVO;
-import com.green.team4.vo.JH.UpdaterReviewCntVO;
-import com.green.team4.vo.sb.ProductVO;
+import com.green.team4.vo.JH.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,7 +20,7 @@ public interface ReviewMapper {
     public Double getRatingAvg(int pno);
 
     // 평점 업데이트하기
-    public int updateRating(UpdateReplyVO urvo);
+    public int updateRating(UpdateReviewVO urvo);
 
     //리뷰 갯수 구하기
     public int getReviewsCount(int pno);
@@ -32,6 +28,16 @@ public interface ReviewMapper {
 
     //리뷰 페이징
     public List<ReviewVO> getReviewListWithPaging(ItemPageCriteria cri);
+
+    //리뷰  좋아요 업데이트
+    public void updateLike(int rno);
+    public void updateLikeCancel(int rno);
+    //리뷰 좋아요 등록
+    public void insertLike(ReviewLikeVO dto);
+
+    public void deleteLike(ReviewLikeVO dto);
+
+    public int checkLike(ReviewLikeVO dto);
 }
 
 

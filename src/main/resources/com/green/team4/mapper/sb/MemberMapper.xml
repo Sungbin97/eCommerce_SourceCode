@@ -29,4 +29,10 @@
         delete from member_tbl where mno=#{mno}
     </delete>
 
+
+<!--    id통한 정보구하기-->
+    <select id="getMemberInfo" resultType="com.green.team4.vo.sb.MemberVO">
+        select * from member_tbl
+        where email=#{email}
+    </select>
 </mapper>

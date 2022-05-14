@@ -12,4 +12,7 @@ public interface MemberMapper {
     MemberVO getOne(int mno);
     int update(MemberVO memberVO);
     int delete(int mno);
+
+    //주문 페이지에서 사용 할 id 통한 회원구하기
+    public MemberVO getMemberInfo(String email);
 }

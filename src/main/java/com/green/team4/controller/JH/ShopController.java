@@ -2,6 +2,7 @@ package com.green.team4.controller.JH;
 
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
+import com.green.team4.service.sb.MemberService;
 import com.green.team4.vo.JH.ItemPageCriteria;
 import com.green.team4.vo.JH.PagingVO;
 import com.green.team4.vo.sb.ProductVO;
@@ -26,6 +27,9 @@ public class ShopController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private MemberService memberService;
     @GetMapping("/start")
     public void start(){
 
@@ -49,10 +53,10 @@ public class ShopController {
 
     // 상품 상세페이지
     @GetMapping("/read")
-    public void read(int pno, Model model){
+    public void read(int pno,int mno, Model model){
         log.info("read");
-        log.info("p_no : "+pno);
-
+        log.info("pno : "+pno);
+       log.info("mno : " + mno);
         ProductVO pvo = shopService.getOne(pno);
         System.out.println(pvo);
 
@@ -60,18 +64,18 @@ public class ShopController {
         model.addAttribute("colors",shopService.getColors(pvo.getPCode()));
         model.addAttribute("sizes",shopService.getSizes(pvo.getPCode()));
         model.addAttribute("options",shopService.getOptList(pvo.getPCode()));
-
-
-    }
-
-    @GetMapping("/orderSheet")
-    public void orderGet(int pno , Model model){
-        log.info("orderSheet");
-        log.info("p_no : "+pno);
-
-        model.addAttribute("pvo",shopService.getOne(pno));
+        model.addAttribute("member",memberService.getOne(mno));
 
     }
+
+//    @GetMapping("/orderSheet")
+//    public void orderGet(int pno , Model model){
+//        log.info("orderSheet");
+//        log.info("p_no : "+pno);
+//
+//        model.addAttribute("pvo",shopService.getOne(pno));
+//
+//    }
     @GetMapping("/orderCompleted")
     public void orderCompleted(int p_no , Model model){
 

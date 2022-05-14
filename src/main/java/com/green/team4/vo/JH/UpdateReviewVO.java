@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class UpdateReplyVO {
+public class UpdateReviewVO {
     private int pno;
     private double pRating;
 }

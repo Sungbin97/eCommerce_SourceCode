@@ -1,5 +1,6 @@
 package com.green.team4.vo.JH;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.util.Date;
@@ -17,7 +18,10 @@ public class ReviewVO {
     private int likeHit ;
     private String rImageURL ;
     private String rContent;
+
+
     private Date rRegdate;
+
     private Date rUpdatedate;
 
 

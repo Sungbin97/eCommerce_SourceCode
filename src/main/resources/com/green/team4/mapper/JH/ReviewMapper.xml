@@ -36,7 +36,45 @@
     </update>
 
     <select id="getReviewListWithPaging" resultType="com.green.team4.vo.JH.ReviewVO">
-        select * from review where pno = #{pno} order by rRegdate desc
+        select * from review where pno = #{pno} <include refid="reviewSort"></include>
                  limit #{startPage}, #{numPerPage}
+    </select>
+    <sql id="reviewSort">
+        <if test="sort == ''">
+            order by rRegdate desc
+        </if>
+        <if test="sort == 'new'">
+            order by rRegdate desc
+        </if>
+        <if test="sort == 'best'">
+            order by likeHit desc
+        </if>
+        <if test="sort == 'ratingdesc'">
+            order by rRating desc
+        </if>
+        <if test="sort == 'ratingasc'">
+            order by rRating asc
+        </if>
+    </sql>
+
+<!--    리뷰 추천 업데이트-->
+    <update id="updateLike">
+        update review set likeHit = likeHit +1
+        where rno = #{rno}
+    </update>
+    <update id="updateLikeCancel">
+        update review set likeHit = likeHit -1
+        where rno = #{rno}
+    </update>
+<!--    리뷰추천 등록-->
+    <insert id="insertLike">
+        insert into review_Like (likeno,pno,mno,rno,devCheck,devDate)
+    </insert>
+    <!--    리뷰추천 삭제-->
+    <delete id="deleteLike">
+        delete from review_Like where mno=#{mno} and rno = #{rno}
+    </delete>
+    <select id="checkLike" resultType="int">
+        select count(*) from review_LIKE where where mno=#{mno} and rno = #{rno}
     </select>
 </mapper>

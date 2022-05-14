@@ -1,6 +1,8 @@
 package com.green.team4.mapperTests;
 
 import com.green.team4.mapper.JH.ShopMapper;
+import com.green.team4.service.JH.ReviewService;
+import com.green.team4.service.JH.ShopService;
 import com.green.team4.vo.JH.ItemPageCriteria;
 import com.green.team4.vo.JH.PagingVO;
 
@@ -22,6 +24,9 @@ public class ShopMapperTest {
 
     @Autowired
     private ShopMapper mapper;
+    @Autowired
+    private ShopService shopService;
+
 
     private static Logger logger = LoggerFactory.getLogger(ShopMapperTest.class);
     @Test
@@ -78,7 +83,7 @@ public class ShopMapperTest {
             pvo.setPInformation("형 믿고 사");
             pvo.setPDelivery("무료배송");
 
-           mapper.insert(pvo);
+            shopService.register(pvo);
         }
     }
     @Test

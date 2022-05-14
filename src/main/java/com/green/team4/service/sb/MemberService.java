@@ -12,4 +12,7 @@ public interface MemberService {
     int update(MemberVO vo);
     int delete(int mno);
 
+    //주문페이지에 사용할 멤버 서비스
+    public MemberVO getMemberInfo(String email);
+
 }

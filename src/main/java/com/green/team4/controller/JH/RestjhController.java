@@ -4,6 +4,7 @@ import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
 
 import com.green.team4.vo.JH.ItemPageCriteria;
+import com.green.team4.vo.JH.ReviewLikeVO;
 import com.green.team4.vo.JH.ReviewPageVO;
 import com.green.team4.vo.JH.ReviewVO;
 import com.green.team4.vo.sb.ProductVO;
@@ -13,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -75,7 +73,7 @@ public class RestjhController {
         }
         return responseEntity;
     }
-    @GetMapping("/getListBySearch/{keyword}")
+    @GetMapping(value = "/getListBySearch/{keyword}")
     public ResponseEntity<List<ProductVO>> getListBySearch(@PathVariable("keyword") String keyword){
         ResponseEntity<List<ProductVO>> responseEntity = null;
         try{
@@ -85,6 +83,22 @@ public class RestjhController {
         }
         return responseEntity;
     }
+
+//    @PostMapping(value = "/commentLike")
+//    public int ReviewLike(@RequestBody ReviewLikeVO dto){
+//        System.out.println("입장");
+//            int checkLike  = reviewService.checkLike(dto);
+//            if(checkLike ==0 ){
+//                reviewService.insertLike(dto);
+//                reviewService.updateLike(dto.getRno());
+//            }
+//            else if(checkLike == 1){
+//                reviewService.deleteLike(dto);
+//                reviewService.updateLikeCancel(dto.getRno());
+//            }
+//
+//        return checkLike;
+//    }
 
 
 }

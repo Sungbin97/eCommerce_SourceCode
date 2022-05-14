@@ -41,7 +41,7 @@ public class ReviewMapperTest {
             rvo.setRRating((int)(Math.random()*5));
             rvo.setRRegdate(new Date());
             rvo.setRUpdatedate(new Date());
-            mapper.write(rvo);
+            reviewService.write(rvo);
         }
     }
     @Test

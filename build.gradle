@@ -36,6 +36,8 @@ dependencies {
 	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.12' // 썸네일 만들기
 
 
+
+
 }
 
 tasks.named('test') {

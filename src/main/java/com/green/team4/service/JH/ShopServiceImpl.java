@@ -28,7 +28,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public int register(ProductVO pvo) {
-        return 0;
+        return shopMapper.insert(pvo);
     }
 
     @Override
