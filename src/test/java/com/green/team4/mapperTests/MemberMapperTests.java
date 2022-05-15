@@ -54,4 +54,9 @@ public class MemberMapperTests {
         vo.setMno(5);
         memberMapper.delete(vo.getMno());
     }
+    @Test
+    public void testgetListByEmail(){
+       System.out.println(memberMapper.getMemberInfo("0fds@0few.com"));
+
+    }
 }

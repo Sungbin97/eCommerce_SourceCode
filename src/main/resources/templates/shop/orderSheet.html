@@ -19,7 +19,7 @@
 
 
 
-    .addressInfo_input{
+    .addressInfo_input_div{
         display: none;
     }
     .order_point_input_btn{
@@ -47,7 +47,7 @@
                 <button class="addressBtn addressBtn_2" onclick="showAddress('2')">직접 입력</button>
             </div>
             <div class="addressInfo_input_box">
-                <div class="addressInfo_input addressInfo_input_1" style="display: block">
+                <div class="addressInfo_input_div addressInfo_input_div_1" style="display: block">
                     <table>
 
                         <tbody>
@@ -60,26 +60,31 @@
                         <tr>
                             <th>주소</th>
                             <td>
-                               [[${memberInfo.addr}]]
+                               [[${memberInfo.addr1}]]<br> [[${memberInfo.addr2}]] [[${memberInfo.addr3}]]
+                                <input class="selectAddress" value="T" type="hidden">
+                                <input class="receiverName_input" th:value="${memberInfo.name}" type="hidden">
+                                <input class="address1_input" type="hidden" th:value="${memberInfo.addr1}">
+                                <input class="address2_input" type="hidden" th:value="${memberInfo.addr2}">
+                                <input class="address3_input" type="hidden" th:value="${memberInfo.addr3}">
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="addressInfo_input addressInfo_input_2">
+                <div class="addressInfo_input_div addressInfo_input_div_2">
                     <table>
 
                         <tbody>
                         <tr>
                             <th>이름</th>
                             <td>
-                                <input class="addressee_input">
+                                <input class="receiverName_input">
                             </td>
                         </tr>
                         <tr>
                             <th>주소</th>
                             <td>
-
+                                <input class="selectAddress" value="F" type="hidden">
                                 <input class="address1_input" readonly="readonly"> <a class="address_search_btn" onclick="execution_daum_address()">주소 찾기</a><br>
                                 <input class="address2_input" readonly="readonly"><br>
                                 <input class="address3_input" readonly="readonly">
@@ -106,8 +111,6 @@
             <table class="product_table" th:each="product :${orderlist}">
                 <tr>
                     <td>이미지 url</td>
-
-
 
                 </tr>
                 <tr>
@@ -173,20 +176,70 @@
                 </ul>
             </div>
         </div>
+        <!-- 주문 요청 form -->
+        <form class="order_form" action="/order" method="post">
+            <!-- 주문자 회원번호 -->
+            <input name="mno" th:value="${memberInfo.mno}" type="hidden">
+            <!-- 주소록 & 받는이-->
+            <input name="receiverName" type="hidden">
+            <input name="addr1" type="hidden">
+            <input name="addr2" type="hidden">
+            <input name="addr3" type="hidden">
+            <!-- 사용 포인트 -->
+            <input name="usePoint" type="hidden">
+            <!-- 상품 정보 -->
+
+        </form>
+        <button class="order_btn">결제하기</button>
     </div>
 </body>
 <script>
+    //결제하기
+    $(".order_btn").on("click", function(e){
 
+        $(".addressInfo_input_div").each(function (i,obj){
+            //받는이,주소 값 넣기
+            if($(obj).find(".selectAddress").val()==='T'){
+                $("input[name='receiverName']").val($(obj).find(".receiverName_input").val());
+                $("input[name='addr1']").val($(obj).find(".address1_input").val());
+                $("input[name='addr2']").val($(obj).find(".address2_input").val());
+                $("input[name='addr3']").val($(obj).find(".address3_input").val());
+            }
+            // 포인트 값 넣기
+            $("input[name='usePoint']").val($(".order_point_input").val())
+
+            /* 상품정보 */
+            let form_contents = '';
+            $(".product_price_td").each(function(index, element){
+                let pno = $(element).find(".individual_pno_input").val();
+                let itemCount = $(element).find(".individual_itemCount_input").val();
+                let pno_input = "<input name='orders[" + index + "].pno' type='hidden' value='" + pno + "'>";
+                form_contents += pno_input;
+                let itemCount_input = "<input name='orders[" + index + "].itemCount' type='hidden' value='" + itemCount + "'>";
+                form_contents += itemCount_input;
+            });
+            $(".order_form").append(form_contents);
+            $(".order_form").submit();
+        })
+    });
     <!--    주소div 보여주기-->
     function showAddress(classname){
         //모두 숨기기
-        $(".addressInfo_input").css("display","none")
+        $(".addressInfo_input_div").css("display","none")
         // 하나만 보여주기
-        $(".addressInfo_input_"+classname).css("display","block")
+        $(".addressInfo_input_div_"+classname).css("display","block")
 
         //버튼 색상 변경
         $(".addressBtn").css('backgroundColor', '#555')
         $(".addressBtn_"+classname).css('backgroundColor', 'white')
+        //주소 선택하기 (사용자 등록주소, 직접입력 주소)
+        $(".addressInfo_input_div").each(function (i,obj){
+            console.log(obj)
+            //F로 디폴트
+            $(this).find(".selectAddress").val("F")
+        })
+        //T로 변경
+        $(".addressInfo_input_div_"+classname).find(".selectAddress").val("T")
     }
     // 포인트 사용1
     $(".order_point_input").on("propertychange change keyup paste input",function (){
@@ -221,6 +274,8 @@
         }
         setTotalInfo();
     })
+
+
     /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
     function setTotalInfo(){
         let totalPrice = 0;				// 총 가격
@@ -232,7 +287,7 @@
         let finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
 
         $(".product_price_td").each(function (index,ele){
-            console.log(ele)
+            console.log("product_price_td",ele)
             totalPrice = parseInt($(ele).find(".individual_totalPrice_input").val())
             totalCount = parseInt($(ele).find(".individual_itemCount_input").val())
             totalPoint = parseInt($(ele).find(".individual_totalPoint_input").val())

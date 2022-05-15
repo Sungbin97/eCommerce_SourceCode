@@ -18,4 +18,7 @@ public class MemberVO {
     //강정현 추가
     private int money;
     private int point;
+    private String addr1; // 우편번호
+    private String addr2; // 주소
+    private String addr3; // 상세주소
 }

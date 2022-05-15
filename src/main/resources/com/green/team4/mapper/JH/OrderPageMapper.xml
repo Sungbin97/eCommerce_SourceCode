@@ -6,4 +6,36 @@
     <select id="getProductsInfo" resultType="com.green.team4.vo.JH.OrderPageItemVO">
         select pno,pName,pPrice,pDiscount from product where pno = #{pno}
     </select>
+<!--    주문 정보 가져오기-->
+    <select id="getOrderInfo" resultType="com.green.team4.vo.JH.DBOrderItemVO">
+        select pno,pName,pPrice,pDiscount from produce where pno = #{pno}
+    </select>
+<!--    주문 테이블 등록-->
+    <insert id="enrollOrder">
+       insert into tbl_order(ono, receiverName, mno, addr1, addr2, addr3, orderStatus, shipFee, usePoint)
+    	values(#{ono},#{receiverName}, #{mno}, #{addr1}, #{addr2}, #{addr3}, '배송준비', #{shipFee}, #{usePoint})
+    </insert>
+
+<!-- 주문 상품 테이블 등록 -->
+	<insert id="enrollOrderItem">
+
+		insert into orderitem_tbl(orderItemno, pno, itemCount, pPrice, pDiscount, savePoint)
+		values(#{orderItemno}, #{pno}, #{itemCount}, #{pPrice}, #{pDiscount}, #{savePoint})
+
+	</insert>
+	
+<!--	회원 돈,포인트 차감-->
+    <update id="deductMoney">
+        update member set money = #{money} , point=#{point} where mno = #{mno}
+    </update>
+<!--주문 재고 차감-->
+    <update id="deductStock">
+         update product set pAmount = #{pAmount} where pno = #{pno}
+    </update>
+<!--    장바구니 삭제(주문한거만)-->
+<!--    <delete id="deleteOrderCart">-->
+<!--	-->
+<!--		delete from 장바구니 테이블 where mno = #{mno} and pno = #{pno}-->
+<!--	-->
+<!--	</delete>-->
 </mapper>

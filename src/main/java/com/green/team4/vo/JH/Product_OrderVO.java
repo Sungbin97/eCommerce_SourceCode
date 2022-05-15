@@ -16,7 +16,10 @@ public class Product_OrderVO {
     private int ono; // 주문번호
     private int p_no; // 상품번호 (tbl_tbl_product)
     private int pno; // 결제수단 번호 (tbl_paymentInfo)
-    private String delAddr; // 배송지 주소
+//    private String delAddr; // 배송지 주소
+    private String addr1; // 우편번호
+    private String addr2; // 주소
+    private String addr3; // 상세주소
     private String receiverName; // 받는 사람 성명
     private String receiverPhone; // 받는 사람 연락처
     private String message; // 주문/배송 관련 메세지
