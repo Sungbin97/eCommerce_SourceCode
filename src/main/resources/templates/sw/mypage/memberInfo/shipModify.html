@@ -8,38 +8,23 @@
 <body>
     <h2>마이페이지-배송지 수정화면</h2>
 
-    <p>기존 배송지</p>
-    <div>
-        <div>
-            <label>우편번호</label>
-            <input type="text" name="postcode" th:value="${shipmentVO.postcode}" readonly />
-        </div>
-        <div>
-            <label>도로명 주소</label>
-            <input type="text" name="address" th:value="${shipmentVO.address}" readonly/>
-        </div>
-        <div>
-            <label>상세 주소</label>
-            <input type="text" name="detailAddress" th:value="${shipmentVO.detailAddress}" required/>
-        </div>
-    </div><br/>
-
-    <p>변경할 배송지</p>
+    <p>배송지 조회&수정</p>
     <form th:action="@{/sw/mypage/memberInfo/shipModify}" th:method="post">
         <input type="hidden" name="mno" th:value="${shipmentVO.mno}" readonly>
         <input type="hidden" name="sno" th:value="${shipmentVO.sno}" readonly>
         <div>
-            <input type="text" name="postcode" placeholder="우편번호" readonly />
+            <input type="text" name="postcode" placeholder="우편번호" th:value="${shipmentVO.postcode}"/>
         </div>
         <div>
             <button type="button" id="getPostCode">우편번호 찾기</button>
         </div>
         <div>
-            <input type="text" name="address" placeholder="도로명 주소" readonly/>
+            <input type="text" name="address" th:value="${shipmentVO.address}" placeholder="도로명 주소"/>
         </div>
         <div>
-            <input type="text" name="detailAddress" placeholder="상세 주소" required/>
+            <input type="text" name="detailAddress" th:value="${shipmentVO.detailAddress}" placeholder="상세 주소" required/>
         </div>
+        <br/>
         <input type="submit" value="배송지 수정등록">
     </form>
 </body>

@@ -8,28 +8,62 @@
 <body>
     <h2>마이페이지 메인</h2>
 
-    <form action="/sw/mypage/memberInfo/read" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="개인정보관리">
-    </form>
+    <h3 th:text="${memName}+'님 환영합니다:)'"></h3>
 
-    <form action="/sw/mypage/interest/read" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="찜한 상품">
-    </form>
-
-    <form action="/sw/mypage/cart/read" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="장바구니">
-    </form>
-    <form action="/sw/mypage/order/list" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="주문내역">
-    </form>
-    <form action="/sw/mypage/exchange/list" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="취소/반품/교환">
-    </form>
+    <div>
+        <!-- 쇼핑 요약 정보 -->
+        <h3>쇼핑 요약</h3>
+        <table style="border: solid black 1px">
+            <thead>
+                <th>구분</th>
+                <th>찜한 상품</th>
+                <th>장바구니</th>
+                <th>주문목록</th>
+                <th>취소/반품/교환</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>개수</th>
+                    <td th:text="${itrCnt}"></td>
+                    <td th:text="${cartCnt}"></td>
+                    <td th:text="${orderCnt}"></td>
+                    <td th:text="${exCnt}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- 페이지 진입한 회원의 mno (hidden) -->
+        <div>
+            <input type="hidden" th:name="mno" th:value="${mno}">
+        </div>
+        <!-- 페이지 진입 버튼 -->
+        <div>
+            <button type="button" name="memberInfo">개인정보관리</button>
+            <button type="button" name="interest">찜한 상품</button>
+            <button type="button" name="cart">장바구니</button>
+            <button type="button" name="order">주문내역</button>
+            <button type="button" name="exchange">취소/반품/교환</button>
+        </div>
+    </div>
 
 </body>
+<script>
+    $(document).ready(function (){
+
+        // 아무 버튼이 클릭되면
+        $("button").click(function (e){
+
+            // 필요한 데이터
+            var mno = $('input[name=mno]').val();
+            var pageName = e.target.name;
+
+            // 해당하는 페이지로 이동 처리
+            if(pageName === 'memberInfo') window.location.href = '/sw/mypage/memberInfo/read?mno='+mno;
+            else if(pageName === 'interest') window.location.href = '/sw/mypage/interest/list?mno='+mno;
+            else if(pageName === 'cart') window.location.href = '/sw/mypage/cart/list?mno='+mno;
+            else if(pageName === 'order') window.location.href = '/sw/mypage/order/list?mno='+mno;
+            else if(pageName === 'exchange') window.location.href = '/sw/mypage/exchange/list?mno='+mno;
+        })
+    })
+
+</script>
 </html>

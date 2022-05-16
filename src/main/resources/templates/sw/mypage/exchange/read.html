@@ -76,9 +76,16 @@
         </ul>
     </form>
     <hr/>
-
+    <!-- 뒤로 돌아가기 버튼 -->
+    <button class="button" th:id="goBack">뒤로가기</button>
 </body>
 <script>
-
+    $(document).ready(function (){
+        // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
+        $("#goBack").click(function (){
+            var mno = $("input[name=mno]").val();
+            window.location.href = '/sw/mypage/exchange/list?mno='+mno;
+        })
+    })
 </script>
 </html>

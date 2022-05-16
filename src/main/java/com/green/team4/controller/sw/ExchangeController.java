@@ -25,6 +25,7 @@ public class ExchangeController {
     public void getExList(int mno, Model model){ // 취소/반품/교환 List가져오기
         log.info("OrderController => getExList(Get) 실행 => 받은 mno: "+mno);
         List<ExchangeVO> exList = exchangeService.readAll(mno);
+        model.addAttribute("mno",mno);
         model.addAttribute("exList",exList);
     }
 

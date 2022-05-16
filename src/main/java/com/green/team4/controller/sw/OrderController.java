@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Log4j2
@@ -33,9 +36,12 @@ public class OrderController {
 
     @GetMapping("/list")
     public void orderList(int mno, Model model){ // 주문목록 모두 가져오기
+
+        // 주문 목록 가져오기
         log.info("OrderController => orderList(GET) 실행 => 받은 mno: "+mno);
         List<OrderVO> orderList = orderService.readAll(mno);
         model.addAttribute("orderList",orderList);
+        model.addAttribute("mno",mno);
     }
 
     @GetMapping("/read")
@@ -73,6 +79,13 @@ public class OrderController {
     @PostMapping("/exchange")
     public String exRegister(ExchangeVO exchangeVO){
         log.info("OrderController => exRegister(POST) 실행 => 받은 exchangeVO: "+exchangeVO);
+
+        // 주문서 내 취소/반품/교환 신청 여부 내역 수정
+        OrderVO orderVO = orderService.readOne(exchangeVO.getOno());
+        orderVO.setExStatus(true);
+        orderService.modify(orderVO);
+
+        // 취소/반품/교환 신청 데이터 신규추가
         exchangeVO.setExStartDate(LocalDateTime.now());
         exchangeService.register(exchangeVO);
         return "redirect:/sw/mypage/order/list?mno="+exchangeVO.getMno();

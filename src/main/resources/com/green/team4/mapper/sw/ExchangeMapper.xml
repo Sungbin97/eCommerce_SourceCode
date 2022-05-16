@@ -20,7 +20,7 @@
 
     <!-- tbl_exchange 데이터 전체 가져오기(mno 단위) -->
     <select id="getAll" resultType="com.green.team4.vo.sw.ExchangeVO">
-        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.p_no,tbl_exchange.eno,exCategory,exContent,exStatus,exStartDate,exEndDate,
+        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.p_no,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exStartDate,exEndDate,
                tbl_product.p_name,tbl_order.count,tbl_order.productPrice,tbl_order.shipFee,tbl_order.totalPrice,
                tbl_paymentInfo.payName,tbl_paymentInfo.payContent
         from tbl_exchange
@@ -33,7 +33,7 @@
 
     <!-- tbl_exchange 데이터 하나 가져오기(eno 단위) -->
     <select id="getOne" resultType="com.green.team4.vo.sw.ExchangeVO">
-        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.p_no,tbl_exchange.eno,exCategory,exContent,exStatus,exStartDate,exEndDate,
+        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.p_no,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exStartDate,exEndDate,
                tbl_product.p_name,tbl_order.count,tbl_order.productPrice,tbl_order.shipFee,tbl_order.totalPrice,
                tbl_paymentInfo.payName,tbl_paymentInfo.payContent
                 from tbl_exchange
