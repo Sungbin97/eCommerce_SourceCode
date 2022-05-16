@@ -20,7 +20,7 @@ public class DBOrderItemVO {
     
     private double pDiscount; // 상품 할인율
     
-    private int savePoint; // 상품 한개 구매 후 얻을 포인트
+    private int savePoint; // 상품 한개 구매 후 얻을 포인트(적립)
 
 
 

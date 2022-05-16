@@ -78,7 +78,7 @@
                         <tr>
                             <th>이름</th>
                             <td>
-                                <input class="receiverName_input">
+                                <input class="receiverName_input" name="receiverName">
                             </td>
                         </tr>
                         <tr>
@@ -180,6 +180,7 @@
         <form class="order_form" action="/order" method="post">
             <!-- 주문자 회원번호 -->
             <input name="mno" th:value="${memberInfo.mno}" type="hidden">
+            <input name="email" th:value="${memberInfo.email}" type="hidden">
             <!-- 주소록 & 받는이-->
             <input name="receiverName" type="hidden">
             <input name="addr1" type="hidden">
@@ -187,7 +188,7 @@
             <input name="addr3" type="hidden">
             <!-- 사용 포인트 -->
             <input name="usePoint" type="hidden">
-            <!-- 상품 정보 -->
+
 
         </form>
         <button class="order_btn">결제하기</button>
@@ -278,13 +279,13 @@
 
     /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
     function setTotalInfo(){
-        let totalPrice = 0;				// 총 가격
-        let totalCount = 0;				// 총 갯수
-        let totalKind = 0;				// 총 종류
-        let totalPoint = 0;				// 총 마일리지
-        let deliveryPrice = 0;			// 배송비
-        let usePoint = 0;				// 사용 포인트(할인가격)
-        let finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
+        let totalPrice = 0;		// 총 가격
+        let totalCount = 0;		// 총 갯수
+        let totalKind = 0;		// 총 종류
+        let totalPoint = 0;		// 총 포인트
+        let deliveryPrice = 0;	// 배송비
+        let usePoint = 0;		// 사용 포인트(할인가격)
+        let finalTotalPrice = 0; // 최종 가격(총 가격 + 배송비)
 
         $(".product_price_td").each(function (index,ele){
             console.log("product_price_td",ele)
@@ -301,9 +302,7 @@
         } else {
             deliveryPrice = 3000;
         }
-
-
-
+        //고객이 사용하는 포인트
         usePoint = $(".order_point_input").val()
 
         finalTotalPrice = totalPrice - usePoint + deliveryPrice;

@@ -10,18 +10,18 @@ import lombok.*;
 public class OrderPageItemVO {
 
     /* 뷰로부터 전달받을 값 */
-    private int pno;
+    private int pno; //상품번호
 
-    private int itemCount;
+    private int itemCount; // 상품 수량
 
     /* DB로부터 꺼내올 값 */
     private String pName;
 
     private int pPrice;
 
-    private double pDiscount;
+    private double pDiscount; // 상품할인율
     /* 만들어 낼 값 */
-    private int salePrice; //상품가격
+    private int salePrice; //상품 파는가격(할인적용된 한개의 가격)
 
     private int totalPrice; // 총가격
 

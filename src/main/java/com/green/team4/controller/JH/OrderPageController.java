@@ -36,6 +36,7 @@ public class OrderPageController {
     public String orderPagePost(DBOrderVO vo ){
         System.out.println("orderPagePost입장");
         log.info("DBorderVO : " + vo);
+        orderPageService.order(vo);
         return "/shop/orderCompleted";
     }
 }

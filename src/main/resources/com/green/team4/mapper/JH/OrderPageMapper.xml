@@ -8,7 +8,7 @@
     </select>
 <!--    주문 정보 가져오기-->
     <select id="getOrderInfo" resultType="com.green.team4.vo.JH.DBOrderItemVO">
-        select pno,pName,pPrice,pDiscount from produce where pno = #{pno}
+        select pno,pName,pPrice,pDiscount from product where pno = #{pno}
     </select>
 <!--    주문 테이블 등록-->
     <insert id="enrollOrder">
@@ -19,14 +19,14 @@
 <!-- 주문 상품 테이블 등록 -->
 	<insert id="enrollOrderItem">
 
-		insert into orderitem_tbl(orderItemno, pno, itemCount, pPrice, pDiscount, savePoint)
-		values(#{orderItemno}, #{pno}, #{itemCount}, #{pPrice}, #{pDiscount}, #{savePoint})
+		insert into orderitem_tbl( pno, itemCount, pPrice, pDiscount, savePoint)
+		values( #{pno}, #{itemCount}, #{pPrice}, #{pDiscount}, #{savePoint})
 
 	</insert>
 	
 <!--	회원 돈,포인트 차감-->
     <update id="deductMoney">
-        update member set money = #{money} , point=#{point} where mno = #{mno}
+        update member_tbl set money = #{money} , point=#{point} where mno = #{mno}
     </update>
 <!--주문 재고 차감-->
     <update id="deductStock">
