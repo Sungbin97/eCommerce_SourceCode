@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -54,15 +54,17 @@
         <div class="col-3 bd-sidebar">
             <ul class="nav">
                 <li>
+                <li>
                     <a href="/sb/member/member?mno=1">회원관리</a>
                     <a href="/sb/product/list?pno=1">상품관리</a>
                     <a href="/sb/product/upload">상품등록</a>
                     <a href="/sb/product/modify?pno=1">상품정보수정</a>
-                    <a href="">주문/배송관리</a>
+                    <a href="/sb/order/list">주문/배송관리</a>
                     <a href="">각종 통계</a>
                     <a href="/sb/mail/list">EMAIL & SMS</a>
                     <a href="/sb/mail/write">개별 메일 전송</a>
                     <a href="/sb/mail/list">자동 메일 및 문자(예정)</a>
+                </li>
                 </li>
             </ul>
             <br>
@@ -76,17 +78,16 @@
                     <option value="">상품명 조회</option>
                     <option value="">카테고리 조회</option>
                 </select>
-                <a th:href="@{/sb/product/modify(pno=${getOne.pno})}"><li><img th:src="${getOne.pImageURL}"/></li></a>
+                <a th:href="@{/sb/product/modify(pno=${getOne.pno})}"><li>
+                    <img th:src="${getOne.pImageURL}"/></li></a>
                 <ul>
-                <li th:text="${getOne.pno}"></li>
-                <li th:text="${getOne.pName}"/>
-                <li th:text="${getOne.pMainCategory}"/>
-                <li th:text="${getOne.pSize}"/>
-                <li th:text="${getOne.pPrice}"/>
-                <li th:text="${getOne.pAmount}"/>
-                <li th:text="${getOne.pColor}"/>
-                <li th:text="${getOne.pImage}"/>
-                <li th:text="${getOne.pInformation}"/>
+                <li th:text="'품번: '+${getOne.pno}"></li>
+                <li th:text="'품명: '+${getOne.pName}"/>
+                <li th:text="'카테고리: '+${getOne.pMainCategory}"/>
+                <li th:text="'가격: '+${getOne.pPrice}"/>
+                <li th:text="'재고: '+${getOne.pAmount}"/>
+                <li th:text="'이미지: '+${getOne.pImage}"/>
+                <li th:text="'상품정보: '+${getOne.pInformation}"/>
                 </ul>
             </form>
             <h5>전체 상품 목록</h5>

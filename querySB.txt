@@ -22,7 +22,7 @@ create table tbl_product(
 create table tbl_mail(
     mno int,
     email varchar(50)  null,
-    mailNo int auto_increment primary key ,
+    mailNo int auto_increment primary key,
     subject varchar(70),
     text varchar(700),
     reception varchar(1000),
