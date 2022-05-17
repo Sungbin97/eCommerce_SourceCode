@@ -50,12 +50,12 @@ public class AdOrderController {
 
     // Delivery -----------------------------------------------------------------------------------------
 
-    @GetMapping("/delivery")
-    public void readOneDelivery(int ono, Model model){ // 배송조회 화면 가져오기
-        log.info("OrderController => readOneDelivery(GET) 실행 => 받은 ono: "+ono);
-        DeliveryVO deliveryVO = deliveryService.readOne(ono);
-        model.addAttribute("deliveryVO",deliveryVO);
-    }
+//    @GetMapping("/delivery")
+//    public void readOneDelivery(int ono, Model model){ // 배송조회 화면 가져오기
+//        log.info("OrderController => readOneDelivery(GET) 실행 => 받은 ono: "+ono);
+//        DeliveryVO deliveryVO = deliveryService.readOne(ono);
+//        model.addAttribute("deliveryVO",deliveryVO);
+//    }
 
     // Exchange -----------------------------------------------------------------------------------------
 

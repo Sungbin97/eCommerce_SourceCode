@@ -15,7 +15,7 @@ public class DeliveryServiceTests {
     @Test
     public void testGetOne(){
         int ono = 3;
-        DeliveryVO deliveryVO = deliveryService.readOne(ono);
+        DeliveryVO deliveryVO = deliveryService.readOne(ono,4);
         System.out.println(deliveryVO);
     }
 
