@@ -41,6 +41,7 @@ public class OrderPageServiceImpl implements OrderPageService {
     @Override
     @Transactional
     public void order(DBOrderVO vo) {
+        System.out.println("order서비스 입장");
         //회원정보
         MemberVO member =memberMapper.getMemberInfo(vo.getEmail());
         System.out.println("member: " + member);
@@ -49,9 +50,10 @@ public class OrderPageServiceImpl implements OrderPageService {
         for(DBOrderItemVO order:vo.getOrders()){
             System.out.println("order :"+order);
             DBOrderItemVO orderItem = orderPageMapper.getOrderInfo(order.getPno());
-            System.out.println("orderItem : "+orderItem);
             orderItem.setItemCount(order.getItemCount());
+            orderItem.setOno(vo.getOno());
             orderItem.initSaleTotal();
+            System.out.println("orderItem : "+orderItem);
             ords.add(orderItem);
         }
         vo.setOrders(ords);
@@ -60,15 +62,9 @@ public class OrderPageServiceImpl implements OrderPageService {
         //db에 넣기
         orderPageMapper.enrollOrder(vo);
         for(DBOrderItemVO order : vo.getOrders()){
-            //order.setOno(vo.getOno());
-            System.out.println(order);
             orderPageMapper.enrollOrderItem(order);
         }
-        //돈,포인트 차감
-        int calMoney = member.getMoney();
-        calMoney -= vo.getOrderFinalSalePrice();
-        member.setMoney(calMoney);
-
+        //포인트 차감
         int calPoint = member.getPoint();
         calPoint = calPoint - vo.getUsePoint() + vo.getOrderSavePoint();
         member.setPoint(calPoint);

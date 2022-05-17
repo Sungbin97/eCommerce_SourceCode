@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 public class DBOrderItemVO {
 
-    private int ono; //주문 번호
+    private String ono; //주문 번호
     private int pno; //상품 번호
     private int itemCount; // 주문수량
 

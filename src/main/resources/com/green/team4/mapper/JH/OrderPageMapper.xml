@@ -19,14 +19,14 @@
 <!-- 주문 상품 테이블 등록 -->
 	<insert id="enrollOrderItem">
 
-		insert into orderitem_tbl( pno, itemCount, pPrice, pDiscount, savePoint)
-		values( #{pno}, #{itemCount}, #{pPrice}, #{pDiscount}, #{savePoint})
+		insert into orderitem_tbl(ono, pno, itemCount, pPrice, pDiscount, savePoint)
+		values(#{ono}, #{pno}, #{itemCount}, #{pPrice}, #{pDiscount}, #{savePoint})
 
 	</insert>
 	
-<!--	회원 돈,포인트 차감-->
+<!--	회원 포인트 차감-->
     <update id="deductMoney">
-        update member_tbl set money = #{money} , point=#{point} where mno = #{mno}
+        update member_tbl set  point=#{point} where mno = #{mno}
     </update>
 <!--주문 재고 차감-->
     <update id="deductStock">

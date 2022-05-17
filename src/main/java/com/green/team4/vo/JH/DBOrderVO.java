@@ -13,7 +13,7 @@ import java.util.List;
 @ToString
 public class DBOrderVO {
     
-    private int ono; //주문번호
+    private String ono; //주문번호
     private int mno;
     
     private String receiverName; //배송받는사람

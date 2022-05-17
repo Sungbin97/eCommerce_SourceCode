@@ -13,7 +13,7 @@ public class Product_OrderVO {
 
     // tbl_order 칼럼
     private int mno; // 회원번호 (tbl_memberInfo)
-    private int ono; // 주문번호
+    private String ono; // 주문번호
     private int p_no; // 상품번호 (tbl_tbl_product)
     private int pno; // 결제수단 번호 (tbl_paymentInfo)
 //    private String delAddr; // 배송지 주소

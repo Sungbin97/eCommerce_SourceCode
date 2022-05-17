@@ -26,7 +26,7 @@ public class OrderPageMapperTests {
     }
 
 
-    @Test
+    //@Test
     public void enrollOrderTest() {
 
         DBOrderVO ord = new DBOrderVO();
@@ -44,7 +44,7 @@ public class OrderPageMapperTests {
 
         ord.setOrders(orders);
 
-        ord.setOno(1);
+        //ord.setOno(1);
         ord.setMno(1);
         ord.setReceiverName("test");
         ord.setEmail("admin");
@@ -65,7 +65,7 @@ public class OrderPageMapperTests {
 
         DBOrderItemVO oid = new DBOrderItemVO();
 
-        oid.setOno(1);
+       // oid.setOno(1);
         oid.setPno(1);
         oid.setItemCount(100);
         oid.setPPrice(500);
@@ -78,17 +78,17 @@ public class OrderPageMapperTests {
     }
 //
 //
-    @Test
-    public void deductMoneyTest() {
-
-        MemberVO member = new MemberVO();
-
-        member.setMno(1);
-        member.setMoney(500000);
-        member.setPoint(10000);
-
-        orderPageMapper.deductMoney(member);
-    }
+//    @Test
+//    public void deductMoneyTest() {
+//
+//        MemberVO member = new MemberVO();
+//
+//        member.setMno(1);
+//        member.setMoney(500000);
+//        member.setPoint(10000);
+//
+//        orderPageMapper.deductMoney(member);
+//    }
 //
     /* 상품 재고 변경 */
     @Test
