@@ -35,13 +35,14 @@
                 <td><a th:href="@{/sw/mypage/order/read(ono=${order.ono})}" th:text="${order.ono}"></a></td>
                 <td th:text="${order.payStatus}"></td>
                 <td th:text="${order.deliveryStatus}"></td>
-                <td th:text="${order.p_name}"></td>
+                <td th:text="${order.pName}"></td>
                 <td th:text="${order.totalPrice}"></td>
 
                 <!-- 배송조회 관련 controller 전송용 form -->
                 <td>
                     <form th:action="@{/sw/mypage/order/delivery}" th:method="get">
                         <input type="hidden" name="ono" th:value="${order.ono}" readonly>
+                        <input type="hidden" name="mno" th:value="${order.mno}" readonly>
                         <input type="submit" name="viewDelivery" class="btn btn-info" value="배송조회">
                     </form>
                 </td>
@@ -51,8 +52,8 @@
                     <form th:action="@{/sw/mypage/order/exchange}" th:method="get">
                         <input type="hidden" name="mno" th:value="${order.mno}" readonly>
                         <input type="hidden" name="ono" th:value="${order.ono}" readonly>
-                        <input type="hidden" name="p_no" th:value="${order.p_no}" readonly>
                         <input type="hidden" name="pno" th:value="${order.pno}" readonly>
+                        <input type="hidden" name="payINo" th:value="${order.payINo}" readonly>
                         <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
                         <input th:if="${order.exStatus.equals(false)}" class="btn btn-warning" type="submit"name="addExchange" value="취소/반품/교환 신청">
                     </form>

@@ -7,10 +7,10 @@
 
     <!-- Interest 데이터 전체 가져오기(mno 단위) -->
     <select id="getAll" resultType="com.green.team4.vo.sw.InterestVO">
-        select tbl_interest.mno,tbl_interest.itrNo,tbl_interest.p_no,tbl_interest.interestDate,
-               tbl_product.p_category,tbl_product.p_name,tbl_product.p_price,tbl_product.p_image from tbl_interest
+        select tbl_interest.mno,tbl_interest.itrNo,tbl_interest.pno,tbl_interest.interestDate,
+               tbl_product.pMainCategory,tbl_product.pSubCategory,tbl_product.pName,tbl_product.pPrice,tbl_product.pImage from tbl_interest
             left outer join tbl_product
-                on tbl_interest.p_no = tbl_product.p_no
+                on tbl_interest.pno = tbl_product.pno
                     where tbl_interest.mno=#{mno}
                         order by tbl_interest.interestDate desc;
     </select>

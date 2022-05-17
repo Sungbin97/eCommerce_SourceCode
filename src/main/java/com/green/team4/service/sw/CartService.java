@@ -7,5 +7,5 @@ import java.util.List;
 public interface CartService {
 
     List<CartVO> readAll(int mno); // 장바구니 전체 가져오기
-    int remove(int p_no); // 장바구니 삭제
+    int remove(int cno); // 장바구니 삭제
 }

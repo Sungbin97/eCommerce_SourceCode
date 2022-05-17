@@ -96,7 +96,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
 
         // 결제수단 정보 삭제
         List<PaymentVO> payList = paymentMapper.getAll(mno); // 탈퇴 회원 결제수단 정보 모두 가져오기
-        payList.forEach(pay->paymentMapper.delete(pay.getPno())); // 하나씩 꺼내서 결제수단 삭제
+        payList.forEach(pay->paymentMapper.delete(pay.getPayINo())); // 하나씩 꺼내서 결제수단 삭제
 
         // 회원정보 삭제
         int delResult = memberInfoMapper.delete(mno);

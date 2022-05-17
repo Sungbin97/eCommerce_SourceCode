@@ -14,8 +14,8 @@ public class OrderVO {
     // tbl_order 칼럼
     private int mno; // 회원번호 (tbl_memberInfo)
     private int ono; // 주문번호
-    private int p_no; // 상품번호 (tbl_tbl_product)
-    private int pno; // 결제수단 번호 (tbl_paymentInfo)
+    private int pno; // 상품번호 (tbl_tbl_product)
+    private int payINo; // 결제수단 번호 (tbl_paymentInfo)
     private String delAddr; // 배송지 주소
     private String receiverName; // 받는 사람 성명
     private String receiverPhone; // 받는 사람 연락처
@@ -34,7 +34,7 @@ public class OrderVO {
     private String phoneNum; // 주문자 연락처 (tbl_memberInfo)
 
     // tbl_product join 해서 가져올 칼럼
-    private String p_name;
+    private String pName;
 
     // tbl_paymentInfo join 해서 가져올 칼럼
     private String payName; // 결제 대분류(휴대폰, 신용카드, 체크카드, 카카오페이 등)

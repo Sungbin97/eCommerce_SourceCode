@@ -33,9 +33,9 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public PaymentVO readOne(int pno) { // 결제정보 하나 가져오기(pno 단위)
-        log.info("PaymentService => readOne 실행 => 받은 pno: "+pno);
-        PaymentVO result = paymentMapper.getOne(pno);
+    public PaymentVO readOne(int payINo) { // 결제정보 하나 가져오기(payINo 단위)
+        log.info("PaymentService => readOne 실행 => 받은 payINo: "+payINo);
+        PaymentVO result = paymentMapper.getOne(payINo);
         log.info("PaymentService => readOne 실행 후 받은 결제정보 하나: "+result);
         return result;
     }
@@ -49,9 +49,9 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public int remove(int pno) { // 결제정보 삭제
-        log.info("PaymentService => remove 실행 => 받은 pno: "+pno);
-        int result = paymentMapper.delete(pno);
+    public int remove(int payINo) { // 결제정보 삭제
+        log.info("PaymentService => remove 실행 => 받은 payINo: "+payINo);
+        int result = paymentMapper.delete(payINo);
         log.info("PaymentService => remove 실행 후 삭제된 데이터 개수: "+result);
         return result;
     }

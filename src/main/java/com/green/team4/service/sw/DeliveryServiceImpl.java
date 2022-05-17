@@ -16,9 +16,10 @@ public class DeliveryServiceImpl implements DeliveryService{
 
 
     @Override
-    public DeliveryVO readOne(int ono) { // 배송조회 데이터 하나가져오기
+    public DeliveryVO readOne(int mno, int ono) { // 배송조회 데이터 하나가져오기
         log.info("DeliveryService => readOne 실행 => 받은 ono: "+ono);
-        DeliveryVO deliveryVO = deliveryMapper.getOne(ono);
+        log.info("DeliveryService => readOne 실행 => 받은 ono: "+mno);
+        DeliveryVO deliveryVO = deliveryMapper.getOne(mno,ono);
         log.info("DeliveryService => readOne 실행 후 받은 deliveryVO: "+deliveryVO);
         return deliveryVO;
     }

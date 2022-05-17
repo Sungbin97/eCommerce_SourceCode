@@ -7,7 +7,7 @@
 
     <!-- Delivery 데이터 하나 가져오기(ono 단위) -->
     <select id="getOne" resultType="com.green.team4.vo.sw.DeliveryVO">
-        select * from tbl_delivery where ono = #{ono}
+        select * from tbl_delivery where mno=#{mno} and ono=#{ono}
     </select>
 
 </mapper>

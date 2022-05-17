@@ -118,7 +118,7 @@ public class MemberInfoController {
     @PostMapping("/payDelete") // 결제수단 정보 삭제 진행
     public ResponseEntity<Integer> payDelete(@RequestBody PaymentVO paymentVO){
         log.info("MemberInfoController => payDelete(POST/AJAX) 실행 => 받은 paymentVO: "+paymentVO);
-        int delCnt = paymentService.remove(paymentVO.getPno());
+        int delCnt = paymentService.remove(paymentVO.getPayINo());
         return new ResponseEntity<>(delCnt,HttpStatus.OK);
     }
 }
