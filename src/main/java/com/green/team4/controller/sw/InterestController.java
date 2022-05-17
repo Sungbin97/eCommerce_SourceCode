@@ -34,6 +34,6 @@ public class InterestController {
     public String itrDelete(InterestVO interestVO){ // 찜 삭제
         log.info("InterestController => itrDelete(POST) 실행 => 받은 interestVO: "+interestVO);
         interestService.remove(interestVO.getItrNo());
-        return "redirect:/sw/mypage/interest/read?mno="+interestVO.getMno();
+        return "redirect:/sw/mypage/interest/list?mno="+interestVO.getMno();
     }
 }

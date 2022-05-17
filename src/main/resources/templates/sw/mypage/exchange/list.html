@@ -28,7 +28,7 @@
                 <tr th:each="exchange : ${exList}">
                     <td name="exStartDate" th:text="${exchange.exStartDate}"></td>
                     <td><a th:href="@{/sw/mypage/exchange/read(eno=${exchange.eno})}" th:text="${exchange.eno}"></a></td>
-                    <td th:text="${exchange.p_name}"></td>
+                    <td th:text="${exchange.pName}"></td>
                     <td th:text="${exchange.exStatus}"></td>
                     <!-- 데이터 삭제 시 controller 전송용 form -->
                     <td>

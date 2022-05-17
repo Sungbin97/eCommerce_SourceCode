@@ -14,8 +14,8 @@
         <!-- 숨김 데이터 -->
         <input type="hidden" name="mno" th:value="${orderVO.mno}" readonly>
         <input type="hidden" name="ono" th:value="${orderVO.ono}" readonly>
-        <input type="hidden" name="p_no" th:value="${orderVO.p_no}" readonly>
         <input type="hidden" name="pno" th:value="${orderVO.pno}" readonly>
+        <input type="hidden" name="payINo" th:value="${orderVO.payINo}" readonly>
         <!-- 표시 데이터 -->
         주문자 정보
         <ul>
@@ -50,8 +50,8 @@
         주문 상품 내용
         <ul>
             <li>
-                <label th:for="p_name">주문 상품명</label>
-                <input type="text" name="p_name" th:value="${orderVO.p_name}" readonly>
+                <label th:for="pName">주문 상품명</label>
+                <input type="text" name="pName" th:value="${orderVO.pName}" readonly>
             </li>
             <li>
                 <label th:for="count">주문 수량</label>

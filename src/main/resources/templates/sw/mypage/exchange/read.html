@@ -20,8 +20,8 @@
         <input type="hidden" name="mno" th:value="${exchangeVO.mno}" readonly>
         <input type="hidden" name="ono" th:value="${exchangeVO.ono}" readonly>
         <input type="hidden" name="eno" th:value="${exchangeVO.eno}" readonly>
-        <input type="hidden" name="p_no" th:value="${exchangeVO.p_no}" readonly>
         <input type="hidden" name="pno" th:value="${exchangeVO.pno}" readonly>
+        <input type="hidden" name="payINo" th:value="${exchangeVO.payINo}" readonly>
         <!-- 표시 데이터 -->
         <h4>신청 정보</h4>
         <ul>
@@ -50,7 +50,7 @@
         <ul>
             <div class="input-group col-xs-3">
                 <span class="input-group-addon">상품이름</span>
-                <input type="text" class="form-control" name="p_name" th:value="${exchangeVO.p_name}" readonly>
+                <input type="text" class="form-control" name="pName" th:value="${exchangeVO.pName}" readonly>
             </div>
             <div class="input-group col-xs-3">
                 <span class="input-group-addon">주문수량</span>

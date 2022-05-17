@@ -106,7 +106,7 @@
         <ul>
             <li>
                 <input type="hidden" th:id="mno" th:value="${payment.mno}">
-                <input type="hidden" th:id="pno" th:value="${payment.pno}">
+                <input type="hidden" th:id="payINo" th:value="${payment.payINo}">
                 <div th:id="payName" th:text="${payment.payName}"></div>
                 <div th:id="payContent" th:text="${payment.payContent}"></div>
             </li>
@@ -175,7 +175,7 @@
                     <div class="form-group">
                         <!-- 숨김 영역 -->
                         <input type="hidden" name="mnoModal" readonly />
-                        <input type="hidden" name="pnoModal" readonly />
+                        <input type="hidden" name="payINoModal" readonly />
                     </div>
                     <div class="form-group">
                         <label>결제수단 종류</label>
@@ -371,7 +371,7 @@
             // 클릭한 결제수단 정보 modal input창에 입력하기
             var targetPay = $(this);
             $("input[name='mnoModal']").val(targetPay.find("#mno").val())
-            $("input[name='pnoModal']").val(targetPay.find("#pno").val())
+            $("input[name='payINoModal']").val(targetPay.find("#payINo").val())
             $("input[name='payNameModal']").val(targetPay.find("#payName").text())
             $("input[name='payContentModal']").val(targetPay.find("#payContent").text())
             // 저장버튼 숨기기
@@ -387,7 +387,7 @@
         $(".payModifyBtn").click(function (e){
             var data ={
                 mno:$("input[name=mnoModal]").val(),
-                pno:$("input[name=pnoModal]").val(),
+                payINo:$("input[name=payINoModal]").val(),
                 payName:$("select[name=payNameModal]").val(),
                 payContent:$("input[name=payContentModal]").val()
             }
@@ -410,7 +410,7 @@
             alert("정말 삭제하시겠습니까?")
             var data ={
                 mno:$("input[name=mnoModal]").val(),
-                pno:$("input[name=pnoModal]").val(),
+                payINo:$("input[name=payINoModal]").val(),
                 payName:$("select[name=payNameModal]").val(),
                 payContent:$("input[name=payContentModal]").val()
             }

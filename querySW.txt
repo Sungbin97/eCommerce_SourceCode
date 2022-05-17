@@ -44,11 +44,12 @@ create table tbl_shipmentInfo(
 -- 결제 정보 테이블
 create table tbl_paymentInfo(
     mno int(30) not null,
-    pno int(30) primary key auto_increment,
+    payINo int(30) primary key auto_increment,
     payName varchar(50),
     payContent varchar(50),
     foreign key (mno) references tbl_memberInfo (mno)
 );
+
 
 -- 탈퇴 회원 테이블 -- ★★ 2022.05.13 신규 추가
 create table tbl_deleteMem(
@@ -76,53 +77,52 @@ drop table tbl_shipmentInfo;
 drop table tbl_paymentInfo;
 drop table tbl_memberInfo;
 
-
-
-
 -- ------------------ 마이페이지_장바구니 작업(아래) -------------------------------
 
 -- 장바구니 테이블(상품 세부정보는 상품 table과 join하여 출력)
 create table tbl_cart(
     mno int(30) not null,
     cno int(30) primary key auto_increment,
-    p_no int(30) not null,
+    pno int(30) not null,
     foreign key (mno) references tbl_memberInfo (mno),
-    foreign key (p_no) references tbl_product (p_no)
+    foreign key (pno) references tbl_product (pno)
 );
-
--- dummyData insert
--- 상품 테이블 입력
-insert into tbl_product (p_name,p_category,p_size,p_price,p_amount,p_color,p_regdate,p_image,p_information,p_delivery)
-values ('testName1','food',100,20000,1,'green','05/07','image1','info1','배송');
-insert into tbl_product (p_name,p_category,p_size,p_price,p_amount,p_color,p_regdate,p_image,p_information,p_delivery)
-values ('testName4','clothes',100,30000,1,'yellow','05/07','image4','info4','배송');
--- 장바구니 테이블 입력
-insert into tbl_cart (mno,p_no) values (8,2);
 
 -- 상품 table(example) *추후 수정 예정
 create table tbl_product(
-    p_no int(30) primary key auto_increment,
-    p_name varchar(50) not null,
-    p_category varchar(50) not null,
-    p_size varchar(50) not null,
-    p_price int(30) not null,
-    p_amount int(30) not null,
-    p_color varchar(50) not null,
-    p_regdate varchar(50) not null,
-    p_image varchar(50) not null,
-    p_information varchar(50) not null,
-    p_delivery varchar(50) not null
+    pno int(30) primary key auto_increment,
+    pName varchar(50) not null,
+    pMainCategory varchar(50) not null,
+    pSubCategory varchar(50) not null,
+    pSize varchar(50) not null,
+    pPrice int(30) not null,
+    pAmount int(30) not null,
+    pColor varchar(50) not null,
+    pRegdate DATETIME default now(),
+    pImage varchar(50) not null,
+    pInformation varchar(50) not null,
+    pDelivery varchar(50) not null,
+    pImageURL varchar(50) not null,
+    pCode varchar(50) not null
 );
 
+-- dummyData insert -- tbl_cart
+insert into tbl_cart (mno,pno) values (8,2);
+
+-- dummyData insert -- tbl_product
+insert into tbl_product (pName, pMainCategory, pSubCategory, pSize, pPrice, pAmount, pColor, pImage, pInformation, pDelivery, pImageURL, pCode)
+values ('testName1','food','foodDetail',100,20000,1,'green','imageTest','info','deliveryInfo','imageURLTest','pCodeTest');
+insert into tbl_product (pName, pMainCategory, pSubCategory, pSize, pPrice, pAmount, pColor, pImage, pInformation, pDelivery, pImageURL, pCode)
+values ('testName2','gear','gearDetail',100,1400000,5,'green','imageTest','info','deliveryInfo','imageURLTest','pCodeTest');
 
 -- ------------------ 마이페이지_주문조회 작업(아래) -------------------------------
 
 -- 주문목록 테이블 입력
-create table tbl_order( -- ★★ 칼럼 수정 2022.05.15
+create table tbl_order(
     mno int(30) not null, -- 회원번호(tbl_memberInfo)
     ono int(30) primary key auto_increment, -- 주문번호
-    p_no int(30) not null,  -- 상품번호(tbl_product)
-    pno int(30) not null, -- 결제수단 번호(tbl_paymentInfo)
+    pno int(30) not null,  -- 상품번호(tbl_product)
+    payINo int(30) not null, -- 결제수단 번호(tbl_paymentInfo)
     delAddr varchar(50) not null, -- 배송지 주소
     receiverName varchar(30) not null, -- 받는 사람 성명
     receiverPhone varchar(50) not null, -- 밥는 사람 연락처
@@ -136,15 +136,15 @@ create table tbl_order( -- ★★ 칼럼 수정 2022.05.15
     deliveryStatus varchar(50) not null, -- 배송 상태
     exStatus boolean default 0, -- 교환반품취소 신청 여부
     foreign key (mno) references tbl_memberInfo (mno),
-    foreign key (p_no) references tbl_product (p_no),
-    foreign key (pno) references tbl_paymentInfo (pno)
+    foreign key (pno) references tbl_product (pno),
+    foreign key (payINo) references tbl_paymentInfo (payINo)
 );
 
 -- insert Dummy Data
-insert into tbl_order (mno, p_no, pno, delAddr, receiverName, receiverPhone, message, count, productPrice, shipFee, totalPrice, payStatus,deliveryStatus)
-values (8,1,2,'배송신청 주소 테스트','받는이 홍길동','1234-1234','문앞에 놓아주세요',5,1400000,3000,1403000,'확인 중','확인 중');
-insert into tbl_order (mno, p_no, pno, delAddr, receiverName, receiverPhone, message, count, productPrice, shipFee, totalPrice, payStatus,deliveryStatus)
-values (8,2,3,'배송신청 주소 테스트3','받는이 김길동','1234-1234','경비실에 맡겨주세요',5,5000,3000,8000,'확인 중','확인 중');
+insert into tbl_order (mno, pno, payINo, delAddr, receiverName, receiverPhone, message, count, productPrice, shipFee, totalPrice, payStatus,deliveryStatus)
+values (8,1,1,'배송신청 주소 테스트','받는이 홍길동','1234-1234','문앞에 놓아주세요',5,1400000,3000,1403000,'확인 중','확인 중');
+insert into tbl_order (mno, pno, payINo, delAddr, receiverName, receiverPhone, message, count, productPrice, shipFee, totalPrice, payStatus,deliveryStatus)
+values (8,2,2,'배송신청 주소 테스트3','받는이 김길동','1234-1234','경비실에 맡겨주세요',5,5000,3000,8000,'확인 중','확인 중');
 
 -- 배송현황 테이블 입력(주문 배송)
 create table tbl_delivery(
@@ -176,8 +176,8 @@ values (9,2,'일반','배송신청 주소 테스트','블루택배','배송 완�
 create table tbl_exchange(
     mno int(30) not null, -- 회원번호(tbl_memberInfo)
     ono int(30) not null, -- 주문번호(tbl_order)
-    p_no int(30) not null,  -- 상품번호(tbl_product)
-    pno int(30) not null, -- 결제수단 번호(tbl_paymentInfo)
+    pno int(30) not null,  -- 상품번호(tbl_product)
+    payINo int(30) not null, -- 결제수단 번호(tbl_paymentInfo)
     eno int(30) primary key auto_increment, -- 취소/반품/교환 번호
     exCategory varchar(30) not null, -- 분류(취소/반품/교환 중 택1)
     exContent varchar(1000) not null, -- 사유 내용
@@ -186,9 +186,10 @@ create table tbl_exchange(
     exEndDate DATETIME default now(), -- 배송종료일시
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (ono) references tbl_order (ono),
-    foreign key (p_no) references tbl_product (p_no),
-    foreign key (pno) references tbl_paymentInfo (pno)
+    foreign key (pno) references tbl_product (pno),
+    foreign key (payINo) references tbl_paymentInfo (payINo)
 );
+
 -- 취소/반품/교환 신청 첨부파일 테이블
 create table tbl_exchangeFiles(
     eno int(30) not null, -- 취소/반품/교환 신청번호
@@ -203,14 +204,14 @@ create table tbl_exchangeFiles(
 create table tbl_interest(
     mno int(30) not null, -- 회원 번호
     itrNo int(30) primary key auto_increment, -- 찜 번호
-    p_no int(30) not null, -- 상품 번호
+    pno int(30) not null, -- 상품 번호
     interestDate DATETIME default now(), -- 찜한 일자시간
     foreign key (mno) references tbl_memberInfo (mno),
-    foreign key (p_no) references tbl_product (p_no)
+    foreign key (pno) references tbl_product (pno)
 );
 
 -- insert DummyData
-insert into tbl_interest (mno, p_no) values (8,1);
-insert into tbl_interest (mno, p_no) values (8,2);
+insert into tbl_interest (mno, pno) values (8,1);
+insert into tbl_interest (mno, pno) values (8,2);
 
 commit;

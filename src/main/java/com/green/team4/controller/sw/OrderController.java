@@ -54,26 +54,27 @@ public class OrderController {
     // Delivery -----------------------------------------------------------------------------------------
 
     @GetMapping("/delivery")
-    public void readOneDelivery(int ono, Model model){ // 배송조회 화면 가져오기
+    public void readOneDelivery(int mno,int ono, Model model){ // 배송조회 화면 가져오기
         log.info("OrderController => readOneDelivery(GET) 실행 => 받은 ono: "+ono);
-        DeliveryVO deliveryVO = deliveryService.readOne(ono);
+        log.info("OrderController => readOneDelivery(GET) 실행 => 받은 ono: "+mno);
+        DeliveryVO deliveryVO = deliveryService.readOne(mno,ono);
         model.addAttribute("deliveryVO",deliveryVO);
     }
 
     // Exchange -----------------------------------------------------------------------------------------
 
     @GetMapping("/exchange")
-    public void exRegister(int mno,int ono, int p_no, int pno, Model model){ // 취소/반품/교환 등록 페이지 가져오기
+    public void exRegister(int mno,int ono, int pno, int payINo, Model model){ // 취소/반품/교환 등록 페이지 가져오기
         log.info("OrderController => exRegister(GET) 실행 => 받은 mno: "+mno);
         log.info("OrderController => exRegister(GET) 실행 => 받은 ono: "+ono);
-        log.info("OrderController => exRegister(GET) 실행 => 받은 p_no: "+p_no);
         log.info("OrderController => exRegister(GET) 실행 => 받은 pno: "+pno);
+        log.info("OrderController => exRegister(GET) 실행 => 받은 payINo: "+payINo);
 
         model.addAttribute("mno",mno);
         model.addAttribute("ono",ono);
 
-        model.addAttribute("p_no",p_no);
         model.addAttribute("pno",pno);
+        model.addAttribute("payINo",payINo);
     }
 
     @PostMapping("/exchange")

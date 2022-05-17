@@ -8,7 +8,7 @@ public interface PaymentService {
 
     int register(PaymentVO paymentVO); // 결제정보 등록
     List<PaymentVO> readAll(int mno); // 결제정보 전체 가져오기(mno 단위)
-    PaymentVO readOne(int pno); // 결제정보 하나 가져오기
+    PaymentVO readOne(int payINo); // 결제정보 하나 가져오기
     int modify(PaymentVO paymentVO); // 결제정보 수정
-    int remove(int pno); // 결제정보 삭제
+    int remove(int payINo); // 결제정보 삭제
 }

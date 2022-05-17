@@ -16,8 +16,8 @@ public class ExchangeVO {
     private int mno; // 회원번호(tbl_memberInfo)
     private int ono; // 주문번호(tbl_order)
     private int eno; // 취소/반품/교환 번호
-    private int p_no; // 상품번호(tbl_product)
-    private int pno; // 결제수단 번호(tbl_paymentInfo)
+    private int pno; // 상품번호(tbl_product)
+    private int payINo; // 결제수단 번호(tbl_paymentInfo)
     private String exCategory; // 분류(취소/반품/교환 중 택1)  -- 수정 가능
     private String exContent; // 사유 내용 -- 수정 가능
     private String exStatus; // 진행 상태(접수중, 접수완료, 처리완료)
@@ -25,7 +25,7 @@ public class ExchangeVO {
     private LocalDateTime exEndDate; // 완료일
 
     // tbl_product 에서 join 으로 가져올 data
-    private String p_name; // 상품 이름
+    private String pName; // 상품 이름
 
     // tbl_order 에서 join 으로 가져올 data
     private int count; // 주문 개수

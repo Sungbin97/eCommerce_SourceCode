@@ -19,7 +19,8 @@
             <thead>
                 <tr>
                     <th>상품번호</th>
-                    <th>카테고리</th>
+                    <th>대분류</th>
+                    <th>세부분류</th>
                     <th>상품명</th>
                     <th>가격</th>
                     <th>이미지(나중에 사진으로 교체 예정)</th>
@@ -28,22 +29,24 @@
             </thead>
             <tbody>
                 <tr th:each="cart : ${cartList}">
-                    <td th:text="${cart.p_no}"></td>
-                    <td th:text="${cart.p_category}"></td>
-                    <td><a th:href="@{/sw/mypage/cart/read}" th:text="${cart.p_name}"></a></td>
+                    <td th:text="${cart.pno}"></td>
+                    <td th:text="${cart.pMainCategory}"></td>
+                    <td th:text="${cart.pSubCategory}"></td>
+                    <td><a th:href="@{/sw/mypage/cart/read}" th:text="${cart.pName}"></a></td>
                     <!-- 클릭하면 상품 상세화면으로 이동하는 href 속성 추가 예정 -->
-                    <td th:text="${cart.p_price}"></td>
-                    <td th:text="${cart.p_image}"></td>
+                    <td th:text="${cart.pPrice}"></td>
+                    <td th:text="${cart.pImage}"></td>
                     <!-- 데이터 삭제 시 controller 전송용 form -->
                     <td>
                         <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
                             <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
                             <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
-                            <input type="hidden" name="p_no" th:value="${cart.p_no}" readonly>
-                            <input type="hidden" name="p_category" th:value="${cart.p_category}" readonly>
-                            <input type="hidden" name="p_name" th:value="${cart.p_name}" readonly>
-                            <input type="hidden" name="p_price" th:value="${cart.p_price}" readonly>
-                            <input type="hidden" name="p_image" th:value="${cart.p_image}" readonly>
+                            <input type="hidden" name="pno" th:value="${cart.pno}" readonly>
+                            <input type="hidden" name="pMainCategory" th:value="${cart.pMainCategory}" readonly>
+                            <input type="hidden" name="pSubCategory" th:value="${cart.pSubCategory}" readonly>
+                            <input type="hidden" name="pName" th:value="${cart.pName}" readonly>
+                            <input type="hidden" name="pPrice" th:value="${cart.pPrice}" readonly>
+                            <input type="hidden" name="pImage" th:value="${cart.pImage}" readonly>
                             <input type="submit" value="삭제" class="btn btn-danger">
                         </form>
                     </td>

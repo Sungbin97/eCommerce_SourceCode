@@ -11,35 +11,35 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         <![CDATA[
-        insert into tbl_exchange (mno, ono, p_no, pno, exCategory, exContent,
+        insert into tbl_exchange (mno, ono, pno, payINo, exCategory, exContent,
             exStatus, exStartDate)
-                VALUES (#{mno},#{ono},#{p_no},#{pno},#{exCategory},#{exContent},#{exStatus},#{exStartDate})
+                VALUES (#{mno},#{ono},#{pno},#{payINo},#{exCategory},#{exContent},#{exStatus},#{exStartDate})
         ]]>
         <!-- exEndDate는 나중에 처리 최종 완료 후 입력 -->
     </insert>
 
     <!-- tbl_exchange 데이터 전체 가져오기(mno 단위) -->
     <select id="getAll" resultType="com.green.team4.vo.sw.ExchangeVO">
-        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.p_no,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exStartDate,exEndDate,
-               tbl_product.p_name,tbl_order.count,tbl_order.productPrice,tbl_order.shipFee,tbl_order.totalPrice,
+        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.pno,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exStartDate,exEndDate,
+               tbl_product.pName,tbl_order.count,tbl_order.productPrice,tbl_order.shipFee,tbl_order.totalPrice,
                tbl_paymentInfo.payName,tbl_paymentInfo.payContent
         from tbl_exchange
-        left outer join tbl_product on tbl_exchange.p_no = tbl_product.p_no
+        left outer join tbl_product on tbl_exchange.pno = tbl_product.pno
         left outer join tbl_order on tbl_exchange.ono = tbl_order.ono
-        left outer join tbl_paymentInfo on tbl_exchange.pno = tbl_paymentInfo.pno
+        left outer join tbl_paymentInfo on tbl_exchange.payINo = tbl_paymentInfo.payINo
         where tbl_exchange.mno=#{mno}
         order by tbl_exchange.exStartDate
     </select>
 
     <!-- tbl_exchange 데이터 하나 가져오기(eno 단위) -->
     <select id="getOne" resultType="com.green.team4.vo.sw.ExchangeVO">
-        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.p_no,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exStartDate,exEndDate,
-               tbl_product.p_name,tbl_order.count,tbl_order.productPrice,tbl_order.shipFee,tbl_order.totalPrice,
+        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.pno,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exStartDate,exEndDate,
+               tbl_product.pName,tbl_order.count,tbl_order.productPrice,tbl_order.shipFee,tbl_order.totalPrice,
                tbl_paymentInfo.payName,tbl_paymentInfo.payContent
                 from tbl_exchange
-        left outer join tbl_product on tbl_exchange.p_no = tbl_product.p_no
+        left outer join tbl_product on tbl_exchange.pno = tbl_product.pno
         left outer join tbl_order on tbl_exchange.ono = tbl_order.ono
-        left outer join tbl_paymentInfo on tbl_exchange.pno = tbl_paymentInfo.pno
+        left outer join tbl_paymentInfo on tbl_exchange.payINo = tbl_paymentInfo.payINo
         where tbl_exchange.eno=#{eno}
     </select>
 

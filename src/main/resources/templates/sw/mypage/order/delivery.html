@@ -60,6 +60,19 @@
 </body>
 <script>
     $(document).ready(function (){
+
+        // 날짜 양식 변경 함수
+        function formatTime(str){
+            var date = new Date(str);
+            return date.getFullYear()+'/'+(date.getMonth()+1)+'/'+date.getDate()+' '+date.getHours()+':'+date.getMinutes();
+        }
+
+        // 접수일자 포맷 변경
+        var exStartDate = $("input[name=delStartDate]").val();
+        var delEndDate = $("input[name=delEndDate]").val();
+        $("input[name=delStartDate]").val(formatTime(exStartDate));
+        $("input[name=delEndDate]").val(formatTime(delEndDate));
+
         // 뒤로가기 버튼 클릭
         $("#goBack").click(function (){
             var mno = $("input[name=mno]").val();
