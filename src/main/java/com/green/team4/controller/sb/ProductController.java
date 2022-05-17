@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class AdProductController {
+public class ProductController {
     @Value("${com.green.upload.path}") //application.properties 변수
     private String uploadPath;
 

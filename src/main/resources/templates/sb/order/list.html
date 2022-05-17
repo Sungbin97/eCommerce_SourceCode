@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>주문배송관리</title>
 </head>
 <body>
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
@@ -34,6 +34,7 @@
         font-size: 90%;
     }
 </style>
+</style>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
 <header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
@@ -54,47 +55,19 @@
         <div class="col-3 bd-sidebar">
             <ul class="nav">
                 <li>
-                    <a href="/sb/member/member?mno=1">회원관리</a>
-                    <a href="/sb/product/list?pno=1">상품관리</a>
-                    <a href="/sb/product/upload">상품등록</a>
-                    <a href="/sb/product/modify?pno=1">상품정보수정</a>
-                    <a href="">주문/배송관리</a>
-                    <a href="">각종 통계</a>
-                    <a href="/sb/mail/list">EMAIL & SMS</a>
-                    <a href="/sb/mail/write">개별 메일 전송</a>
-                    <a href="/sb/mail/list">자동 메일 및 문자(예정)</a>
+                <a href="/sb/product/list?pno=1">상품관리</a>
+                <a href="/sb/product/upload">상품등록</a>
+                <a href="/sb/order/list">주문/배송관리</a>
+                <a href="">각종 통계</a>
+                <a href="/sb/mail/list">EMAIL & SMS</a>
+                <a href="/sb/mail/write">개별 메일 전송</a>
+                <a href="/sb/mail/list">자동 메일 및 문자(예정)</a>
                 </li>
             </ul>
             <br>
         </div>
         <main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
-            <form name="getForm" action="/sb/product/list">
-                <h5>상품 조회(이미지 클릭시 수정 및 삭제)</h5>
-                <input name="pno" th:placeholder="상품번호조회">
-                <select>
-                    <option value="">상품번호 조회</option>
-                    <option value="">상품명 조회</option>
-                    <option value="">카테고리 조회</option>
-                </select>
-                <a th:href="@{/sb/product/modify(pno=${getOne.pno})}"><li><img th:src="${getOne.pImageURL}"/></li></a>
-                <ul>
-                <li th:text="${getOne.pno}"></li>
-                <li th:text="${getOne.pName}"/>
-                <li th:text="${getOne.pMainCategory}"/>
-                <li th:text="${getOne.pSize}"/>
-                <li th:text="${getOne.pPrice}"/>
-                <li th:text="${getOne.pAmount}"/>
-                <li th:text="${getOne.pColor}"/>
-                <li th:text="${getOne.pImage}"/>
-                <li th:text="${getOne.pInformation}"/>
-                </ul>
-            </form>
-            <h5>전체 상품 목록</h5>
-            <tr th:each="dto : ${list}">
-                <a th:href="@{/sb/product/modify(pno=${dto.pno})}"><li><img th:src="${dto.pImageURL}"/></li></a>
-                <li th:text="${dto.pName}"/>
-                <li th:text="${dto.pMainCategory}"/>
-            </tr>
+            <h5>주문배송관리</h5>
         </main>
     </div>
 </body>
