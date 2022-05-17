@@ -42,4 +42,5 @@ public class MailController {
     public void list(Model model){
         model.addAttribute("list", mailMapper.getAll());
     }
+
 }
