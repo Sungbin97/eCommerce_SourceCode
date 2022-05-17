@@ -16,7 +16,7 @@ public class OrderServiceTests {
 
     @Test
     public void testReadAll(){
-        int mno = 9;
+        int mno = 8;
         List<OrderVO> orderList = orderService.readAll(mno);
         orderList.forEach(i-> System.out.println(i));
     }

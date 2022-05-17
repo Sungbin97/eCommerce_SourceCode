@@ -118,7 +118,7 @@ create table tbl_product(
 -- ------------------ 마이페이지_주문조회 작업(아래) -------------------------------
 
 -- 주문목록 테이블 입력
-create table tbl_order(
+create table tbl_order( -- ★★ 칼럼 수정 2022.05.15
     mno int(30) not null, -- 회원번호(tbl_memberInfo)
     ono int(30) primary key auto_increment, -- 주문번호
     p_no int(30) not null,  -- 상품번호(tbl_product)
@@ -134,11 +134,11 @@ create table tbl_order(
     orderDate DATETIME default now(), -- 주문일시
     payStatus varchar(50) not null, -- 결재 상태
     deliveryStatus varchar(50) not null, -- 배송 상태
+    exStatus boolean default 0, -- 교환반품취소 신청 여부
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (p_no) references tbl_product (p_no),
     foreign key (pno) references tbl_paymentInfo (pno)
 );
-
 
 -- insert Dummy Data
 insert into tbl_order (mno, p_no, pno, delAddr, receiverName, receiverPhone, message, count, productPrice, shipFee, totalPrice, payStatus,deliveryStatus)
@@ -164,9 +164,9 @@ create table tbl_delivery(
 
 -- insert Dummy Data
 insert into tbl_delivery (mno, ono, delCategory, delAddr, delCompany, delStatus, delLocation)
-values (8,3,'일반','배송신청 주소 테스트3','그린택배','출고 준비중','서울');
+values (8,1,'일반','배송신청 주소 테스트3','그린택배','출고 준비중','서울');
 insert into tbl_delivery (mno, ono, delCategory, delAddr, delCompany, delStatus, delLocation)
-values (8,4,'일반','배송신청 주소 테스트3','그린택배','출고 준비중','서울');
+values (8,2,'일반','배송신청 주소 테스트3','그린택배','출고 준비중','서울');
 insert into tbl_delivery (mno, ono, delCategory, delAddr, delCompany, delStatus, delLocation)
 values (9,1,'일반','배송신청 주소 테스트','그린택배','배송중','경기도 Hub');
 insert into tbl_delivery (mno, ono, delCategory, delAddr, delCompany, delStatus, delLocation)
@@ -180,7 +180,7 @@ create table tbl_exchange(
     pno int(30) not null, -- 결제수단 번호(tbl_paymentInfo)
     eno int(30) primary key auto_increment, -- 취소/반품/교환 번호
     exCategory varchar(30) not null, -- 분류(취소/반품/교환 중 택1)
-    exContent varchar(100) not null, -- 사유 내용
+    exContent varchar(1000) not null, -- 사유 내용
     exStatus varchar(50) not null, -- 진행 상태(접수중, 접수완료, 처리완료)
     exStartDate DATETIME default now(), -- 배송시작일시
     exEndDate DATETIME default now(), -- 배송종료일시
@@ -189,7 +189,6 @@ create table tbl_exchange(
     foreign key (p_no) references tbl_product (p_no),
     foreign key (pno) references tbl_paymentInfo (pno)
 );
-
 -- 취소/반품/교환 신청 첨부파일 테이블
 create table tbl_exchangeFiles(
     eno int(30) not null, -- 취소/반품/교환 신청번호
@@ -209,8 +208,6 @@ create table tbl_interest(
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (p_no) references tbl_product (p_no)
 );
-
-drop table tbl_order;
 
 -- insert DummyData
 insert into tbl_interest (mno, p_no) values (8,1);

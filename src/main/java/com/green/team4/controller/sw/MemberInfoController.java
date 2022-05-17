@@ -8,10 +8,13 @@ import com.green.team4.vo.sw.PaymentVO;
 import com.green.team4.vo.sw.ShipmentVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
@@ -74,79 +77,48 @@ public class MemberInfoController {
 
     // shipmentInfo -----------------------------------------------------------------------------------------
 
-    @GetMapping("/shipAdd") // 배송지 주소 신규 추가 화면 가져오기
-    public void shipAdd(int mno,Model model){
-        log.info("MemberInfoController => shipAdd(GET) 실행 => 받은 mno: "+mno);
-        log.info("배송지 신규 등록화면 가져오기");
-        model.addAttribute("mno",mno);
-    }
-
     @PostMapping("/shipAdd") // 배송지 주소 신규 추가 진행
-    public String shipAdd(ShipmentVO shipmentVO,Model model){
-        log.info("MemberInfoController => shipAdd(POST) 실행 => 받은 shipmentVO: "+shipmentVO);
-        shipmentService.register(shipmentVO);
-        return "redirect:/sw/mypage/memberInfo/read?mno="+shipmentVO.getMno();
-    }
-
-    @GetMapping("/shipModify") // 배송지 수정 회면 가져오기
-    public void shipModify(int sno, Model model){
-        log.info("MemberInfoController => shipModify(GET) 실행 => 받은 sno: "+sno);
-        log.info("배송지 수정 화면 가져오기");
-        ShipmentVO shipmentVO = shipmentService.readOne(sno);
-        model.addAttribute("shipmentVO",shipmentVO);
+    public ResponseEntity<Integer> shipAddAjax(@RequestBody ShipmentVO shipmentVO){
+        log.info("MemberInfoController => shipAdd(POST/AJAX) 실행 => 받은 shipmentVO: "+shipmentVO);
+        int addCnt = shipmentService.register(shipmentVO);
+        return new ResponseEntity<>(addCnt, HttpStatus.OK);
     }
 
     @PostMapping("/shipModify") // 배송지 수정 진행
-    public String shipModify(ShipmentVO shipmentVO, Model model){
+    public ResponseEntity<Integer> shipModifyAjax(@RequestBody ShipmentVO shipmentVO){
         log.info("MemberInfoController => shipModify(POST) 실행 => 받은 shipmentVO: "+shipmentVO);
-        shipmentService.modify(shipmentVO);
-        return "redirect:/sw/mypage/memberInfo/read?mno="+shipmentVO.getMno(); // redirect 안쓰면 페이지 안넘어감
+        int modCnt = shipmentService.modify(shipmentVO);
+        return new ResponseEntity<>(modCnt,HttpStatus.OK);
     }
 
     @PostMapping("/shipDelete") // 배송지 삭제 진행
-    public String shipDelete(ShipmentVO shipmentVO){
+    public ResponseEntity<Integer> shipDeleteAjax(@RequestBody ShipmentVO shipmentVO){
         log.info("MemberInfoController => shipDelete(POST) 실행 => 받은 shipmentVO: "+shipmentVO);
         log.info("삭제 대상 sno: "+shipmentVO.getSno());
-        shipmentService.remove(shipmentVO.getSno());
-        return "redirect:/sw/mypage/memberInfo/read?mno="+shipmentVO.getMno();
+        int delCnt = shipmentService.remove(shipmentVO.getSno());
+        return new ResponseEntity<>(delCnt,HttpStatus.OK);
     }
 
     // paymentInfo -----------------------------------------------------------------------------------------
 
-    @GetMapping("/payAdd") // 결제수단 정보 신규 추가 화면 가져오기
-    public void payAdd(int mno,Model model){
-        log.info("MemberInfoController => payAdd(GET) 실행 => 받은 mno: "+mno);
-        log.info("결제정보 신규 등록화면 가져오기");
-        model.addAttribute("mno",mno);
-    }
-
     @PostMapping("/payAdd") // 결제수단 정보 신규 추가 진행
-    public String payAdd(PaymentVO paymentVO,Model model){
-        log.info("MemberInfoController => payAdd(POST) 실행 => 받은 paymentVO: "+paymentVO);
-        paymentService.register(paymentVO);
-        return "redirect:/sw/mypage/memberInfo/read?mno="+paymentVO.getMno();
-    }
-
-    @GetMapping("/payModify") // 결제수단 정보 수정 회면 가져오기
-    public void payModify(int pno, Model model){
-        log.info("MemberInfoController => payModify(GET) 실행 => 받은 pno: "+pno);
-        log.info("결제수단 정보 수정 화면 가져오기");
-        PaymentVO paymentVO = paymentService.readOne(pno);
-        model.addAttribute("paymentVO",paymentVO);
+    public ResponseEntity<Integer> payAdd(@RequestBody PaymentVO paymentVO){
+        log.info("MemberInfoController => payAdd(POST/AJAX) 실행 => 받은 paymentVO: "+paymentVO);
+        int addCnt = paymentService.register(paymentVO);
+        return new ResponseEntity<>(addCnt,HttpStatus.OK);
     }
 
     @PostMapping("/payModify") // 결제수단 정보 수정 진행
-    public String payModify(PaymentVO paymentVO, Model model){
-        log.info("MemberInfoController => payModify(POST) 실행 => 받은 paymentVO: "+paymentVO);
-        paymentService.modify(paymentVO);
-        return "redirect:/sw/mypage/memberInfo/read?mno="+paymentVO.getMno();
+    public ResponseEntity<Integer> payModify(@RequestBody PaymentVO paymentVO){
+        log.info("MemberInfoController => payModify(POST/AJAX) 실행 => 받은 paymentVO: "+paymentVO);
+        int modCnt = paymentService.modify(paymentVO);
+        return new ResponseEntity<>(modCnt,HttpStatus.OK);
     }
 
     @PostMapping("/payDelete") // 결제수단 정보 삭제 진행
-    public String payDelete(PaymentVO paymentVO){
-        log.info("MemberInfoController => payDelete(POST) 실행 => 받은 paymentVO: "+paymentVO);
-        log.info("삭제 대상 pno: "+paymentVO.getPno());
-        paymentService.remove(paymentVO.getPno());
-        return "redirect:/sw/mypage/memberInfo/read?mno="+paymentVO.getMno();
+    public ResponseEntity<Integer> payDelete(@RequestBody PaymentVO paymentVO){
+        log.info("MemberInfoController => payDelete(POST/AJAX) 실행 => 받은 paymentVO: "+paymentVO);
+        int delCnt = paymentService.remove(paymentVO.getPno());
+        return new ResponseEntity<>(delCnt,HttpStatus.OK);
     }
 }

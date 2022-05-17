@@ -27,6 +27,7 @@ public class OrderVO {
     private LocalDateTime orderDate; // 주문일시
     private String payStatus; // 결재 상태
     private String deliveryStatus; // 배송 상태
+    private boolean exStatus; // 취소반품교환 신청 여부
 
     // tbl_memberInfo join 해서 가져올 칼럼
     private String name; // 주문자 성명 (tbl_memberInfo)

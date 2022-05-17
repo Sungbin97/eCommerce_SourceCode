@@ -22,7 +22,7 @@ public class InterestController {
     // 의존성 주입
     private final InterestService interestService;
 
-    @GetMapping("/read")
+    @GetMapping("/list")
     public void itrRead(int mno, Model model){ // 찜 List 가져오기
         log.info("InterestController => itrRead(GET) 실행 => 받은 mno: "+mno);
         List<InterestVO> itrList = interestService.readAll(mno);

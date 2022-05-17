@@ -8,7 +8,7 @@
     <!-- Order 데이터 전체 가져오기(mno 단위) -->
     <select id="getAll" resultType="com.green.team4.vo.sw.OrderVO">
         select tbl_order.mno,ono,tbl_order.p_no,tbl_order.pno,delAddr,receiverName,receiverPhone,message,count,productPrice,shipFee,
-            totalPrice,orderDate,payStatus,deliveryStatus,name,phoneNum,p_name,payName,payContent from tbl_order
+            totalPrice,orderDate,payStatus,deliveryStatus,exStatus,name,phoneNum,p_name,payName,payContent from tbl_order
         left outer join tbl_memberInfo on tbl_order.mno = tbl_memberInfo.mno
         left outer join tbl_product on tbl_order.p_no = tbl_product.p_no
         left outer join tbl_paymentInfo on tbl_order.pno = tbl_paymentInfo.pno
@@ -19,7 +19,7 @@
     <!-- Order 데이터 하나 가져오기(ono 단위) -->
     <select id="getOne" resultType="com.green.team4.vo.sw.OrderVO">
         select tbl_order.mno,ono,tbl_order.p_no,tbl_order.pno,delAddr,receiverName,receiverPhone,message,count,productPrice,shipFee,
-            totalPrice,orderDate,payStatus,deliveryStatus,name,phoneNum,p_name,payName,payContent from tbl_order
+            totalPrice,orderDate,payStatus,deliveryStatus,exStatus,name,phoneNum,p_name,payName,payContent from tbl_order
         left outer join tbl_memberInfo on tbl_order.mno = tbl_memberInfo.mno
         left outer join tbl_product on tbl_order.p_no = tbl_product.p_no
         left outer join tbl_paymentInfo on tbl_order.pno = tbl_paymentInfo.pno
@@ -29,7 +29,7 @@
     <!-- Order 데이터 수정(결재상태, 배송상태만 수정(관리자 전용)) -->
     <update id="update">
         update tbl_order
-        set payStatus=#{payStatus},deliveryStatus=#{deliveryStatus}
+        set payStatus=#{payStatus},deliveryStatus=#{deliveryStatus},exStatus=#{exStatus}
         where ono=#{ono}
     </update>
 

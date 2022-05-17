@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- BootStrap -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,28 +13,65 @@
 <body>
     <h2>마이페이지 메인</h2>
 
-    <form action="/sw/mypage/memberInfo/read" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="개인정보관리">
-    </form>
+    <h3 th:text="${memName}+'님 환영합니다:)'"></h3><br/>
 
-    <form action="/sw/mypage/interest/read" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="찜한 상품">
-    </form>
+    <!-- 쇼핑 요약 정보 -->
+    <h3>쇼핑 요약</h3>
+    <div>
+        <button class="btn btn-primary" type="button" name="memberInfo">
+            개인정보관리 <span class="badge"></span>
+        </button>
+        <button class="btn btn-primary" type="button" name="interest">
+            찜한상품 <span class="badge" th:text="${itrCnt}"></span>
+        </button>
+        <button class="btn btn-primary" type="button" name="cart">
+            장바구니 <span class="badge" th:text="${cartCnt}"></span>
+        </button>
+        <button class="btn btn-primary" type="button" name="order">
+            주문목록 <span class="badge" th:text="${orderCnt}"></span>
+        </button>
+        <button class="btn btn-primary" type="button" name="exchange">
+            취소/반품/교환 <span class="badge" th:text="${exCnt}"></span>
+        </button>
+    </div><br/>
 
-    <form action="/sw/mypage/cart/read" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="장바구니">
-    </form>
-    <form action="/sw/mypage/order/list" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="주문내역">
-    </form>
-    <form action="/sw/mypage/exchange/list" method="get">
-        <input type="text" name="mno" th:value="${mno}">
-        <input type="submit" value="취소/반품/교환">
-    </form>
+    <!-- 쇼핑 요약 정보 -->
+    <h3>커뮤니티 요약</h3>
+    <div>
+        <button class="btn btn-warning" type="button">
+            내가 쓴 글 <span class="badge">?</span>
+        </button>
+        <button class="btn btn-warning" type="button">
+            내 문의 글 <span class="badge">?</span>
+        </button>
+    </div>
+
+
+
+    <!-- 페이지 진입한 회원의 mno (hidden) -->
+    <div>
+        <input type="hidden" th:name="mno" th:value="${mno}">
+    </div>
 
 </body>
+<script>
+    $(document).ready(function (){
+
+        // 아무 버튼이 클릭되면
+        $("button").click(function (e){
+
+            // 필요한 데이터
+            var mno = $('input[name=mno]').val();
+            var pageName = e.target.name;
+
+            // 해당하는 페이지로 이동 처리
+            if(pageName === 'memberInfo') window.location.href = '/sw/mypage/memberInfo/read?mno='+mno;
+            else if(pageName === 'interest') window.location.href = '/sw/mypage/interest/list?mno='+mno;
+            else if(pageName === 'cart') window.location.href = '/sw/mypage/cart/list?mno='+mno;
+            else if(pageName === 'order') window.location.href = '/sw/mypage/order/list?mno='+mno;
+            else if(pageName === 'exchange') window.location.href = '/sw/mypage/exchange/list?mno='+mno;
+        })
+    })
+
+</script>
 </html>

@@ -21,10 +21,11 @@ public class CartController {
     // 의존성 주입
     private final CartService cartService;
 
-    @GetMapping("/read")
+    @GetMapping("/list")
     public void cartRead(int mno, Model model){ // 장바구니 List 가져오기
         log.info("CartController => cartRead(GET) 실행 => 받은 mno: "+mno);
         List<CartVO> cartList = cartService.readAll(mno);
+        model.addAttribute("mno",mno);
         model.addAttribute("cartList",cartList);
     }
 
