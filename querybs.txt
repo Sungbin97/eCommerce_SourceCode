@@ -1,0 +1,32 @@
+create database userdb;
+use userdb;
+drop table user_tbl;
+create table user_tbl(
+    uNo int auto_increment primary key,
+    userId varchar(30),
+    userName varchar(30) not null unique key,
+    userPassword varchar(30),
+    title varchar(100) not null,
+    content varchar(1000) not null,
+    regDate date,
+    modDate date,
+    delete_state varchar(10) default 'Y'
+);
+create table user_delete_tbl(
+     uNo int auto_increment primary key,
+     userId varchar(30),
+     userName varchar(30) not null unique key,
+     userPassword varchar(30),
+     title varchar(100) not null,
+     content varchar(1000) not null,
+     regDate date,
+     modDate date,
+     delete_state varchar(10) default 'Y'
+);
+select * from user_tbl;
+alter table user_tbl modify delete_state boolean default 1;
+update user_tbl set delete_state = 'Y';
+delete from user_tbl where uNo = 3;
+select * from user_tbl where uNo > 0 limit 0, 10;
+create database team4db;
+use team4db;
