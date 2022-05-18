@@ -3,27 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.team4.mapper.JH.OrderPageMapper">
-    <select id="getProductsInfo" resultType="com.green.team4.vo.JH.OrderPageItemVO">
-        select pno,pName,pPrice,pDiscount,pImageURL from tbl_product where pno = #{pno}
-    </select>
 <!--    <select id="getProductsInfo" resultType="com.green.team4.vo.JH.OrderPageItemVO">-->
-<!--        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor from product p-->
-<!--         inner join product_opt ps on p.pno = ps.pno-->
-<!--        where p.pno = #{pno} and ps.pColor = #{pColor}  and ps.pAmount != 0-->
+<!--        select pno,pName,pPrice,pDiscount,pImageURL from tbl_product where pno = #{pno}-->
 <!--    </select>-->
-<!--    주문 정보 가져오기-->
-    <select id="getOrderInfo" resultType="com.green.team4.vo.JH.DBOrderItemVO">
-        select pno,pName,pPrice,pDiscount,pImageURL from tbl_product where pno = #{pno}
+    <select id="getProductsInfo" resultType="com.green.team4.vo.JH.OrderPageItemVO">
+        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pSize from tbl_product p
+         inner join tbl_product_opt ps on p.pno = ps.pno
+        where p.pno = #{pno} and ps.pColor = #{pColor} and ps.pSize=#{pSize}
     </select>
+<!--    주문 정보 가져오기-->
 <!--    <select id="getOrderInfo" resultType="com.green.team4.vo.JH.DBOrderItemVO">-->
-<!--        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor from product p-->
-<!--        inner join product_opt ps on p.pno = ps.pno-->
-<!--        where p.pno = #{pno} and ps.pColor = #{pColor}  and ps.pAmount != 0-->
+<!--        select pno,pName,pPrice,pDiscount,pImageURL from tbl_product where pno = #{pno}-->
 <!--    </select>-->
+    <select id="getOrderInfo" resultType="com.green.team4.vo.JH.DBOrderItemVO">
+        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pSize from tbl_product p
+        inner join tbl_product_opt ps on p.pno = ps.pno
+        where p.pno = #{pno} and ps.pColor = #{pColor} and ps.pSize=#{pSize}
+    </select>
 <!--    주문 테이블 등록-->
     <insert id="enrollOrder">
-       insert into tbl_order(ono,pno, receiverName, mno, postcode, address, detailAddress, deliveryStatus, shipFee, usePoint)
-    	values(#{ono},#{pno},#{receiverName}, #{mno}, #{postcode}, #{address}, #{detailAddress}, '배송준비', #{shipFee}, #{usePoint})
+       insert into tbl_order
+       (ono,pno, receiverName, mno, postcode, address, detailAddress, deliveryStatus, shipFee, usePoint,payStatus,payINo,productPrice,totalPrice,receiverPhone,count,message)
+    	values
+    	(#{ono},#{pno},#{receiverName}, #{mno}, #{postcode}, #{address}, #{detailAddress}, '배송준비', #{shipFee}, #{usePoint},'결제완료',null,#{orderSalePrice},${orderFinalSalePrice},#{phoneNum},#{count},#{message})
     </insert>
 
 <!-- 주문 상품 테이블 등록 -->

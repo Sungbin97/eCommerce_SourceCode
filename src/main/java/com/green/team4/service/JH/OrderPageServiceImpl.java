@@ -7,6 +7,7 @@ import com.green.team4.service.sw.MemberInfoService;
 import com.green.team4.vo.JH.DBOrderItemVO;
 import com.green.team4.vo.JH.DBOrderVO;
 import com.green.team4.vo.JH.OrderPageItemVO;
+import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sb.MemberVO;
 import com.green.team4.vo.sb.ProductVO;
 import com.green.team4.vo.sw.MemberInfoVO;
@@ -33,10 +34,11 @@ public class OrderPageServiceImpl implements OrderPageService {
         List<OrderPageItemVO> list = new ArrayList<>();
         for(OrderPageItemVO order  :orders){
             System.out.println("페이지 orders : " + order);
-//            Product_optVO product_optVO = new Product_optVO();
-//            product_optVO.setPno(order.getPno());
-//            product_optVO.setPColor(order.getPColor());
-           OrderPageItemVO productsInfo = orderPageMapper.getProductsInfo(order.getPno());
+            Product_optVO product_optVO = new Product_optVO();
+            product_optVO.setPno(order.getPno());
+            product_optVO.setPColor(order.getPColor());
+            product_optVO.setPSize(order.getPSize());
+           OrderPageItemVO productsInfo = orderPageMapper.getProductsInfo(product_optVO);
            System.out.println("productsInfo: "+productsInfo);
            productsInfo.setItemCount(order.getItemCount());
            productsInfo.initSaleTotal();
@@ -49,6 +51,7 @@ public class OrderPageServiceImpl implements OrderPageService {
     @Transactional
     public void order(DBOrderVO vo) {
         System.out.println("order서비스 입장");
+        System.out.println("vo : " + vo);
         //회원정보
         MemberInfoVO member =memberInfoMapper.getMemberInfo(vo.getId());
         System.out.println("member: " + member);
@@ -56,16 +59,19 @@ public class OrderPageServiceImpl implements OrderPageService {
         List<DBOrderItemVO> ords = new ArrayList<>();
         for(DBOrderItemVO order:vo.getOrders()){
             System.out.println("order :"+order);
-//            Product_optVO product_optVO = new Product_optVO();
-//            product_optVO.setPno(order.getPno());
-//            product_optVO.setPColor(order.getPColor());
-            DBOrderItemVO orderItem = orderPageMapper.getOrderInfo(order.getPno());
+            Product_optVO product_optVO = new Product_optVO();
+            product_optVO.setPno(order.getPno());
+            product_optVO.setPColor(order.getPColor());
+            product_optVO.setPSize(order.getPSize());
+            DBOrderItemVO orderItem = orderPageMapper.getOrderInfo(product_optVO);
             orderItem.setItemCount(order.getItemCount());
             orderItem.setOno(vo.getOno());
             orderItem.initSaleTotal();
             System.out.println("orderItem : "+orderItem);
+            vo.setPno(order.getPno());
             ords.add(orderItem);
         }
+        vo.setPhoneNum(member.getPhoneNum());
         vo.setOrders(ords);
         vo.getOrderPriceInfo();
 

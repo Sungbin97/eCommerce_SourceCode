@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .product_div_img{
+        width: 100px;
+        height: 100px;
+    }
+</style>
 <body>
 주문 완료 페이지 입니다.
 
@@ -18,15 +24,16 @@
     <h5>배송지 정보</h5>
    <p> 받는 사람 : [[${order.receiverName}]]</p>
     <p><span>받는 주소 : [[${order.postcode}]]&nbsp;</span><span>[[${order.address}]]&nbsp;</span><span>[[${order.detailAddress}]]</span></p>
-    <p>배송 요청사항 : </p>
+    <p>배송 요청사항 : [[${order.message}]]</p>
 </div>
 <hr>
 <h5>상품 정보</h5>
 <div class="ProductInfo_div">
     <div class="Product_div" th:each="product : ${order.orders}">
-        <p th:text="${product.PImageURL}"></p>
+        <img class="product_div_img" th:src="${product.pImageURL}">
         <p th:text="${product.pName}"></p>
-<!--        <p th:text="${product.pColor}"></p>-->
+        <p>색상 : [[${product.pColor}]]</p>
+        <p>사이즈 : [[${product.pSize}]]</p>
         <p>[[${product.pPrice}]]원</p>
         <p >[[${product.itemCount}]]개</p>
     </div>

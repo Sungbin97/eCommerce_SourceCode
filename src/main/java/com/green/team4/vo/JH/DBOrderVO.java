@@ -20,8 +20,10 @@ public class DBOrderVO {
 
     
     private String email; //주문회원아이디
-    private String id;
-//    private String addr;// 주소
+    private String id; // 회원 아이디
+    private String phoneNum; // 주문자 번호
+    private int count; //주문 갯수
+    private String message;// 배송요청사항
 
     private String postcode; // 우편번호
     private String address; // 기본주소

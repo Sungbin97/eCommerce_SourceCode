@@ -95,6 +95,7 @@ public class UploadController {
     // 파일 Display
     @GetMapping("/display")
     public ResponseEntity<byte[]> getFile(String fileName){
+
         log.info("UploadController => getFile 실행 => 받은 fileName: "+fileName);
         ResponseEntity<byte[]> result = null;
         try{
@@ -110,6 +111,7 @@ public class UploadController {
 
             // 파일 데이터 처리
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
+            log.info("result"+result);
         } catch (Exception e){
             log.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

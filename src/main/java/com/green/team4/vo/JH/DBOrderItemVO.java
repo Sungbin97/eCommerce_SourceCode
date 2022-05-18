@@ -15,6 +15,7 @@ public class DBOrderItemVO {
     private String pName;
     private String pImageURL;
     private String pColor;
+    private String pSize;
     private int itemCount; // 주문수량
 
     private int orderItemno; // orderItem_tbl 기본키

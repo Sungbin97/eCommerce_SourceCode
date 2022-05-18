@@ -25,7 +25,7 @@
 
 </div>
     <div class="product-outline">
-        <img  th:src="${pvo.pImage}">
+        <img  th:src="${pvo.pImageURL}">
     </div>
 
     <div>
@@ -38,12 +38,16 @@
 
 
 <!--    상품 옵션-->
-        <div th:each="size : ${sizes}">
-            <button th:name="${size.pSize}" th:text="${size.pSize}"  ></button>
+        <div class="size_div" >
+           <select class="size_select" >
+               <option class="size_option" th:name="${size.pSize}" th:each="size : ${sizes}" th:value="${size.pSize}" >[[${size.pSize}]]</option>
+           </select>
         </div>
 
-        <div class="color_div" th:each="color : ${colors}">
-            <button class="colorBtn" th:name="${color.pColor}" th:text="${color.pColor}" ></button>
+        <div class="color_div" >
+            <select class="color_select" >
+                <option name="color_option" th:each="color : ${colors}" th:value="${color.pColor}">[[${color.pColor}]]</option>
+            </select>
         </div>
 <!--        수량-->
         <div>
@@ -54,13 +58,13 @@
         </div>
 
 
-
         <form th:action="@{/order/${member.id}}"  method="get" class="order_form">
             <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
-<!--            <input type="hidden" name="orders[0].pColor" th:value="red">-->
+            <input type="hidden" name="orders[0].pColor" value="">
+            <input type="hidden" name="orders[0].pSize" value="">
             <input type="hidden" name="orders[0].itemCount" value="">
         </form>
-        [[${member}]]
+
         <button class="btn_buy">구매하기</button>
             <button id="detailBtn">상품 상세설명</button>
             <button id="reviewBtn">리뷰([[${pvo.pReviewCnt}]])</button>
@@ -93,16 +97,24 @@
 
 
 <script th:inline="javascript">
+    $(".size_select").on("click",".size_option option",function (){
+        console.log("g하이")
+    })
     $(document).ready(function (){
 
         /* 바로구매 버튼 */
         $(".btn_buy").on("click", function(){
             let itemCount = $("#amountBox").val();
+            let pSize = $(".size_option").val();
+            let pColor = $("option[name='color_option']").val();
+            console.log(pSize)
+            console.log(pColor)
             let id = [[${member.id}]]
             $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
-            // $(".order_form").find("input[name='orders[0].pColor']").val('red');
+            $(".order_form").find("input[name='orders[0].pColor']").val(pColor);
+            $(".order_form").find("input[name='orders[0].pSize']").val(pSize);
             $(".order_form").attr("action","/order/"+id)
-            $(".order_form").submit();
+            //$(".order_form").submit();
         });
 
         let detailInfo = $(".product-detailInfo")

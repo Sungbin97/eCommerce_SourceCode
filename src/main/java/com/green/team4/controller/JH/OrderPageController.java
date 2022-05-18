@@ -31,7 +31,6 @@ public class OrderPageController {
         log.info("orders : "+orders.getOrders());
 
         model.addAttribute("orderlist",orderPageService.getProductListInfo(orders.getOrders()));
-        System.out.println(memberInfoService.getMemberInfo(id));
         model.addAttribute("memberInfo",memberInfoService.getMemberInfo(id));
         return "/shop/orderSheet";
     }
@@ -40,6 +39,7 @@ public class OrderPageController {
     public String orderPagePost(DBOrderVO vo,Model model ){
         System.out.println("orderPagePost입장");
         log.info("DBorderVO : " + vo);
+        log.info("vo"+vo.getOrders());
         orderPageService.order(vo);
         model.addAttribute("order",vo);
         return "/shop/orderCompleted";

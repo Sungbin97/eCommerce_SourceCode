@@ -13,11 +13,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface OrderPageMapper {
     
     //주문 상품 정보
-    public OrderPageItemVO getProductsInfo(int pno);
-
+//    public OrderPageItemVO getProductsInfo(int pno);
+    public OrderPageItemVO getProductsInfo(Product_optVO povo);
     // 주문 상품 정보 (주문처리용)
-    public DBOrderItemVO getOrderInfo(int pno);
-
+//    public DBOrderItemVO getOrderInfo(int pno);
+    public DBOrderItemVO getOrderInfo(Product_optVO povo);
     //주문 테이블에 주문 등록하기
     public int enrollOrder(DBOrderVO vo);
 

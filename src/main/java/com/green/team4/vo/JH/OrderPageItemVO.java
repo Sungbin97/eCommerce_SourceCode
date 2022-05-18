@@ -13,12 +13,16 @@ public class OrderPageItemVO {
     private int pno; //상품번호
 
     private int itemCount; // 상품 수량
+
+    //옵션 추가
     private String pColor;
+    private String pSize;
+
     /* DB로부터 꺼내올 값 */
     private String pName;
 
     private int pPrice;
-
+    private String pImageURL;
     private double pDiscount; // 상품할인율
     /* 만들어 낼 값 */
     private int salePrice; //상품 파는가격(할인적용된 한개의 가격)

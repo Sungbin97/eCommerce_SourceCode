@@ -25,4 +25,6 @@ public class ProductVO {
     private String pDelivery;
     private String pImageURL;
     private String pCode;
+    private String pSize;
+    private String pColor;
 }
