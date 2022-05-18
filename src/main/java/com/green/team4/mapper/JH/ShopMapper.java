@@ -1,6 +1,7 @@
 package com.green.team4.mapper.JH;
 
 import com.green.team4.vo.JH.ItemPageCriteria;
+import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sb.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -38,6 +39,11 @@ public interface ShopMapper {
     public List<ProductVO> getListBySearch(String keyword);
     public int getTotaldatabyFind(ItemPageCriteria cri);
 
+    //옵션처리
 
+
+    public List<Product_optVO> getColors(int pno);
+    public List<Product_optVO> getSizes(int pno);
+    public List<Product_optVO> getOptList(int pno);
 
 }

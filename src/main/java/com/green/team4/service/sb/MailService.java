@@ -19,6 +19,7 @@ public class MailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+
     private final MemberInfoMapper memberInfoMapper;
     private final MailMapper mailMapper;
 

@@ -4,6 +4,7 @@ import com.green.team4.mapper.sw.DeleteMemMapper;
 import com.green.team4.mapper.sw.MemberInfoMapper;
 import com.green.team4.mapper.sw.PaymentMapper;
 import com.green.team4.mapper.sw.ShipmentMapper;
+import com.green.team4.vo.sb.MemberVO;
 import com.green.team4.vo.sw.DeleteMemVO;
 import com.green.team4.vo.sw.MemberInfoVO;
 import com.green.team4.vo.sw.PaymentVO;
@@ -102,5 +103,14 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         int delResult = memberInfoMapper.delete(mno);
         log.info("memberInfoMapper 호출 => remove 후 삭제된 개수: "+delResult);
         return delResult;
+
+
+
+
+    }
+    //주문 페이지 서비스
+    @Override
+    public MemberInfoVO getMemberInfo(String id) {
+        return memberInfoMapper.getMemberInfo(id);
     }
 }

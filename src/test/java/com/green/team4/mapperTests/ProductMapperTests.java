@@ -18,8 +18,8 @@ public class ProductMapperTests {
     public void insert(){
         ProductVO productVO = new ProductVO();
         productVO.setPName("상품이름");
-        productVO.setPColor("보라");
-        productVO.setPSize("L");
+//        productVO.setPColor("보라");
+//        productVO.setPSize("L");
         productVO.setPAmount(5);
         productVO.setPPrice(700000);
         productVO.setPInformation("여성용 스포츠웨어");

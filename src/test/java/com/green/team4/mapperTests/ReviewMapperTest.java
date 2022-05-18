@@ -1,16 +1,22 @@
 package com.green.team4.mapperTests;
 
 import com.green.team4.mapper.JH.ReviewMapper;
+import com.green.team4.service.JH.ReviewService;
 import com.green.team4.vo.JH.ReviewVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Date;
 
 @SpringBootTest
 public class ReviewMapperTest {
 
     @Autowired
     private ReviewMapper mapper;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @Test
     public void testGetList(){
@@ -25,20 +31,31 @@ public class ReviewMapperTest {
 
     @Test
     public void testInsert(){
-        String[] strarr = {"의류","식품","장비"};
 
-        for (int i = 0; i < 200; i++) {
+
+        for (int i = 0; i < 1000; i++) {
             ReviewVO rvo = new ReviewVO();
-            rvo.setP_no((int)(Math.random()*200)+1);
-            rvo.setRv_content("테스트내용");
-            rvo.setRv_writer("테스트 작성자");
-            mapper.write(rvo);
+            rvo.setMno(i);
+            rvo.setPno((int)(Math.random()*200));
+            rvo.setRContent("참 잘샀어요!" + i);
+            rvo.setRRating((int)(Math.random()*5));
+            rvo.setRRegdate(new Date());
+            rvo.setRUpdatedate(new Date());
+            reviewService.write(rvo);
         }
     }
     @Test
-    public void testGetone(){
-      
+    public void testInsertService(){
+        for (int i = 0; i < 10; i++) {
+            ReviewVO rvo = new ReviewVO();
+            rvo.setMno(1);
+            rvo.setPno(1);
+            rvo.setRContent("참 잘샀어요!fdsf");
+            rvo.setRRating(5);
+            rvo.setRRegdate(new Date());
+            rvo.setRUpdatedate(new Date());
+            reviewService.write(rvo);
 
-
+        }
     }
 }

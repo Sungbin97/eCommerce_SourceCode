@@ -2,6 +2,7 @@ package com.green.team4.service.JH;
 
 import com.green.team4.mapper.JH.ShopMapper;
 import com.green.team4.vo.JH.ItemPageCriteria;
+import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sb.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,5 +66,18 @@ public class ShopServiceImpl implements ShopService {
         return shopMapper.getListBySearch(keyword);
     }
 
+    @Override
+    public List<Product_optVO> getColors(int pno) {
+        return shopMapper.getColors(pno);
+    }
 
+    @Override
+    public List<Product_optVO> getSizes(int pno) {
+        return shopMapper.getSizes(pno);
+    }
+
+    @Override
+    public List<Product_optVO> getOptList(int pno) {
+        return shopMapper.getOptList(pno);
+    }
 }

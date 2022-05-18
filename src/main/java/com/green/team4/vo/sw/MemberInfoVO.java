@@ -24,4 +24,7 @@ public class MemberInfoVO {
     private String detailAddress; // 세부주소
     private String auth; // 권한(관리자만 변경 가능)
     private String grade; // 등급(관리자만 변경 가능)
+    
+    //강정현 추가
+    private int point;// 포인트
 }

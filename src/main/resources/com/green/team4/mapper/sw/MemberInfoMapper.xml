@@ -33,4 +33,9 @@
         delete from tbl_memberInfo where mno=#{mno}
     </delete>
 
+    <select id="getMemberInfo" resultType="com.green.team4.vo.sw.MemberInfoVO">
+        select * from tbl_memberInfo
+        where id=#{id}
+    </select>
+
 </mapper>
