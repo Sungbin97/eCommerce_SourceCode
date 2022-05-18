@@ -27,6 +27,7 @@ public class MyPageController {
     @GetMapping("/main")
     public void getMainPage(int mno, Model model){
 
+        // 회원 기본메뉴 정보 가져오기 ----------------------------------------------------
         log.info("MyPageController => getMainPage 실행 => 받은 mno: "+mno);
         model.addAttribute("mno",mno);
 
@@ -54,5 +55,7 @@ public class MyPageController {
         List<ExchangeVO> exList = exchangeService.readAll(mno);
         int exCnt = exList.size();
         model.addAttribute("exCnt",exCnt);
+
+
     }
 }
