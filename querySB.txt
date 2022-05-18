@@ -25,6 +25,7 @@ create table tbl_mail(
     mailNo int auto_increment primary key,
     subject varchar(70),
     text varchar(700),
+    sendDate DATETIME default now(),
     reception varchar(1000),
     foreign key (mno) references tbl_memberInfo (mno)
 );
