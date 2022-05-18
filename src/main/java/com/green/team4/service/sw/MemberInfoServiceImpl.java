@@ -102,5 +102,14 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         int delResult = memberInfoMapper.delete(mno);
         log.info("memberInfoMapper 호출 => remove 후 삭제된 개수: "+delResult);
         return delResult;
+
+
+
+
+    }
+    //주문 페이지 서비스
+    @Override
+    public MemberInfoVO getMemberInfo(String id) {
+        return memberInfoMapper.getMemberInfo(id);
     }
 }

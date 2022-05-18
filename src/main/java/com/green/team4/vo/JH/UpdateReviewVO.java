@@ -7,8 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class Product_colorVO {
-    private int pc_no ;
-    private String p_code;
-    private String p_color ;
+public class UpdateReviewVO {
+    private int pno;
+    private double pRating;
 }

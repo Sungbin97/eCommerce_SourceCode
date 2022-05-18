@@ -41,6 +41,7 @@ public class MemServiceTests {
             memberInfoVO.setDetailAddress("세부주소"+i);
             memberInfoVO.setAuth(auth[(int)(Math.random()*3)]);
             memberInfoVO.setGrade(grade[(int)(Math.random()*3)]);
+            memberInfoVO.setPoint((int)(Math.random()*(1000000-9999)+9999));
 
             mapper.insert(memberInfoVO);
         });

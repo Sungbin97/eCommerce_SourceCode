@@ -83,6 +83,8 @@
     <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='priceasc',keyword=${cri.keyword})}">가격낮은순</a>
     <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='pricedesc',keyword=${cri.keyword})}">가격높은순</a>
     <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='new',keyword=${cri.keyword})}">신상품순</a>
+    <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='ratingDesc',keyword=${cri.keyword})}">평점높은순</a>
+    <a th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${cri.page},numPerPage=${cri.numPerPage},sort='reviewCntDesc',keyword=${cri.keyword})}">리뷰많은순</a>
 </div>
 
 <!--카테고리 목록-->
@@ -123,14 +125,19 @@
 <div>
     <div class="product-container">
             <div >
-                <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(p_no=${dto?.p_no})}">
-                    <img th:src="${dto.p_image}">
-                 <div>[[${dto?.p_name}]]([[${dto?.p_subcategory}]])</div>
-                    <div>[[${dto?.p_price}]]원</div>
+                <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(pno=${dto?.pno},mno=1)}">
+                    <img th:src="${dto.pImage}">
+                 <p>[[${dto?.pName}]]([[${dto?.pSubCategory}]])</p>
+                    <p>[[${dto?.pPrice}]]원</p>
+                    <p>평점 : [[${dto.pRating}]]([[${dto.pReviewCnt}]])</p>
                 </a>
             </div>
     </div>
+<!--    <form class="mnoForm">-->
+<!--        <input name="pno" type="hidden" th:value="2">-->
+<!--        <input name="mno" type="hidden" th:value="1">-->
 
+<!--    </form>-->
 
     <!--페이징-->
 
@@ -162,15 +169,15 @@
 
         function loadGetListBysearch(){
             let keyword  = $('#keyword').val();
-            console.log("검색어 들옴?",keyword);
+            console.log("검색어 들어오나유?",keyword);
             $.getJSON("/rest/getListBySearch/"+keyword,function (data){
                 console.log(data)
                 let str = "";
                 $(data).each(function (){
-                    console.log(this.p_image)
-                    str +=	'<tr> <td ><a href="/shop/read?p_no='+this.p_no+'"><img class="search-img" src="'+this.p_image+'"></a></td>';
-                    str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?p_no='+this.p_no+'">'+this.p_name+' <p style="font-size:8px;">'+this.p_subcategory+'</p></a>';
-                     str +=   '<p style="font-size:7px">'+this.p_price+'원</p></td>';
+                    console.log(this.pImage)
+                    str +=	'<tr> <td ><a href="/shop/read?pno='+this.pno+'"><img class="search-img" src="'+this.pimage+'"></a></td>';
+                    str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?pno='+this.pno+'">'+this.pname+' <p style="font-size:8px;">'+this.psubCategory+'</p></a>';
+                     str +=   '<p style="font-size:7px">'+this.pprice+'원</p></td>';
                     str += '<hr/>';
                 })
                 selectView.html(str);
@@ -180,6 +187,12 @@
         $("input[name='keyword']").keyup(function (){
             loadGetListBysearch();
         })
+        // $(".product-item").click(function (e){
+        //     e.preventDefault();
+        //     let mnoForm = $(".mnoForm");
+        //     // mnoForm.find("input[name='mno']")
+        //     mnoForm.submit();
+        // })
 
     })
 </script>

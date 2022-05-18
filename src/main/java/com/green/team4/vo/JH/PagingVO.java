@@ -25,7 +25,11 @@ public class PagingVO {
         getPaging();
 
     }
-
+    public PagingVO(ItemPageCriteria cri, int totalData){
+        this.cri=cri;
+        this.totalData=totalData;
+        getPaging();
+    }
     public void getPaging(){
         //페이지 목록 마지막
         end = (int)(Math.ceil(cri.getPage()/(double)displayPageNum) * displayPageNum);

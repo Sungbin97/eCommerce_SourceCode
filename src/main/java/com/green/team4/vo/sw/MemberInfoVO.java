@@ -18,10 +18,13 @@ public class MemberInfoVO {
     private String email; // 이메일
     private String phoneNum; // 전화번호
     private String gender; // 성별(변경 불가)
-    private String SSNum; // 주민등록번호(변경 불가)
+    private String sSNum; // 주민등록번호(변경 불가)
     private String postcode; // 우편번호
     private String address; // 기본주소
     private String detailAddress; // 세부주소
     private String auth; // 권한(관리자만 변경 가능)
     private String grade; // 등급(관리자만 변경 가능)
+    
+    //강정현 추가
+    private int point;// 포인트
 }

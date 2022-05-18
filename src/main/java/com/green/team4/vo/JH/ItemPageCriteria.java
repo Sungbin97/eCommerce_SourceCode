@@ -18,6 +18,7 @@ public class ItemPageCriteria {
     private String keyword;
     private String sort;
 
+    private int pno;
     public ItemPageCriteria(){
         this.page=1;
         this.numPerPage=10;

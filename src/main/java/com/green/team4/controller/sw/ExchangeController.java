@@ -40,7 +40,7 @@ public class ExchangeController {
     }
 
     @PostMapping("/delete")
-    public String exDelete(int eno, int mno, int ono){ // 취소/반품/교환 하나 가져오기
+    public String exDelete(int eno, int mno, String ono){ // 취소/반품/교환 하나 가져오기
         log.info("OrderController => exDelete(POST) 실행 => 받은 eno: "+eno);
         log.info("OrderController => exDelete(POST) 실행 => 받은 eno: "+mno);
 

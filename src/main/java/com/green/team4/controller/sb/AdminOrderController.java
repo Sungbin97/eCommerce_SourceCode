@@ -40,6 +40,7 @@ public class AdminOrderController {
         // 주문 목록 가져오기
         log.info("AdminOrderController => orderList(GET) 실행");
         List<OrderVO> orderList = orderService.readAllAdmin();
+        log.info("AdminOrderController => orderList(GET) => service로 가져온 list: "+orderList);
         System.out.println(orderList);
         model.addAttribute("orderList",orderList);
     }
@@ -57,7 +58,7 @@ public class AdminOrderController {
         MailVO mailVO = new MailVO();
         mailVO.setMno(orderMno);
         mailVO.setEmail(memberMail);
-        
+
         if((vo.getPayStatus()).equals("결제완료") && (vo.getDeliveryStatus()).equals("배송준비중")){
             mailVO.setSubject("상품주문알림");
             mailVO.setText(memberName+"님의 주문이 완료되었습니다. 상품명: "+vo.getPName()
@@ -78,7 +79,7 @@ public class AdminOrderController {
     }
 
     @GetMapping("/read")
-    public void readOne(int ono, Model model){ // 주문 세부내용 가져오기
+    public void readOne(String ono, Model model){ // 주문 세부내용 가져오기
         log.info("OrderController => readOne(GET) 실행 => 받은 ono: "+ono);
         OrderVO orderVO = orderService.readOne(ono);
         model.addAttribute("orderVO",orderVO);
@@ -87,7 +88,7 @@ public class AdminOrderController {
     // Delivery -----------------------------------------------------------------------------------------
 
     @GetMapping("/delivery")
-    public void readOneDelivery(int mno,int ono, Model model){ // 배송조회 화면 가져오기
+    public void readOneDelivery(int mno,String ono, Model model){ // 배송조회 화면 가져오기
         log.info("OrderController => readOneDelivery(GET) 실행 => 받은 ono: "+ono);
         log.info("OrderController => readOneDelivery(GET) 실행 => 받은 ono: "+mno);
         DeliveryVO deliveryVO = deliveryService.readOne(mno,ono);
@@ -97,7 +98,7 @@ public class AdminOrderController {
     // Exchange -----------------------------------------------------------------------------------------
 
     @GetMapping("/exchange")
-    public void exRegister(int mno,int ono, int pno, int payINo, Model model){ // 취소/반품/교환 등록 페이지 가져오기
+    public void exRegister(int mno,String ono, int pno, int payINo, Model model){ // 취소/반품/교환 등록 페이지 가져오기
         log.info("OrderController => exRegister(GET) 실행 => 받은 mno: "+mno);
         log.info("OrderController => exRegister(GET) 실행 => 받은 ono: "+ono);
         log.info("OrderController => exRegister(GET) 실행 => 받은 pno: "+pno);

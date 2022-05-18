@@ -1,8 +1,12 @@
 package com.green.team4.controller.JH;
 
+import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
+
+import com.green.team4.service.sw.MemberInfoService;
 import com.green.team4.vo.JH.ItemPageCriteria;
 import com.green.team4.vo.JH.PagingVO;
+import com.green.team4.vo.sb.ProductVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,12 +15,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @Log4j2
 @RequestMapping("/shop")
 public class ShopController {
     @Autowired
     private ShopService shopService;
+
+    @Autowired
+    private ReviewService reviewService;
+
+    @Autowired
+    private MemberInfoService memberInfoService;
     @GetMapping("/start")
     public void start(){
 
@@ -40,21 +54,29 @@ public class ShopController {
 
     // 상품 상세페이지
     @GetMapping("/read")
-    public void read(int p_no , Model model){
+    public void read(int pno,int mno, Model model){
         log.info("read");
-        log.info("p_no : "+p_no);
+        log.info("pno : "+pno);
+       log.info("mno : " + mno);
+        ProductVO pvo = shopService.getOne(pno);
+        System.out.println(pvo);
 
-        model.addAttribute("pvo",shopService.getOne(p_no));
+        model.addAttribute("pvo",pvo);
+        model.addAttribute("colors",shopService.getColors(pvo.getPno()));
+        model.addAttribute("sizes",shopService.getSizes(pvo.getPno()));
+       // model.addAttribute("options",shopService.getOptList(pvo.getPno()));
+        model.addAttribute("member",memberInfoService.readOne(mno));
+
     }
 
-    @GetMapping("/orderSheet")
-    public void orderGet(int p_no , Model model){
-        log.info("orderSheet");
-        log.info("p_no : "+p_no);
-
-        model.addAttribute("pvo",shopService.getOne(p_no));
-
-    }
+//    @GetMapping("/orderSheet")
+//    public void orderGet(int pno , Model model){
+//        log.info("orderSheet");
+//        log.info("p_no : "+pno);
+//
+//        model.addAttribute("pvo",shopService.getOne(pno));
+//
+//    }
     @GetMapping("/orderCompleted")
     public void orderCompleted(int p_no , Model model){
 

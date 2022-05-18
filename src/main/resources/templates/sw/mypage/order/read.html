@@ -39,8 +39,16 @@
                 <input type="text" name="receiverPhone" th:value="${orderVO.receiverPhone}" readonly>
             </li>
             <li>
-                <label th:for="delAddr">배송주소</label>
-                <input type="text" name="delAddr" th:value="${orderVO.delAddr}" readonly>
+                <label th:for="postcode">우편번호</label>
+                <input type="text" name="postcode" th:value="${orderVO.postcode}" readonly>
+            </li>
+            <li>
+                <label th:for="address">도로명주소</label>
+                <input type="text" name="address" th:value="${orderVO.address}" readonly>
+            </li>
+            <li>
+                <label th:for="detailAddress">세부주소</label>
+                <input type="text" name="detailAddress" th:value="${orderVO.detailAddress}" readonly>
             </li>
             <li>
                 <label th:for="message">주문 요청사항 메세지</label>

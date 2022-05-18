@@ -25,4 +25,12 @@ public class ProductVO {
     private String pDelivery;
     private String pImageURL;
     private String pCode;
+    private double pRating;
+    private int pReviewCnt;
+    private int pDiscount;
+
+
+
+
+
 }

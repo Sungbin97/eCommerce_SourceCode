@@ -1,0 +1,83 @@
+// 상품 테이블
+create table tbl_product(
+    pno int(30) primary key auto_increment,
+    pName varchar(50) not null,
+    pMainCategory varchar(50) not null,
+    pSubCategory varchar(50) not null,
+    pSize varchar(50) ,
+    pPrice int(30) not null,
+    pAmount int(30) not null,
+    pColor varchar(50) ,
+    pRegdate DATETIME default now(),
+    pImage varchar(50) not null,
+    pInformation varchar(50) not null,
+    pDelivery varchar(50),
+    pImageURL varchar(200) ,
+    pCode varchar(50) not null,
+	pRating decimal(2,1),
+	pReviewCnt int(20),
+    pDiscount int(10)
+);
+// 리뷰
+create table tbl_review(
+	rno int(10) not null auto_increment primary key,
+	pno int(10) not null,
+    mno int(10),
+    rRating int(10),
+	rContent varchar(1000) not null,
+    LIKEHIT int default 0,
+    rImageURL varchar(150),
+	rRegdate TIMESTAMP not null default now(),
+	rUpdatedate TIMESTAMP not null default now()
+
+);
+// 상품 옵션 -- 보류
+create table tbl_product_opt(
+	pcno int(5) auto_increment primary key,
+	pno int(5),
+     pAmount int(100),
+    psize varchar(30),
+      pcolor varchar(30),
+      pOptPrice int(11) default 0
+);
+
+-- 주문 테이블
+create table tbl_order(
+    mno int(30) not null, -- 회원번호(tbl_memberInfo)
+    ono varchar(50) primary key , -- 주문번호
+    pno int(30) not null,  -- 상품번호(tbl_product)
+    payINo int(30) , -- 결제수단 번호(tbl_paymentInfo)
+   -- delAddr varchar(50) not null, -- 배송지 주소
+   -- 신규 추가
+    postcode varchar(50) , -- 우편번호
+    address varchar(50) , -- 주소(도로명)
+    detailAddress varchar(50) not null, -- 상세주소
+    usePoint int(50),
+    --
+    receiverName varchar(30) , -- 받는 사람 성명
+    receiverPhone varchar(50) , -- 밥는 사람 연락처
+    message varchar(50) , -- 주문/배송 관련 메세지
+    count int(30) , -- 주문개수
+    productPrice int(30) , -- 상품 총 금액
+    shipFee int(30) , -- 배송비
+    totalPrice int(30) , -- 총 결제금액
+    orderDate DATETIME default now(), -- 주문일시
+    payStatus varchar(50) , -- 결재 상태
+    deliveryStatus varchar(50) , -- 배송 상태
+    exStatus boolean default 0, -- 교환반품취소 신청 여부
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (payINo) references tbl_paymentInfo (payINo)
+
+);
+-- 주문 상품 테이블
+create table tbl_orderItem(
+	orderItemno int auto_increment primary key,
+    ono varchar(50) ,
+    pno int,
+    itemCount int not null,
+	pPrice int not null,
+    pDiscount int not null,
+    savePoint int not null,
+     FOREIGN KEY (ono) REFERENCES tbl_order(ono),
+    FOREIGN KEY (pno) REFERENCES tbl_product(pno)
+);

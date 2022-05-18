@@ -23,100 +23,332 @@
     상품 상세페이지입니다.
 <div class="product-detailed-box">
 
+</div>
     <div class="product-outline">
-        <img  th:src="${pvo.p_image}">
+        <img  th:src="${pvo.pImage}">
     </div>
 
     <div>
-        <h3>[[${pvo.p_name}]]</h3><br>
+        <h3>[[${pvo.pName}]]</h3><br>
 
-        <p>[[${pvo.p_price}]]원</p><br>
+        <p>[[${pvo.pPrice}]]원</p><br>
 
-<!--        상품 사이즈 표-->
-<!--        <div th:if="${not #strings.isEmpty(pvo.p_size)}">-->
-<!--            <div th:if="${not #strings.isEmpty(pvo.p_amount)}">-->
-<!--                <div th:if="${pvo.p_maincategory.toString.equals('의류')}">-->
-<!--            <button th:each="size : ${}">XXL</button>-->
-<!--            <button>XL</button>-->
-<!--            <button>L</button>-->
-<!--            <button>M</button>-->
-<!--            <button>S</button>-->
-<!--            <button>XS</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
 
+
+
+
+<!--    상품 옵션-->
+        <div th:each="size : ${sizes}">
+            <button th:name="${size.pSize}" th:text="${size.pSize}"  ></button>
+        </div>
+
+        <div class="color_div" th:each="color : ${colors}">
+            <button class="colorBtn" th:name="${color.pColor}" th:text="${color.pColor}" ></button>
+        </div>
 <!--        수량-->
         <div>
             <form>
                 수량 :
-                <input type=number name=p_amount value=1 min="1" max="99">
+                <input id="amountBox" type=number name=pAmount value="1" min="1" max="99">
             </form>
         </div>
 
-        <form role="form" id="orderForm" action="/shop/orderSheet" method="get">
-            <input type="hidden" name="p_no" th:value="${pvo.p_no}">
-            <button>구매하기</button>
-            <button>장바구니 담기</button>
-        </form>
 
+
+        <form th:action="@{/order/${member.id}}"  method="get" class="order_form">
+            <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
+<!--            <input type="hidden" name="orders[0].pColor" th:value="red">-->
+            <input type="hidden" name="orders[0].itemCount" value="">
+        </form>
+        [[${member}]]
+        <button class="btn_buy">구매하기</button>
             <button id="detailBtn">상품 상세설명</button>
-            <button id="reviewBtn">리뷰</button>
+            <button id="reviewBtn">리뷰([[${pvo.pReviewCnt}]])</button>
             <button id="deliInfoBtn">배송환불사항</button>
 
     </div>
-    <div class="product-detailed">
+    <div class="review_not_div">
+
+    </div>
+    <div class="review-header">
+
+    </div>
+   <div class="review_div">
+
+   </div>
+    <div class="review_pageInfo_div">
+        <ul class="pageMaker">
+
+        </ul>
+    </div>
+
+    <div class="product-detailInfo">
+
+    </div>
+    <div class="product-deleveryInfo">
 
     </div>
 
 
-</div>
+
 
 <script th:inline="javascript">
     $(document).ready(function (){
 
-        let detaildiv = $(".product-detailed")
+        /* 바로구매 버튼 */
+        $(".btn_buy").on("click", function(){
+            let itemCount = $("#amountBox").val();
+            let id = [[${member.id}]]
+            $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
+            // $(".order_form").find("input[name='orders[0].pColor']").val('red');
+            $(".order_form").attr("action","/order/"+id)
+            $(".order_form").submit();
+        });
 
-        let p_no = [[${pvo.p_no}]]
-
-
+        let detailInfo = $(".product-detailInfo")
+        let deleveryInfo = $(".product-deleveryInfo")
+       let review_div = $(".review_div")
+        let pagingdiv = $(".review_pageInfo_div")
+        let review_not_div = $(".review_not_div")
+        let pageMaker = $(".pageMaker")
+        let pno = [[${pvo.pno}]]
+        let reviewCnt = [[${pvo.pReviewCnt}]]
+        let reviewHeader = $(".review-header");
+        //리뷰 불러오기
         function loadReviews(){
-            $.getJSON("/rest/getreviews/" + p_no,function (data){
-                let str ="";
-                console.log(data);
-                $(data).each(function (){
+            $.getJSON("/rest/getreviews" ,{pno:pno},function (data){
 
-                    str += "<div><h5>"+ this.rv_writer +"</h5>";
-                    str += "<p>" + this.rv_content +"</p>";
-                    str += "</div>";
-                })
-                detaildiv.html(str)
+                makeReviewContent(data)
+            })//getJson
+        }//loadreview
+
+
+        const cri = {
+            pno : [[${pvo.pno}]],
+            page : 1,
+            numperPage : 10,
+            sort : ''
+        }
+        //리뷰 초기화
+        let reviewListInit = function(cri){
+            $.getJSON("/rest/getreviews",cri,function (data){
+                makeReviewContent(data)
             })
         }
 
+        /* 리뷰 동적 생성 메서드 */
+        function makeReviewContent(data){
+
+            if(data.list.length === 0){
+
+                review_not_div.html('<span>리뷰가 없습니다.</span>');
+                reviewHeader.html('')
+                review_div.html('');
+                detailInfo.html('')
+                deleveryInfo.html('');
+                pageMaker.html('');
+            }
+            else {
+
+                review_not_div.html('');
+                detailInfo.html('')
+                deleveryInfo.html('');
+                const list = data.list;
+                const pageInfo = data.pageInfo;
+                // const userId = '${member.memberId}';
+                let str ="";
+                $(list).each(function (i,obj){
+                    str += '<li>';
+                    str += '<div class="comment_wrap">';
+                    str += '<div class="reply_top">';
+                    /* 아이디 */
+                    str += '<p class="id_span">회원'+ obj.mno+'</p>';
+                    /* 날짜 */
+                    str += '<p class="date_span">'+formatTime(obj.rregDate) +'</p>';
+                    /* 평점 */
+                    str += '<span class="rating_span">평점 : <span class="rating_value_span">'+ obj.rrating +'</span>점</span>';
+                    // if(obj.mno === userId){
+                    //     str += '<a class="update_reply_btn" href="'+ obj.replyId +'">수정</a><a class="delete_reply_btn" href="'+ obj.replyId +'">삭제</a>';
+                    // }
+                    str += '</div>'; //<div class="reply_top">
+                    str += '<div class="reply_bottom">';
+                    str += '<div class="reply_bottom_txt">'+ obj.rcontent +'</div>';
+                    str +='<button type="button" class="btn btn-primary" > 추천</button>';
+                    str += '</div>';//<div class="reply_bottom">
+                    str += '</div>';//<div class="comment_wrap">
+                    str += '</li>';
+                });
+                review_div.html(str)
+
+                let review_pageMaker = '';
+                console.log(pageInfo)
+                /* prev */
+                if(pageInfo.prev){
+                    let prev_num = pageInfo.start -1;
+                    review_pageMaker += '<li class="pageMaker_btn prev">';
+                    review_pageMaker += '<a href="'+ prev_num +'">이전</a>';
+                    review_pageMaker += '</li>';
+                }
+                /* numbre btn */
+                for(let i = pageInfo.start; i < pageInfo.end+1; i++){
+                    review_pageMaker += '<li class="pageMaker_btn ';
+                    if(pageInfo.cri.page === i){
+                        review_pageMaker += 'active';
+                    }
+                    review_pageMaker += '">';
+                    review_pageMaker += '<a href="'+i+'">'+i+'</a>';
+                    review_pageMaker += '</li>';
+                }
+                /* next */
+                if(pageInfo.next){
+                    let next_num = pageInfo.end +1;
+                    review_pageMaker += '<li class="pageMaker_btn next">';
+                    review_pageMaker += '<a href="'+ next_num +'">다음</a>';
+                    review_pageMaker += '</li>';
+                }
+
+                reviewhead = "";
+                reviewhead += "<div class='review-sortContainer'><p> [[${pvo.pRating}]]([[${pvo.pReviewCnt}]])</p>"
+                reviewhead  += "<a href='new'>최신리뷰순</a>&nbsp"
+                reviewhead  += "<a href='best'>베스트순</a>&nbsp"
+                reviewhead  += "<a href='ratingdesc'>평점높은순</a>&nbsp"
+                reviewhead  += "<a href='ratingasc'>평점낮은순</a>&nbsp"
+                reviewhead  += "</div>"
+                reviewHeader.html(reviewhead)
+                pageMaker.html(review_pageMaker)
+
+
+            }
+        }
+        //페이지 이동
+        $(".pageMaker").on("click",'.pageMaker_btn a',function (e){
+            e.preventDefault();
+            let page = $(this).attr("href")
+            cri.page = page;
+            reviewListInit(cri);
+        })
+        //댓글 정렬
+        $(".review-header").on("click",".review-sortContainer a",function (e){
+            e.preventDefault();
+            let sort = $(this).attr("href")
+            cri.sort = sort;
+            reviewListInit(cri)
+        })
+        $(".review_div").on("click",".btn-primary",function (e){
+            e.preventDefault();
+
+            commentLike(0,82,82);
+        })
+        function commentLike(pno,rno,mno){
+            $.ajax({
+                type : "POST",
+                url : "/rest/commentLike",
+                dataType : "json",
+                data : {'pno' : pno ,'rno' : rno, 'mno' : mno },
+                headers:{
+                    "Content-Type" : "application/json",
+                    "X-HTTP-Method-Override" : "POST"
+                },
+                error : function(){
+                    alert("통신 에러");
+                },
+                success : function(likeCheck) {
+
+                    if(likeCheck == 0){
+                        alert("추천완료.");
+                        // commentList();
+                    }
+                    else if (likeCheck == 1){
+                        alert("추천취소");
+                        // commentList();
+
+
+                    }
+                }
+            });
+        }
+        function formatTime(str){
+            var date = new Date();
+            return date.getFullYear()+'/'+(date.getMonth()+1)+'/'+date.getDate()+' '+date.getHours()+':'+date.getMinutes();
+        }
+        const displayTime = (timeValue) => {
+            var today = new Date();
+            var gap = today.getTime() - timeValue; // 오늘날짜에서 시간만 얻어옴 그래서 뺌
+            var dateObj = new Date(timeValue); // 댓글단 날짜 구함
+            console.log(dateObj)
+            var str = "";
+            //숫자 1자리는 자리수 맞추기 위해 3항 연산자로 0을 추가함 9=>09,11=>11
+            if (gap < 1000 * 60 * 60 * 24) {
+                //24시간이 안 지난 댓글은 시간 분,초 로 표시, 1000 ms + 60분 + 60초 + 24시간
+                var hh = dateObj.getHours();
+                var mi = dateObj.getMinutes();
+                var ss = dateObj.getSeconds();
+                var result = [
+                    (hh > 9 ? "" : "0") + hh, ":",
+                    (mi > 9 ? "" : "0") + mi, ":",
+                    (ss > 9 ? "" : "0") + ss
+                ].join(""); //배열의 요소를 공백으로 문자열 결합
+                console.log("시간 : ", result);
+                return result;
+            } else {
+                var yy = dateObj.getFullYear();
+                var mm = dateObj.getMonth() + 1; //월은 0부터 시작하므로 1을 더함
+                var dd = dateObj.getDate();
+                var result = [
+                    yy,
+                    "/",
+                    (mm > 9 ? "" : "0") + mm,
+                    "/",
+                    (dd > 9 ? "" : "0") + dd
+                ].join("");
+                console.log("시간 : ", result);
+                return result;
+            }
+        };
+
         function loadProductDetailed(){
-            $.getJSON("/rest/getinfo/" + p_no,function (data){
+            $.getJSON("/rest/getinfo/" + pno,function (data){
                 let str ="";
                 $(data).each(function (){
-                    str += "<div><h5>" + this.p_information +"</h5>"
-                    str += "<p>" + this.p_color +"</p>";
+                    str += "<div><h5>" + this.pinformation +"</h5>"
+                    str += "<p>" + this.pcolor +"</p>";
                     str += "</div>"
                 })
-                detaildiv.html(str)
+                detailInfo.html(str)
+                reviewHeader.html('')
+                review_not_div.html('');
+                review_div.html('');
+                deleveryInfo.html('');
+                pageMaker.html('');
             })
         }
 
         function loadDeliDetailed(){
-            $.getJSON("/rest/getinfo/" + p_no,function (data){
+            $.getJSON("/rest/getinfo/" + pno,function (data){
                 let str ="";
                 $(data).each(function (){
-                    str += "<div><h5>" + this.p_delivery +"</h5>"
+                    str += "<div><h5>" + this.pdelivery +"</h5>"
                     str += "<p>" + "배송비 백만원 싫으면 직접가져가" +"</p>";
                     str += "</div>"
                 })
-                detaildiv.html(str)
+                deleveryInfo.html(str);
+                reviewHeader.html('')
+                detailInfo.html('')
+                review_not_div.html('');
+                review_div.html('');
+                pageMaker.html('');
             })
         }
+
+
+
+
+
+        $(".color_div").each(function (){
+            let color = $(this).find(".colorBtn").text();
+            $(this).find(".colorBtn").css("color",color)
+
+        })
 
 
         $("#reviewBtn").click(function (){

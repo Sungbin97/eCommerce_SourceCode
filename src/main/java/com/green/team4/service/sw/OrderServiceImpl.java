@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderVO readOne(int ono) { // 주문내역 하나 가져오기
+    public OrderVO readOne(String ono) { // 주문내역 하나 가져오기
         log.info("OrderService => readOne 실행 => 받은 ono: "+ono);
         OrderVO orderVO = orderMapper.getOne(ono);
         log.info("OrderService => readOne 실행 후 받은 orderVO: "+orderVO);
@@ -43,11 +43,18 @@ public class OrderServiceImpl implements OrderService{
     //관리자용
     @Override
     public List<OrderVO> readAllAdmin() { // 관리자
-        return orderMapper.getAllAdmin();
+        log.info("OrderService => readAllAdmin 실행");
+        List<OrderVO> orderList = orderMapper.getAllAdmin();
+        log.info("OrderService => readAllAdmin 실행 후 받은 orderList: "+orderList);
+        return orderList;
+
     }
 
     @Override
     public int update(OrderVO orderVO) {
-        return orderMapper.update(orderVO);
+        log.info("OrderService => update 실행 => 받은 OrderVO: "+orderVO);
+        int result = orderMapper.update(orderVO);
+        log.info("OrderService => update 실행 후 수정된 데이터 개수: "+result);
+        return result;
     }
 }
