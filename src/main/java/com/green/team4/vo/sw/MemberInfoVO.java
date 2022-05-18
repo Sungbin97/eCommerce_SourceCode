@@ -18,7 +18,7 @@ public class MemberInfoVO {
     private String email; // 이메일
     private String phoneNum; // 전화번호
     private String gender; // 성별(변경 불가)
-    private String SSNum; // 주민등록번호(변경 불가)
+    private String sSNum; // 주민등록번호(변경 불가)
     private String postcode; // 우편번호
     private String address; // 기본주소
     private String detailAddress; // 세부주소

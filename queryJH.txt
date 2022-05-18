@@ -31,7 +31,7 @@ create table tbl_review(
 	rUpdatedate TIMESTAMP not null default now()
 
 );
-// 상품 옵션
+// 상품 옵션 -- 보류
 create table tbl_product_opt(
 	pcno int(5) auto_increment primary key,
 	pno int(5),
@@ -39,8 +39,8 @@ create table tbl_product_opt(
     psize varchar(30),
       pcolor varchar(30),
       pOptPrice int(11) default 0
-
 );
+
 -- 주문 테이블
 create table tbl_order(
     mno int(30) not null, -- 회원번호(tbl_memberInfo)

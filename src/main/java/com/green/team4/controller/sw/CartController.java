@@ -32,7 +32,7 @@ public class CartController {
     @PostMapping("/delete")
     public String cartDelete(CartVO cartVO){ // 장바구니에서 상품 삭제
         log.info("CartController => cartDelete(POST) 실행 => 받은 CartVO: "+cartVO);
-        cartService.remove(cartVO.getPno());
+        cartService.remove(cartVO.getCno());
         return "redirect:/sw/mypage/cart/list?mno="+cartVO.getMno();
     }
 }

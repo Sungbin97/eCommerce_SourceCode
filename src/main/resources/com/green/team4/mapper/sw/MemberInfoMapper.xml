@@ -7,8 +7,8 @@
 
     <!-- MemberInfo 데이터 등록 -->
     <insert id="insert">
-        insert into tbl_memberInfo (id, password, name, nickName, email, phoneNum, gender, SSNum, postcode, address, detailAddress, auth, grade)
-            values (#{id}, #{password}, #{name}, #{nickName}, #{email}, #{phoneNum}, #{gender}, #{SSNum},#{postcode},#{address},#{detailAddress},#{auth},#{grade})
+        insert into tbl_memberInfo (id, password, name, nickName, email, phoneNum, gender, SSNum, postcode, address, detailAddress, auth, grade, point)
+            values (#{id}, #{password}, #{name}, #{nickName}, #{email}, #{phoneNum}, #{gender}, #{SSNum},#{postcode},#{address},#{detailAddress},#{auth},#{grade},#{point})
     </insert>
 
     <!-- MemberInfo 데이터 전체 가져오기 -->

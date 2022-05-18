@@ -2,6 +2,7 @@ package com.green.team4.vo.sb;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,6 @@ public class MailVO {
     private int mailNo;
     private String subject;
     private String text;
-    private Date sendDate;
+    private LocalDateTime sendDate;
     private String reception;
 }

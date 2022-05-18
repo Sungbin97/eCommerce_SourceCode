@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/sb/mail/*")
 @Log4j2
@@ -40,7 +42,10 @@ public class MailController {
 
     @GetMapping("/list")
     public void list(Model model){
-        model.addAttribute("list", mailMapper.getAll());
+        log.info("MailController 실행 => list 실행");
+        List<MailVO> mailList = mailMapper.getAll();
+        log.info("MailController 실행 => list 실행 => 받은 mailList: "+mailList);
+        model.addAttribute("list", mailList);
     }
 
 }

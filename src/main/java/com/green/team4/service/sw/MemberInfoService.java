@@ -1,9 +1,7 @@
 package com.green.team4.service.sw;
 
-import com.green.team4.vo.sb.MemberVO;
 import com.green.team4.vo.sw.MemberInfoVO;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MemberInfoService {

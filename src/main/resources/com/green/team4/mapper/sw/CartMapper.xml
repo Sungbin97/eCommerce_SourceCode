@@ -17,7 +17,7 @@
 
     <!-- Cart 데이터 삭제 -->
     <delete id="delete">
-        delete from tbl_cart where pno=#{pno}
+        delete from tbl_cart where cno=#{cno}
     </delete>
 
 </mapper>

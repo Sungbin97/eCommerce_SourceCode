@@ -14,7 +14,7 @@ public class ExchangeVO {
 
     // tbl_exchange 에서 가져올 data
     private int mno; // 회원번호(tbl_memberInfo)
-    private int ono; // 주문번호(tbl_order)
+    private String ono; // 주문번호(tbl_order)
     private int eno; // 취소/반품/교환 번호
     private int pno; // 상품번호(tbl_product)
     private int payINo; // 결제수단 번호(tbl_paymentInfo)

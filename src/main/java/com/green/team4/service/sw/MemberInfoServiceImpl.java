@@ -4,7 +4,6 @@ import com.green.team4.mapper.sw.DeleteMemMapper;
 import com.green.team4.mapper.sw.MemberInfoMapper;
 import com.green.team4.mapper.sw.PaymentMapper;
 import com.green.team4.mapper.sw.ShipmentMapper;
-import com.green.team4.vo.sb.MemberVO;
 import com.green.team4.vo.sw.DeleteMemVO;
 import com.green.team4.vo.sw.MemberInfoVO;
 import com.green.team4.vo.sw.PaymentVO;

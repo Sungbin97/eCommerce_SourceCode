@@ -72,7 +72,6 @@
         <main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
             <h3>주문 및 배송관리</h3>
             <!-- 주문 목록 테이블 -->
-            <form method="post" action="/sb/order/list">
             <table id="orderTable" class="table">
                 <thead>
                 <tr>
@@ -86,6 +85,7 @@
                     <th>총 결제금액</th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -95,11 +95,11 @@
                     <td><a th:href="@{/sw/mypage/order/read(ono=${order.ono})}" th:text="${order.ono}"></a></td>
                     <input type="hidden" th:name="ono" th:value="${order.ono}">
                     <td><select th:name="payStatus">
-                        <option value="확인중">확인중</option>
+                        <option th:value="${order.payStatus}" th:text="'현재상태: '+${order.payStatus}"></option>
                         <option value="결제완료">결제완료</option>
                     </select></td>
                     <td><select th:name="deliveryStatus">
-                        <option value="확인중">확인중</option>
+                        <option th:value="${order.deliveryStatus}" th:text="'현재상태: '+${order.deliveryStatus}"></option>
                         <option value="배송준비중">배송준비중</option>
                         <option value="배송중">배송중</option>
                         <option value="배송완료">배송완료</option>
@@ -109,12 +109,18 @@
                     <td th:text="${order.totalPrice}" th:value="${order.totalPrice}" th:name="totalPrice"></td>
                     <td></td>
                     <td></td>
+                    <td>
+                        <form method="post" action="/sb/order/list">
+                            <input type="hidden" th:name="ono" th:value="${order.ono}"/>
+                            <input type="hidden" th:name="payStatus"/>
+                            <input type="hidden" th:name="deliveryStatus"/>
+                            <button type="submit">전송</button>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
-            <button id="pay" type="submit">전송</button>
             <hr/>
-            </form>
             <!-- Mypage 메인으로 돌아가기 버튼 -->
 <!--            <input type="hidden" th:name="mno" th:value="${mno}">-->
 <!--            <button type="button" class="btn btn-primary goBack">마이페이지 메인으로 돌아가기</button>-->
@@ -127,6 +133,18 @@
         $(".goBack").click(function (){
             var mno = $("input[name=mno]").val();
             window.location.href = '/sw/mypage/main?mno='+mno;
+        })
+        // payStatus select box 읽어오기
+        $("select[name=payStatus]").change(function (){
+            var getPayStatus = $(this).val();
+            console.log(getPayStatus);
+            $("input[name=payStatus]").val(getPayStatus);
+        })
+        // deliveryStatus box 읽어오기
+        $("select[name=deliveryStatus]").change(function (){
+            var getDeliveryStatus = $(this).val();
+            console.log(getDeliveryStatus);
+            $("input[name=deliveryStatus]").val(getDeliveryStatus);
         })
     })
 </script>

@@ -3,11 +3,9 @@ package com.green.team4.service.JH;
 import com.green.team4.mapper.JH.OrderPageMapper;
 import com.green.team4.mapper.JH.ShopMapper;
 import com.green.team4.mapper.sw.MemberInfoMapper;
-import com.green.team4.service.sw.MemberInfoService;
 import com.green.team4.vo.JH.DBOrderItemVO;
 import com.green.team4.vo.JH.DBOrderVO;
 import com.green.team4.vo.JH.OrderPageItemVO;
-import com.green.team4.vo.sb.MemberVO;
 import com.green.team4.vo.sb.ProductVO;
 import com.green.team4.vo.sw.MemberInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +61,7 @@ public class OrderPageServiceImpl implements OrderPageService {
             orderItem.setItemCount(order.getItemCount());
             orderItem.setOno(vo.getOno());
             orderItem.initSaleTotal();
+            vo.setPno(order.getPno());
             System.out.println("orderItem : "+orderItem);
             ords.add(orderItem);
         }

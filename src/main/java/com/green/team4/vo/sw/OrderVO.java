@@ -13,10 +13,15 @@ public class OrderVO {
 
     // tbl_order 칼럼
     private int mno; // 회원번호 (tbl_memberInfo)
-    private int ono; // 주문번호
+    private String ono; // 주문번호
     private int pno; // 상품번호 (tbl_tbl_product)
     private int payINo; // 결제수단 번호 (tbl_paymentInfo)
-    private String delAddr; // 배송지 주소
+
+    private String postcode; // 우편번호
+    private String address; // 주소(도로명)
+    private String detailAddress; // 상세주소
+    private int usePoint; // 사용한 포인트
+
     private String receiverName; // 받는 사람 성명
     private String receiverPhone; // 받는 사람 연락처
     private String message; // 주문/배송 관련 메세지
