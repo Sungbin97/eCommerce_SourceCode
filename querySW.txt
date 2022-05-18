@@ -31,7 +31,7 @@ create table tbl_memberInfo(
    grade varchar(50) not null
 );
 
--- 회원 배송지 정보 테이블 -- 수정★★ 2022.05.12
+-- 회원 배송지 정보 테이블 -- 수정★★ 2022.05.17
 create table tbl_shipmentInfo(
     mno int(30) not null,
     sno int(30) primary key auto_increment,

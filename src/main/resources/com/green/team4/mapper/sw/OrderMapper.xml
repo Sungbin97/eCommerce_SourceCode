@@ -33,5 +33,14 @@
         where ono=#{ono}
     </update>
 
-
+    <!-- Order 데이터 전체 가져오기(관리자용) -->
+    <select id="getAllAdmin" resultType="com.green.team4.vo.sw.OrderVO">
+        select tbl_order.mno,ono,tbl_order.pno,tbl_order.payINo,delAddr,receiverName,receiverPhone,message,count,productPrice,shipFee,
+        totalPrice,orderDate,payStatus,deliveryStatus,exStatus,name,phoneNum,pName,payName,payContent from tbl_order
+        left outer join tbl_memberInfo on tbl_order.mno = tbl_memberInfo.mno
+        left outer join tbl_product on tbl_order.pno = tbl_product.pno
+        left outer join tbl_paymentInfo on tbl_order.payINo = tbl_paymentInfo.payINo
+        order by tbl_order.orderDate desc;
+    </select>
+    
 </mapper>

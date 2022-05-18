@@ -12,12 +12,12 @@ public class DeliveryServiceTests {
     @Autowired
     private DeliveryService deliveryService;
 
-    @Test
-    public void testGetOne(){
-        int ono = 3;
-        DeliveryVO deliveryVO = deliveryService.readOne(ono);
-        System.out.println(deliveryVO);
-    }
+//    @Test
+//    public void testGetOne(){
+//        int ono = 3;
+//        DeliveryVO deliveryVO = deliveryService.readOne(ono);
+//        System.out.println(deliveryVO);
+//    }
 
 
 }

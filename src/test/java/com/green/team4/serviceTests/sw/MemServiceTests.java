@@ -58,10 +58,12 @@ public class MemServiceTests {
         memberInfoVO.setNickName("nickName");
         memberInfoVO.setEmail("csb3694@naver.com");
         memberInfoVO.setPhoneNum("010-3105-5347");
-        memberInfoVO.setGender(gender[(int)(Math.random()*2)]);
+        memberInfoVO.setGender("남자");
         memberInfoVO.setSSNum("123-43556");
         memberInfoVO.setAddress("금학로 91");
-        memberInfoVO.setAuth(auth[(int)(Math.random()*3)]);
+        memberInfoVO.setDetailAddress("107동 1103호");
+        memberInfoVO.setAuth("관리자");
+        memberInfoVO.setPostcode("310260");
         memberInfoVO.setGrade(grade[(int)(Math.random()*3)]);
 
         mapper.insert(memberInfoVO);
@@ -69,7 +71,7 @@ public class MemServiceTests {
 
     @Test
     public void testReadOne(){ // 데이터 하나 가져오기
-        int mno = 24;
+        int mno = 51;
         MemberInfoVO memberInfoVO = service.readOne(mno);
         System.out.println("가져온 MemberInfo: "+memberInfoVO);
     }

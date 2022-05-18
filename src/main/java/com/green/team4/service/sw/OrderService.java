@@ -9,4 +9,9 @@ public interface OrderService {
     List<OrderVO> readAll(int mno); // 주문목록 전체 가져오기
     OrderVO readOne(int ono); // 주문목록 하나 가져오기
     int modify(OrderVO orderVO);
+
+    //관리자
+    List<OrderVO> readAllAdmin();
+
+    int update(OrderVO orderVO);
 }

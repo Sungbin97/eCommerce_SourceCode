@@ -22,7 +22,7 @@ public class ExchangeServiceTests {
         ExchangeVO exchangeVO = new ExchangeVO();
         exchangeVO.setMno(8);
         exchangeVO.setOno(4);
-        exchangeVO.setP_no(2);
+        exchangeVO.setPno(2);
         exchangeVO.setPno(8);
         exchangeVO.setExCategory("취소");
         exchangeVO.setExContent("구매에 착오가 있었습니다.");

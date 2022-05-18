@@ -40,4 +40,14 @@ public class OrderServiceImpl implements OrderService{
         log.info("OrderService => modify 실행 후 수정된 데이터 개수: "+result);
         return result;
     }
+    //관리자용
+    @Override
+    public List<OrderVO> readAllAdmin() { // 관리자
+        return orderMapper.getAllAdmin();
+    }
+
+    @Override
+    public int update(OrderVO orderVO) {
+        return orderMapper.update(orderVO);
+    }
 }

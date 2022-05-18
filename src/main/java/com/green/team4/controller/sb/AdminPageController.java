@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AdPageController {
+public class AdminPageController {
     @Autowired
     MailService mailService;
     @GetMapping("/sb/adpage")

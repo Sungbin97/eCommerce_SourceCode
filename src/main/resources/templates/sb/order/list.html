@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>주문배송관리</title>
@@ -54,13 +54,14 @@
     <div class="row flex-nowrap">
         <div class="col-3 bd-sidebar">
             <ul class="nav">
+                <h4>관리자 페이지</h4>
                 <li>
                     <a href="/sb/member/member?mno=1">회원관리</a>
                     <a href="/sb/product/list?pno=1">상품관리</a>
                     <a href="/sb/product/upload">상품등록</a>
                     <a href="/sb/product/modify?pno=1">상품정보수정</a>
                     <a href="/sb/order/list">주문/배송관리</a>
-                    <a href="">각종 통계</a>
+                    <a href="/sb/statistics/sales">각종 통계</a>
                     <a href="/sb/mail/list">EMAIL & SMS</a>
                     <a href="/sb/mail/write">개별 메일 전송</a>
                     <a href="/sb/mail/list">자동 메일 및 문자(예정)</a>
@@ -69,8 +70,64 @@
             <br>
         </div>
         <main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
-            <h5>주문배송관리</h5>
+            <h3>주문 및 배송관리</h3>
+            <!-- 주문 목록 테이블 -->
+            <form method="post" action="/sb/order/list">
+            <table id="orderTable" class="table">
+                <thead>
+                <tr>
+                    <th>주문일시</th>
+                    <th>받는사람</th>
+                    <th>주문번호</th>
+                    <th>결재상태</th>
+                    <th>배송상태</th>
+                    <th>상품명</th>
+                    <th>상품 및 배송비</th>
+                    <th>총 결제금액</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${orderList}">
+                    <td th:text="${order.orderDate}"></td>
+                    <td th:text="${order.receiverName}"></td>
+                    <td><a th:href="@{/sw/mypage/order/read(ono=${order.ono})}" th:text="${order.ono}"></a></td>
+                    <input type="hidden" th:name="ono" th:value="${order.ono}">
+                    <td><select th:name="payStatus">
+                        <option value="확인중">확인중</option>
+                        <option value="결제완료">결제완료</option>
+                    </select></td>
+                    <td><select th:name="deliveryStatus">
+                        <option value="확인중">확인중</option>
+                        <option value="배송준비중">배송준비중</option>
+                        <option value="배송중">배송중</option>
+                        <option value="배송완료">배송완료</option>
+                    </select></td>
+                    <td th:text="${order.pName}" th:value="${order.pName}" th:name="pName"></td>
+                    <td th:text="${order.totalPrice}"></td>
+                    <td th:text="${order.totalPrice}" th:value="${order.totalPrice}" th:name="totalPrice"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <button id="pay" type="submit">전송</button>
+            <hr/>
+            </form>
+            <!-- Mypage 메인으로 돌아가기 버튼 -->
+<!--            <input type="hidden" th:name="mno" th:value="${mno}">-->
+<!--            <button type="button" class="btn btn-primary goBack">마이페이지 메인으로 돌아가기</button>-->
         </main>
     </div>
 </body>
+<script>
+    $(document).ready(function (){
+        // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
+        $(".goBack").click(function (){
+            var mno = $("input[name=mno]").val();
+            window.location.href = '/sw/mypage/main?mno='+mno;
+        })
+    })
+</script>
 </html>
