@@ -31,7 +31,7 @@ create table tbl_memberInfo(
    grade varchar(50) not null
 );
 
--- 회원 배송지 정보 테이블 -- 수정★★ 2022.05.17
+-- 회원 배송지 정보 테이블 -- 수정★★ 2022.05.12
 create table tbl_shipmentInfo(
     mno int(30) not null,
     sno int(30) primary key auto_increment,
@@ -101,13 +101,13 @@ create table tbl_product(
     pRegdate DATETIME default now(),
     pImage varchar(50) not null,
     pInformation varchar(50) not null,
-    pDelivery varchar(50) not null,
-    pImageURL varchar(50) not null,
+    pDelivery varchar(50),
+    pImageURL varchar(200) not null,
     pCode varchar(50) not null
 );
 
 -- dummyData insert -- tbl_cart
-insert into tbl_cart (mno,pno) values (8,2);
+insert into tbl_cart (mno,pno) values (8,1);
 
 -- dummyData insert -- tbl_product
 insert into tbl_product (pName, pMainCategory, pSubCategory, pSize, pPrice, pAmount, pColor, pImage, pInformation, pDelivery, pImageURL, pCode)
@@ -212,6 +212,31 @@ create table tbl_interest(
 
 -- insert DummyData
 insert into tbl_interest (mno, pno) values (8,1);
-insert into tbl_interest (mno, pno) values (8,2);
+
+-- 회원별 첼린지 테이블 -- 추가★★ 2022.05.17
+create table tbl_challenge(
+    mno int(30) not null, -- 회원번호
+    tCategory varchar(50) not null, -- 첼린지 종류
+    tName varchar(50) not null, -- 첼린지 이름
+    target int(50) not null, -- 목표
+    targetDate DATETIME default now(), -- 목표 날짜
+    todayDate DATETIME default now(), -- 데이터 입력 날짜
+    todayAmt int(50) not null default 0, -- 입력날 달성한 수치
+    complete varchar(30) default 'N', -- 목표 달성 여부
+    giveCoupon varchar(30) default 'N', -- 쿠폰 지급 여부
+    foreign key (mno) references tbl_memberInfo (mno)
+);
+
+-- 메일 테이블 -- 추가 ★★ 2022.05.18 SB
+create table tbl_mail(
+    mno int,
+    email varchar(50)  null,
+    mailNo int auto_increment primary key,
+    subject varchar(70),
+    text varchar(700),
+    sendDate DATETIME default now(),
+    reception varchar(1000),
+    foreign key (mno) references tbl_memberInfo (mno)
+);
 
 commit;
