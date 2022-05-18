@@ -20,29 +20,29 @@
 </style>
 
 <body>
-    <h2>마이페이지 메인</h2>
+<h2>마이페이지 메인</h2>
 
-    <h3 th:text="${memName}+'님 환영합니다:)'"></h3><br/>
+<h3 th:text="${memName}+'님 환영합니다:)'"></h3><br/>
 
-    <!-- 쇼핑 요약 정보 -->
-    <h3>쇼핑 요약</h3>
-    <div>
-        <button class="btn btn-primary" type="button" name="memberInfo">
-            개인정보관리 <span class="badge"></span>
-        </button>
-        <button class="btn btn-primary" type="button" name="interest">
-            찜한상품 <span class="badge" name="itrCnt" th:text="${itrCnt}"></span>
-        </button>
-        <button class="btn btn-primary" type="button" name="cart">
-            장바구니 <span class="badge" name="cartCnt" th:text="${cartCnt}"></span>
-        </button>
-        <button class="btn btn-primary" type="button" name="order">
-            주문목록 <span class="badge" name="orderCnt" th:text="${orderCnt}"></span>
-        </button>
-        <button class="btn btn-primary" type="button" name="exchange">
-            취소/반품/교환 <span class="badge" name="exCnt" th:text="${exCnt}"></span>
-        </button>
-    </div><br/>
+<!-- 쇼핑 요약 정보 -->
+<h3>쇼핑 요약</h3>
+<div>
+    <button class="btn btn-primary" type="button" name="memberInfo">
+        개인정보관리 <span class="badge"></span>
+    </button>
+    <button class="btn btn-primary" type="button" name="interest">
+        찜한상품 <span class="badge" name="itrCnt" th:text="${itrCnt}"></span>
+    </button>
+    <button class="btn btn-primary" type="button" name="cart">
+        장바구니 <span class="badge" name="cartCnt" th:text="${cartCnt}"></span>
+    </button>
+    <button class="btn btn-primary" type="button" name="order">
+        주문목록 <span class="badge" name="orderCnt" th:text="${orderCnt}"></span>
+    </button>
+    <button class="btn btn-primary" type="button" name="exchange">
+        취소/반품/교환 <span class="badge" name="exCnt" th:text="${exCnt}"></span>
+    </button>
+</div><br/>
 
 <!--    <h3>미완료 항목</h3>-->
 <!--    <div>-->
@@ -60,26 +60,26 @@
 <!--        </button>-->
 <!--    </div>-->
 
-    <!-- 카카오 지도 -->
-    <h3>주변 스포츠 시설 검색</h3>
-    <div>
-        <label>장소 검색하기</label>
-        <input type="text" name="kakaoMapSearch" placeholder="검색할 장소 키워드를 입력하세요">
-        <button type="button" name="searchBtn" class="btn btn-outline-secondary">검색</button>
-        <button type="button" name="curLocationBtn" class="btn btn-outline-secondary">나의 현재위치 찾기</button>
-    </div><br/>
-    <div id="map" style="width:600px;height:400px;"></div><br/>
+<!-- 카카오 지도 -->
+<h3>주변 스포츠 시설 검색</h3>
+<div>
+    <label>장소 검색하기</label>
+    <input type="text" name="kakaoMapSearch" placeholder="검색할 장소 키워드를 입력하세요">
+    <button type="button" name="searchBtn" class="btn btn-outline-secondary">검색</button>
+    <button type="button" name="curLocationBtn" class="btn btn-outline-secondary">나의 현재위치 찾기</button>
+</div><br/>
+<div id="map" style="width:600px;height:400px;"></div><br/>
 
-    <!-- 그래프 태그 -->
-    <h3>나의 첼린지</h3>
-    <button type="button" name="addChallenge" class="btn btn-info">나의 첼린지 추가하기</button>
-    <div id="displayChallenge">
-        <div id="chartdiv"></div>
-    </div>
+<!-- 그래프 태그 -->
+<h3>나의 첼린지</h3>
+<button type="button" name="addChallenge" class="btn btn-info">나의 첼린지 추가하기</button>
+<div id="displayChallenge">
+    <div id="chartdiv"></div>
+</div>
 
 
-    <!-- 페이지 진입한 회원의 mno (hidden) -->
-    <input type="hidden" th:name="mno" th:value="${mno}">
+<!-- 페이지 진입한 회원의 mno (hidden) -->
+<input type="hidden" th:name="mno" th:value="${mno}">
 
 </body>
 

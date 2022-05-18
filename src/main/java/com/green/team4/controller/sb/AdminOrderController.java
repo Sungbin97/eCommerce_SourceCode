@@ -8,7 +8,6 @@ import com.green.team4.service.sw.OrderService;
 import com.green.team4.vo.sb.MailVO;
 import com.green.team4.vo.sw.DeliveryVO;
 import com.green.team4.vo.sw.ExchangeVO;
-import com.green.team4.vo.sw.MemberInfoVO;
 import com.green.team4.vo.sw.OrderVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
