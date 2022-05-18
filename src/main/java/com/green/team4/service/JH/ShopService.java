@@ -31,9 +31,9 @@ public interface ShopService {
     public List<ProductVO> getListBySearch(String keyword);
 
 //    옵션
-    public List<Product_optVO> getColors(String pCode);
-    public List<Product_optVO> getSizes(String pCode);
-    public List<Product_optVO> getOptList(String pCode);
+    public List<Product_optVO> getColors(int pno);
+    public List<Product_optVO> getSizes(int pno);
+    public List<Product_optVO> getOptList(int pno);
 
 
 }

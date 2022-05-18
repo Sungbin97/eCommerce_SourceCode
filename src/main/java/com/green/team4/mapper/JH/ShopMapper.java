@@ -45,9 +45,9 @@ public interface ShopMapper {
     //옵션처리
 
 
-    public List<Product_optVO> getColors(String pCode);
-    public List<Product_optVO> getSizes(String pCode);
-    public List<Product_optVO> getOptList(String pCode);
+    public List<Product_optVO> getColors(int pno);
+    public List<Product_optVO> getSizes(int pno);
+    public List<Product_optVO> getOptList(int pno);
 
 
 

@@ -131,7 +131,8 @@
                         <input type="hidden" class="individual_totalPoint_input" th:value="${product.totalPoint}">
                         <input type="hidden" class="individual_itemCount_input" th:value="${product.itemCount}">
                         <input type="hidden" class="individual_pno_input" th:value="${product.pno}">
-                        <input type="hidden" class="individual_pName_input" th:value="${product.pName}">
+<!--                        <input type="hidden" class="individual_pName_input" th:value="${product.pName}">-->
+<!--                        <input type="hidden" class="individual_pColor_input" th:value="${product.pColor}">-->
                     </td>
                     <hr>
                 </tr>
@@ -145,7 +146,7 @@
 
                 <tr>
                     <td>
-                        [[${memberInfo.point}]] | <input class="order_point_input" th:value="0">원
+                        사용가능 포인트 : [[${memberInfo.point}]] | 포인트 입력 : <input class="order_point_input" th:value="0">P
                         <a class="order_point_input_btn order_point_input_btn_All" data-state="A">모두사용</a><br>
                         <br><a class="order_point_input_btn order_point_input_btn_Cancel" data-state="C" style="display: none;">사용취소</a>
                     </td>
@@ -200,8 +201,10 @@
             <input name="usePoint" type="hidden">
 
 
+
+
         </form>
-        <button class="order_btn">결제하기</button>
+<!--        <button class="order_btn">결제하기</button>-->
     </div>
     <div>
         <button onclick="requestPay()">결제하기</button>
@@ -251,7 +254,7 @@
             let  buyer_email=$("input[name='email']").val()
             let  buyer_tel=$("input[name='phone']").val()
             let ono = createOrderNum();
-        console.log("ono : ",ono)
+
         // IMP.request_pay(param, callback) 결제창 호출
 
         IMP.init("imp63826642"); // 예: imp00000000
@@ -260,7 +263,7 @@
             pay_method: "card",
             merchant_uid: ono,
             name: name,
-            amount: 100,
+            amount: amount,
             buyer_email:buyer_email,
             buyer_name: buyer_name,
             buyer_tel: buyer_tel,
@@ -331,17 +334,22 @@
             }
             // 포인트 값 넣기
             $("input[name='usePoint']").val($(".order_point_input").val())
-
+            $("input[name='ono']").val(new Date().getTime());
             /* 상품정보 */
             let form_contents = '';
             $(".product_price_td").each(function(index, element){
                 let pno = $(element).find(".individual_pno_input").val();
                 let itemCount = $(element).find(".individual_itemCount_input").val();
+                let pColor = $(element).find(".individual_pColor_input").val();
+                console.log(pColor)
                 let pno_input = "<input name='orders[" + index + "].pno' type='hidden' value='" + pno + "'>";
                 form_contents += pno_input;
                 let itemCount_input = "<input name='orders[" + index + "].itemCount' type='hidden' value='" + itemCount + "'>";
                 form_contents += itemCount_input;
+                let pColor_input = "<input name='orders[" + index + "].pColor' type='hidden' value='" + pColor + "'>";
+                form_contents += pColor_input;
             });
+
             $(".order_form").append(form_contents);
             $(".order_form").submit();
         })
@@ -368,31 +376,30 @@
     }
     // 포인트 사용1
     $(".order_point_input").on("propertychange change keyup paste input",function (){
-        let totalPrice = parseInt($(".individual_totalPrice_input").val());
+        let finalTotalPrice = parseInt($(".finalTotalPrice_span").text());
         const maxPoint = parseInt([[${memberInfo.point}]])
         let inputValue = parseInt($(this).val())
-        console.log(inputValue)
+        console.log(finalTotalPrice)
         if(inputValue<0 ){
             $(this).val(0)
         }
         else if(inputValue>maxPoint){
             $(this).val(maxPoint)
         }
-        else if(totalPrice<inputValue){
-            $(this).val(totalPrice)
+        else if(finalTotalPrice<inputValue){
+            $(this).val(0)
         }
         setTotalInfo();
     })
     // 포인트 사용2(모두사용)
     $(".order_point_input_btn").click(function (){
         const maxPoint = parseInt([[${memberInfo.point}]])
-        let totalPrice = parseInt($(".individual_totalPrice_input").val());
+        let finalTotalPrice = parseInt($(".finalTotalPrice_span").text());
         let state = $(this).data("state");
-        console.log(state)
         if(state == 'A'){
             console.log("All")
-            if(maxPoint>totalPrice){
-                $(".order_point_input").val(totalPrice);
+            if(maxPoint>finalTotalPrice){
+                $(".order_point_input").val(finalTotalPrice);
                 $(".order_point_input_btn_All").css("display","none")
                 $(".order_point_input_btn_Cancel").css("display","block")
             }

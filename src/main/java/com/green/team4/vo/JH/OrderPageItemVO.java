@@ -13,7 +13,7 @@ public class OrderPageItemVO {
     private int pno; //상품번호
 
     private int itemCount; // 상품 수량
-
+    private String pColor;
     /* DB로부터 꺼내올 값 */
     private String pName;
 

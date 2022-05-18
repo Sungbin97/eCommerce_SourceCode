@@ -68,18 +68,18 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<Product_optVO> getColors(String pCode) {
-        return shopMapper.getColors(pCode);
+    public List<Product_optVO> getColors(int pno) {
+        return shopMapper.getColors(pno);
     }
 
     @Override
-    public List<Product_optVO> getSizes(String pCode) {
-        return shopMapper.getSizes(pCode);
+    public List<Product_optVO> getSizes(int pno) {
+        return shopMapper.getSizes(pno);
     }
 
     @Override
-    public List<Product_optVO> getOptList(String pCode) {
-        return shopMapper.getOptList(pCode);
+    public List<Product_optVO> getOptList(int pno) {
+        return shopMapper.getOptList(pno);
     }
 
 

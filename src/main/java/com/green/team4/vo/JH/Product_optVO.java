@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 public class Product_optVO {
     private int pcno ;
+    private int pno;
     private String pCode;
     private String pColor ;
     private int pAmount;

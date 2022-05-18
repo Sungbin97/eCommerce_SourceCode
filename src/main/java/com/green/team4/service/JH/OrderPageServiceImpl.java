@@ -6,6 +6,7 @@ import com.green.team4.mapper.sb.MemberMapper;
 import com.green.team4.vo.JH.DBOrderItemVO;
 import com.green.team4.vo.JH.DBOrderVO;
 import com.green.team4.vo.JH.OrderPageItemVO;
+import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sb.MemberVO;
 import com.green.team4.vo.sb.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,15 @@ public class OrderPageServiceImpl implements OrderPageService {
     //장바구니 매퍼도 나중에 추가
 
     @Override
-    public List<OrderPageItemVO> getProductsInfo(List<OrderPageItemVO> orders) {
+    public List<OrderPageItemVO> getProductListInfo(List<OrderPageItemVO> orders) {
         List<OrderPageItemVO> list = new ArrayList<>();
         for(OrderPageItemVO order  :orders){
+            System.out.println("페이지 orders : " + order);
+//            Product_optVO product_optVO = new Product_optVO();
+//            product_optVO.setPno(order.getPno());
+//            product_optVO.setPColor(order.getPColor());
            OrderPageItemVO productsInfo = orderPageMapper.getProductsInfo(order.getPno());
+           System.out.println("productsInfo: "+productsInfo);
            productsInfo.setItemCount(order.getItemCount());
            productsInfo.initSaleTotal();
            list.add(productsInfo);
@@ -49,6 +55,9 @@ public class OrderPageServiceImpl implements OrderPageService {
         List<DBOrderItemVO> ords = new ArrayList<>();
         for(DBOrderItemVO order:vo.getOrders()){
             System.out.println("order :"+order);
+//            Product_optVO product_optVO = new Product_optVO();
+//            product_optVO.setPno(order.getPno());
+//            product_optVO.setPColor(order.getPColor());
             DBOrderItemVO orderItem = orderPageMapper.getOrderInfo(order.getPno());
             orderItem.setItemCount(order.getItemCount());
             orderItem.setOno(vo.getOno());

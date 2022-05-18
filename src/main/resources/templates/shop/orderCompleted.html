@@ -6,23 +6,40 @@
 </head>
 <body>
 주문 완료 페이지 입니다.
-<div class="delivery-info">
-    <h5>배송지 정보</h5>
 
-</div>
-<hr>
-
-<div class="consumer-info">
-    <h5>구매자 정보</h5>
-</div>
-<hr>
-<div class="product-info">
+<div class="ono_div">
     <h5>주문번호</h5>
+     <p >주문번호 : [[${order.ono}]]</p>
+
+
 </div>
 <hr>
+<div class="deliveryInfo_div">
+    <h5>배송지 정보</h5>
+   <p> 받는 사람 : [[${order.receiverName}]]</p>
+    <p><span>받는 주소 : [[${order.addr1}]]&nbsp;</span><span>[[${order.addr2}]]&nbsp;</span><span>[[${order.addr3}]]</span></p>
+    <p>배송 요청사항 : </p>
+</div>
+<hr>
+<h5>상품 정보</h5>
+<div class="ProductInfo_div">
+    <div class="Product_div" th:each="product : ${order.orders}">
+        <p th:text="${product.PImageURL}"></p>
+        <p th:text="${product.pName}"></p>
+<!--        <p th:text="${product.pColor}"></p>-->
+        <p>[[${product.pPrice}]]원</p>
+        <p >[[${product.itemCount}]]개</p>
+    </div>
+</div>
 
-<div class="payment-info">
+<hr>
+<!--[[${order}]]-->
+<div class="paymentInfo_div">
     <h5>결제 정보</h5>
+    <p>총 상품가격 : [[${order.orderSalePrice}]]원</p>
+    <p>포인트 사용 : -[[${order.usePoint}]]원</p>
+    <p>배송비 : +[[${order.shipFee}]]원</p>
+    <h3 style="color: red">총 결제 금액 : [[${order.orderFinalSalePrice}]]원</h3>
 </div>
 
 <form method="get" action="#">

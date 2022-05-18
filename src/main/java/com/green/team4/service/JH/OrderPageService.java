@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrderPageService {
 //    주문정보
-    public List<OrderPageItemVO> getProductsInfo(List<OrderPageItemVO> orders);
+    public List<OrderPageItemVO> getProductListInfo(List<OrderPageItemVO> orders);
 
 //    주문하기
     public void order(DBOrderVO vo);

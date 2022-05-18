@@ -61,9 +61,9 @@ public class ShopController {
         System.out.println(pvo);
 
         model.addAttribute("pvo",pvo);
-        model.addAttribute("colors",shopService.getColors(pvo.getPCode()));
-        model.addAttribute("sizes",shopService.getSizes(pvo.getPCode()));
-        model.addAttribute("options",shopService.getOptList(pvo.getPCode()));
+        model.addAttribute("colors",shopService.getColors(pvo.getPno()));
+        model.addAttribute("sizes",shopService.getSizes(pvo.getPno()));
+       // model.addAttribute("options",shopService.getOptList(pvo.getPno()));
         model.addAttribute("member",memberService.getOne(mno));
 
     }

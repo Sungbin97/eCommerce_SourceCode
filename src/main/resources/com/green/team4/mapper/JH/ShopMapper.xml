@@ -23,21 +23,31 @@
 
 
 <!-- 사이즈 옵션-->
+<!--    <select id="getColors" resultType="com.green.team4.vo.JH.Product_optVO">-->
+<!--        select distinct ps.pColor from product p-->
+<!--          inner join product_opt ps on p.pCode = ps.pCode-->
+<!--        where p.pCode = #{pCode} and ps.pAmount != 0-->
+<!--    </select>-->
+<!--    <select id="getSizes" resultType="com.green.team4.vo.JH.Product_optVO">-->
+<!--        select  distinct ps.pSize  from product p-->
+<!--          inner join product_opt ps on p.pCode = ps.pCode-->
+<!--        where p.pCode = #{pCode} and ps.pAmount != 0-->
+<!--    </select>-->
     <select id="getColors" resultType="com.green.team4.vo.JH.Product_optVO">
         select distinct ps.pColor from product p
-          inner join product_opt ps on p.pCode = ps.pCode
-        where p.pCode = #{pCode} and ps.pAmount != 0
+       inner join product_opt ps on p.pno = ps.pno
+        where p.pno = #{pno} and ps.pAmount != 0
     </select>
     <select id="getSizes" resultType="com.green.team4.vo.JH.Product_optVO">
         select  distinct ps.pSize  from product p
-          inner join product_opt ps on p.pCode = ps.pCode
-        where p.pCode = #{pCode} and ps.pAmount != 0
+        inner join product_opt ps on p.pno = ps.pno
+        where p.pno = #{pno} and ps.pAmount != 0
     </select>
-    <select id="getOptList" resultType="com.green.team4.vo.JH.Product_optVO">
-        select * from product p
-        inner join product_opt ps on p.pCode = ps.pCode
-        where p.pCode = #{pCode}
-    </select>
+<!--    <select id="getOptList" resultType="com.green.team4.vo.JH.Product_optVO">-->
+<!--        select * from product p-->
+<!--        inner join product_opt ps on p.pCode = ps.pCode-->
+<!--        where p.pCode = #{pCode}-->
+<!--    </select>-->
 
 
     <!--    페이징-->

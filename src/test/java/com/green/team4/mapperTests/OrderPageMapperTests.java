@@ -18,12 +18,12 @@ public class OrderPageMapperTests {
     private OrderPageMapper orderPageMapper;
 
     @Test
-    public void getOrderInfoTest() {
-
-        DBOrderItemVO orderInfo = orderPageMapper.getOrderInfo(61);
-
-        System.out.println("result : " + orderInfo);
-    }
+//    public void getOrderInfoTest() {
+//
+//        DBOrderItemVO orderInfo = orderPageMapper.getOrderInfo(61);
+//
+//        System.out.println("result : " + orderInfo);
+//    }
 
 
     //@Test

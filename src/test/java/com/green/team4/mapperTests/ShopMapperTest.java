@@ -147,7 +147,7 @@ public class ShopMapperTest {
 
         pvo.setPCode("코드1");
        // System.out.println(mapper.getColors(pvo.getPCode()));
-        System.out.println(mapper.getSizes(pvo.getPCode()));
+       // System.out.println(mapper.getSizes(pvo.getPCode()));
         //System.out.println(mapper.getOptList(pvo.getPCode()));
     }
 }

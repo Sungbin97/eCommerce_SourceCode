@@ -12,10 +12,13 @@ public class DBOrderItemVO {
 
     private String ono; //주문 번호
     private int pno; //상품 번호
+    private String pName;
+    private String pImageURL;
+    private String pColor;
     private int itemCount; // 주문수량
 
     private int orderItemno; // orderItem_tbl 기본키
-    
+
     private int pPrice; // 상품 한 개 가격
     
     private double pDiscount; // 상품 할인율

@@ -42,8 +42,8 @@
             <button th:name="${size.pSize}" th:text="${size.pSize}"  ></button>
         </div>
 
-        <div th:each="color : ${colors}">
-            <button th:name="${color.pSize}" th:text="${color.pColor}"></button>
+        <div class="color_div" th:each="color : ${colors}">
+            <button class="colorBtn" th:name="${color.pColor}" th:text="${color.pColor}" ></button>
         </div>
 <!--        수량-->
         <div>
@@ -57,6 +57,7 @@
 
         <form th:action="@{/order(email=${member.email})}"  method="get" class="order_form">
             <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
+<!--            <input type="hidden" name="orders[0].pColor" th:value="red">-->
             <input type="hidden" name="orders[0].itemCount" value="">
         </form>
         <button class="btn_buy">구매하기</button>
@@ -98,6 +99,7 @@
             let itemCount = $("#amountBox").val();
             let email = [[${member.email}]]
             $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
+            // $(".order_form").find("input[name='orders[0].pColor']").val('red');
             $(".order_form").attr("action","/order/"+email)
             $(".order_form").submit();
         });
@@ -336,6 +338,17 @@
                 pageMaker.html('');
             })
         }
+
+
+
+
+
+        $(".color_div").each(function (){
+            let color = $(this).find(".colorBtn").text();
+            $(this).find(".colorBtn").css("color",color)
+
+        })
+
 
         $("#reviewBtn").click(function (){
 
