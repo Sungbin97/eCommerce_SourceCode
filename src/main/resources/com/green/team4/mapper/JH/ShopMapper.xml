@@ -15,14 +15,14 @@
         select * from tbl_product where pno=#{pno}
     </select>
     <select id="getOneWithOpt" resultType="com.green.team4.vo.sb.ProductVO">
-       select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pOption,pcno from tbl_product p
+       select p.pno,ps.pcno,ps.pColor,ps.pOption,ps.pOption2,ps.pOptName,ps.pOptName2  from tbl_product p
          inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno};
     </select>
     <select id="getProductWithOpt" resultType="com.green.team4.vo.sb.ProductVO">
-        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pOption,ps.pOptName  from tbl_product p
+        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pOption,ps.pOptName,ps.pOption2,ps.pOptName2  from tbl_product p
        inner join tbl_product_opt ps on p.pno = ps.pno
-        where p.pno = #{pno} and ps.pColor = #{pColor} and ps.pOption=#{pOption}
+        where p.pno = #{pno} and ps.pColor = #{pColor} and ps.pOption=#{pOption} and ps.pOption2=#{pOption2}
     </select>
     <insert id="insert">
         insert into tbl_product (pName,pMainCategory,pPrice,pAmount,pImage,pSubCategory,pInformation,pCode)

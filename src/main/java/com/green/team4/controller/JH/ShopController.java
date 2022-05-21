@@ -71,21 +71,15 @@ public class ShopController {
         model.addAttribute("colors",shopService.getColors(pvo.getPno()));
         model.addAttribute("options",shopService.getOptions(pvo.getPno()));
         model.addAttribute("options2",shopService.getOptions2(pvo.getPno()));
-        log.info(shopService.getColors(pvo.getPno()));
-        log.info(shopService.getOptions(pvo.getPno()));
-        log.info(shopService.getOptions2(pvo.getPno()));
+//        log.info(shopService.getColors(pvo.getPno()));
+//        log.info(shopService.getOptions(pvo.getPno()));
+//        log.info(shopService.getOptions2(pvo.getPno()));
+        log.info(shopService.getOneWithOpt(pno));
         model.addAttribute("member",memberInfoService.readOne(mno));
         model.addAttribute("pList",shopService.getOneWithOpt(pno));
     }
 
-//    @GetMapping("/orderSheet")
-//    public void orderGet(int pno , Model model){
-//        log.info("orderSheet");
-//        log.info("p_no : "+pno);
-//
-//        model.addAttribute("pvo",shopService.getOne(pno));
-//
-//    }
+
     @GetMapping("/orderCompleted")
     public void orderCompleted(int p_no , Model model){
 

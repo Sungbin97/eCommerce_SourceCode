@@ -11,6 +11,7 @@ import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sb.MemberVO;
 import com.green.team4.vo.sb.ProductVO;
 import com.green.team4.vo.sw.MemberInfoVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class OrderPageServiceImpl implements OrderPageService {
 
     @Autowired
@@ -38,7 +40,8 @@ public class OrderPageServiceImpl implements OrderPageService {
             product_optVO.setPno(order.getPno());
             product_optVO.setPColor(order.getPColor());
             product_optVO.setPOption(order.getPOption());
-            if(order.getPColor().equals("없음") && order.getPOption().equals("없음")){ //옵션이 없을떄
+            product_optVO.setPOption2(order.getPOption2());
+            if(order.getPColor().equals("") && order.getPOption().equals("")){ //옵션이 없을떄
                 System.out.println("옵션 없음 orderpage");
                 OrderPageItemVO productsInfo = orderPageMapper.getProductsInfo(product_optVO);
                 System.out.println("productsInfo: "+productsInfo);
@@ -50,7 +53,7 @@ public class OrderPageServiceImpl implements OrderPageService {
             }
             else {
                 OrderPageItemVO productsInfo = orderPageMapper.getProductsInfoWithOpt(product_optVO);
-                System.out.println("productsInfo: "+productsInfo);
+                log.info("productsInfo: "+productsInfo);
                 productsInfo.setItemCount(order.getItemCount());
                 productsInfo.initSaleTotal();
                 list.add(productsInfo);
@@ -75,6 +78,7 @@ public class OrderPageServiceImpl implements OrderPageService {
             product_optVO.setPno(order.getPno());
             product_optVO.setPColor(order.getPColor());
             product_optVO.setPOption(order.getPOption());
+            product_optVO.setPOption2(order.getPOption2());
             if(order.getPColor().equals("없음") && order.getPOption().equals("없음")){
                 DBOrderItemVO orderItem = orderPageMapper.getOrderInfo(product_optVO);
                 orderItem.setItemCount(order.getItemCount());
@@ -88,6 +92,7 @@ public class OrderPageServiceImpl implements OrderPageService {
             }
             else{
                 DBOrderItemVO orderItem = orderPageMapper.getOrderInfoWithOpt(product_optVO);
+                System.out.println("orderItem : "+orderItem);
                 orderItem.setItemCount(order.getItemCount());
                 orderItem.setOno(vo.getOno());
                 orderItem.initSaleTotal();
@@ -121,6 +126,7 @@ public class OrderPageServiceImpl implements OrderPageService {
             product_optVO.setPno(order.getPno());
             product_optVO.setPColor(order.getPColor());
             product_optVO.setPOption(order.getPOption());
+            product_optVO.setPOption2(order.getPOption2());
             System.out.println(product_optVO);
             if(order.getPColor().equals("없음") && order.getPOption().equals("없음")){
                 System.out.println("옵션없음 재고 차감");
@@ -130,6 +136,7 @@ public class OrderPageServiceImpl implements OrderPageService {
                 orderPageMapper.deductStock(productVO);
             }
             else {
+
                 ProductVO productVO = shopMapper.getProductWithOpt(product_optVO);
                 System.out.println("productVO "+productVO);
                 productVO.setPAmount(productVO.getPAmount() - order.getItemCount());

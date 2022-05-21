@@ -36,27 +36,30 @@
 <!--    상품 옵션-->
         <div th:if="${pList.size() != 0 }">
             <div class="product_option_div">
-                <div th:if="${colors.get(0).pColor} != '없음'">
-                    <p>색상</p>
-                    <div class="color_div"  >
-                        <button th:class="colorBtn"
-                                th:each="color,userStat : ${colors}"  th:text="${color.pColor}" th:value="${color.pColor}"  ></button>
+                <div>
+                    <div class="color_div" th:if="${colors.get(0).pColor !='없음'}" >
+                        <p>색상</p>
+                        <button th:each="color : ${colors}" th:if="${not #strings.isEmpty(color)}"
+                                th:class="colorBtn"
+                                th:text="${color.pColor}" th:value="${color.pColor}"  ></button>
                     </div>
                 </div>
                 <hr>
-                <div th:if="${options.get(0).pOption} != '없음'">
-                    <p> [[${options.get(0).pOptName}]]</p>
-                    <div class="option_div" >
-                        <button th:class="|optBtn ${userStat.index}|"
-                                th:each="opt,userStat : ${options}" th:text="${opt.pOption}" th:value="${opt.pOption}">[[${opt.pOption}]]</button>
+                <div >
+                    <div class="option_div" th:if="${options.get(0).pOption !='없음'}" >
+                        <p> [[${options.get(0).pOptName}]]</p>
+                        <button th:each="opt : ${options}" th:if="${not #strings.isEmpty(opt)}"
+                                th:class="optBtn"
+                                th:text="${opt.pOption}" th:value="${opt.pOption}"></button>
                     </div>
                 </div>
                 <hr>
-                <div th:if="${options2.get(0).pOption2} != '없음'">
-                    <p> [[${options2.get(0).pOptName2}]]</p>
-                    <div class="option2_div" >
-                        <button th:class="|optBtn2 ${userStat.index}|"
-                                th:each="opt,userStat : ${options2}" th:text="${opt.pOption2}" th:value="${opt.pOption2}">[[${opt.pOption2}]]</button>
+                <div >
+                    <div class="option2_div" th:if="${options2.get(0).pOption2 !='없음'}">
+                        <p> [[${options2.get(0).pOptName2}]]</p>
+                        <button th:each="opt2 : ${options2}" th:if="${not #strings.isEmpty(opt2)}"
+                                th:class="optBtn2"
+                                th:text="${opt2.pOption2}" th:value="${opt2.pOption2}"></button>
                     </div>
                 </div>
 
@@ -224,7 +227,6 @@
             let list =result[1]
             $(list).each(function (index,obj){
                 console.log("showOptions2",obj)
-
                 str += "<button class='optBtn2' value=" +obj+">" + obj + "</button>"
 
             })

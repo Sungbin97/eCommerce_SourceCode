@@ -128,7 +128,8 @@
                     <td><img th:src="${product.pImageURL}"></td>
                     <td class="product_name_td" th:text="${product.pName}"></td>
                     <td th:if="${product.pColor} != '없음'" class="product_color_td">색상 : [[${product.pColor}]]</td>
-                    <td th:if="${product.pOption} != '없음'" class="product_color_td">[[${product.pOptName}]] : [[${product.pOption}]]</td>
+                    <td th:if="${product.pOption} != '없음'" class="product_color_td">옵션1<small>([[${product.pOptName}]]) : [[${product.pOption}]]</small></td>
+                    <td th:if="${product.pOption} != '없음'" class="product_color_td">옵션2<small>([[${product.pOptName2}]]) : [[${product.pOption2}]]</small></td>
                     <td class="product_price_td">
                         가격 : <span th:text="${#numbers.formatInteger(product.salePrice, 0, 'COMMA')}+원"></span> | 수량 [[${product.itemCount}]]개
                         총 가격 :<span th:text="${#numbers.formatInteger(product.totalPrice, 0, 'COMMA')}+원"></span>
@@ -142,7 +143,7 @@
                         <input type="hidden" class="individual_pno_input" th:value="${product.pno}">
                         <input type="hidden" class="individual_pColor_input" th:value="${product.pColor}">
                         <input type="hidden" class="individual_pOption_input" th:value="${product.pOption}">
-
+                        <input type="hidden" class="individual_pOption2_input" th:value="${product.pOption2}">
                     </td>
                 </tr>
 

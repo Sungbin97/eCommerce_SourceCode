@@ -18,8 +18,11 @@
         <if test=" pColor == '' and pOption != null and pOption != '' and pOption2 == ''" >
             ps.pColor = '없음'  and  ps.pOption = #{pOption} and  ps.pOption2 = '없음'
         </if>
-        <if test=" pColor == '' and pOption != null and pOption != ''">
+        <if test=" pColor == '' and pOption2 != '' and pOption != ''">
             ps.pColor = '없음'  and  ps.pOption = #{pOption} and  ps.pOption2 = #{pOption2}
+        </if>
+        <if test=" pColor != '' and pOption2 == '' and pOption != ''">
+            ps.pColor =  #{pColor}  and  ps.pOption = #{pOption} and  ps.pOption2 = '없음'
         </if>
         <if test="pColor != null and pColor != '' and pOption != null and pOption != '' and pOption2 != null and pOption2 != ''" >
             ps.pColor = #{pColor}  and  ps.pOption = #{pOption} and  ps.pOption2 = #{pOption2}
@@ -57,7 +60,7 @@
     </update>
 <!--주문 재고 차감-->
     <update id="deductStockWithOpt">
-         update tbl_product_opt set pAmount = #{pAmount} where pno = #{pno} and pColor=#{pColor} and pOption=#{pOption}
+         update tbl_product_opt set pAmount = #{pAmount} where pno = #{pno} and pColor=#{pColor} and pOption=#{pOption} and pOption2=#{pOption2}
     </update>
     <update id="deductStock">
          update tbl_product set pAmount = #{pAmount} where pno = #{pno}
