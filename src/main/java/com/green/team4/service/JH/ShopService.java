@@ -13,8 +13,8 @@ public interface ShopService {
     public List<ProductVO> getListWithCategory(String p_category);
     public int register(ProductVO pvo);
     public ProductVO getOne(int p_no);
-
-
+    //옵션을 통한 데이터 구하기
+    public ProductVO getProductWithOpt(Product_optVO povo);
 
     public List<ProductVO> getListByCategoryAndPage(Map<String,Object> map);
 
@@ -32,6 +32,8 @@ public interface ShopService {
 
     //    옵션
     public List<Product_optVO> getColors(int pno);
-    public List<Product_optVO> getSizes(int pno);
-    public List<Product_optVO> getOptList(int pno);
+    public List<Product_optVO> getOptions(int pno);
+    public List<Product_optVO> getOptions2(int pno);
+    public List<Product_optVO> getOptList(Product_optVO povo);
+    public List<ProductVO> getOneWithOpt(int pno);
 }

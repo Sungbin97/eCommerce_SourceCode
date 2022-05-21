@@ -6,6 +6,7 @@ import com.green.team4.service.JH.ShopService;
 import com.green.team4.service.sw.MemberInfoService;
 import com.green.team4.vo.JH.ItemPageCriteria;
 import com.green.team4.vo.JH.PagingVO;
+import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sb.ProductVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @Log4j2
@@ -59,14 +58,24 @@ public class ShopController {
         log.info("pno : "+pno);
        log.info("mno : " + mno);
         ProductVO pvo = shopService.getOne(pno);
-        System.out.println(pvo);
+        List<ProductVO>list =shopService.getOneWithOpt(pno);
+        if(list.size() ==0 ){ //옵션이 읎어요
+            System.out.println("옵션 없음");
+            model.addAttribute("pvo",pvo);
+            model.addAttribute("member",memberInfoService.readOne(mno));
+            model.addAttribute("pList",shopService.getOneWithOpt(pno));
+        }
 
+        System.out.println(pvo);
         model.addAttribute("pvo",pvo);
         model.addAttribute("colors",shopService.getColors(pvo.getPno()));
-        model.addAttribute("sizes",shopService.getSizes(pvo.getPno()));
-       // model.addAttribute("options",shopService.getOptList(pvo.getPno()));
+        model.addAttribute("options",shopService.getOptions(pvo.getPno()));
+        model.addAttribute("options2",shopService.getOptions2(pvo.getPno()));
+        log.info(shopService.getColors(pvo.getPno()));
+        log.info(shopService.getOptions(pvo.getPno()));
+        log.info(shopService.getOptions2(pvo.getPno()));
         model.addAttribute("member",memberInfoService.readOne(mno));
-
+        model.addAttribute("pList",shopService.getOneWithOpt(pno));
     }
 
 //    @GetMapping("/orderSheet")

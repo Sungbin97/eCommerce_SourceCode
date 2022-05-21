@@ -25,7 +25,7 @@
 
 </div>
     <div class="product-outline">
-        <img  th:src="${pvo.pImageURL}">
+
     </div>
 
     <div>
@@ -33,21 +33,34 @@
 
         <p>[[${pvo.pPrice}]]원</p><br>
 
-
-
-
-
 <!--    상품 옵션-->
-        <div class="size_div" >
-           <select class="size_select" >
-               <option class="size_option" th:name="${size.pSize}" th:each="size : ${sizes}" th:value="${size.pSize}" >[[${size.pSize}]]</option>
-           </select>
-        </div>
+        <div th:if="${pList.size() != 0 }">
+            <div class="product_option_div">
+                <div th:if="${colors.get(0).pColor} != '없음'">
+                    <p>색상</p>
+                    <div class="color_div"  >
+                        <button th:class="colorBtn"
+                                th:each="color,userStat : ${colors}"  th:text="${color.pColor}" th:value="${color.pColor}"  ></button>
+                    </div>
+                </div>
+                <hr>
+                <div th:if="${options.get(0).pOption} != '없음'">
+                    <p> [[${options.get(0).pOptName}]]</p>
+                    <div class="option_div" >
+                        <button th:class="|optBtn ${userStat.index}|"
+                                th:each="opt,userStat : ${options}" th:text="${opt.pOption}" th:value="${opt.pOption}">[[${opt.pOption}]]</button>
+                    </div>
+                </div>
+                <hr>
+                <div th:if="${options2.get(0).pOption2} != '없음'">
+                    <p> [[${options2.get(0).pOptName2}]]</p>
+                    <div class="option2_div" >
+                        <button th:class="|optBtn2 ${userStat.index}|"
+                                th:each="opt,userStat : ${options2}" th:text="${opt.pOption2}" th:value="${opt.pOption2}">[[${opt.pOption2}]]</button>
+                    </div>
+                </div>
 
-        <div class="color_div" >
-            <select class="color_select" >
-                <option name="color_option" th:each="color : ${colors}" th:value="${color.pColor}">[[${color.pColor}]]</option>
-            </select>
+            </div>
         </div>
 <!--        수량-->
         <div>
@@ -57,11 +70,11 @@
             </form>
         </div>
 
-
         <form th:action="@{/order/${member.id}}"  method="get" class="order_form">
             <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
-            <input type="hidden" name="orders[0].pColor" value="">
-            <input type="hidden" name="orders[0].pSize" value="">
+            <input type="text" name="orders[0].pColor" value="">
+            <input type="text" name="orders[0].pOption" value="">
+            <input type="text" name="orders[0].pOption2" value="">
             <input type="hidden" name="orders[0].itemCount" value="">
         </form>
 
@@ -94,27 +107,166 @@
     </div>
 
 
-
+    <img id="testImg"  th:src="${pvo.pImageURL}">
 
 <script th:inline="javascript">
-    $(".size_select").on("click",".size_option option",function (){
-        console.log("g하이")
-    })
+
+
+
+
     $(document).ready(function (){
+        $(".color_div").on("click",".colorBtn",function (){
+            let color =$(this).val();
+            $("input[name='orders[0].pOption']").val('');
+            let option =$("input[name='orders[0].pOption']").val();
+            let pno = $("input[name='orders[0].pno']").val()
+            console.log(option)
+            opt = {
+                'pno' : pno,
+                'color' : color,
+                'option' : option,
+            }
+            loadOpt(opt)
+            loadOpt2(opt)
+            $("input[name='orders[0].pColor']").val(color)
+
+        })
+        $(".option_div").on("click",".optBtn",function (){
+            console.log(this)
+            let color =$("input[name='orders[0].pColor']").val()
+            let option =$(this).val();
+            let pno = $("input[name='orders[0].pno']").val()
+            console.log(option)
+            opt = {
+                'pno' : pno,
+                'color' : color,
+                'option' : option,
+            }
+            loadOpt2(opt)
+            $("input[name='orders[0].pOption']").val(option)
+        })
+        $(".option2_div").on("click",".optBtn2",function (){
+            let val =$(this).text()
+            $("input[name='orders[0].pOption2']").val(val)
+
+        })
+
+
+
+
+
+        function loadOpt(opt){
+
+            option = {
+                'pno' : opt.pno,
+                'pColor':opt.color,
+                'pOption':opt.option,
+            }
+            $.ajax({
+                type: "get",
+                url: "/rest/getOptions",
+                data: option,
+                contentType: "application/json;charset=UTF-8",
+                success: (result) => {
+                    console.log(result)
+                    showOptions(result)
+                },
+            });
+        }
+        function loadOpt2(opt){
+
+            option = {
+                'pno' : opt.pno,
+                'pColor':opt.color,
+                'pOption':opt.option,
+            }
+            $.ajax({
+                type: "get",
+                url: "/rest/getOptions",
+                data: option,
+                contentType: "application/json;charset=UTF-8",
+                success: (result) => {
+                    showOptions2(result)
+                },
+            });
+        }
+        // function loadColor(opt){
+        //
+        //     option = {
+        //         'pno' : opt.pno,
+        //         'pColor':opt.color,
+        //         'pOption':opt.option,
+        //
+        //     }
+        //     $.ajax({
+        //         type: "get",
+        //         url: "/rest/getOptions",
+        //         data: option,
+        //         contentType: "application/json;charset=UTF-8",
+        //         success: (result) => {
+        //             showColors(result)
+        //         },
+        //     });
+        // }
+        function showOptions(result){
+            let str = "";
+            let list =result[0]
+            $(list).each(function (index,obj){
+                console.log("showOptions",obj)
+                str += "<button class='optBtn' value=" +obj +">" + obj + "</button>"
+            })
+            $("input[name='orders[0].pOption']").val('')
+            $("input[name='orders[0].pOption2']").val('')
+            $(".option_div").html(str)
+        }
+        function showOptions2(result){
+            let str = "";
+            let list =result[1]
+            $(list).each(function (index,obj){
+                console.log("showOptions2",obj)
+
+                str += "<button class='optBtn2' value=" +obj+">" + obj + "</button>"
+
+            })
+            $("input[name='orders[0].pOption2']").val('')
+
+            $(".option2_div").html(str)
+        }
+        // function showColors(result){
+        //     let str = "";
+        //     let list =result
+        //     $(list).each(function (index,obj){
+        //         console.log(obj)
+        //         //str += "<div class='color_div'>";
+        //         str += "<button class='colorBtn' value=" +obj.pcolor +">" + obj.pcolor + "</button>"
+        //         //str += "</div>"
+        //     })
+        //     $("input[name='orders[0].pColor']").val('')
+        //     $(".color_div").html('')
+        //     $(".color_div").html(str)
+        // }
+
+
+
+
+
 
         /* 바로구매 버튼 */
         $(".btn_buy").on("click", function(){
             let itemCount = $("#amountBox").val();
-            let pSize = $(".size_option").val();
-            let pColor = $("option[name='color_option']").val();
-            console.log(pSize)
-            console.log(pColor)
+            // let pSize = $(".size_option").val();
+            // let pColor = $("option[name='color_option']").val();
+            // console.log(pSize)
+            // console.log(pColor)
             let id = [[${member.id}]]
             $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
-            $(".order_form").find("input[name='orders[0].pColor']").val(pColor);
-            $(".order_form").find("input[name='orders[0].pSize']").val(pSize);
+            // $(".order_form").find("input[name='orders[0].pColor']").val(pColor);
+
             $(".order_form").attr("action","/order/"+id)
-            //$(".order_form").submit();
+            $(".order_form").submit();
+
+
+
         });
 
         let detailInfo = $(".product-detailInfo")

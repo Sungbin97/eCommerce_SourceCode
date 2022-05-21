@@ -16,11 +16,13 @@ public class OrderPageItemVO {
 
     //옵션 추가
     private String pColor;
-    private String pSize;
+    private String pOption;
+    private String pOption2;
 
     /* DB로부터 꺼내올 값 */
     private String pName;
-
+    private String pOptName;
+    private String pOptName2;
     private int pPrice;
     private String pImageURL;
     private double pDiscount; // 상품할인율

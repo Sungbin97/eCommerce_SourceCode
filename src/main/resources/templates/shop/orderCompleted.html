@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <style>
     .product_div_img{
         width: 100px;
@@ -32,8 +34,8 @@
     <div class="Product_div" th:each="product : ${order.orders}">
         <img class="product_div_img" th:src="${product.pImageURL}">
         <p th:text="${product.pName}"></p>
-        <p>색상 : [[${product.pColor}]]</p>
-        <p>사이즈 : [[${product.pSize}]]</p>
+        <p th:if="${product.pColor} != '없음'">색상 : [[${product.pColor}]]</p>
+        <p th:if="${product.pOption} != '없음'">[[${product.pOptName}]] : [[${product.pOption}]]</p>
         <p>[[${product.pPrice}]]원</p>
         <p >[[${product.itemCount}]]개</p>
     </div>
@@ -49,9 +51,20 @@
     <h3 style="color: red">총 결제 금액 : [[${order.orderFinalSalePrice}]]원</h3>
 </div>
 
-<form method="get" action="#">
-    <button>쇼핑계속하기</button>
+<form class="orderForm" method="get" action="list">
+<!--    <input type="hidden" name="mno" th:value="${order.mno}">-->
+    <button class="gotoList">쇼핑계속하기</button>
     <button>주문내역</button>
 </form>
 </body>
+<script>
+    // $(document).ready(function (){
+    //     $(".gotoList").click(function (e){
+    //         e.preventDefault()
+    //         $(".orderForm").attr("method","get");
+    //         $(".orderForm").attr("action","/shop/list");
+    //         $(".orderForm").submit();
+    //     })
+    // })
+</script>
 </html>

@@ -37,12 +37,24 @@ public class OrderPageServiceImpl implements OrderPageService {
             Product_optVO product_optVO = new Product_optVO();
             product_optVO.setPno(order.getPno());
             product_optVO.setPColor(order.getPColor());
-            product_optVO.setPSize(order.getPSize());
-           OrderPageItemVO productsInfo = orderPageMapper.getProductsInfo(product_optVO);
-           System.out.println("productsInfo: "+productsInfo);
-           productsInfo.setItemCount(order.getItemCount());
-           productsInfo.initSaleTotal();
-           list.add(productsInfo);
+            product_optVO.setPOption(order.getPOption());
+            if(order.getPColor().equals("없음") && order.getPOption().equals("없음")){ //옵션이 없을떄
+                System.out.println("옵션 없음 orderpage");
+                OrderPageItemVO productsInfo = orderPageMapper.getProductsInfo(product_optVO);
+                System.out.println("productsInfo: "+productsInfo);
+                productsInfo.setPColor("없음");
+                productsInfo.setPOption("없음");
+                productsInfo.setItemCount(order.getItemCount());
+                productsInfo.initSaleTotal();
+                list.add(productsInfo);
+            }
+            else {
+                OrderPageItemVO productsInfo = orderPageMapper.getProductsInfoWithOpt(product_optVO);
+                System.out.println("productsInfo: "+productsInfo);
+                productsInfo.setItemCount(order.getItemCount());
+                productsInfo.initSaleTotal();
+                list.add(productsInfo);
+            }
         }
         return list;
     }
@@ -62,14 +74,28 @@ public class OrderPageServiceImpl implements OrderPageService {
             Product_optVO product_optVO = new Product_optVO();
             product_optVO.setPno(order.getPno());
             product_optVO.setPColor(order.getPColor());
-            product_optVO.setPSize(order.getPSize());
-            DBOrderItemVO orderItem = orderPageMapper.getOrderInfo(product_optVO);
-            orderItem.setItemCount(order.getItemCount());
-            orderItem.setOno(vo.getOno());
-            orderItem.initSaleTotal();
-            System.out.println("orderItem : "+orderItem);
-            vo.setPno(order.getPno());
-            ords.add(orderItem);
+            product_optVO.setPOption(order.getPOption());
+            if(order.getPColor().equals("없음") && order.getPOption().equals("없음")){
+                DBOrderItemVO orderItem = orderPageMapper.getOrderInfo(product_optVO);
+                orderItem.setItemCount(order.getItemCount());
+                orderItem.setOno(vo.getOno());
+                orderItem.setPOption(order.getPOption());
+                orderItem.setPColor(order.getPOption());
+                orderItem.initSaleTotal();
+                System.out.println("orderItem : "+orderItem);
+                vo.setPno(order.getPno());
+                ords.add(orderItem);
+            }
+            else{
+                DBOrderItemVO orderItem = orderPageMapper.getOrderInfoWithOpt(product_optVO);
+                orderItem.setItemCount(order.getItemCount());
+                orderItem.setOno(vo.getOno());
+                orderItem.initSaleTotal();
+                System.out.println("orderItem : "+orderItem);
+                vo.setPno(order.getPno());
+                ords.add(orderItem);
+            }
+
         }
         vo.setPhoneNum(member.getPhoneNum());
         vo.setOrders(ords);
@@ -78,6 +104,7 @@ public class OrderPageServiceImpl implements OrderPageService {
         //db에 넣기
         orderPageMapper.enrollOrder(vo);
         for(DBOrderItemVO order : vo.getOrders()){
+            System.out.println("db 넣기 order : " + order);
             orderPageMapper.enrollOrderItem(order);
         }
         //포인트 차감
@@ -88,9 +115,27 @@ public class OrderPageServiceImpl implements OrderPageService {
 
         //재고 차감
         for(DBOrderItemVO order: vo.getOrders()){
-            ProductVO productVO = shopMapper.getOne(order.getPno());
-            productVO.setPAmount(productVO.getPAmount() - order.getItemCount());
-            orderPageMapper.deductStock(productVO);
+            System.out.println("재고입장");
+            System.out.println("order : " + order);
+            Product_optVO product_optVO = new Product_optVO();
+            product_optVO.setPno(order.getPno());
+            product_optVO.setPColor(order.getPColor());
+            product_optVO.setPOption(order.getPOption());
+            System.out.println(product_optVO);
+            if(order.getPColor().equals("없음") && order.getPOption().equals("없음")){
+                System.out.println("옵션없음 재고 차감");
+                ProductVO productVO = shopMapper.getOne(order.getPno());
+                System.out.println("productVO "+productVO);
+                productVO.setPAmount(productVO.getPAmount() - order.getItemCount());
+                orderPageMapper.deductStock(productVO);
+            }
+            else {
+                ProductVO productVO = shopMapper.getProductWithOpt(product_optVO);
+                System.out.println("productVO "+productVO);
+                productVO.setPAmount(productVO.getPAmount() - order.getItemCount());
+                orderPageMapper.deductStockWithOpt(productVO);
+            }
+
         }
 //        // 장바구니제거
 //        for(DBOrderItemVO order : vo.getOrders()) {

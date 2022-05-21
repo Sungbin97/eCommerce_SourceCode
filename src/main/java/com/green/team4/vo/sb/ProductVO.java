@@ -12,6 +12,7 @@ import java.util.Date;
 public class ProductVO {
 
     private int pno;
+    private int pcno;
     private String pName;
     private String pMainCategory;
     private String pSubCategory;
@@ -26,5 +27,7 @@ public class ProductVO {
     private String pImageURL;
     private String pCode;
     private String pSize;
+    private String pOption;
+    private String pOption2;
     private String pColor;
 }

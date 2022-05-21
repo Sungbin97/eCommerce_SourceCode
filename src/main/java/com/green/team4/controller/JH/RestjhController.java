@@ -3,10 +3,7 @@ package com.green.team4.controller.JH;
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
 
-import com.green.team4.vo.JH.ItemPageCriteria;
-import com.green.team4.vo.JH.ReviewLikeVO;
-import com.green.team4.vo.JH.ReviewPageVO;
-import com.green.team4.vo.JH.ReviewVO;
+import com.green.team4.vo.JH.*;
 import com.green.team4.vo.sb.ProductVO;
 import lombok.extern.log4j.Log4j2;
 
@@ -17,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Log4j2
@@ -81,6 +81,34 @@ public class RestjhController {
         }catch (Exception e){
             responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        return responseEntity;
+    }
+    @GetMapping(value = "/getOptions")
+    public ResponseEntity<List<Set<String>>> getOptions( Product_optVO povo){
+
+        log.info("getOptions 입장");
+        log.info("povo" +povo);
+        System.out.println("optList: "+shopService.getOptList(povo));
+        List<Product_optVO> options = shopService.getOptList(povo);
+        Set<String> uniqueOpt = new HashSet<>();
+        Set<String> uniqueOpt2 = new HashSet<>();
+        List<Set<String>> list = new ArrayList<>();
+        for(Product_optVO option : options){
+            uniqueOpt.add(option.getPOption());
+            uniqueOpt2.add(option.getPOption2());
+        }
+        list.add(uniqueOpt);
+        list.add(uniqueOpt2);
+        System.out.println(uniqueOpt);
+        System.out.println(uniqueOpt2);
+        System.out.println(list);
+        ResponseEntity<List<Set<String>>> responseEntity = null;
+        try{
+            responseEntity = new ResponseEntity<>(list,HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         return responseEntity;
     }
 

@@ -14,6 +14,16 @@
     <select id="getOne" resultType="com.green.team4.vo.sb.ProductVO">
         select * from tbl_product where pno=#{pno}
     </select>
+    <select id="getOneWithOpt" resultType="com.green.team4.vo.sb.ProductVO">
+       select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pOption,pcno from tbl_product p
+         inner join tbl_product_opt ps on p.pno = ps.pno
+        where p.pno = #{pno};
+    </select>
+    <select id="getProductWithOpt" resultType="com.green.team4.vo.sb.ProductVO">
+        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pOption,ps.pOptName  from tbl_product p
+       inner join tbl_product_opt ps on p.pno = ps.pno
+        where p.pno = #{pno} and ps.pColor = #{pColor} and ps.pOption=#{pOption}
+    </select>
     <insert id="insert">
         insert into tbl_product (pName,pMainCategory,pPrice,pAmount,pImage,pSubCategory,pInformation,pCode)
         values (#{pName},#{pMainCategory},#{pPrice},#{pAmount},
@@ -22,33 +32,40 @@
 
 
 
-    <!-- 사이즈 옵션-->
-    <!--    <select id="getColors" resultType="com.green.team4.vo.JH.Product_optVO">-->
-    <!--        select distinct ps.pColor from product p-->
-    <!--          inner join product_opt ps on p.pCode = ps.pCode-->
-    <!--        where p.pCode = #{pCode} and ps.pAmount != 0-->
-    <!--    </select>-->
-    <!--    <select id="getSizes" resultType="com.green.team4.vo.JH.Product_optVO">-->
-    <!--        select  distinct ps.pSize  from product p-->
-    <!--          inner join product_opt ps on p.pCode = ps.pCode-->
-    <!--        where p.pCode = #{pCode} and ps.pAmount != 0-->
-    <!--    </select>-->
+
     <select id="getColors" resultType="com.green.team4.vo.JH.Product_optVO">
         select distinct ps.pColor from tbl_product p
                                            inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno} and ps.pAmount != 0
     </select>
-    <select id="getSizes" resultType="com.green.team4.vo.JH.Product_optVO">
-        select  distinct ps.pSize  from tbl_product_opt P
+    <select id="getOptions" resultType="com.green.team4.vo.JH.Product_optVO">
+        select distinct ps.pOption ,ps.pOptName from tbl_product_opt P
                                             inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno} and ps.pAmount != 0
     </select>
-    <!--    <select id="getOptList" resultType="com.green.team4.vo.JH.Product_optVO">-->
-    <!--        select * from product p-->
-    <!--        inner join product_opt ps on p.pCode = ps.pCode-->
-    <!--        where p.pCode = #{pCode}-->
-    <!--    </select>-->
+    <select id="getOptions2" resultType="com.green.team4.vo.JH.Product_optVO">
+        select distinct ps.pOption2 ,ps.pOptName2 from tbl_product_opt P
+                                            inner join tbl_product_opt ps on p.pno = ps.pno
+        where p.pno = #{pno} and ps.pAmount != 0
+    </select>
+        <!--    restful용-->
+        <select id="getOptList" resultType="com.green.team4.vo.JH.Product_optVO">
+            select * from tbl_product_opt
 
+            where pno = #{pno}  and <include refid="option"></include>
+        </select>
+    <sql id="option">
+        <if test="pColor != null and pColor != '' and pOption =='' ">
+            pColor = #{pColor}
+        </if>
+        <if test="pOption != null and pOption != '' and pColor ==''">
+            pOption = #{pOption}
+        </if>
+        <if test="pColor != null and pColor != '' and pOption != null and pOption != ''">
+            pColor = #{pColor} and  pOption = #{pOption}
+        </if>
+
+    </sql>
 
     <!--    페이징-->
 
