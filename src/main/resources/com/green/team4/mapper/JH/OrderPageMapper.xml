@@ -3,11 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.team4.mapper.JH.OrderPageMapper">
+<!--    주문 페이지 Mapper-->
     <select id="getProductsInfo" resultType="com.green.team4.vo.JH.OrderPageItemVO">
         select pno,pName,pPrice,pDiscount,pImageURL from tbl_product where pno = #{pno}
     </select>
     <select id="getProductsInfoWithOpt" resultType="com.green.team4.vo.JH.OrderPageItemVO">
-        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount, ps.pOption ,ps.pOptName,ps.pOption2 ,ps.pOptName2 from tbl_product p
+        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount, ps.pOption ,ps.pOptionName,ps.pOption2 ,ps.pOptionName2 from tbl_product p
          inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno} and <include refid="option"></include>
     </select>
@@ -30,27 +31,29 @@
 
     </sql>
 <!--    주문 정보 가져오기-->
+
     <select id="getOrderInfo" resultType="com.green.team4.vo.JH.DBOrderItemVO">
         select pno,pName,pPrice,pDiscount,pImageURL from tbl_product where pno = #{pno}
     </select>
     <select id="getOrderInfoWithOpt" resultType="com.green.team4.vo.JH.DBOrderItemVO">
-        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pOption ,ps.pOptName,ps.pOption2 ,ps.pOptName2  from tbl_product p
+        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pOption ,ps.pOptionName,ps.pOption2 ,ps.pOptionName2  from tbl_product p
        inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno} and ps.pColor = #{pColor} and ps.pOption=#{pOption} and ps.pOption2=#{pOption2}
     </select>
+
 <!--    주문 테이블 등록-->
     <insert id="enrollOrder">
-       insert into tbl_order
-       (ono,pno, receiverName, mno, postcode, address, detailAddress, deliveryStatus, shipFee, usePoint,payStatus,productPrice,totalPrice,receiverPhone,count,message)
-    	values
-    	(#{ono},#{pno},#{receiverName}, #{mno}, #{postcode}, #{address}, #{detailAddress}, '배송준비', #{shipFee}, #{usePoint},'결제완료',#{orderSalePrice},${orderFinalSalePrice},#{phoneNum},#{count},#{message})
+        insert into tbl_order
+        (ono, receiverName,receiverPhone, mno, postcode, address, detailAddress,  tShipFee, tUsePoint,tProductPrice,tTotalPrice,tSavePoint,message)
+        values
+            (#{ono},#{receiverName},#{receiverPhone}, #{mno}, #{postcode}, #{address}, #{detailAddress},  #{tShipFee}, #{tUsePoint},#{tProductPrice},#{tTotalPrice},${tSavePoint},#{message})
     </insert>
 
 <!-- 주문 상품 테이블 등록 -->
 	<insert id="enrollOrderItem">
 
-		insert into tbl_orderitem(ono, pno, itemCount, pPrice, pDiscount, savePoint ,pOption,pColor)
-		values(#{ono}, #{pno}, #{itemCount}, #{pPrice}, #{pDiscount}, #{savePoint},#{pOption},#{pColor})
+		insert into tbl_orderitem(ono, pno,iName, iCount, iPrice, iDiscount, iDisPrice,savePoint ,iOption,iOptionName,iOption2,iOptionName2,iColor,iTotalPrice)
+		values(#{ono}, #{pno},#{pName},#{iCount}, #{pPrice}, #{pDiscount},#{iDisPrice}, #{savePoint},#{pOption},#{pOptionName},#{pOption2},#{pOptionName2},#{pColor},#{iTotalPrice})
 
 	</insert>
 	

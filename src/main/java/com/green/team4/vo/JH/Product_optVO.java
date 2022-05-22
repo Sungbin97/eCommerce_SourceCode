@@ -11,9 +11,9 @@ public class Product_optVO {
     private int pcno ;
     private int pno;
     private String pOption ;
-    private String pOptName ;
+    private String pOptionName ;
     private String pOption2 ;
-    private String pOptName2 ;
+    private String pOptionName2 ;
     private String pColor ;
     private int pAmount;
     private int pOptPrice;

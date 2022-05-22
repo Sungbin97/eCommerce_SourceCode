@@ -81,10 +81,10 @@ public class OrderPageServiceImpl implements OrderPageService {
             product_optVO.setPOption2(order.getPOption2());
             if(order.getPColor().equals("없음") && order.getPOption().equals("없음")){
                 DBOrderItemVO orderItem = orderPageMapper.getOrderInfo(product_optVO);
-                orderItem.setItemCount(order.getItemCount());
+                orderItem.setICount(order.getICount());
                 orderItem.setOno(vo.getOno());
                 orderItem.setPOption(order.getPOption());
-                orderItem.setPColor(order.getPOption());
+                orderItem.setPColor(order.getPColor());
                 orderItem.initSaleTotal();
                 System.out.println("orderItem : "+orderItem);
                 vo.setPno(order.getPno());
@@ -93,7 +93,7 @@ public class OrderPageServiceImpl implements OrderPageService {
             else{
                 DBOrderItemVO orderItem = orderPageMapper.getOrderInfoWithOpt(product_optVO);
                 System.out.println("orderItem : "+orderItem);
-                orderItem.setItemCount(order.getItemCount());
+                orderItem.setICount(order.getICount());
                 orderItem.setOno(vo.getOno());
                 orderItem.initSaleTotal();
                 System.out.println("orderItem : "+orderItem);
@@ -114,7 +114,7 @@ public class OrderPageServiceImpl implements OrderPageService {
         }
         //포인트 차감
         int calPoint = member.getPoint();
-        calPoint = calPoint - vo.getUsePoint() + vo.getOrderSavePoint();
+        calPoint = calPoint - vo.getTUsePoint() + vo.getTSavePoint();
         member.setPoint(calPoint);
         orderPageMapper.deductMoney(member);
 
@@ -132,14 +132,14 @@ public class OrderPageServiceImpl implements OrderPageService {
                 System.out.println("옵션없음 재고 차감");
                 ProductVO productVO = shopMapper.getOne(order.getPno());
                 System.out.println("productVO "+productVO);
-                productVO.setPAmount(productVO.getPAmount() - order.getItemCount());
+                productVO.setPAmount(productVO.getPAmount() - order.getICount());
                 orderPageMapper.deductStock(productVO);
             }
             else {
 
                 ProductVO productVO = shopMapper.getProductWithOpt(product_optVO);
                 System.out.println("productVO "+productVO);
-                productVO.setPAmount(productVO.getPAmount() - order.getItemCount());
+                productVO.setPAmount(productVO.getPAmount() - order.getICount());
                 orderPageMapper.deductStockWithOpt(productVO);
             }
 

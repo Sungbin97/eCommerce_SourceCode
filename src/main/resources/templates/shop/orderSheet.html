@@ -41,13 +41,15 @@
                     <tr>
                         <th>주문자</th>
                         <td class="buyer_name_td" th:text="${memberInfo.name}" th:value="${memberInfo.name}"></td>
+
                     </tr>
                     <tr>
                         <th>휴대폰 번호</th>
-                        <td class="buyer_name_td" th:text="${memberInfo.phoneNum}" th:value="${memberInfo.phoneNum}"></td>
+                        <td class="buyer_name_td" th:text="${memberInfo.phoneNum}" th:value="${memberInfo.phoneNum}" ></td>
                     </tr>
                 </tbody>
             </table>
+
         </div>
         <hr>
         <!-- 배송지 정보 -->
@@ -73,6 +75,7 @@
                                [[${memberInfo.postcode}]]<br> [[${memberInfo.address}]] [[${memberInfo.detailAddress}]]
                                 <input class="selectAddress" value="T" type="hidden">
                                 <input class="receiverName_input" th:value="${memberInfo.name}" type="hidden">
+                                <input class="receiverPhone_input" th:value="${memberInfo.phoneNum}" type="hidden">
                                 <input class="address1_input" type="hidden" th:value="${memberInfo.postcode}">
                                 <input class="address2_input" type="hidden" th:value="${memberInfo.address}">
                                 <input class="address3_input" type="hidden" th:value="${memberInfo.detailAddress}">
@@ -89,6 +92,12 @@
                             <th>이름</th>
                             <td>
                                 <input class="receiverName_input" name="receiverName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>전화번호</th>
+                            <td>
+                                <input class="receiverPhone_input"  name="receiverPhone">
                             </td>
                         </tr>
                         <tr>
@@ -128,8 +137,8 @@
                     <td><img th:src="${product.pImageURL}"></td>
                     <td class="product_name_td" th:text="${product.pName}"></td>
                     <td th:if="${product.pColor} != '없음'" class="product_color_td">색상 : [[${product.pColor}]]</td>
-                    <td th:if="${product.pOption} != '없음'" class="product_color_td">옵션1<small>([[${product.pOptName}]]) : [[${product.pOption}]]</small></td>
-                    <td th:if="${product.pOption} != '없음'" class="product_color_td">옵션2<small>([[${product.pOptName2}]]) : [[${product.pOption2}]]</small></td>
+                    <td th:if="${product.pOption} != '없음'" class="product_color_td">옵션1<small>([[${product.pOptionName}]]) : [[${product.pOption}]]</small></td>
+                    <td th:if="${product.pOption2} != '없음'" class="product_color_td">옵션2<small>([[${product.pOptionName2}]]) : [[${product.pOption2}]]</small></td>
                     <td class="product_price_td">
                         가격 : <span th:text="${#numbers.formatInteger(product.salePrice, 0, 'COMMA')}+원"></span> | 수량 [[${product.itemCount}]]개
                         총 가격 :<span th:text="${#numbers.formatInteger(product.totalPrice, 0, 'COMMA')}+원"></span>
@@ -144,6 +153,8 @@
                         <input type="hidden" class="individual_pColor_input" th:value="${product.pColor}">
                         <input type="hidden" class="individual_pOption_input" th:value="${product.pOption}">
                         <input type="hidden" class="individual_pOption2_input" th:value="${product.pOption2}">
+                        <input type="hidden" class="individual_pOptionName_input" th:value="${product.pOptionName}">
+                        <input type="hidden" class="individual_pOptionName2_input" th:value="${product.pOptionName2}">
                     </td>
                 </tr>
 
@@ -204,18 +215,15 @@
             <!-- 주문자 정보 -->
             <input name="mno" th:value="${memberInfo.mno}" type="hidden">
             <input name="id" th:value="${memberInfo.id}" type="hidden">
-            <input name="phoneNum" th:value="${memberInfo.phoneNum}" type="hidden">
+<!--            <input name="receiverPhone" type="hidden">-->
             <!-- 주소록 & 받는이-->
             <input name="receiverName" type="hidden">
+            <input name="receiverPhone" type="hidden">
             <input name="postcode" type="hidden">
             <input name="address" type="hidden">
             <input name="detailAddress" type="hidden">
             <!-- 사용 포인트 -->
-            <input name="usePoint" type="hidden">
-
-
-            <input name="count" type="hidden">
-
+            <input name="tUsePoint" type="hidden">
             <input type="hidden"  name="message" >
 
         <hr>
@@ -354,6 +362,7 @@
             //받는이,주소 값 넣기
             if($(obj).find(".selectAddress").val()==='T'){
                 $("input[name='receiverName']").val($(obj).find(".receiverName_input").val());
+                $("input[name='receiverPhone']").val($(obj).find(".receiverPhone_input").val());
                 $("input[name='postcode']").val($(obj).find(".address1_input").val());
                 $("input[name='address']").val($(obj).find(".address2_input").val());
                 $("input[name='detailAddress']").val($(obj).find(".address3_input").val());
@@ -361,12 +370,11 @@
             }
         });
             // 포인트 값 넣기
-            $("input[name='usePoint']").val($(".order_point_input").val())
-            //기타
+            $("input[name='tUsePoint']").val($(".order_point_input").val())
+            //기타 값 넣기
             $("input[name='ono']").val(new Date().getTime());
-            $("input[name='count']").val($(".goods_kind_div_kind").text())
             $("input[name='message']").val($(".message_input").val())
-            /* 상품정보 */
+            /* 상품정보 값 넣기 */
             let form_contents = '';
             $(".product_price_td").each(function(index, element){
                 console.log(index)
@@ -375,18 +383,23 @@
                 let itemCount = $(element).find(".individual_itemCount_input").val();
                 let pColor = $(element).find(".individual_pColor_input").val();
                 let pOption = $(element).find(".individual_pOption_input").val();
+                let pOptionName = $(element).find(".individual_pOptionName_input").val();
+                let pOptionName2 = $(element).find(".individual_pOptionName2_input").val();
                 let pOption2 = $(element).find(".individual_pOption2_input").val();
                 let pno_input = "<input name='orders[" + index + "].pno' type='hidden' value='" + pno + "'>";
                 form_contents += pno_input;
-                let itemCount_input = "<input name='orders[" + index + "].itemCount' type='hidden' value='" + itemCount + "'>";
+                let itemCount_input = "<input name='orders[" + index + "].iCount' type='hidden' value='" + itemCount + "'>";
                 form_contents += itemCount_input;
                 let pColor_input = "<input name='orders[" + index + "].pColor' type='hidden' value='" + pColor + "'>";
                 form_contents += pColor_input;
                 let pOption_input = "<input name='orders[" + index + "].pOption' type='hidden' value='" + pOption + "'>";
                 form_contents += pOption_input;
+                let pOptionName_input = "<input name='orders[" + index + "].pOptionName' type='hidden' value='" + pOptionName + "'>";
+                form_contents += pOptionName_input;
                 let pOption2_input = "<input name='orders[" + index + "].pOption2' type='hidden' value='" + pOption2 + "'>";
                 form_contents += pOption2_input;
-
+                let pOptionName2_input = "<input name='orders[" + index + "].pOptionName2' type='hidden' value='" + pOptionName2 + "'>";
+                form_contents += pOptionName2_input;
 
         })
         $(".order_form").append(form_contents);

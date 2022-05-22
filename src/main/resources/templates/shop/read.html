@@ -47,7 +47,7 @@
                 <hr>
                 <div >
                     <div class="option_div" th:if="${options.get(0).pOption !='없음'}" >
-                        <p> [[${options.get(0).pOptName}]]</p>
+                        <p> [[${options.get(0).pOptionName}]]</p>
                         <button th:each="opt : ${options}" th:if="${not #strings.isEmpty(opt)}"
                                 th:class="optBtn"
                                 th:text="${opt.pOption}" th:value="${opt.pOption}"></button>
@@ -56,7 +56,7 @@
                 <hr>
                 <div >
                     <div class="option2_div" th:if="${options2.get(0).pOption2 !='없음'}">
-                        <p> [[${options2.get(0).pOptName2}]]</p>
+                        <p> [[${options2.get(0).pOptionName2}]]</p>
                         <button th:each="opt2 : ${options2}" th:if="${not #strings.isEmpty(opt2)}"
                                 th:class="optBtn2"
                                 th:text="${opt2.pOption2}" th:value="${opt2.pOption2}"></button>
@@ -153,11 +153,6 @@
             $("input[name='orders[0].pOption2']").val(val)
 
         })
-
-
-
-
-
         function loadOpt(opt){
 
             option = {
@@ -193,24 +188,6 @@
                 },
             });
         }
-        // function loadColor(opt){
-        //
-        //     option = {
-        //         'pno' : opt.pno,
-        //         'pColor':opt.color,
-        //         'pOption':opt.option,
-        //
-        //     }
-        //     $.ajax({
-        //         type: "get",
-        //         url: "/rest/getOptions",
-        //         data: option,
-        //         contentType: "application/json;charset=UTF-8",
-        //         success: (result) => {
-        //             showColors(result)
-        //         },
-        //     });
-        // }
         function showOptions(result){
             let str = "";
             let list =result[0]
@@ -234,24 +211,6 @@
 
             $(".option2_div").html(str)
         }
-        // function showColors(result){
-        //     let str = "";
-        //     let list =result
-        //     $(list).each(function (index,obj){
-        //         console.log(obj)
-        //         //str += "<div class='color_div'>";
-        //         str += "<button class='colorBtn' value=" +obj.pcolor +">" + obj.pcolor + "</button>"
-        //         //str += "</div>"
-        //     })
-        //     $("input[name='orders[0].pColor']").val('')
-        //     $(".color_div").html('')
-        //     $(".color_div").html(str)
-        // }
-
-
-
-
-
 
         /* 바로구매 버튼 */
         $(".btn_buy").on("click", function(){
@@ -263,11 +222,8 @@
             let id = [[${member.id}]]
             $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
             // $(".order_form").find("input[name='orders[0].pColor']").val(pColor);
-
             $(".order_form").attr("action","/order/"+id)
             $(".order_form").submit();
-
-
 
         });
 
@@ -515,7 +471,6 @@
             $(this).find(".colorBtn").css("color",color)
 
         })
-
 
         $("#reviewBtn").click(function (){
 

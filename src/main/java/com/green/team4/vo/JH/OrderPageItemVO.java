@@ -9,6 +9,8 @@ import lombok.*;
 @ToString
 public class OrderPageItemVO {
 
+
+
     /* 뷰로부터 전달받을 값 */
     private int pno; //상품번호
 
@@ -21,8 +23,8 @@ public class OrderPageItemVO {
 
     /* DB로부터 꺼내올 값 */
     private String pName;
-    private String pOptName;
-    private String pOptName2;
+    private String pOptionName;
+    private String pOptionName2;
     private int pPrice;
     private String pImageURL;
     private double pDiscount; // 상품할인율
