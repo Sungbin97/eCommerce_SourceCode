@@ -10,6 +10,7 @@ public interface ProductService {
     int insert(ProductVO vo);
     List<ProductVO> getAll();
     ProductVO getOne(int pno);
+    ProductVO getEvePno();
     int update(ProductVO vo);
     int delete(int pno);
 }

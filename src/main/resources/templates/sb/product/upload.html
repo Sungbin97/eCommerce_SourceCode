@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>상품등록페이지</title>
 </head>
 <body>
 <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
@@ -82,21 +82,22 @@
         <div class="inputArea">
           <label>메인카테고리</label>
           <select id="category" name="pMainCategory">
-            <option value="의류">의류</option>
+            <option value="남성 옷">남성 옷</option>
+            <option value="여성 옷">여성 옷</option>
             <option value="식품">식품</option>
-            <option value="장비">장비</option>
+            <option value="엑세서리 및 기구">엑세서리 및 기구</option>
           </select>
         </div>
 
         <div class="inputArea">
           <label>서브카테고리</label>
           <select id="subCategory" name="pSubCategory">
-            <option value="여성">여성</option>
-            <option value="남성">남성</option>
-            <option value="기구">기구</option>
-            <option value="장비">장비</option>
+            <option value="상의">상의</option>
+            <option value="하의">하의</option>
+            <option value="신발">신발</option>
             <option value="보충제">보충제</option>
-            <option value="간식">간식</option>
+            <option value="영양제">영양제</option>
+            <option value="ing">ing</option>
           </select>
         </div>
 
@@ -116,91 +117,80 @@
         </div>
 
         <div class="inputArea">
-          <label for="size">사이즈</label>
-          <input type="text" id="size" name="pSize" />
+          <label>상품 대표이미지</label>
+          <input type="file" name="pImg" multiple>
         </div>
 
         <div class="inputArea">
-          <label for="color">색상</label>
-          <input type="text" id="color" name="pColor" />
+          <label>상품 상세정보 대표이미지</label>
+          <input type="file" name="pInfo" multiple>
         </div>
 
-        <div class="inputArea">
-          <label for="color">수량</label>
-          <input type="text" id="amount" name="pAmount" />
-        </div>
-
-        <div class="inputArea">
-          <label for="des">상품소개</label>
-          <textarea rows="5" cols="50" id="des" name="pInformation"></textarea>
-        </div>
-        <input type="file" name="uploadFiles" multiple>
-
-        <input type="hidden" name="pImageURL" value="썸네일 이미지 저장경로">
-        <div class="uploadResult">
-        </div>
-        <input type="submit" value="최종 등록">
+        <div class="uploadResult"></div>
+        <input type="submit" value="등록">
       </form>
-      <button class="uploadBtn">이미지 등록</button>
   </div>
 </div>
 </body>
-      <script>
-        function showUploadedImages(arr){
-          console.log(arr);
-          var divArea = $(".uploadResult")
-          var str = "";
-          for (var i =0; i<arr.length; i++) {
-            str+= "<div>"
-            var thumbnailURL = encodeURIComponent(arr[i].folderPath +"\\s_" +arr[i].uuid + "_" + arr[i].fileName);
-            var imageURL = encodeURIComponent(arr[i].folderPath +"\\" +arr[i].uuid + "_" + arr[i].fileName);
-            var url = document.querySelector('input[name="pImageURL"]');
-            url.value = "/display?fileName="+arr[i].imageURL;
-            str+= "<img src='/display?fileName=" +arr[i].imageURL+"'>"
-            str+= "<button class='removeBtn' data-name='" + arr[i].imageURL +"'> 삭제 </button>"
-            str+= "</div>"
-          }
-          divArea.append(str);
-        }
+<!--      <script>-->
+<!--        function showUploadedImages(arr){-->
+<!--          console.log(arr);-->
+<!--          var divArea = $(".uploadResult")-->
+<!--          var str = "";-->
+<!--          for (var i =0; i<arr.length; i++) {-->
+<!--            str+= "<div>"-->
+<!--            var thumbnailURL = encodeURIComponent(arr[i].folderPath +"\\s_" +arr[i].uuid + "_" + arr[i].fileName);-->
+<!--            var imageURL = encodeURIComponent(arr[i].folderPath +"\\" +arr[i].uuid + "_" + arr[i].fileName);-->
 
-        $(".uploadResult").on("click", ".removeBtn", function (e){
-          console.log("삭제버튼눌림?");
-          var target=$(this);
-          var fileName=target.data('name'); // 1)
-          var targetDiv=$(this).closest("div");
-          console.log(fileName);
-          $.post('/removeFile', {fileName}, function (result){ // 2)
-            console.log(result)
-            if (result===true) targetDiv.remove();
-          })
-        })
-        $(".uploadBtn").click(function (e){
-          console.log("버튼들어오나")
-          var formData = new FormData();
-          var inputFile = $("input[type='file']");
-          var files = inputFile[0].files;
-          for (var i=0;i<files.length;i++){
-            console.log(files[i]);
-            formData.append("uploadFiles", files[i])
-          }
-          // 실제 업로드
-          $.ajax({
-            url:'/uploadAjax',
-            processData: false,
-            contentType: false,
-            data: formData,
-            type:'POST',
-            dataType:'json',
-            success :function (result){
-              console.log(result);
-              //나중에 화면 처리
-              showUploadedImages(result)
-            },
-            error:function (jqXHR, textStatus, errorThrown){
-              console.log(textStatus);
-            }
-          })
-        })
-      </script>
+<!--            var thumbnail = document.querySelector('input[name="pImageURL"]');-->
+<!--            thumbnail.value = "/display?fileName="+arr[i].imageURL;-->
+
+<!--            str+= "<img src='/display?fileName=" +arr[i].imageURL+"'>"-->
+<!--            str+= "<button class='removeBtn' data-name='" + arr[i].imageURL +"'> 삭제 </button>"-->
+<!--            str+= "</div>"-->
+<!--          }-->
+<!--          divArea.append(str);-->
+<!--        }-->
+
+<!--        $(".uploadResult").on("click", ".removeBtn", function (e){-->
+<!--          console.log("삭제버튼눌림?");-->
+<!--          var target=$(this);-->
+<!--          var fileName=target.data('name'); // 1)-->
+<!--          var targetDiv=$(this).closest("div");-->
+<!--          console.log(fileName);-->
+<!--          $.post('/removeFile', {fileName}, function (result){ // 2)-->
+<!--            console.log(result)-->
+<!--            if (result===true) targetDiv.remove();-->
+<!--          })-->
+<!--        })-->
+
+<!--        $(".uploadBtn").click(function (e){-->
+<!--          console.log("버튼들어오나")-->
+<!--          var formData = new FormData();-->
+<!--          var inputFile = $("input[type='file']");-->
+<!--          var files = inputFile[0].files;-->
+<!--          for (var i=0;i<files.length;i++){-->
+<!--            console.log(files[i]);-->
+<!--            formData.append("uploadFiles", files[i])-->
+<!--          }-->
+<!--          // 실제 업로드-->
+<!--          $.ajax({-->
+<!--            url:'/uploadAjax',-->
+<!--            processData: false,-->
+<!--            contentType: false,-->
+<!--            data: formData,-->
+<!--            type:'POST',-->
+<!--            dataType:'json',-->
+<!--            success :function (result){-->
+<!--              console.log(result);-->
+<!--              //나중에 화면 처리-->
+<!--              showUploadedImages(result)-->
+<!--            },-->
+<!--            error:function (jqXHR, textStatus, errorThrown){-->
+<!--              console.log(textStatus);-->
+<!--            }-->
+<!--          })-->
+<!--        })-->
+<!--      </script>-->
     </main>
 </html>

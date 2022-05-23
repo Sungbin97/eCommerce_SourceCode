@@ -89,7 +89,7 @@
                 <li th:text="'서브카테고리: '+${getOne.pSubCategory}"></li>
                 <input th:name="pSubCategory" th:value="${getOne.pSubCategory}">
 
-                <li th:text="'사이즈: '+${getOne.pSize}"></li>
+                <li th:text="'사이즈: '+${getOpt.pSize}"></li>
                 <input th:name="pSize" th:value="${getOne.pSize}">
 
                 <li th:text="'가격: '+${getOne.pPrice}"></li>
@@ -105,6 +105,7 @@
                 <input th:name="pInformation" th:value="${getOne.pInformation}">
 
                 <li th:text="'이미지 원본: '+${getOne.pImage}"></li>
+                <img th:src="|/display?fileName=${getOne.pImage}|"/>
                 <input th:name="pImage" th:value="${getOne.pImage}">
 
                 <li th:text="'썸네일: '+${getOne.pImageURL}"></li>

@@ -35,6 +35,11 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public ProductVO getEvePno() {
+        return productMapper.getEvePno();
+    }
+
+    @Override
     public int update(ProductVO vo) {
         log.info("상품정보 수정 service");
         return productMapper.update(vo);
