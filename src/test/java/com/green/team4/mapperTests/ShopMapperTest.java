@@ -73,7 +73,7 @@ public class ShopMapperTest {
             pvo.setPAmount((int)(Math.random()*100)+1);
 
             pvo.setPName("상품"+i);
-            pvo.setPCode("코드"+i);
+
             pvo.setPInformation("형 믿고 사");
             pvo.setPDelivery("무료배송");
 

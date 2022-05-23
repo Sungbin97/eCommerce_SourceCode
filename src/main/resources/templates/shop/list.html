@@ -125,7 +125,7 @@
 <div>
     <div class="product-container">
             <div >
-                <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(pno=${dto?.pno},mno=1)}">
+                <a class="product-item" th:each="dto : ${list}" th:href="@{/shop/read(pno=${dto?.pno},mno=2)}">
                     <img th:src="${dto.pImage}">
                  <p>[[${dto?.pName}]]([[${dto?.pSubCategory}]])</p>
                     <p>[[${dto?.pPrice}]]원</p>

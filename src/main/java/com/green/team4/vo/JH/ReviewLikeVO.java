@@ -13,7 +13,7 @@ public class ReviewLikeVO {
     private int likeno;
     private int pno;
     private int mno ;
+    private int rmno ;
     private int rno ;
-    private int devCheck ;
-    private Date devDate ;
+
 }
