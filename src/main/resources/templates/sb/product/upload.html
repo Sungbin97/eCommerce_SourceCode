@@ -155,7 +155,7 @@
             var thumbnailURL = encodeURIComponent(arr[i].folderPath +"\\s_" +arr[i].uuid + "_" + arr[i].fileName);
             var imageURL = encodeURIComponent(arr[i].folderPath +"\\" +arr[i].uuid + "_" + arr[i].fileName);
             var url = document.querySelector('input[name="pImageURL"]');
-            url.value = "/display?fileName="+arr[i].thumbnailURL;
+            url.value = "/display?fileName="+arr[i].imageURL;
             str+= "<img src='/display?fileName=" +arr[i].imageURL+"'>"
             str+= "<button class='removeBtn' data-name='" + arr[i].imageURL +"'> 삭제 </button>"
             str+= "</div>"

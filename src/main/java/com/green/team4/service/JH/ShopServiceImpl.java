@@ -36,6 +36,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public ProductVO getProductWithOpt(Product_optVO povo) {
+        return shopMapper.getProductWithOpt(povo);
+    }
+
+    @Override
     public List<ProductVO> getListByCategoryAndPage(Map<String, Object> map) {
         return shopMapper.getListByCategoryAndPage(map);
     }
@@ -72,12 +77,24 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<Product_optVO> getSizes(int pno) {
-        return shopMapper.getSizes(pno);
+    public List<Product_optVO> getOptions(int pno) {
+        return shopMapper.getOptions(pno);
+    }
+    public List<Product_optVO> getOptions2(int pno) {
+        return shopMapper.getOptions2(pno);
+    }
+    @Override
+    public List<Product_optVO> getOptList(Product_optVO povo) {
+        return shopMapper.getOptList(povo);
     }
 
     @Override
-    public List<Product_optVO> getOptList(int pno) {
-        return shopMapper.getOptList(pno);
+    public List<ProductVO> getOneWithOpt(int pno) {
+        return shopMapper.getOneWithOpt(pno);
+    }
+
+    @Override
+    public Product_optVO getOptionPrice(Product_optVO povo) {
+        return shopMapper.getOptionPrice(povo);
     }
 }

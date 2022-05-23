@@ -32,6 +32,8 @@ public interface ReviewMapper {
     //리뷰  좋아요 업데이트
     public void updateLike(int rno);
     public void updateLikeCancel(int rno);
+
+
     //리뷰 좋아요 등록
     public void insertLike(ReviewLikeVO dto);
 

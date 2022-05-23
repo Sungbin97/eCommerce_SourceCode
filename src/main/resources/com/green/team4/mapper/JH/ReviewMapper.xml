@@ -68,13 +68,13 @@
     </update>
 <!--    리뷰추천 등록-->
     <insert id="insertLike">
-        insert into review_Like (likeno,pno,mno,rno,devCheck,devDate)
+        insert into tbl_review_Like (likeno,pno,mno,rno,rmno) values (#{likeno},#{pno},#{mno},#{rno},#{rmno})
     </insert>
     <!--    리뷰추천 삭제-->
     <delete id="deleteLike">
-        delete from review_Like where mno=#{mno} and rno = #{rno}
+        delete from tbl_review_Like where mno=#{mno} and rno = #{rno}
     </delete>
     <select id="checkLike" resultType="int">
-        select count(*) from review_LIKE where where mno=#{mno} and rno = #{rno}
+        select count(*) from tbl_review_LIKE where mno=#{mno} and rno = #{rno}
     </select>
 </mapper>

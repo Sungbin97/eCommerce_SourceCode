@@ -12,25 +12,21 @@ import java.util.Date;
 public class ProductVO {
 
     private int pno;
+    private int pcno;
     private String pName;
     private String pMainCategory;
     private String pSubCategory;
-    private String pSize;
-    private int pPrice;
-    private int pAmount;
-    private String pColor;
-    private Date pRegdate;
-    private String pImage;
-    private String pInformation;
-    private String pDelivery;
-    private String pImageURL;
-    private String pCode;
     private double pRating;
     private int pReviewCnt;
-    private int pDiscount;
-
-
-
-
-
+    private int pPrice;
+    private int pAmount;
+    private Date pRegdate;
+    private String pInformation;
+    private String pDelivery;
+    private String pImage;
+    private String pCode;
+    private String pSize;
+    private String pOption;
+    private String pOption2;
+    private String pColor;
 }
