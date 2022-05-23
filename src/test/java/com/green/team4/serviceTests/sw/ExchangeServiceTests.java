@@ -21,7 +21,7 @@ public class ExchangeServiceTests {
 
         ExchangeVO exchangeVO = new ExchangeVO();
         exchangeVO.setMno(8);
-        exchangeVO.setOno(4);
+//        exchangeVO.setOno(4);
         exchangeVO.setPno(2);
         exchangeVO.setPno(8);
         exchangeVO.setExCategory("취소");

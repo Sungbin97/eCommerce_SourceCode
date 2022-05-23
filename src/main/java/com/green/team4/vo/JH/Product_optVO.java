@@ -14,5 +14,4 @@ public class Product_optVO {
     private String pColor ;
     private int pAmount;
     private String pSize ;
-
 }

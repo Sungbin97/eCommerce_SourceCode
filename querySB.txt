@@ -239,4 +239,23 @@ create table tbl_mail(
     foreign key (mno) references tbl_memberInfo (mno)
 );
 
+-- 상품 이미지 테이블 -- ★★ 0523 추가
+create table tbl_product_img(
+	ino int primary key auto_increment,
+    pno int,
+    pName varchar(50),
+	pThumbnail varchar(500),
+    pImage varchar(300), -- 파일명
+    pImagePath varchar(500) -- 저장경로
+);
+
+-- 상품 정보 이미지 테이블 ★★ 0523 추가
+create table tbl_product_infoImg(
+	infoNo int primary key auto_increment,
+    pno int,
+    pName varchar(50),
+    pInformation varchar(300),
+    pInfoPath varchar(500) -- 저장경로
+);
+
 commit;

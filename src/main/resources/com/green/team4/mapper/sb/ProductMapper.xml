@@ -17,8 +17,7 @@
     </select>
 
     <select id="getOne" resultType="com.green.team4.vo.sb.ProductVO">
-        select * from tbl_product
-            where pno=#{pno}
+        select * from tbl_product where pno = #{pno}
     </select>
 
     <update id="update">
@@ -31,5 +30,9 @@
     <delete id="delete">
         delete from tbl_product where pno=#{pno}
     </delete>
+
+    <select id="getEvePno" resultType="com.green.team4.vo.sb.ProductVO">
+        select * from tbl_product order by pno desc limit 1;
+    </select>
 
 </mapper>

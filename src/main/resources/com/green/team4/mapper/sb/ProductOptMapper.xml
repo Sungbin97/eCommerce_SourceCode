@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.team4.mapper.sb.ProductOptMapper">
+
+    <insert id="insert">
+        insert into tbl_product_opt (pno, pColor, pSize, pAmount)
+        values (#{pno}, #{pColor}, #{pSize}, #{pAmount})
+    </insert>
+
+    <select id="getAll" resultType="com.green.team4.vo.JH.Product_optVO">
+        select * from tbl_product_opt
+    </select>
+
+    <select id="getProductJoin" resultType="com.green.team4.vo.JH.Product_optVO">
+<!-- pno를 통한 상품 색상, 사이즈별 가격 및 수량 조회 -->
+        select p.pno, p.pname, o.pSize, o.pColor, o.pAmount from  tbl_product p
+        inner join tbl_product_opt o
+        on p.pno = #{p.pno};
+    </select>
+
+    <select id="getOpt" resultType="com.green.team4.vo.JH.Product_optVO">
+        select * from tbl_product_opt where pno=#{pno};
+    </select>
+
+    <update id="update">
+        update tbl_product_opt
+            set pSize=#{pSize}, pColor=#{pColor}, pAmount=#{pAmount}
+                where pcno=#{pcno}
+    </update>
+
+    <delete id="delete">
+        delete from tbl_product_opt where pcno=#{pcno}
+    </delete>
+
+</mapper>
