@@ -20,17 +20,17 @@
         where p.pno = #{pno};
     </select>
     <select id="getProductWithOpt" resultType="com.green.team4.vo.sb.ProductVO">
-        select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount,ps.pOption,ps.pOptionName,ps.pOption2,ps.pOptionName2  from tbl_product p
+        select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount,
+               ps.pOption,ps.pOptionName,ps.pOption2,ps.pOptionName2,ps.pOptionPrice  from tbl_product p
        inner join tbl_product_opt ps on p.pno = ps.pno
-        where p.pno = #{pno} and ps.pColor = #{pColor} and ps.pOption=#{pOption} and ps.pOption2=#{pOption2}
+        where p.pno = #{pno} and <include refid="price"></include>
     </select>
+
     <insert id="insert">
         insert into tbl_product (pName,pMainCategory,pPrice,pAmount,pImage,pSubCategory,pInformation)
         values (#{pName},#{pMainCategory},#{pPrice},#{pAmount},
                 #{pImage},#{pSubCategory},#{pInformation})
     </insert>
-
-
 
 
     <select id="getColors" resultType="com.green.team4.vo.JH.Product_optVO">
@@ -52,43 +52,47 @@
         <select id="getOptList" resultType="com.green.team4.vo.JH.Product_optVO">
             select * from tbl_product_opt
 
-            where pno = #{pno}  and <include refid="option"></include>
+            where pno = #{pno}   <include refid="option"></include>
         </select>
         <select id="getOptionPrice" resultType="com.green.team4.vo.JH.Product_optVO">
             select P.pPrice,pOptionPrice from tbl_product P
             inner join tbl_product_opt ps on p.pno = ps.pno
-            where p.pno = #{pno}  and <include refid="price"></include>
+            where p.pno = #{pno} and <include refid="price"></include>
         </select>
     <sql id="option">
+        <if test="pColor == '' and pColor == '' and pOption =='' ">
+
+        </if>
         <if test="pColor != null and pColor != '' and pOption =='' ">
-            pColor = #{pColor}
+            and pColor = #{pColor}
         </if>
         <if test="pOption != null and pOption != '' and pColor ==''">
-            pOption = #{pOption}
+            and pOption = #{pOption}
         </if>
         <if test="pColor != null and pColor != '' and pOption != null and pOption != ''">
-            pColor = #{pColor} and  pOption = #{pOption}
+            and pColor = #{pColor} and  pOption = #{pOption}
         </if>
 
     </sql>
     <sql id="price">
-        <if test="pColor != '' and pOption =='' and pOption2 =='' ">
-            ps.pColor = #{pColor} and ps.pOption = '없음' and ps.pOption2 = '없음'
+        <if test="(pColor != null and pColor !='') and (pOption ==null or pOption =='') and (pOption2 == null or pOption2 =='') ">
+            ps.pColor = #{pColor} and ps.pOption is null and ps.pOption2  is null
         </if>
-        <if test="pColor == '' and pOption !='' and pOption2 =='' ">
-            ps.pColor ='없음' and ps.pOption = #{pOption} and ps.pOption2 = '없음'
+        <if test="(pColor == null or pColor =='' )and (pOption !=null and pOption !='') and (pOption2 == null or pOption2 =='') ">
+            ps.pColor is null and ps.pOption = #{pOption} and  ps.pOption2  is null
         </if>
-        <if test="pColor != '' and pOption !='' and pOption2 =='' ">
-            ps.pColor = #{pColor} and ps.pOption = #{pOption} and ps.pOption2 = '없음'
+        <if test="(pColor != null and pColor !='') and (pOption !=null and pOption !='') and (pOption2 == null or pOption2 =='') ">
+            ps.pColor = #{pColor} and ps.pOption = #{pOption} and ps.pOption2  is null
         </if>
-        <if test="pColor == '' and pOption !='' and pOption2 !='' ">
-            ps.pColor = '없음' and ps.pOption = #{pOption} and ps.pOption2 = #{pOption2}
+        <if test="(pColor == null or pColor =='') and (pOption !=null and pOption !='') and (pOption2 !=null and pOption2 !='') ">
+            ps.pColor is null and ps.pOption= #{pOption} and ps.pOption2 = #{pOption2}
         </if>
-        <if test="pColor != '' and pOption !='' and pOption2 !='' ">
+        <if test="(pColor != null and pColor !='') and (pOption !=null and pOption !='') and (pOption2 !=null and pOption2 !='') ">
             ps.pColor = #{pColor} and  ps.pOption = #{pOption} and ps.pOption2 = #{pOption2}
         </if>
 
     </sql>
+   
 
 
 

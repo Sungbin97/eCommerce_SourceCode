@@ -1,21 +1,36 @@
-//package com.green.team4.mapperTests;
-//
-//import com.green.team4.mapper.JH.OrderPageMapper;
-//import com.green.team4.vo.JH.DBOrderItemVO;
-//import com.green.team4.vo.JH.DBOrderVO;
-//import com.green.team4.vo.sb.MemberVO;
-//import com.green.team4.vo.sb.ProductVO;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@SpringBootTest
-//public class OrderPageMapperTests {
-//    @Autowired
-//    private OrderPageMapper orderPageMapper;
+package com.green.team4.mapperTests;
+
+import com.green.team4.mapper.JH.OrderPageMapper;
+import com.green.team4.mapper.JH.ShopMapper;
+import com.green.team4.vo.JH.DBOrderItemVO;
+import com.green.team4.vo.JH.DBOrderVO;
+import com.green.team4.vo.JH.Product_optVO;
+
+import com.green.team4.vo.sb.ProductVO;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@SpringBootTest
+public class OrderPageMapperTests {
+    @Autowired
+    private OrderPageMapper orderPageMapper;
+    private ShopMapper shopMapper;
+    @Test
+    public void getTest(){
+        Product_optVO product_optVO = new Product_optVO();
+        product_optVO.setPno(7);
+        product_optVO.setPColor("red");
+        product_optVO.setPOption("1.5KG");
+        product_optVO.setPOption2("딸기맛");
+        shopMapper.getProductWithOpt(product_optVO);
+
+    }
+}
+
 //
 //    @Test
 ////    public void getOrderInfoTest() {
@@ -104,7 +119,7 @@
 ////
 ////
 ////
-////    아래 코드는 CartMapperTests.java 클래스에서 CartMapper 메서드를 테스트하기 위해 작성한 코드입니다.
+////
 ////
 ////
 ////

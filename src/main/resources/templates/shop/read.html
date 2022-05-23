@@ -37,34 +37,17 @@
 
         </div>
 <!--    상품 옵션-->
-        <div th:if="${pList.size() != 0 }">
-            <div class="product_option_div">
-                <div>
-                    <div class="color_div" th:if="${colors.get(0).pColor !='없음'}" >
-                        <p>색상</p>
-                        <button th:each="color : ${colors}" th:if="${not #strings.isEmpty(color)}"
-                                th:class="colorBtn"
-                                th:text="${color.pColor}" th:value="${color.pColor}"  ></button>
-                    </div>
-                </div>
-                <hr>
-                <div >
-                    <div class="option_div" th:if="${options.get(0).pOption !='없음'}" >
-                        <p> [[${options.get(0).pOptionName}]]</p>
-                        <button th:each="opt : ${options}" th:if="${not #strings.isEmpty(opt)}"
-                                th:class="optBtn"
-                                th:text="${opt.pOption}" th:value="${opt.pOption}"></button>
-                    </div>
-                </div>
-                <hr>
-                <div >
-                    <div class="option2_div" th:if="${options2.get(0).pOption2 !='없음'}">
-                        <p> [[${options2.get(0).pOptionName2}]]</p>
-                        <button th:each="opt2 : ${options2}" th:if="${not #strings.isEmpty(opt2)}"
-                                th:class="optBtn2"
-                                th:text="${opt2.pOption2}" th:value="${opt2.pOption2}"></button>
-                    </div>
-                </div>
+        <div class="product_option_div">
+            <p class="color_p">색상</p>
+            <div class="color_div">
+
+            </div>
+            <p class="option_p">옵션1</p>
+            <div class="option_div">
+
+            </div>
+            <p class="option2_p">옵션2</p>
+            <div class="option2_div">
 
             </div>
         </div>
@@ -118,11 +101,9 @@
 
 <script th:inline="javascript">
 
-
     $(document).ready(function (){
-        let color =$(this).val();
-        $("input[name='orders[0].pOption']").val('');
-        $("input[name='orders[0].pOption2']").val('');
+
+        let color =$("input[name='orders[0].pColor']").val();
         let option =$("input[name='orders[0].pOption']").val();
         let option2 =$("input[name='orders[0].pOption2']").val();
         let pno2 = $("input[name='orders[0].pno']").val()
@@ -133,15 +114,88 @@
             'option' : option,
             'option2' : option2,
         }
-        loadOpt(opt)
-        loadOpt2(opt)
-        loadPrice(opt)
+        loadOptions(opt)
         $("input[name='orders[0].pColor']").val(color)
 
+        function loadOptions(opt){
+
+            option = {
+                'pno' : opt.pno,
+                'pColor':opt.color,
+                'pOption':opt.option,
+                'pOption2':opt.option2,
+            }
+            $.ajax({
+                type: "get",
+                url: "/rest/getOptions",
+                data: option,
+                contentType: "application/json;charset=UTF-8",
+                success: (result) => {
+                    console.log(result)
+                    showOptionsAll(result)
+                },
+            });
+        }
+        function showOptionsAll(result){
+            console.log("showOptionsAll",result)
+            let colorStr = "";
+            let optionStr = "";
+            let optionStr2 = "";
+            let colorList =result[0]
+            let optionList =result[1]
+            let optionList2 =result[2]
+            if(colorList.length ==0 && optionList.length ==0 && optionList2.length ==0){
+                $(".color_p").html("")
+                $(".option_p").html("")
+                $(".option2_p").html("")
+            }
+            $(colorList).each(function (index,obj){
+                console.log("showOptions",obj)
+                if(obj ===null){
+                    $(".color_p").html("")
+                }
+                else{
+                    colorStr += "<button class='colorBtn' value=" +obj +">" + obj + "</button>"
+                }
+
+            })
+            $(optionList).each(function (index,obj){
+                console.log("showOptions",obj)
+                if(obj ===null){
+                    $(".option_p").html("")
+                }
+                else{
+                    optionStr += "<button class='optBtn' value=" +obj +">" + obj + "</button>"
+                }
+
+            })
+            $(optionList2).each(function (index,obj){
+                console.log("showOptions",obj)
+                if(obj ===null){
+                    $(".option2_p").html("")
+                }
+                else{
+                    optionStr2 += "<button class='optBtn2' value=" +obj +">" + obj + "</button>"
+                }
+            })
+            if(colorList.length>1){
+                $(".color_p").html("색상")
+            }
+            if(optionList.length>1){
+                $(".option_p").html("옵션1")
+            }
+            if(colorList.length>1){
+                $(".option2_p").html("옵션2")
+            }
+            $(".color_div").html(colorStr)
+            $(".option_div").html(optionStr)
+            $(".option2_div").html(optionStr2)
+        }
         $(".color_div").on("click",".colorBtn",function (){
             let color =$(this).val();
             $("input[name='orders[0].pOption']").val('');
             $("input[name='orders[0].pOption2']").val('');
+            $("input[name='orders[0].pOptionPrice']").val('');
             let option =$("input[name='orders[0].pOption']").val();
             let option2 =$("input[name='orders[0].pOption2']").val();
             let pno = $("input[name='orders[0].pno']").val()
@@ -160,6 +214,7 @@
         })
         $(".option_div").on("click",".optBtn",function (){
             console.log(this)
+            $("input[name='orders[0].pOptionPrice']").val('');
             let color =$("input[name='orders[0].pColor']").val()
             let option =$(this).val();
             let option2 =$("input[name='orders[0].pOption2']").val();
@@ -192,7 +247,6 @@
 
         })
         function loadOpt(opt){
-
             option = {
                 'pno' : opt.pno,
                 'pColor':opt.color,
@@ -211,7 +265,6 @@
             });
         }
         function loadOpt2(opt){
-
             option = {
                 'pno' : opt.pno,
                 'pColor':opt.color,
@@ -229,7 +282,6 @@
             });
         }
         function loadPrice(opt){
-
             option = {
                 'pno' : opt.pno,
                 'pColor':opt.color,
@@ -249,10 +301,16 @@
         }
         function showOptions(result){
             let str = "";
-            let list =result[0]
+            let list =result[1]
             $(list).each(function (index,obj){
                 console.log("showOptions",obj)
-                str += "<button class='optBtn' value=" +obj +">" + obj + "</button>"
+                if(obj === null){
+
+                }
+                else{
+                    str += "<button class='optBtn' value=" +obj +">" + obj + "</button>"
+                }
+
             })
             $("input[name='orders[0].pOption']").val('')
             $("input[name='orders[0].pOption2']").val('')
@@ -260,11 +318,15 @@
         }
         function showOptions2(result){
             let str = "";
-            let list =result[1]
+            let list =result[2]
             $(list).each(function (index,obj){
                 console.log("showOptions2",obj)
-                str += "<button class='optBtn2' value=" +obj+">" + obj + "</button>"
+                if(obj === null){
 
+                }
+                else{
+                    str += "<button class='optBtn2' value=" +obj+">" + obj + "</button>"
+                }
             })
             $("input[name='orders[0].pOption2']").val('')
 
@@ -300,7 +362,7 @@
 
         let detailInfo = $(".product-detailInfo")
         let deleveryInfo = $(".product-deleveryInfo")
-       let review_div = $(".review_div")
+        let review_div = $(".review_div")
         let pagingdiv = $(".review_pageInfo_div")
         let review_not_div = $(".review_not_div")
         let pageMaker = $(".pageMaker")

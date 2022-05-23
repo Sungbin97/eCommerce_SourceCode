@@ -40,24 +40,24 @@ public class OrderPageServiceImpl implements OrderPageService {
             product_optVO.setPColor(order.getPColor());
             product_optVO.setPOption(order.getPOption());
             product_optVO.setPOption2(order.getPOption2());
-            if(order.getPColor().equals("") && order.getPOption().equals("")){ //옵션이 없을떄
-                System.out.println("옵션 없음 orderpage");
-                OrderPageItemVO productsInfo = orderPageMapper.getProductsInfo(product_optVO);
-                System.out.println("productsInfo: "+productsInfo);
-                productsInfo.setPColor("없음");
-                productsInfo.setPOption("없음");
-                productsInfo.setItemCount(order.getItemCount());
-                productsInfo.initSaleTotal();
-                list.add(productsInfo);
-            }
-            else {
+//            if(order.getPColor().equals("") && order.getPOption().equals("")){ //옵션이 없을떄
+//                System.out.println("옵션 없음 orderpage");
+//                OrderPageItemVO productsInfo = orderPageMapper.getProductsInfo(product_optVO);
+//                System.out.println("productsInfo: "+productsInfo);
+//                productsInfo.setPColor("없음");
+//                productsInfo.setPOption("없음");
+//                productsInfo.setItemCount(order.getItemCount());
+//                productsInfo.initSaleTotal();
+//                list.add(productsInfo);
+//            }
+                System.out.println("하이");
                 OrderPageItemVO productsInfo = orderPageMapper.getProductsInfoWithOpt(product_optVO);
                 log.info("productsInfo: "+productsInfo);
                 productsInfo.setPOptionPrice(order.getPOptionPrice());
                 productsInfo.setItemCount(order.getItemCount());
                 productsInfo.initSaleTotal();
                 list.add(productsInfo);
-            }
+
         }
         return list;
     }
@@ -129,19 +129,19 @@ public class OrderPageServiceImpl implements OrderPageService {
             product_optVO.setPOption(order.getPOption());
             product_optVO.setPOption2(order.getPOption2());
             System.out.println(product_optVO);
-            if(order.getPColor().equals("없음") && order.getPOption().equals("없음")){
-                System.out.println("옵션없음 재고 차감");
-                ProductVO productVO = shopMapper.getOne(order.getPno());
-                System.out.println("productVO "+productVO);
-                productVO.setPAmount(productVO.getPAmount() - order.getICount());
-                orderPageMapper.deductStock(productVO);
-            }
-            else {
+//            if(order.getPColor().equals("없음") && order.getPOption().equals("없음")){
+//                System.out.println("옵션없음 재고 차감");
+//                ProductVO productVO = shopMapper.getOne(order.getPno());
+//                System.out.println("productVO "+productVO);
+//                productVO.setPAmount(productVO.getPAmount() - order.getICount());
+//                orderPageMapper.deductStock(productVO);
+//            }
+
                 ProductVO productVO = shopMapper.getProductWithOpt(product_optVO);
-                System.out.println("productVO "+productVO);
+                log.info("productVO "+productVO);
                 productVO.setPAmount(productVO.getPAmount() - order.getICount());
                 orderPageMapper.deductStockWithOpt(productVO);
-            }
+
 
         }
 //        // 장바구니제거
