@@ -5,10 +5,12 @@
 <mapper namespace="com.green.team4.mapper.JH.OrderPageMapper">
 <!--    주문 페이지 Mapper-->
     <select id="getProductsInfo" resultType="com.green.team4.vo.JH.OrderPageItemVO">
-        select pno,pName,pPrice,pDiscount,pImageURL from tbl_product where pno = #{pno}
+        select pno,pName,pPrice,pDiscount,pImage from tbl_product p
+
+         where pno = #{pno}
     </select>
     <select id="getProductsInfoWithOpt" resultType="com.green.team4.vo.JH.OrderPageItemVO">
-        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount, ps.pOption ,ps.pOptionName,ps.pOption2 ,ps.pOptionName2 from tbl_product p
+        select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount, ps.pOption ,ps.pOptionName,ps.pOption2 ,ps.pOptionName2 from tbl_product p
          inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno} and <include refid="option"></include>
     </select>
@@ -33,7 +35,7 @@
 <!--    주문 정보 가져오기-->
 
     <select id="getOrderInfo" resultType="com.green.team4.vo.JH.DBOrderItemVO">
-        select pno,pName,pPrice,pDiscount,pImageURL from tbl_product where pno = #{pno}
+        select pno,pName,pPrice,pDiscount,pImage from tbl_product where pno = #{pno}
     </select>
     <select id="getOrderInfoWithOpt" resultType="com.green.team4.vo.JH.DBOrderItemVO">
         select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pOption ,ps.pOptionName,ps.pOption2 ,ps.pOptionName2  from tbl_product p

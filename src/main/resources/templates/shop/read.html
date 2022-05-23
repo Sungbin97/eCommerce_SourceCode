@@ -31,8 +31,11 @@
     <div>
         <h3>[[${pvo.pName}]]</h3><br>
 
-        <p>[[${pvo.pPrice}]]원</p><br>
 
+        <div class="price_div">
+            <p class="option_price" th:value="${pvo.pPrice}">[[${pvo.pPrice}]]원</p><br>
+
+        </div>
 <!--    상품 옵션-->
         <div th:if="${pList.size() != 0 }">
             <div class="product_option_div">
@@ -78,6 +81,7 @@
             <input type="text" name="orders[0].pColor" value="">
             <input type="text" name="orders[0].pOption" value="">
             <input type="text" name="orders[0].pOption2" value="">
+            <input type="text" name="orders[0].pOptionPrice" value="0">
             <input type="hidden" name="orders[0].itemCount" value="">
         </form>
 
@@ -110,10 +114,43 @@
     </div>
 
 
-    <img id="testImg"  th:src="${pvo.pImageURL}">
+    <img id="testImg"  th:src="${pvo.pImage}">
 
 <script th:inline="javascript">
+    function commentLike(pno,rno,rmno){
+        let mno = [[${member.mno}]]
+        console.log("pno",pno,"rmno",rmno,"rno",rno,"mno",mno)
+        console.log("하이")
+        // type: "get",
+        //     url: "/rest/getOptions",
+        //     data: option,
+        //     contentType: "application/json;charset=UTF-8",
+        //     success: (result) => {
+        //     console.log(result)
+        //     showOptions(result)
+        // },
+        $.ajax({
+            type : "POST",
+            url : "/rest/commentLike",
+            data : {'pno' : pno ,'rno' : rno, 'rmno' : rmno, 'mno': mno },
+            error : function(){
+                alert("통신 에러");
+            },
+            success : function(likeCheck) {
 
+                if(likeCheck == 0){
+                    alert("추천완료.");
+                    // commentList();
+                }
+                else if (likeCheck == 1){
+                    alert("추천취소");
+                    // commentList();
+
+
+                }
+            }
+        });
+    }
 
 
 
@@ -121,16 +158,20 @@
         $(".color_div").on("click",".colorBtn",function (){
             let color =$(this).val();
             $("input[name='orders[0].pOption']").val('');
+            $("input[name='orders[0].pOption2']").val('');
             let option =$("input[name='orders[0].pOption']").val();
+            let option2 =$("input[name='orders[0].pOption2']").val();
             let pno = $("input[name='orders[0].pno']").val()
             console.log(option)
             opt = {
                 'pno' : pno,
                 'color' : color,
                 'option' : option,
+                'option2' : option2,
             }
             loadOpt(opt)
             loadOpt2(opt)
+            loadPrice(opt)
             $("input[name='orders[0].pColor']").val(color)
 
         })
@@ -138,19 +179,33 @@
             console.log(this)
             let color =$("input[name='orders[0].pColor']").val()
             let option =$(this).val();
+            let option2 =$("input[name='orders[0].pOption2']").val();
             let pno = $("input[name='orders[0].pno']").val()
             console.log(option)
             opt = {
                 'pno' : pno,
                 'color' : color,
                 'option' : option,
+                'option2' : option2,
             }
             loadOpt2(opt)
+            loadPrice(opt)
             $("input[name='orders[0].pOption']").val(option)
         })
         $(".option2_div").on("click",".optBtn2",function (){
             let val =$(this).text()
+            let color =$("input[name='orders[0].pColor']").val()
+            let option =$("input[name='orders[0].pOption']").val();
+            let option2 =$(this).text()
+            let pno = $("input[name='orders[0].pno']").val()
+            opt = {
+                'pno' : pno,
+                'color' : color,
+                'option' : option,
+                'option2' : option2,
+            }
             $("input[name='orders[0].pOption2']").val(val)
+            loadPrice(opt)
 
         })
         function loadOpt(opt){
@@ -159,6 +214,7 @@
                 'pno' : opt.pno,
                 'pColor':opt.color,
                 'pOption':opt.option,
+                'pOption2':opt.option2,
             }
             $.ajax({
                 type: "get",
@@ -177,6 +233,7 @@
                 'pno' : opt.pno,
                 'pColor':opt.color,
                 'pOption':opt.option,
+                'pOption2':opt.option2,
             }
             $.ajax({
                 type: "get",
@@ -185,6 +242,25 @@
                 contentType: "application/json;charset=UTF-8",
                 success: (result) => {
                     showOptions2(result)
+                },
+            });
+        }
+        function loadPrice(opt){
+
+            option = {
+                'pno' : opt.pno,
+                'pColor':opt.color,
+                'pOption':opt.option,
+                'pOption2':opt.option2,
+            }
+            $.ajax({
+                type: "get",
+                url: "/rest/getPrice",
+                data: option,
+                contentType: "application/json;charset=UTF-8",
+                success: (result) => {
+                    console.log("price : " , result)
+                    showPrice(result)
                 },
             });
         }
@@ -211,17 +287,29 @@
 
             $(".option2_div").html(str)
         }
+        function showPrice(result){
+            console.log("ds",result)
+            let price = result
+            if( result === ''){
+                $(".price_div").html('')
+            }
+            else{
+                console.log("가격 : ", result)
+                str ='';
+                str += "<p >"+ result[0] +"원</p>"
+                // str += "<input type='text' name='optionPrice_input' value='"+result[2] +"'>"
+                $(".price_div").html(str)
+                $("input[name='orders[0].pOptionPrice']").val(result[2])
+            }
+
+        }
 
         /* 바로구매 버튼 */
         $(".btn_buy").on("click", function(){
             let itemCount = $("#amountBox").val();
-            // let pSize = $(".size_option").val();
-            // let pColor = $("option[name='color_option']").val();
-            // console.log(pSize)
-            // console.log(pColor)
             let id = [[${member.id}]]
             $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
-            // $(".order_form").find("input[name='orders[0].pColor']").val(pColor);
+            //$(".order_form").find("input[name='orders[0].pOptionPrice']").val(optionPrice);
             $(".order_form").attr("action","/order/"+id)
             $(".order_form").submit();
 
@@ -292,12 +380,12 @@
                     // if(obj.mno === userId){
                     //     str += '<a class="update_reply_btn" href="'+ obj.replyId +'">수정</a><a class="delete_reply_btn" href="'+ obj.replyId +'">삭제</a>';
                     // }
-                    str += '</div>'; //<div class="reply_top">
+                    str += '</div>';
                     str += '<div class="reply_bottom">';
                     str += '<div class="reply_bottom_txt">'+ obj.rcontent +'</div>';
-                    str +='<button type="button" class="btn btn-primary" > 추천</button>';
-                    str += '</div>';//<div class="reply_bottom">
-                    str += '</div>';//<div class="comment_wrap">
+                    str +='<button type="button" class="btn btn-primary" onclick="commentLike('+obj.pno+','+obj.rno+' , '+obj.mno+');" > 추천</button>';
+                    str += '</div>';
+                    str += '</div>';
                     str += '</li>';
                 });
                 review_div.html(str)
@@ -359,36 +447,9 @@
         $(".review_div").on("click",".btn-primary",function (e){
             e.preventDefault();
 
-            commentLike(0,82,82);
+            //commentLike(0,82,82);
         })
-        function commentLike(pno,rno,mno){
-            $.ajax({
-                type : "POST",
-                url : "/rest/commentLike",
-                dataType : "json",
-                data : {'pno' : pno ,'rno' : rno, 'mno' : mno },
-                headers:{
-                    "Content-Type" : "application/json",
-                    "X-HTTP-Method-Override" : "POST"
-                },
-                error : function(){
-                    alert("통신 에러");
-                },
-                success : function(likeCheck) {
 
-                    if(likeCheck == 0){
-                        alert("추천완료.");
-                        // commentList();
-                    }
-                    else if (likeCheck == 1){
-                        alert("추천취소");
-                        // commentList();
-
-
-                    }
-                }
-            });
-        }
         function formatTime(str){
             var date = new Date();
             return date.getFullYear()+'/'+(date.getMonth()+1)+'/'+date.getDate()+' '+date.getHours()+':'+date.getMinutes();

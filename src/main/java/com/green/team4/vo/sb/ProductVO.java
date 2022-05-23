@@ -21,10 +21,9 @@ public class ProductVO {
     private int pPrice;
     private int pAmount;
     private Date pRegdate;
-    private String pImage;
     private String pInformation;
     private String pDelivery;
-    private String pImageURL;
+    private String pImage;
     private String pCode;
     private String pSize;
     private String pOption;

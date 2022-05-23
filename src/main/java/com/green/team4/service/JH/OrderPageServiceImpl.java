@@ -54,6 +54,7 @@ public class OrderPageServiceImpl implements OrderPageService {
             else {
                 OrderPageItemVO productsInfo = orderPageMapper.getProductsInfoWithOpt(product_optVO);
                 log.info("productsInfo: "+productsInfo);
+                productsInfo.setPOptionPrice(order.getPOptionPrice());
                 productsInfo.setItemCount(order.getItemCount());
                 productsInfo.initSaleTotal();
                 list.add(productsInfo);
@@ -95,6 +96,7 @@ public class OrderPageServiceImpl implements OrderPageService {
                 System.out.println("orderItem : "+orderItem);
                 orderItem.setICount(order.getICount());
                 orderItem.setOno(vo.getOno());
+                orderItem.setPOptionPrice(order.getPOptionPrice());
                 orderItem.initSaleTotal();
                 System.out.println("orderItem : "+orderItem);
                 vo.setPno(order.getPno());
@@ -136,7 +138,6 @@ public class OrderPageServiceImpl implements OrderPageService {
                 orderPageMapper.deductStock(productVO);
             }
             else {
-
                 ProductVO productVO = shopMapper.getProductWithOpt(product_optVO);
                 System.out.println("productVO "+productVO);
                 productVO.setPAmount(productVO.getPAmount() - order.getICount());

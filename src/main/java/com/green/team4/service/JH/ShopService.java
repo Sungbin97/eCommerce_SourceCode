@@ -36,4 +36,6 @@ public interface ShopService {
     public List<Product_optVO> getOptions2(int pno);
     public List<Product_optVO> getOptList(Product_optVO povo);
     public List<ProductVO> getOneWithOpt(int pno);
+    public Product_optVO getOptionPrice(Product_optVO povo);
+
 }

@@ -49,6 +49,8 @@ public interface ShopMapper {
     public List<ProductVO> getOneWithOpt(int pno);
     //에이젝스에서 쓸거
     public List<Product_optVO> getOptList(Product_optVO povo);
+    public Product_optVO getOptionPrice(Product_optVO povo);
+
 
 
 

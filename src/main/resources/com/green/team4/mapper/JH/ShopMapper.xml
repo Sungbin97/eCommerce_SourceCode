@@ -20,14 +20,14 @@
         where p.pno = #{pno};
     </select>
     <select id="getProductWithOpt" resultType="com.green.team4.vo.sb.ProductVO">
-        select p.pno,pName,pPrice,pDiscount,pImageURL,ps.pColor,ps.pAmount,ps.pOption,ps.pOptionName,ps.pOption2,ps.pOptionName2  from tbl_product p
+        select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount,ps.pOption,ps.pOptionName,ps.pOption2,ps.pOptionName2  from tbl_product p
        inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno} and ps.pColor = #{pColor} and ps.pOption=#{pOption} and ps.pOption2=#{pOption2}
     </select>
     <insert id="insert">
-        insert into tbl_product (pName,pMainCategory,pPrice,pAmount,pImage,pSubCategory,pInformation,pCode)
+        insert into tbl_product (pName,pMainCategory,pPrice,pAmount,pImage,pSubCategory,pInformation)
         values (#{pName},#{pMainCategory},#{pPrice},#{pAmount},
-                #{pImage},#{pSubCategory},#{pInformation},#{pCode})
+                #{pImage},#{pSubCategory},#{pInformation})
     </insert>
 
 
@@ -54,6 +54,11 @@
 
             where pno = #{pno}  and <include refid="option"></include>
         </select>
+        <select id="getOptionPrice" resultType="com.green.team4.vo.JH.Product_optVO">
+            select P.pPrice,pOptionPrice from tbl_product P
+            inner join tbl_product_opt ps on p.pno = ps.pno
+            where p.pno = #{pno}  and <include refid="price"></include>
+        </select>
     <sql id="option">
         <if test="pColor != null and pColor != '' and pOption =='' ">
             pColor = #{pColor}
@@ -66,6 +71,28 @@
         </if>
 
     </sql>
+    <sql id="price">
+        <if test="pColor != '' and pOption =='' and pOption2 =='' ">
+            ps.pColor = #{pColor} and ps.pOption = '없음' and ps.pOption2 = '없음'
+        </if>
+        <if test="pColor == '' and pOption !='' and pOption2 =='' ">
+            ps.pColor ='없음' and ps.pOption = #{pOption} and ps.pOption2 = '없음'
+        </if>
+        <if test="pColor != '' and pOption !='' and pOption2 =='' ">
+            ps.pColor = #{pColor} and ps.pOption = #{pOption} and ps.pOption2 = '없음'
+        </if>
+        <if test="pColor == '' and pOption !='' and pOption2 !='' ">
+            ps.pColor = '없음' and ps.pOption = #{pOption} and ps.pOption2 = #{pOption2}
+        </if>
+        <if test="pColor != '' and pOption !='' and pOption2 !='' ">
+            ps.pColor = #{pColor} and  ps.pOption = #{pOption} and ps.pOption2 = #{pOption2}
+        </if>
+
+    </sql>
+
+
+
+
 
     <!--    페이징-->
 

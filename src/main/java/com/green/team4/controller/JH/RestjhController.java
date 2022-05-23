@@ -87,8 +87,10 @@ public class RestjhController {
     public ResponseEntity<List<Set<String>>> getOptions( Product_optVO povo){
 
         log.info("getOptions 입장");
-        log.info("povo" +povo);
-        System.out.println("optList: "+shopService.getOptList(povo));
+//        log.info("povo" +povo);
+//        System.out.println("optList: "+shopService.getOptList(povo));
+
+
         List<Product_optVO> options = shopService.getOptList(povo);
         Set<String> uniqueOpt = new HashSet<>();
         Set<String> uniqueOpt2 = new HashSet<>();
@@ -99,6 +101,7 @@ public class RestjhController {
         }
         list.add(uniqueOpt);
         list.add(uniqueOpt2);
+
         System.out.println(uniqueOpt);
         System.out.println(uniqueOpt2);
         System.out.println(list);
@@ -111,22 +114,48 @@ public class RestjhController {
 
         return responseEntity;
     }
+    @GetMapping(value = "/getPrice")
+    public ResponseEntity<List<Integer>> getgetprice( Product_optVO povo){
+        System.out.println("getPrice 입장");
+        System.out.println(povo);
+        Product_optVO product_optVO =shopService.getOptionPrice(povo);
+        int Totalprice =product_optVO.getPPrice() + product_optVO.getPOptionPrice();
+        ResponseEntity<List<Integer>> responseEntity = null;
+        List<Integer> priceList = new ArrayList<>();
+        priceList.add(Totalprice);
+        priceList.add(product_optVO.getPPrice());
+        priceList.add((product_optVO.getPOptionPrice()));
 
-//    @PostMapping(value = "/commentLike")
-//    public int ReviewLike(@RequestBody ReviewLikeVO dto){
-//        System.out.println("입장");
-//            int checkLike  = reviewService.checkLike(dto);
-//            if(checkLike ==0 ){
-//                reviewService.insertLike(dto);
-//                reviewService.updateLike(dto.getRno());
-//            }
-//            else if(checkLike == 1){
-//                reviewService.deleteLike(dto);
-//                reviewService.updateLikeCancel(dto.getRno());
-//            }
-//
-//        return checkLike;
-//    }
+        log.info("product_optVO : "+product_optVO);
+
+        try{
+            responseEntity = new ResponseEntity<>(priceList,HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+
+    @PostMapping(value = "/commentLike")
+    public int ReviewLike(int pno,int rno,int mno,int rmno){
+        System.out.println("입장");
+        ReviewLikeVO reviewLikeVO = new ReviewLikeVO();
+        reviewLikeVO.setPno(pno);
+        reviewLikeVO.setMno(mno);
+        reviewLikeVO.setRno(rno);
+        reviewLikeVO.setRmno(rmno);
+            int checkLike  = reviewService.checkLike(reviewLikeVO);
+            if(checkLike ==0 ){
+                reviewService.insertLike(reviewLikeVO);
+                reviewService.updateLike(reviewLikeVO.getRno());
+            }
+            else if(checkLike == 1){
+                reviewService.deleteLike(reviewLikeVO);
+                reviewService.updateLikeCancel(reviewLikeVO.getRno());
+            }
+
+        return 0;
+    }
 
 
 }

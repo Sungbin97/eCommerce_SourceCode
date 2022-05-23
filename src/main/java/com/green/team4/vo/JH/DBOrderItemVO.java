@@ -34,6 +34,7 @@ public class DBOrderItemVO {
     private String pOptionName;
     private String pOption2;
     private String pOptionName2;
+    private int pOptionPrice;
     private int iCount; // 주문수량
 
     private int orderItemno; // orderItem_tbl 기본키
@@ -56,6 +57,7 @@ public class DBOrderItemVO {
     private int totalSavePoint; // 총 획득 포인트(savePoint*ItemCount)
 
     public void initSaleTotal(){
+        this.pPrice = this.pPrice + this.pOptionPrice;
         this.tProductPrice = this.pPrice * this.iCount;
         this.iDisPrice =(int) (this.pPrice * (1-pDiscount));
         this.iTotalPrice = this.iDisPrice*this.iCount;

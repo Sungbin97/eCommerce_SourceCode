@@ -25,6 +25,7 @@ public class OrderPageItemVO {
     private String pName;
     private String pOptionName;
     private String pOptionName2;
+    private int pOptionPrice;
     private int pPrice;
     private String pImageURL;
     private double pDiscount; // 상품할인율

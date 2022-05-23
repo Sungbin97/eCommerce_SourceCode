@@ -132,6 +132,7 @@
                     <th>판매가</th>
                 </tr>
             </table>
+
             <table class="product_table" th:each="product :${orderlist}">
                 <tr>
                     <td><img th:src="${product.pImageURL}"></td>
@@ -140,7 +141,7 @@
                     <td th:if="${product.pOption} != '없음'" class="product_color_td">옵션1<small>([[${product.pOptionName}]]) : [[${product.pOption}]]</small></td>
                     <td th:if="${product.pOption2} != '없음'" class="product_color_td">옵션2<small>([[${product.pOptionName2}]]) : [[${product.pOption2}]]</small></td>
                     <td class="product_price_td">
-                        가격 : <span th:text="${#numbers.formatInteger(product.salePrice, 0, 'COMMA')}+원"></span> | 수량 [[${product.itemCount}]]개
+                        가격 : <span th:text="${#numbers.formatInteger(product.salePrice + product.pOptionPrice, 0, 'COMMA')}+원"></span> | 수량 [[${product.itemCount}]]개
                         총 가격 :<span th:text="${#numbers.formatInteger(product.totalPrice, 0, 'COMMA')}+원"></span>
                         적립가능 포인트 : [<span th:text="${#numbers.formatInteger(product.totalPoint, 0, 'COMMA')}+P"></span>]
                         <input type="hidden" class="individual_pPrice_input" th:value="${product.pPrice}">
@@ -155,6 +156,7 @@
                         <input type="hidden" class="individual_pOption2_input" th:value="${product.pOption2}">
                         <input type="hidden" class="individual_pOptionName_input" th:value="${product.pOptionName}">
                         <input type="hidden" class="individual_pOptionName2_input" th:value="${product.pOptionName2}">
+                        <input type="hidden" class="individual_pOptionPrice_input" th:value="${product.pOptionPrice}">
                     </td>
                 </tr>
 
@@ -383,6 +385,7 @@
                 let itemCount = $(element).find(".individual_itemCount_input").val();
                 let pColor = $(element).find(".individual_pColor_input").val();
                 let pOption = $(element).find(".individual_pOption_input").val();
+                let pOptionPrice = $(element).find(".individual_pOptionPrice_input").val();
                 let pOptionName = $(element).find(".individual_pOptionName_input").val();
                 let pOptionName2 = $(element).find(".individual_pOptionName2_input").val();
                 let pOption2 = $(element).find(".individual_pOption2_input").val();
@@ -400,6 +403,8 @@
                 form_contents += pOption2_input;
                 let pOptionName2_input = "<input name='orders[" + index + "].pOptionName2' type='hidden' value='" + pOptionName2 + "'>";
                 form_contents += pOptionName2_input;
+                let pOptionPrice_input = "<input name='orders[" + index + "].pOptionPrice' type='hidden' value='" + pOptionPrice + "'>";
+                form_contents += pOptionPrice_input;
 
         })
         $(".order_form").append(form_contents);

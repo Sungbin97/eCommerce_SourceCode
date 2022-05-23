@@ -10,11 +10,12 @@ import lombok.*;
 public class Product_optVO {
     private int pcno ;
     private int pno;
+    private int pPrice;
     private String pOption ;
     private String pOptionName ;
     private String pOption2 ;
     private String pOptionName2 ;
     private String pColor ;
     private int pAmount;
-    private int pOptPrice;
+    private int pOptionPrice;
 }

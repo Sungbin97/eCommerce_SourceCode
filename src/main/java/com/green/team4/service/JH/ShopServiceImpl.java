@@ -92,4 +92,9 @@ public class ShopServiceImpl implements ShopService {
     public List<ProductVO> getOneWithOpt(int pno) {
         return shopMapper.getOneWithOpt(pno);
     }
+
+    @Override
+    public Product_optVO getOptionPrice(Product_optVO povo) {
+        return shopMapper.getOptionPrice(povo);
+    }
 }
