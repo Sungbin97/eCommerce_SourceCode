@@ -120,6 +120,24 @@
 
 
     $(document).ready(function (){
+        let color =$(this).val();
+        $("input[name='orders[0].pOption']").val('');
+        $("input[name='orders[0].pOption2']").val('');
+        let option =$("input[name='orders[0].pOption']").val();
+        let option2 =$("input[name='orders[0].pOption2']").val();
+        let pno2 = $("input[name='orders[0].pno']").val()
+        console.log(option)
+        opt = {
+            'pno' : pno2,
+            'color' : color,
+            'option' : option,
+            'option2' : option2,
+        }
+        loadOpt(opt)
+        loadOpt2(opt)
+        loadPrice(opt)
+        $("input[name='orders[0].pColor']").val(color)
+
         $(".color_div").on("click",".colorBtn",function (){
             let color =$(this).val();
             $("input[name='orders[0].pOption']").val('');

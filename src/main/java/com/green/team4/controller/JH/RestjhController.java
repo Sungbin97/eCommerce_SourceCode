@@ -87,8 +87,8 @@ public class RestjhController {
     public ResponseEntity<List<Set<String>>> getOptions( Product_optVO povo){
 
         log.info("getOptions 입장");
-//        log.info("povo" +povo);
-//        System.out.println("optList: "+shopService.getOptList(povo));
+        log.info("povo" +povo);
+        System.out.println("optList: "+shopService.getOptList(povo));
 
 
         List<Product_optVO> options = shopService.getOptList(povo);
@@ -116,8 +116,8 @@ public class RestjhController {
     }
     @GetMapping(value = "/getPrice")
     public ResponseEntity<List<Integer>> getgetprice( Product_optVO povo){
-        System.out.println("getPrice 입장");
-        System.out.println(povo);
+        //System.out.println("getPrice 입장");
+        //System.out.println(povo);
         Product_optVO product_optVO =shopService.getOptionPrice(povo);
         int Totalprice =product_optVO.getPPrice() + product_optVO.getPOptionPrice();
         ResponseEntity<List<Integer>> responseEntity = null;
@@ -126,7 +126,7 @@ public class RestjhController {
         priceList.add(product_optVO.getPPrice());
         priceList.add((product_optVO.getPOptionPrice()));
 
-        log.info("product_optVO : "+product_optVO);
+        //log.info("product_optVO : "+product_optVO);
 
         try{
             responseEntity = new ResponseEntity<>(priceList,HttpStatus.OK);
