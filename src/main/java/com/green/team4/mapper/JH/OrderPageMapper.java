@@ -4,7 +4,6 @@ import com.green.team4.vo.JH.DBOrderItemVO;
 import com.green.team4.vo.JH.DBOrderVO;
 import com.green.team4.vo.JH.OrderPageItemVO;
 import com.green.team4.vo.JH.Product_optVO;
-import com.green.team4.vo.sb.MemberVO;
 import com.green.team4.vo.sb.ProductVO;
 import com.green.team4.vo.sw.MemberInfoVO;
 import org.apache.ibatis.annotations.Mapper;

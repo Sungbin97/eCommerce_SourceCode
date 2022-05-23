@@ -26,7 +26,7 @@ public class MemServiceTests {
         String[] auth = {"일반","에디터","관리자"};
         String[] grade = {"일반","우수","최우수"};
 
-        IntStream.rangeClosed(1,50).forEach(i->{
+        IntStream.rangeClosed(2,10).forEach(i->{
             MemberInfoVO memberInfoVO = new MemberInfoVO();
             memberInfoVO.setId("Id"+i);
             memberInfoVO.setPassword("pw"+i);

@@ -102,7 +102,7 @@
 
         <div class="inputArea">
           <label for="pName">상품번호</label>
-          <input type="text" id="pCode" name="pno" th:placeholder="${product.pno}" th:value="${product.pno}"/>
+          <input type="text" name="pno" th:placeholder="${product.pno}" th:value="${product.pno}"/>
         </div>
 
         <div class="inputArea">
@@ -116,12 +116,23 @@
         </div>
 
         <div class="inputArea">
-          <label>사이즈</label>
-          <label><input type="checkbox" name="size" value="S">S</label>
-          <label><input type="checkbox" name="size" value="M">M</label>
-          <label><input type="checkbox" name="size" value="L">L</label>
-          <label><input type="checkbox" name="size" value="XL">XL</label>
-          <label><input type="checkbox" name="size" value="XL">XL</label>
+          <label>옵션1</label>
+          <label><input type="text" name="pOptionName" placeholder="옵션명"></label>
+          <label><input type="checkbox" name="opt1" value="S">S</label>
+          <label><input type="checkbox" name="opt1" value="M">M</label>
+          <label><input type="checkbox" name="opt1" value="L">L</label>
+          <label><input type="checkbox" name="opt1" value="XL">XL</label>
+          <label><input type="text" placeholder="직접입력"/>
+        </div>
+
+        <div class="inputArea">
+          <label>옵션2</label>
+          <label><input type="text" name="pOptionName2" placeholder="옵션명"></label>
+          <label><input type="checkbox" name="opt2" value="옵션a">옵션a</label>
+          <label><input type="checkbox" name="opt2" value="옵션b">옵션b</label>
+          <label><input type="checkbox" name="opt2" value="옵션c">옵션c</label>
+          <label><input type="checkbox" name="opt2" value="옵션d">옵션d</label>
+          <label><input type="checkbox" name="opt2" value="옵션e">옵션e</label>
           <label><input type="text" placeholder="직접입력"/>
         </div>
 

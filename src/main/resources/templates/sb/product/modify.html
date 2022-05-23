@@ -89,8 +89,8 @@
                 <li th:text="'서브카테고리: '+${getOne.pSubCategory}"></li>
                 <input th:name="pSubCategory" th:value="${getOne.pSubCategory}">
 
-                <li th:text="'사이즈: '+${getOpt.pSize}"></li>
-                <input th:name="pSize" th:value="${getOne.pSize}">
+<!--                <li th:text="'사이즈: '+${getOpt.pSize}"></li>-->
+<!--                <input th:name="pSize" th:value="${getOne.pSize}">-->
 
                 <li th:text="'가격: '+${getOne.pPrice}"></li>
                 <input th:name="pPrice" th:value="${getOne.pPrice}">
@@ -98,18 +98,15 @@
                 <li th:text="'수량: '+${getOne.pAmount}"></li>
                 <input th:name="pAmount" th:value="${getOne.pAmount}">
 
-                <li th:text="'색상: '+${getOne.pColor}"></li>
-                <input th:name="pColor" th:value="${getOne.pColor}">
+<!--                <li th:text="'색상: '+${getOne.pColor}"></li>-->
+<!--                <input th:name="pColor" th:value="${getOne.pColor}">-->
 
                 <li th:text="'정보: '+${getOne.pInformation}"></li>
                 <input th:name="pInformation" th:value="${getOne.pInformation}">
 
                 <li th:text="'이미지 원본: '+${getOne.pImage}"></li>
-                <img th:src="|/display?fileName=${getOne.pImage}|"/>
+                <img th:src="|/display?fileName=${getOne.pImage}|" style="width: 100px; height: 100px"/>
                 <input th:name="pImage" th:value="${getOne.pImage}">
-
-                <li th:text="'썸네일: '+${getOne.pImageURL}"></li>
-                <img th:src="${getOne.pImageURL}">
 
                 <input type="submit" th:value="수정"/>
             </form>

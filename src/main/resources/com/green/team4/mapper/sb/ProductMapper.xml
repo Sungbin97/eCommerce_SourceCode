@@ -7,9 +7,9 @@
 
     <insert id="insert">
         insert into tbl_product (pName, pPrice, pSize, pColor, pInformation,
-                                 pImage, pAmount, pMainCategory, pSubCategory, pImageURL, pCode, pDelivery)
+                                 pImage, pAmount, pMainCategory, pSubCategory, pCode, pDelivery)
         values (#{pName}, #{pPrice}, #{pSize}, #{pColor}, #{pInformation},
-                #{pImage}, #{pAmount}, #{pMainCategory}, #{pSubCategory}, #{pImageURL}, #{pCode}, #{pDelivery})
+                #{pImage}, #{pAmount}, #{pMainCategory}, #{pSubCategory}, #{pCode}, #{pDelivery})
     </insert>
 
     <select id="getAll" resultType="com.green.team4.vo.sb.ProductVO">

@@ -258,4 +258,24 @@ create table tbl_product_infoImg(
     pInfoPath varchar(500) -- 저장경로
 );
 
+-- 상품 테이블 -- pImage, pInformation 300으로 변경 0523
+create table tbl_product(
+    pno int(30) primary key auto_increment,
+    pName varchar(50) not null,
+    pMainCategory varchar(50) not null,
+    pSubCategory varchar(50) not null,
+    pSize varchar(50) ,
+    pPrice int(30) not null,
+    pAmount int(30) not null,
+    pColor varchar(50) ,
+    pRegdate DATETIME default now(),
+    pImage varchar(300) not null,
+    pInformation varchar(300) not null,
+    pDelivery varchar(50),
+    pCode varchar(50) not null,
+    pRating decimal(2,1),
+    pReviewCnt int(20),
+    pDiscount int(10)
+);
+
 commit;

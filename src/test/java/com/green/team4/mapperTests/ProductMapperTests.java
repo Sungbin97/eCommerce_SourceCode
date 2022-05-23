@@ -78,7 +78,7 @@ public class ProductMapperTests {
             vo.setPAmount(10);
             vo.setPColor(c);
             for (String s : sizes){
-                vo.setPSize(s);
+                vo.setPOption2(s);
                 productOptMapper.insert(vo);
             }
         }
@@ -89,7 +89,6 @@ public class ProductMapperTests {
         Product_optVO vo = productOptMapper.getOpt(1);
         vo.setPColor("하기싫다");
         vo.setPAmount(74);
-        vo.setPSize("사이즈수정");
         productOptMapper.update(vo);
     }
 

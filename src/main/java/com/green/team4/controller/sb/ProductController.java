@@ -67,6 +67,7 @@ public class ProductController {
         String saveImgUrl = File.separator + folderPath + File.separator + uuid + "_" + imgFileName;
         Path saveImgPath = Paths.get(saveImgName);
         img.transferTo(saveImgPath);
+
         vo.setPImage(saveImgUrl);
 
         String originalInfo = info.getOriginalFilename();
@@ -75,10 +76,10 @@ public class ProductController {
         String saveInfoUrl= File.separator + folderPath + File.separator + uuid + "_" + infoFileName;
         Path saveInfoPath = Paths.get(saveInfoName);
         info.transferTo(saveInfoPath);
-        vo.setPInformation(saveInfoUrl);
 
+        vo.setPInformation(saveInfoUrl);
         productService.insert(vo);
-        System.out.println(vo);
+
         ProductVO eve = productService.getEvePno();
         return "redirect:/sb/product/uploadOpt?pno="+eve.getPno();
     }
@@ -92,13 +93,17 @@ public class ProductController {
 
     @PostMapping("/uploadOpt")
     public String uploadPost(int pno, ProductImgVO imgVO, Product_optVO optVO, ProductInfoImgVO infoVO,
-                             @RequestParam("size") String[] sizes,
-                             @RequestParam("color") String[] colors,
+//                             @RequestParam("opt1") String[] opt1,
+//                             @RequestParam("opt2") String[] opt2,
+//                             @RequestParam("color") String[] colors,
                              @RequestParam("uploadFilesImg") MultipartFile[] imgFiles,
                              @RequestParam("uploadFilesInfo") MultipartFile[] infoFiles) throws IOException {
         log.info("uploadOpt imgVO: " + imgVO);
         log.info("uploadOpt InfoImgVO: " + infoVO);
         log.info("uploadOpt optVO: " + optVO);
+//        log.info("uploadOpt opt1: " + opt1);
+//        log.info("uploadOpt opt2: " + opt2);
+//        log.info("uploadOpt color: " + colors);
         //이미지 저장
         String folderPath = makeFolder();
         String uuid = UUID.randomUUID().toString();
@@ -125,15 +130,19 @@ public class ProductController {
             infoVO.setPInformation(info.getOriginalFilename());
             productImgInfoMapper.insert(infoVO);
         }
+
         //옵션 저장
-        for (String c : colors){
-            optVO.setPno(pno);
-            optVO.setPColor(c);
-            for (String s : sizes){
-                optVO.setPSize(s);
-                productOptMapper.insert(optVO);
-            }
-        }
+        productOptMapper.insert(optVO);
+//        for (String o1 : opt1){
+//            optVO.setPOption(o1);
+//            productOptMapper.insert(optVO);
+//            for (String o2: opt2){
+//                optVO.setPOption2(o2);
+//                for (String c : colors){
+//                    optVO.setPColor(c);
+//                }
+//            }
+//        }
 
         return "redirect:/sb/product/list?pno="+pno;
     }
@@ -143,6 +152,7 @@ public class ProductController {
         List<ProductVO> list = productService.getAll();
         model.addAttribute("list", list);
         model.addAttribute("getOne", productService.getOne(pno));
+//        model.addAttribute("getOpt", productOptMapper.getOpt(pno));
     }
 
     @GetMapping("/modify")

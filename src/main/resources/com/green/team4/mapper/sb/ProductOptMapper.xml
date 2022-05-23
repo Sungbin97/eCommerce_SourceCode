@@ -6,8 +6,8 @@
 <mapper namespace="com.green.team4.mapper.sb.ProductOptMapper">
 
     <insert id="insert">
-        insert into tbl_product_opt (pno, pColor, pSize, pAmount)
-        values (#{pno}, #{pColor}, #{pSize}, #{pAmount})
+        insert into tbl_product_opt (pno, pOption, pOptionName, pOption2, pOptionName2, pAmount, pOptionPrice, pColor)
+        values (#{pno}, #{pOption}, #{pOptionName}, #{pOption2}, #{pOptionName2}, #{pAmount}, #{pOptionPrice}, #{pColor})
     </insert>
 
     <select id="getAll" resultType="com.green.team4.vo.JH.Product_optVO">
