@@ -136,7 +136,6 @@ public class OrderPageServiceImpl implements OrderPageService {
 //                productVO.setPAmount(productVO.getPAmount() - order.getICount());
 //                orderPageMapper.deductStock(productVO);
 //            }
-
                 ProductVO productVO = shopMapper.getProductWithOpt(product_optVO);
                 log.info("productVO "+productVO);
                 productVO.setPAmount(productVO.getPAmount() - order.getICount());

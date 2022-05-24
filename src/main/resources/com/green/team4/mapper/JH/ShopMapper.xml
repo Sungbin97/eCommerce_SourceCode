@@ -23,7 +23,7 @@
         select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount,
                ps.pOption,ps.pOptionName,ps.pOption2,ps.pOptionName2,ps.pOptionPrice  from tbl_product p
        inner join tbl_product_opt ps on p.pno = ps.pno
-        where p.pno = #{pno} and <include refid="price"></include>
+        where p.pno = #{pno} <include refid="price"></include>
     </select>
 
     <insert id="insert">
@@ -75,20 +75,23 @@
 
     </sql>
     <sql id="price">
+        <if test="(pColor == null and pColor =='') and (pOption ==null or pOption =='') and (pOption2 == null or pOption2 =='') ">
+
+        </if>
         <if test="(pColor != null and pColor !='') and (pOption ==null or pOption =='') and (pOption2 == null or pOption2 =='') ">
-            ps.pColor = #{pColor} and ps.pOption is null and ps.pOption2  is null
+            and ps.pColor = #{pColor} and ps.pOption is null and ps.pOption2  is null
         </if>
         <if test="(pColor == null or pColor =='' )and (pOption !=null and pOption !='') and (pOption2 == null or pOption2 =='') ">
-            ps.pColor is null and ps.pOption = #{pOption} and  ps.pOption2  is null
+            and ps.pColor is null and ps.pOption = #{pOption} and  ps.pOption2  is null
         </if>
         <if test="(pColor != null and pColor !='') and (pOption !=null and pOption !='') and (pOption2 == null or pOption2 =='') ">
-            ps.pColor = #{pColor} and ps.pOption = #{pOption} and ps.pOption2  is null
+            and ps.pColor = #{pColor} and ps.pOption = #{pOption} and ps.pOption2  is null
         </if>
         <if test="(pColor == null or pColor =='') and (pOption !=null and pOption !='') and (pOption2 !=null and pOption2 !='') ">
-            ps.pColor is null and ps.pOption= #{pOption} and ps.pOption2 = #{pOption2}
+            and  ps.pColor is null and ps.pOption= #{pOption} and ps.pOption2 = #{pOption2}
         </if>
         <if test="(pColor != null and pColor !='') and (pOption !=null and pOption !='') and (pOption2 !=null and pOption2 !='') ">
-            ps.pColor = #{pColor} and  ps.pOption = #{pOption} and ps.pOption2 = #{pOption2}
+            and ps.pColor = #{pColor} and  ps.pOption = #{pOption} and ps.pOption2 = #{pOption2}
         </if>
 
     </sql>
