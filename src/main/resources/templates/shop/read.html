@@ -95,9 +95,9 @@
     <div class="product-deleveryInfo">
 
     </div>
+<!--    th:src="|/display?fileName=${product.pImage}|"-->
 
 
-    <img id="testImg"  th:src="${pvo.pImage}">
 
 <script th:inline="javascript">
 
@@ -536,8 +536,8 @@
             $.getJSON("/rest/getinfo/" + pno,function (data){
                 let str ="";
                 $(data).each(function (){
-                    str += "<div><h5>" + this.pinformation +"</h5>"
-                    str += "<p>" + this.pcolor +"</p>";
+                    console.log(this.pimage)
+                     str += "<div><img src=|/display?fileName="+this.pimage+"|<img>"
                     str += "</div>"
                 })
                 detailInfo.html(str)
