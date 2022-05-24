@@ -86,25 +86,30 @@ public class RestjhController {
     @GetMapping(value = "/getOptions")
     public ResponseEntity<List<Set<String>>> getOptions( Product_optVO povo){
 
-        log.info("getOptions 입장");
+//        log.info("getOptions 입장");
 //        log.info("povo" +povo);
 //        System.out.println("optList: "+shopService.getOptList(povo));
 
 
         List<Product_optVO> options = shopService.getOptList(povo);
+//        System.out.println("options"+options);
+        Set<String> uniqueColor = new HashSet<>();
         Set<String> uniqueOpt = new HashSet<>();
         Set<String> uniqueOpt2 = new HashSet<>();
         List<Set<String>> list = new ArrayList<>();
         for(Product_optVO option : options){
+            uniqueColor.add(option.getPColor());
             uniqueOpt.add(option.getPOption());
             uniqueOpt2.add(option.getPOption2());
         }
+        list.add(uniqueColor);
         list.add(uniqueOpt);
         list.add(uniqueOpt2);
 
-        System.out.println(uniqueOpt);
-        System.out.println(uniqueOpt2);
-        System.out.println(list);
+//        System.out.println(uniqueColor);
+//        System.out.println(uniqueOpt);
+//        System.out.println(uniqueOpt2);
+//        System.out.println(list);
         ResponseEntity<List<Set<String>>> responseEntity = null;
         try{
             responseEntity = new ResponseEntity<>(list,HttpStatus.OK);
@@ -115,7 +120,7 @@ public class RestjhController {
         return responseEntity;
     }
     @GetMapping(value = "/getPrice")
-    public ResponseEntity<List<Integer>> getgetprice( Product_optVO povo){
+    public ResponseEntity<List<Integer>> getprice( Product_optVO povo){
         System.out.println("getPrice 입장");
         System.out.println(povo);
         Product_optVO product_optVO =shopService.getOptionPrice(povo);
@@ -127,7 +132,7 @@ public class RestjhController {
         priceList.add((product_optVO.getPOptionPrice()));
 
         log.info("product_optVO : "+product_optVO);
-
+        log.info("priceList : "+priceList);
         try{
             responseEntity = new ResponseEntity<>(priceList,HttpStatus.OK);
         }catch (Exception e){

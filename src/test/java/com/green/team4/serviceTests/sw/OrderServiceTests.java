@@ -21,7 +21,7 @@ public class OrderServiceTests {
         orderList.forEach(i-> System.out.println(i));
     }
 
-//    @Test
+    //@Test
 //    public void testReadOne(){
 //        int ono = 1;
 //        OrderVO orderVO = orderService.readOne(ono);
