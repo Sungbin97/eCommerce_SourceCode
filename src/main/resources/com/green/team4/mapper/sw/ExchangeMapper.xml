@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.team4.mapper.sw.ExchangeMapper">
+
+    <!-- tbl_exchange 데이터 등록 -->
+    <insert id="insert">
+        <selectKey keyProperty="eno" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        <![CDATA[
+        insert into tbl_exchange (mno, ono, pno, exCategory, exContent,
+                    exStatus, exDate)
+                VALUES (#{mno},#{ono},#{pno},#{exCategory},#{exContent},#{exStatus},#{exDate})
+        ]]>
+    </insert>
+
+    <!-- tbl_exchange 데이터 전체 가져오기(mno 단위) -->
+    <select id="getAll" resultType="com.green.team4.vo.sw.ExchangeVO">
+        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.pno,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exDate,exEndDate,
+               tbl_product.pName,tbl_orderItem.iDisPrice,tbl_orderItem.iCount,tbl_orderItem.iTotalPrice
+        from tbl_exchange
+        left outer join tbl_product on tbl_exchange.pno = tbl_product.pno
+        left outer join tbl_orderItem on tbl_exchange.ono = tbl_orderItem.ono and tbl_exchange.pno = tbl_orderItem.pno
+        where tbl_exchange.mno=#{mno}
+        order by tbl_exchange.exDate
+    </select>
+
+    <!-- tbl_exchange 데이터 하나 가져오기(eno 단위) -->
+    <select id="getOne" resultType="com.green.team4.vo.sw.ExchangeVO">
+        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.pno,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exDate,exEndDate,
+               tbl_product.pName,tbl_orderItem.iDisPrice,tbl_orderItem.iCount,tbl_orderItem.iTotalPrice
+        from tbl_exchange
+                 left outer join tbl_product on tbl_exchange.pno = tbl_product.pno
+                 left outer join tbl_orderItem on tbl_exchange.ono = tbl_orderItem.ono and tbl_exchange.pno = tbl_orderItem.pno
+        where tbl_exchange.eno=#{eno}
+    </select>
+
+    <!-- tbl_exchange 데이터 수정 (관리자만 수정 가능) -->
+    <update id="update">
+        update tbl_exchange
+            set exStatus=#{exStatus}, exEndDate=#{exEndDate}
+                where eno=#{eno}
+    </update>
+
+    <!-- tbl_exchange 데이터 삭제 -->
+    <delete id="delete">
+        delete from tbl_exchange where eno=#{eno}
+    </delete>
+
+</mapper>

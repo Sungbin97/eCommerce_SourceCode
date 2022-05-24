@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.team4.mapper.sw.OrderMapper">
+
+    <!-- Order 데이터 전체 가져오기(mno 단위) -->
+    <select id="getAll" resultType="com.green.team4.vo.sw.OrderVO">
+        select tbl_order.mno,tbl_order.ono,tbl_order.orderDate,tbl_order.receiverName,tbl_order.receiverPhone,
+               tbl_order.postcode,tbl_order.address,tbl_order.detailAddress,tbl_order.message,tbl_order.tProductPrice,
+               tbl_order.tShipFee,tbl_order.tUsePoint,tbl_order.tTotalPrice,tbl_order.tPayStatus,
+               tbl_order.tSavePoint,
+               tbl_memberInfo.name,tbl_memberInfo.mobileNum from tbl_order
+        left outer join tbl_memberInfo on tbl_order.mno = tbl_memberInfo.mno
+        where tbl_order.mno=#{mno}
+        order by tbl_order.orderDate desc
+    </select>
+
+    <!-- Order 데이터 하나 가져오기(ono 단위) -->
+    <select id="getOne" resultType="com.green.team4.vo.sw.OrderVO">
+        select tbl_order.mno,tbl_order.ono,tbl_order.orderDate,tbl_order.receiverName,tbl_order.receiverPhone,
+               tbl_order.postcode,tbl_order.address,tbl_order.detailAddress,tbl_order.message,tbl_order.tProductPrice,
+               tbl_order.tShipFee,tbl_order.tUsePoint,tbl_order.tTotalPrice,tbl_order.tPayStatus,
+               tbl_order.tSavePoint,
+               tbl_memberInfo.name,tbl_memberInfo.mobileNum from tbl_order
+        left outer join tbl_memberInfo on tbl_order.mno = tbl_memberInfo.mno
+        where tbl_order.ono=#{ono}
+        order by tbl_order.orderDate desc
+    </select>
+
+    <!-- Order 데이터 전체 가져오기(관리자용) -->
+    <select id="getAllAdmin" resultType="com.green.team4.vo.sw.OrderVO">
+        select tbl_order.mno,tbl_order.ono,tbl_order.orderDate,tbl_order.receiverName,tbl_order.receiverPhone,
+               tbl_order.postcode,tbl_order.address,tbl_order.detailAddress,tbl_order.message,tbl_order.tProductPrice,
+               tbl_order.tShipFee,tbl_order.tUsePoint,tbl_order.tTotalPrice,tbl_order.tPayStatus,
+               tbl_order.tSavePoint,
+               tbl_memberInfo.name,tbl_memberInfo.mobileNum from tbl_order
+        left outer join tbl_memberInfo on tbl_order.mno = tbl_memberInfo.mno
+        order by tbl_order.orderDate desc
+    </select>
+    
+</mapper>
