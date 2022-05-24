@@ -79,6 +79,7 @@ public class ProductController {
         String originalInfo = info.getOriginalFilename();
         String infoFileName = originalInfo.substring(originalInfo.lastIndexOf("\\") + 1);
         String saveInfoName = uploadPath + File.separator + folderPath +"/" + uuid + "_" + infoFileName;
+//        String saveInfoUrl= File.separator + folderPath + File.separator + uuid + "_" + infoFileName;
         String saveInfoUrl= "/" + folderPath + "/" + uuid + "_" + infoFileName;
         log.info("saveInfoUrl : " + saveInfoUrl);
         Path saveInfoPath = Paths.get(saveInfoName);
