@@ -1,8 +1,9 @@
-package com.green.team4.controller.sw;
+package com.green.team4.controller.sw;//package com.green.team4.controller.sw;
 
 import com.green.team4.service.sw.ExchangeService;
 import com.green.team4.service.sw.OrderService;
 import com.green.team4.vo.sw.ExchangeVO;
+import com.green.team4.vo.sw.OrderItemVO;
 import com.green.team4.vo.sw.OrderVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -40,17 +41,24 @@ public class ExchangeController {
     }
 
     @PostMapping("/delete")
-    public String exDelete(int eno, int mno, String ono){ // 취소/반품/교환 하나 가져오기
+    public String exDelete(int eno, int mno,int pno, String ono){ // 취소/반품/교환 하나 가져오기
         log.info("OrderController => exDelete(POST) 실행 => 받은 eno: "+eno);
-        log.info("OrderController => exDelete(POST) 실행 => 받은 eno: "+mno);
+        log.info("OrderController => exDelete(POST) 실행 => 받은 mno: "+mno);
+        log.info("OrderController => exDelete(POST) 실행 => 받은 ono: "+ono);
+        log.info("OrderController => exDelete(POST) 실행 => 받은 ono: "+pno);
 
         // 취소/반품/교환 데이터 삭제
         exchangeService.remove(eno);
 
-        // 주문서에 취소/반품/교환 신청상태 변경
+        // 주문 상품 테이블 취소/반품/교환 신청상태 변경
         OrderVO orderVO = orderService.readOne(ono);
-        orderVO.setExStatus(false);
-        orderService.modify(orderVO);
+        List<OrderItemVO> itemList = orderVO.getOrderItemList();
+        itemList.forEach(i->{
+            if(i.getPno() == pno){
+                i.setIExStatus("미신청");
+                orderService.modifyItem(i);
+            }
+        });
 
         return "redirect:/sw/mypage/exchange/list?mno="+mno;
     }

@@ -1,12 +1,9 @@
 package com.green.team4.controller.sw;
 
-import com.green.team4.mapper.sb.ProductImgMapper;
-import com.green.team4.mapper.sb.ProductOptMapper;
+
 import com.green.team4.vo.sw.UploadResultDTO;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.green.team4.mapper.sb.ProductImgMapper;
-import com.green.team4.mapper.sb.ProductOptMapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,9 +34,6 @@ public class UploadController {
     // 파일 업로드 경로
     @Value("${com.green.upload.path}") // application.properties 에서 경로 가져옴
     private String uploadPath;
-
-    public UploadController() {
-    }
 
     // 클래스 내 별도 사용 메서드
     private String makeFolder(){ // 파일 저장 폴더 만들기(탐색기)
@@ -71,7 +63,7 @@ public class UploadController {
             String originalName = uploadFile.getOriginalFilename(); // 원본 파일 이름 가져오기
             log.info("originalName: "+originalName);
             String fileName = originalName.substring(originalName.lastIndexOf("\\")+1); // 파일 이름 수정
-//            log.info("fileName: "+fileName);
+            log.info("fileName: "+fileName);
 
             // 날짜 폴더 생성
             String folderPath = makeFolder();
@@ -103,7 +95,6 @@ public class UploadController {
     // 파일 Display
     @GetMapping("/display")
     public ResponseEntity<byte[]> getFile(String fileName){
-
         log.info("UploadController => getFile 실행 => 받은 fileName: "+fileName);
         ResponseEntity<byte[]> result = null;
         try{
@@ -119,7 +110,6 @@ public class UploadController {
 
             // 파일 데이터 처리
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
-            log.info("result"+result);
         } catch (Exception e){
             log.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

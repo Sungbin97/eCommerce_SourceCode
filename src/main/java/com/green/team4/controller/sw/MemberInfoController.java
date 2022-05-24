@@ -1,10 +1,8 @@
 package com.green.team4.controller.sw;
 
 import com.green.team4.service.sw.MemberInfoService;
-import com.green.team4.service.sw.PaymentService;
 import com.green.team4.service.sw.ShipmentService;
 import com.green.team4.vo.sw.MemberInfoVO;
-import com.green.team4.vo.sw.PaymentVO;
 import com.green.team4.vo.sw.ShipmentVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -29,7 +26,6 @@ public class MemberInfoController {
     // 의존성 주입
     private final MemberInfoService memberInfoService;
     private final ShipmentService shipmentService;
-    private final PaymentService paymentService;
 
 
     // memberInfo -----------------------------------------------------------------------------------------
@@ -46,16 +42,12 @@ public class MemberInfoController {
         List<ShipmentVO> shipList = shipmentService.readAll(mno);
         model.addAttribute("shipmentList",shipList);
 
-        // PaymentInfo 가져오기
-        List<PaymentVO> payList = paymentService.readAll(mno);
-        model.addAttribute("paymentList",payList);
-
     }
 
-    @PostMapping("/memModify") // 개인정보 수정 진행
+    @PostMapping("/memModify") // 개인정보 수정 진행 (회원 전용)
     public void memberModify(MemberInfoVO memberInfoVO, Model model){
         log.info("MemberInfoController => memberModify(POST) 실행 => 받은 MemberInfoVO: "+memberInfoVO);
-        memberInfoService.modify(memberInfoVO);
+        memberInfoService.modifyByMember(memberInfoVO);
         model.addAttribute("memberInfo",memberInfoVO);
     }
 
@@ -67,11 +59,11 @@ public class MemberInfoController {
     }
 
     @PostMapping("/memDelete") // 회원 탈퇴 진행
-    public String delete(int mno, String delCategory, String delContent){
+    public String delete(int mno, String dMCategory, String dMContent){
         log.info("MemberInfoController => delete(POST) 실행 => 받은 mno: "+mno);
-        log.info("MemberInfoController => delete(POST) 실행 => 받은 delCategory: "+delCategory);
-        log.info("MemberInfoController => delete(POST) 실행 => 받은 delContent: "+delContent);
-        memberInfoService.remove(mno,delCategory,delContent);
+        log.info("MemberInfoController => delete(POST) 실행 => 받은 dMCategory: "+dMCategory);
+        log.info("MemberInfoController => delete(POST) 실행 => 받은 dMContent: "+dMContent);
+        memberInfoService.remove(mno,dMCategory,dMContent);
         return "redirect:/sw/mypage/main?mno="+1; // ★ 추후 웹사이트 메인페이지로 돌아가는 것으로 수정 예정
     }
 
@@ -99,26 +91,4 @@ public class MemberInfoController {
         return new ResponseEntity<>(delCnt,HttpStatus.OK);
     }
 
-    // paymentInfo -----------------------------------------------------------------------------------------
-
-    @PostMapping("/payAdd") // 결제수단 정보 신규 추가 진행
-    public ResponseEntity<Integer> payAdd(@RequestBody PaymentVO paymentVO){
-        log.info("MemberInfoController => payAdd(POST/AJAX) 실행 => 받은 paymentVO: "+paymentVO);
-        int addCnt = paymentService.register(paymentVO);
-        return new ResponseEntity<>(addCnt,HttpStatus.OK);
-    }
-
-    @PostMapping("/payModify") // 결제수단 정보 수정 진행
-    public ResponseEntity<Integer> payModify(@RequestBody PaymentVO paymentVO){
-        log.info("MemberInfoController => payModify(POST/AJAX) 실행 => 받은 paymentVO: "+paymentVO);
-        int modCnt = paymentService.modify(paymentVO);
-        return new ResponseEntity<>(modCnt,HttpStatus.OK);
-    }
-
-    @PostMapping("/payDelete") // 결제수단 정보 삭제 진행
-    public ResponseEntity<Integer> payDelete(@RequestBody PaymentVO paymentVO){
-        log.info("MemberInfoController => payDelete(POST/AJAX) 실행 => 받은 paymentVO: "+paymentVO);
-        int delCnt = paymentService.remove(paymentVO.getPayINo());
-        return new ResponseEntity<>(delCnt,HttpStatus.OK);
-    }
 }

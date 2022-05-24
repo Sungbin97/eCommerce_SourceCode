@@ -1,7 +1,6 @@
 package com.green.team4.controller.sw;
 
 import com.green.team4.service.sw.InterestService;
-import com.green.team4.vo.sw.CartVO;
 import com.green.team4.vo.sw.InterestVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

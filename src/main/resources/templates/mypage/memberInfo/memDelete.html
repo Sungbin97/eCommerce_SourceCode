@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>mypage-memberInfo-memDelete</title>
+</head>
+
+<body>
+    <!-- mypage header fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+    <!-- PAGE BANNER SECTION -->
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'개인정보'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a href="#" th:id="goBack">memberInfo</a></li>
+                            <li class="active">memberDelete</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-section section pt-120 pb-45">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 mx-auto">
+                    <div class="login-reg-form">
+                        <form action="/sw/mypage/memberInfo/memDelete" method="post">
+                            <div class="row">
+                                <h3>회원탈퇴</h3>
+                                <p>회원 탈퇴 설문조사를 작성해주세요</p>
+                                <!-- 숨김 data -->
+                                <input type="hidden" name="mno" th:value="${mno}" readonly>
+                                <!-- 표시 data -->
+
+                                <div class="col-xs-12 mb-20">
+                                    <label>카테고리를 선택해주세요</label>
+                                    <div>
+                                        <select name="dMCategory" size="1" required>
+                                            <option value="none">==카테고리를 선택하세요==</option>
+                                            <option value="사이트 UI 불만">사이트 UI 불만</option>
+                                            <option value="서비스 불만">서비스 불만</option>
+                                            <option value="타 회원과의 갈등">타 회원과의 갈등</option>
+                                            <option value="기타">기타</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 mb-20">
+                                    <label>탈퇴 사유를 입력해주세요</label>
+                                    <textarea name="dMContent" class="form-control" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="col-xs-12 mb-20">
+                                    <input type="submit" class="btn" value="회원탈퇴하기">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function (){
+        // 뒤로가기 버튼 클릭하면 동작
+        $("#goBack").click(function (){
+            history.back();
+        })
+    })
+</script>
+</html>

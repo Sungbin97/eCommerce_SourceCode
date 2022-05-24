@@ -4,10 +4,13 @@ import com.green.team4.service.sw.CartService;
 import com.green.team4.vo.sw.CartVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -27,6 +30,13 @@ public class CartController {
         List<CartVO> cartList = cartService.readAll(mno);
         model.addAttribute("mno",mno);
         model.addAttribute("cartList",cartList);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> cartRegister(@RequestBody CartVO cartVO){ // 장바구니 신규 추가
+        log.info("CartController => cartRegister(POST) 실행 => 받은 cartVO: "+cartVO);
+        String addResult = cartService.register(cartVO);
+        return new ResponseEntity<>(addResult, HttpStatus.OK);
     }
 
     @PostMapping("/delete")

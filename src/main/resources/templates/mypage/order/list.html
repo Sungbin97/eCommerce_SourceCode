@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>mypage-order-list</title>
+</head>
+<body>
+    <!-- mypage header fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+    <!-- PAGE BANNER SECTION -->
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'주문목록'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a href="#" th:id="goBack">mypage</a></li>
+                            <li class="active">order</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- order List -->
+    <div class="page-section section pt-120 pb-80">
+        <div class="container">
+            <div class="row">
+                <form action="#">
+                    <div class="col-xs-12">
+                        <div class="wishlist-table table-responsive mb-40">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th class="pro-stock-stauts">주문일자</th>
+                                    <th class="pro-title">주문번호</th>
+                                    <th class="pro-title">결재상태</th>
+                                    <th class="pro-price">가격</th>
+                                    <th class="pro-title">배송</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${orderList}">
+                                    <td class="pro-stock-stauts" th:text="${order.orderDate}"></td>
+                                    <td class="pro-title"><a th:href="@{/sw/mypage/order/read(ono=${order.ono})}" th:text="${order.ono}"></a></td>
+                                    <td class="pro-title" th:text="${order.tPayStatus}"></td>
+                                    <td class="pro-price" th:text="${order.tTotalPrice}"></td>
+                                    <td class="pro-title">
+                                        <form action="">
+
+                                        </form>
+                                    </td>
+                                    <!-- 배송조회 관련 controller 전송용 form (추가필요)-->
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- hidden Data -->
+<input type="hidden" name="mno" th:value="${mno}">
+
+<!-- mypage footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+
+<script>
+    $(document).ready(function (){
+
+        // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
+        $("#goBack").click(function (){
+            var mno = $("input[name=mno]").val();
+            window.location.href = '/sw/mypage/main?mno='+mno;
+        })
+    })
+</script>
+</html>
