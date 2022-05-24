@@ -9,7 +9,7 @@ import java.util.List;
 public interface ProductInfoImgMapper {
     int insert(ProductInfoImgVO vo);
     List<ProductInfoImgVO> getAll();
-    List<ProductInfoImgVO> getProductInfoImgs(int pno); //상품 이미지리스트 조회
+    List<ProductInfoImgVO> getOneInfoList(int pno); //상품 이미지리스트 조회
     ProductInfoImgVO getOne(int pno);
     int update(ProductInfoImgVO vo);
     int delete(int pno);

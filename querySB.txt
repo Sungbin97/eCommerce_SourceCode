@@ -271,8 +271,7 @@ create table tbl_product(
     pRegdate DATETIME default now(),
     pImage varchar(300) not null,
     pInformation varchar(300) not null,
-    pDelivery varchar(50),
-    pCode varchar(50) not null,
+    pCode varchar(50),
     pRating decimal(2,1),
     pReviewCnt int(20),
     pDiscount int(10)

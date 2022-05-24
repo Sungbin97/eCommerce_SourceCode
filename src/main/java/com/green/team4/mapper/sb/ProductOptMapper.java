@@ -13,5 +13,5 @@ public interface ProductOptMapper {
     List<Product_optVO> getProductJoin(int pno);
     Product_optVO getOpt(int pno);
     int update(Product_optVO vo);
-    int delete(int pcno);
+    int delete(int pno);
 }

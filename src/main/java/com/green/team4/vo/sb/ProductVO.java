@@ -22,9 +22,7 @@ public class ProductVO {
     private int pAmount;
     private Date pRegdate;
     private String pInformation;
-    private String pDelivery;
     private String pImage;
-    private String pCode;
     private String pSize;
     private String pOption;
     private String pOption2;

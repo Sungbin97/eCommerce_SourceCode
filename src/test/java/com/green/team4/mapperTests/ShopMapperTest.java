@@ -75,7 +75,7 @@ public class ShopMapperTest {
             pvo.setPName("상품"+i);
 
             pvo.setPInformation("형 믿고 사");
-            pvo.setPDelivery("무료배송");
+//            pvo.setPDelivery("무료배송");
 
            mapper.insert(pvo);
         }

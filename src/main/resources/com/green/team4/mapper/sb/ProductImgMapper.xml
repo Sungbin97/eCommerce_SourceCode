@@ -36,9 +36,9 @@
         select * from tbl_product_img order by pno desc limit 1;
     </select>
 
-    <select id="getProductImgs" resultType="com.green.team4.vo.sb.ProductImgVO">
+    <select id="getOneImgList" resultType="com.green.team4.vo.sb.ProductImgVO">
         <!-- pno를 통한 상품 이미지리스트 조회 -->
-        select p.pno, p.pname, i.pOriginal, i.pThumbnail, i.pInformation from  tbl_product p
+        select p.pno, p.pName, i.pImage, i.pImagePath from  tbl_product p
         inner join tbl_product_img i
         on p.pno = #{p.pno};
     </select>

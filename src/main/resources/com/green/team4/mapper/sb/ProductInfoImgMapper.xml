@@ -24,9 +24,9 @@
 <!--                where pno=#{pno}-->
 <!--    </update>-->
 
-<!--    <delete id="delete">-->
-<!--        delete from tbl_product_img where pno=#{pno}-->
-<!--    </delete>-->
+    <delete id="delete">
+        delete from tbl_product_infoImg where pno=#{pno}
+    </delete>
 
 <!--    <delete id="deleteInfoImg">-->
 <!--        delete from tbl_product_img where ino=#{ino}-->
@@ -36,9 +36,9 @@
 <!--        select * from tbl_product_img order by pno desc limit 1;-->
 <!--    </select>-->
 
-    <select id="getProductInfoImgs" resultType="com.green.team4.vo.sb.ProductImgVO">
-        <!-- pno를 통한 상품 이미지리스트 조회 -->
-        select p.pno, p.pname, i.pOriginal, i.pThumbnail, i.pInformation from  tbl_product p
+    <select id="getOneInfoList" resultType="com.green.team4.vo.sb.ProductImgVO">
+        <!-- pno를 통한 상품 정보 이미지 리스트 조회 -->
+        select p.pno, p.pname, i.infoPath, i.pInformation from  tbl_product p
         inner join tbl_product_infoImg i
         on p.pno = #{p.pno};
     </select>

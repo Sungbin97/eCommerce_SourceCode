@@ -132,65 +132,8 @@
   </div>
 </div>
 </body>
-<!--      <script>-->
-<!--        function showUploadedImages(arr){-->
-<!--          console.log(arr);-->
-<!--          var divArea = $(".uploadResult")-->
-<!--          var str = "";-->
-<!--          for (var i =0; i<arr.length; i++) {-->
-<!--            str+= "<div>"-->
-<!--            var thumbnailURL = encodeURIComponent(arr[i].folderPath +"\\s_" +arr[i].uuid + "_" + arr[i].fileName);-->
-<!--            var imageURL = encodeURIComponent(arr[i].folderPath +"\\" +arr[i].uuid + "_" + arr[i].fileName);-->
+<script>
 
-<!--            var thumbnail = document.querySelector('input[name="pImageURL"]');-->
-<!--            thumbnail.value = "/display?fileName="+arr[i].imageURL;-->
-
-<!--            str+= "<img src='/display?fileName=" +arr[i].imageURL+"'>"-->
-<!--            str+= "<button class='removeBtn' data-name='" + arr[i].imageURL +"'> 삭제 </button>"-->
-<!--            str+= "</div>"-->
-<!--          }-->
-<!--          divArea.append(str);-->
-<!--        }-->
-
-<!--        $(".uploadResult").on("click", ".removeBtn", function (e){-->
-<!--          console.log("삭제버튼눌림?");-->
-<!--          var target=$(this);-->
-<!--          var fileName=target.data('name'); // 1)-->
-<!--          var targetDiv=$(this).closest("div");-->
-<!--          console.log(fileName);-->
-<!--          $.post('/removeFile', {fileName}, function (result){ // 2)-->
-<!--            console.log(result)-->
-<!--            if (result===true) targetDiv.remove();-->
-<!--          })-->
-<!--        })-->
-
-<!--        $(".uploadBtn").click(function (e){-->
-<!--          console.log("버튼들어오나")-->
-<!--          var formData = new FormData();-->
-<!--          var inputFile = $("input[type='file']");-->
-<!--          var files = inputFile[0].files;-->
-<!--          for (var i=0;i<files.length;i++){-->
-<!--            console.log(files[i]);-->
-<!--            formData.append("uploadFiles", files[i])-->
-<!--          }-->
-<!--          // 실제 업로드-->
-<!--          $.ajax({-->
-<!--            url:'/uploadAjax',-->
-<!--            processData: false,-->
-<!--            contentType: false,-->
-<!--            data: formData,-->
-<!--            type:'POST',-->
-<!--            dataType:'json',-->
-<!--            success :function (result){-->
-<!--              console.log(result);-->
-<!--              //나중에 화면 처리-->
-<!--              showUploadedImages(result)-->
-<!--            },-->
-<!--            error:function (jqXHR, textStatus, errorThrown){-->
-<!--              console.log(textStatus);-->
-<!--            }-->
-<!--          })-->
-<!--        })-->
-<!--      </script>-->
+</script>
     </main>
 </html>

@@ -48,6 +48,18 @@ public class ProductController {
 
         return folderPath;
     }
+    private String fileSave(MultipartFile img) throws IOException {
+        String folderPath = makeFolder();
+        String uuid = UUID.randomUUID().toString();
+
+        String originalImg = img.getOriginalFilename();
+        String fileName = originalImg.substring(originalImg.lastIndexOf("\\") + 1);
+        String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
+        String saveImgUrl = File.separator + folderPath + File.separator + uuid + "_" + fileName;
+        Path saveImgPath = Paths.get(saveName);
+        img.transferTo(saveImgPath);
+        return saveImgUrl;
+    }
 
     @GetMapping("/upload")
     public void uploadGet(){
@@ -57,29 +69,11 @@ public class ProductController {
     public String uploadPost(ProductVO vo, Model model,
                              @RequestParam("pImg") MultipartFile img,
                              @RequestParam("pInfo") MultipartFile info) throws IOException {
-
-        String folderPath = makeFolder();
-        String uuid = UUID.randomUUID().toString();
-
-        String originalImg = img.getOriginalFilename();
-        String imgFileName = originalImg.substring(originalImg.lastIndexOf("\\") + 1);
-        String saveImgName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + imgFileName;
-        String saveImgUrl = File.separator + folderPath + File.separator + uuid + "_" + imgFileName;
-        Path saveImgPath = Paths.get(saveImgName);
-        img.transferTo(saveImgPath);
-
-        vo.setPImage(saveImgUrl);
-
-        String originalInfo = info.getOriginalFilename();
-        String infoFileName = originalInfo.substring(originalInfo.lastIndexOf("\\") + 1);
-        String saveInfoName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + infoFileName;
-        String saveInfoUrl= File.separator + folderPath + File.separator + uuid + "_" + infoFileName;
-        Path saveInfoPath = Paths.get(saveInfoName);
-        info.transferTo(saveInfoPath);
-
-        vo.setPInformation(saveInfoUrl);
+        String productImg = fileSave(img); //파일 생성 및 저장 함수 호출
+        String InfoImg = fileSave(info);
+        vo.setPImage(productImg); //db에 저장
+        vo.setPInformation(InfoImg);
         productService.insert(vo);
-
         ProductVO eve = productService.getEvePno();
         return "redirect:/sb/product/uploadOpt?pno="+eve.getPno();
     }
@@ -93,56 +87,42 @@ public class ProductController {
 
     @PostMapping("/uploadOpt")
     public String uploadPost(int pno, ProductImgVO imgVO, Product_optVO optVO, ProductInfoImgVO infoVO,
-//                             @RequestParam("opt1") String[] opt1,
-//                             @RequestParam("opt2") String[] opt2,
+                             @RequestParam("opt1") String[] opt1,
+                             @RequestParam("opt2") String[] opt2,
 //                             @RequestParam("color") String[] colors,
                              @RequestParam("uploadFilesImg") MultipartFile[] imgFiles,
                              @RequestParam("uploadFilesInfo") MultipartFile[] infoFiles) throws IOException {
         log.info("uploadOpt imgVO: " + imgVO);
         log.info("uploadOpt InfoImgVO: " + infoVO);
         log.info("uploadOpt optVO: " + optVO);
-//        log.info("uploadOpt opt1: " + opt1);
-//        log.info("uploadOpt opt2: " + opt2);
-//        log.info("uploadOpt color: " + colors);
-        //이미지 저장
-        String folderPath = makeFolder();
-        String uuid = UUID.randomUUID().toString();
+        log.info("uploadOpt opt1: " + opt1);
+        log.info("uploadOpt opt2: " + opt2);
 
+        for (String o1 : opt1){
+            System.out.println("opt1: "+o1);
+        }
+        for (String o2 : opt2){
+            System.out.println("opt2: "+o2);
+        }
+
+
+        //이미지 저장
         for (MultipartFile img : imgFiles) {
-            String originalImg = img.getOriginalFilename();
-            String fileName = originalImg.substring(originalImg.lastIndexOf("\\") + 1);
-            String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + fileName;
-            String saveUrl = File.separator + folderPath + File.separator + uuid + "_" + fileName;
-            Path savePath = Paths.get(saveName);
-            img.transferTo(savePath);
+            String productImg = fileSave(img);
+            imgVO.setPImagePath(productImg);
             imgVO.setPImage(img.getOriginalFilename());
-            imgVO.setPImagePath(saveUrl);
             productImgMapper.insert(imgVO);
         }
+
         for (MultipartFile info : infoFiles){
-            String originalInfo = info.getOriginalFilename();
-            String infoFileName = originalInfo.substring(originalInfo.lastIndexOf("\\")+1);
-            String infoSaveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" +infoFileName;
-            String infoSaveUrl = File.separator + folderPath + File.separator + uuid + "_" +infoFileName;
-            Path saveInfoPath = Paths.get(infoSaveName);
-            info.transferTo(saveInfoPath);
-            infoVO.setPInfoPath(infoSaveUrl);
+            String infoImg = fileSave(info);
+            infoVO.setPInfoPath(infoImg);
             infoVO.setPInformation(info.getOriginalFilename());
             productImgInfoMapper.insert(infoVO);
         }
 
         //옵션 저장
         productOptMapper.insert(optVO);
-//        for (String o1 : opt1){
-//            optVO.setPOption(o1);
-//            productOptMapper.insert(optVO);
-//            for (String o2: opt2){
-//                optVO.setPOption2(o2);
-//                for (String c : colors){
-//                    optVO.setPColor(c);
-//                }
-//            }
-//        }
 
         return "redirect:/sb/product/list?pno="+pno;
     }
@@ -172,6 +152,9 @@ public class ProductController {
     @PostMapping("/remove")
     public String ProductRemove(int pno){
         productService.delete(pno);
+        productOptMapper.delete(pno);
+        productImgInfoMapper.delete(pno);
+        productImgMapper.delete(pno);
         log.info(pno+"번 상품 삭제");
         return "redirect:/sb/product/list?pno=1";
     }

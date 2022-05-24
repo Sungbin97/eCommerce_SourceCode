@@ -128,12 +128,13 @@ public class ProductMapperTests {
 
     @Test
     public void getOneImg(){
-        List<ProductImgVO> result = productImgMapper.getProductImgs(35);
+        List<ProductImgVO> result = productImgMapper.getOneImgList(16);
+        result.forEach(System.out::println);
+    }
+    @Test
+    public void getAll2(){
+        List<ProductImgVO> result = productImgMapper.getAll();
         result.forEach(System.out::println);
     }
 
-    @Test
-    public void deleteImg(){
-
-    }
 }

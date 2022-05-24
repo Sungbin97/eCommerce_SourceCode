@@ -107,7 +107,7 @@
 
         <div class="inputArea">
           <label for="pName">상품명</label>
-          <input type="text" id="pName" name="pName" th:placeholder="${product.pCode}" th:value="${product.pName}"/>
+          <input type="text" id="pName" name="pName" th:placeholder="${product.pName}" th:value="${product.pName}"/>
         </div>
 
         <div class="inputArea">
@@ -118,23 +118,22 @@
         <div class="inputArea">
           <label>옵션1</label>
           <label><input type="text" name="pOptionName" placeholder="옵션명"></label>
-          <label><input type="checkbox" name="opt1" value="S">S</label>
-          <label><input type="checkbox" name="opt1" value="M">M</label>
-          <label><input type="checkbox" name="opt1" value="L">L</label>
-          <label><input type="checkbox" name="opt1" value="XL">XL</label>
-          <label><input type="text" placeholder="직접입력"/>
+
+          <button id="btnCloths" type="button">옷</button>
+          <div id="clothsOpt"></div>
+          <button id="btnShoes" type="button">신발</button>
+          <div id="shoesOpt"></div>
+
         </div>
 
         <div class="inputArea">
           <label>옵션2</label>
-          <label><input type="text" name="pOptionName2" placeholder="옵션명"></label>
-          <label><input type="checkbox" name="opt2" value="옵션a">옵션a</label>
-          <label><input type="checkbox" name="opt2" value="옵션b">옵션b</label>
-          <label><input type="checkbox" name="opt2" value="옵션c">옵션c</label>
-          <label><input type="checkbox" name="opt2" value="옵션d">옵션d</label>
-          <label><input type="checkbox" name="opt2" value="옵션e">옵션e</label>
-          <label><input type="text" placeholder="직접입력"/>
         </div>
+        <ul id="insertOpt2">
+          <label><input type="text" name="pOptionName2" placeholder="옵션명"></label>
+          <li><input type="text" name="opt2" placeholder="직접입력" value=""/><button type="button" id="btnAddOpt2">옵션추가</button></li>
+        </ul>
+
 
         <div class="inputArea">
           <label>색상</label>
@@ -168,5 +167,40 @@
   </div>
 </div>
 </body>
-    </main>
+<script>
+
+ $(document).ready(function(){
+
+  let flag = false;
+
+    $("#btnCloths").click(function(){
+      if(flag === false){
+      for (let i = 85; i <= 120; i+=5) {
+      $("#clothsOpt").append(
+          "<label><input type="+"checkbox "+"name="+"opt1 " + "value=" + i + ">" + i + "</label>"
+        )}
+        flag = true;
+      }
+    })
+
+    $("#btnShoes").click(function(){
+      if(flag === false){
+      for (let i = 245; i <= 290; i+=5) {
+      $("#shoesOpt").append(
+        "<label><input type="+"checkbox "+"name="+"opt1 " + "value=" + i + ">" + i + "</label>"
+        )}
+        flag = true;
+      }
+    })
+
+    $("#btnAddOpt2").click(function(){
+      $("#insertOpt2").append(
+        "<li><input type=" + "text " + "name=" + "opt2 " + "placeholder=" + "직접입력 " + "value=''"
+          + "/><button type=" + "button " + "id=" + "btnAddOpt2" + ">옵션추가</button></li>"
+        )
+    })
+
+ })
+</script>
+</main>
 </html>
