@@ -40,8 +40,8 @@ public class ProductController {
 
     private String makeFolder(){ // 파일 저장 폴더 만들기(탐색기)
         String str = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-        String folderPath = str.replace("/", File.separator);
-
+        String folderPath = str.replace("\\", File.separator);
+        log.info("folderPath : "+folderPath);
         // 폴더 생성
         File uploadFolder = new File(uploadPath, folderPath);
         if(uploadFolder.exists()==false) uploadFolder.mkdirs();
@@ -62,22 +62,30 @@ public class ProductController {
         String uuid = UUID.randomUUID().toString();
 
         String originalImg = img.getOriginalFilename();
+        log.info("originalImg : " +originalImg );
         String imgFileName = originalImg.substring(originalImg.lastIndexOf("\\") + 1);
+        log.info("imgFileName : "+imgFileName);
         String saveImgName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + imgFileName;
-        String saveImgUrl = File.separator + folderPath + File.separator + uuid + "_" + imgFileName;
+        log.info("saveImgName : " +saveImgName);
+//        String saveImgUrl = File.separator + folderPath + File.separator + uuid + "_" + imgFileName;
+        String saveImgUrl = "/" + folderPath + "/" + uuid + "_" + imgFileName;
+        log.info("saveImgUrl : " + saveImgUrl);
         Path saveImgPath = Paths.get(saveImgName);
+        log.info("saveImgPath : " + saveImgPath);
         img.transferTo(saveImgPath);
 
         vo.setPImage(saveImgUrl);
-
+        log.info("pImage"+vo.getPImage());
         String originalInfo = info.getOriginalFilename();
         String infoFileName = originalInfo.substring(originalInfo.lastIndexOf("\\") + 1);
-        String saveInfoName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + infoFileName;
-        String saveInfoUrl= File.separator + folderPath + File.separator + uuid + "_" + infoFileName;
+        String saveInfoName = uploadPath + File.separator + folderPath +"/" + uuid + "_" + infoFileName;
+        String saveInfoUrl= "/" + folderPath + "/" + uuid + "_" + infoFileName;
+        log.info("saveInfoUrl : " + saveInfoUrl);
         Path saveInfoPath = Paths.get(saveInfoName);
         info.transferTo(saveInfoPath);
 
         vo.setPInformation(saveInfoUrl);
+        log.info("imformation : "+vo.getPInformation());
         productService.insert(vo);
 
         ProductVO eve = productService.getEvePno();

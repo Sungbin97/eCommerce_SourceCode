@@ -57,7 +57,7 @@
         <select id="getOptionPrice" resultType="com.green.team4.vo.JH.Product_optVO">
             select P.pPrice,pOptionPrice from tbl_product P
             inner join tbl_product_opt ps on p.pno = ps.pno
-            where p.pno = #{pno} and <include refid="price"></include>
+            where p.pno = #{pno}  <include refid="price"></include>
         </select>
     <sql id="option">
         <if test="pColor == '' and pColor == '' and pOption =='' ">
