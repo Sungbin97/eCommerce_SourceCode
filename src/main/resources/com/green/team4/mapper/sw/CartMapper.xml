@@ -5,14 +5,28 @@
 
 <mapper namespace="com.green.team4.mapper.sw.CartMapper">
 
+    <!-- Cart 데이터 신규 추가 -->
+    <insert id="insert">
+        insert into tbl_cart (mno,pno)
+        values (#{mno},#{pno})
+    </insert>
+
+    <!-- Cart 데이터 하나 가져오기(pno 단위) -->
+    <select id="getOneByPno" resultType="com.green.team4.vo.sw.CartVO">
+        select mno,cno,tbl_cart.pno,tbl_product.pMainCategory,tbl_product.pSubCategory,
+               tbl_product.pName,tbl_product.pPrice,tbl_product.pImage from tbl_cart
+        left outer join tbl_product on tbl_cart.pno = tbl_product.pno
+        where tbl_cart.pno=#{pno}
+        order by tbl_cart.cno
+    </select>
+
     <!-- Cart 데이터 전체 가져오기(mno 단위) -->
     <select id="getAll" resultType="com.green.team4.vo.sw.CartVO">
         select mno,cno,tbl_cart.pno,tbl_product.pMainCategory,tbl_product.pSubCategory,
                tbl_product.pName,tbl_product.pPrice,tbl_product.pImage from tbl_cart
-            left outer join tbl_product
-                on tbl_cart.pno = tbl_product.pno
-                    where mno=#{mno}
-                        order by tbl_cart.cno
+        left outer join tbl_product on tbl_cart.pno = tbl_product.pno
+        where mno=#{mno}
+        order by tbl_cart.cno
     </select>
 
     <!-- Cart 데이터 삭제 -->

@@ -36,7 +36,7 @@ public class MemberController {
         log.info("수정"+memberInfoVO);
         model.addAttribute("memberVO", memberInfoVO);
         MailVO mvo = new MailVO();
-        memberInfoService.modify(memberInfoVO);
+        memberInfoService.modifyByAdmin(memberInfoVO);
 
         return "redirect:/sb/member/modify?mno="+memberInfoVO.getMno();
     }

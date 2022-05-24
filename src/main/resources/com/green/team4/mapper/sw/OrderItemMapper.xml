@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.team4.mapper.sw.OrderItemMapper">
+
+    <!-- OrderItem 데이터 전체 가져오기(ono 단위) -->
+    <select id="getAll" resultType="com.green.team4.vo.sw.OrderItemVO">
+        select ono, oINo, pno, iName, iOption, iOptionName, iColor, iPrice,
+               iDiscount, iDisPrice, iCount, iTotalPrice, iDeliveryStatus, iExStatus
+        from tbl_orderItem
+        where tbl_orderItem.ono=#{ono}
+    </select>
+
+    <!-- OrderItem 데이터 하나 가져오기(oINo 단위) -->
+    <select id="getOne" resultType="com.green.team4.vo.sw.OrderItemVO">
+        select ono, oINo, pno, iName, iOption, iOptionName, iColor, iPrice,
+               iDiscount, iDisPrice, iCount, iTotalPrice, iDeliveryStatus, iExStatus
+        from tbl_orderItem
+        where tbl_orderItem.oINo=#{oINo}
+    </select>
+
+    <!-- OrderItem 데이터 수정(취소/반품/교환 신청, 배송 상태만 변경 (관리자 전용)) -->
+    <update id="update">
+        update tbl_orderItem
+        set iDeliveryStatus=#{iDeliveryStatus}, iExStatus=#{iExStatus}
+        where ono=#{ono} and pno=#{pno}
+    </update>
+    
+</mapper>

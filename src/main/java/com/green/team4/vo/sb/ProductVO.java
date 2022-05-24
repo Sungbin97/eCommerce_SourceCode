@@ -26,5 +26,9 @@ public class ProductVO {
     private String pSize;
     private String pOption;
     private String pOption2;
+    private String pOptionName;
+    private String pOptionName2;
+    private int pOptionPrice;
     private String pColor;
+
 }

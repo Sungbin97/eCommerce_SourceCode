@@ -1,114 +1,210 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>mypage-order-read</title>
 </head>
 <body>
-    <h2>마이페이지-주문세부내역</h2>
+    <!-- mypage header fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
-    <!-- Order -->
-    <h3>주문세부내역</h3>
-    <form>
-        <!-- 숨김 데이터 -->
-        <input type="hidden" name="mno" th:value="${orderVO.mno}" readonly>
-        <input type="hidden" name="ono" th:value="${orderVO.ono}" readonly>
-        <input type="hidden" name="pno" th:value="${orderVO.pno}" readonly>
-        <input type="hidden" name="payINo" th:value="${orderVO.payINo}" readonly>
-        <!-- 표시 데이터 -->
-        주문자 정보
-        <ul>
-            <li>
-                <label th:for="name">주문자 성명</label>
-                <input type="text" name="name" th:value="${orderVO.name}" readonly>
-            </li>
-            <li>
-                <label th:for="phoneNum">주문자 연락처</label>
-                <input type="text" name="phoneNum" th:value="${orderVO.phoneNum}" readonly>
-            </li>
-        </ul>
-        받는사람 정보
-        <ul>
-            <li>
-                <label th:for="receiverName">받는사람 성명</label>
-                <input type="text" name="receiverName" th:value="${orderVO.receiverName}" readonly>
-            </li>
-            <li>
-                <label th:for="receiverPhone">받는사람 연락처</label>
-                <input type="text" name="receiverPhone" th:value="${orderVO.receiverPhone}" readonly>
-            </li>
-            <li>
-                <label th:for="postcode">우편번호</label>
-                <input type="text" name="postcode" th:value="${orderVO.postcode}" readonly>
-            </li>
-            <li>
-                <label th:for="address">도로명주소</label>
-                <input type="text" name="address" th:value="${orderVO.address}" readonly>
-            </li>
-            <li>
-                <label th:for="detailAddress">세부주소</label>
-                <input type="text" name="detailAddress" th:value="${orderVO.detailAddress}" readonly>
-            </li>
-            <li>
-                <label th:for="message">주문 요청사항 메세지</label>
-                <input type="text" name="message" th:value="${orderVO.message}" readonly>
-            </li>
-        </ul>
-        주문 상품 내용
-        <ul>
-            <li>
-                <label th:for="pName">주문 상품명</label>
-                <input type="text" name="pName" th:value="${orderVO.pName}" readonly>
-            </li>
-            <li>
-                <label th:for="count">주문 수량</label>
-                <input type="text" name="count" th:value="${orderVO.count}" readonly>
-            </li>
-        </ul>
-        결제 내역
-        <ul>
-            <li>
-                <label th:for="productPrice">상품 총 금액</label>
-                <input type="text" name="productPrice" th:value="${orderVO.productPrice}" readonly>
-            </li>
-            <li>
-                <label th:for="shipFee">배송비</label>
-                <input type="text" name="shipFee" th:value="${orderVO.shipFee}" readonly>
-            </li>
-            <li>
-                <label th:for="totalPrice">총 결제금액</label>
-                <input type="text" name="totalPrice" th:value="${orderVO.totalPrice}" readonly>
-            </li>
-            <li>
-                <label th:for="payName">결제수단</label>
-                <input type="text" name="payName" th:value="${orderVO.payName}" readonly>
-            </li>
-            <li>
-                <label th:for="payContent">결제수단 세부내용</label>
-                <input type="text" name="payContent" th:value="${orderVO.payContent}" readonly>
-            </li>
-            <li>
-                <label th:for="orderDate">주문일시</label>
-                <input type="text" name="orderDate" th:value="${orderVO.orderDate}" readonly>
-            </li>
-        </ul>
-        주문 상태
-        <ul>
-            <li>
-                <label th:for="orderStatus">결재상태</label>
-                <input type="text" name="orderStatus" th:value="${orderVO.payStatus}" readonly>
-            </li>
-            <li>
-                <label th:for="orderStatus">배송상태</label>
-                <input type="text" name="orderStatus" th:value="${orderVO.deliveryStatus}" readonly>
-            </li>
-        </ul>
-    </form>
-    <hr/>
-    <!-- 뒤로 돌아가기 버튼 -->
-    <button class="button" th:id="goBack">뒤로가기</button>
+    <!-- PAGE BANNER SECTION -->
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'주문 세부내역'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a href="#" th:id="goBack">order</a></li>
+                            <li class="active">read</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE SECTION START -->
+    <div class="page-section section pt-120 pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="customer-login mb-40">
+                        <!-- 주문상품 세부내역 START -->
+                        <h3>주문 상품 세부내역은 <a data-bs-toggle="collapse" href="#checkout-login">여기를 클릭하세요</a></h3>
+                        <div id="checkout-login" class="checkout-login collapse fix">
+                            <div class="checkout-login-wrapper mt-30">
+                                <p>주문상품 세부내역</p>
+                                <table id="orderTable" class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>상품명</th>
+                                        <th>상품 옵션명</th>
+                                        <th>상품 옵션 세부</th>
+                                        <th>상품 색상</th>
+                                        <th>상품 가격</th>
+                                        <th>할인률</th>
+                                        <th>할인 후 상품 가격</th>
+                                        <th>주문 수량</th>
+                                        <th>최종 결재금액</th>
+                                        <th>취소/반품/교환</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item:${orderVO.orderItemList}">
+                                        <!-- 상품 세부페이지 링크 연결 예정 -->
+                                        <td name="iName"><a th:href="@{/shop/read(pno=${item.pno},mno=${orderVO.mno})}"><strong>[[${item.iName}]]</strong></a></td>
+                                        <input type="hidden" name="pno" th:value="${item.pno}" readonly>
+                                        <td name="iOptionName" th:text="${item.iOptionName}"></td>
+                                        <td name="iOption" th:text="${item.iOption}"></td>
+                                        <td name="iColor" th:text="${item.iColor}"></td>
+                                        <td name="iPrice" th:text="${item.iPrice}"></td>
+                                        <td name="iDiscount" th:text="${item.iDiscount}+'%'"></td>
+                                        <td name="iDisPrice" th:text="${item.iDisPrice}"></td>
+                                        <td name="iCount" th:text="${item.iCount}"></td>
+                                        <td name="iTotalPrice" th:text="${item.iTotalPrice}"></td>
+                                        <td class="pro-title">
+                                            <!-- 취소/반품/교환 관련 controller 전송용 form -->
+                                            <form th:action="@{/sw/mypage/order/exchange}" th:method="get">
+                                                <input type="hidden" name="mno" th:value="${orderVO.mno}" readonly>
+                                                <input type="hidden" name="ono" th:value="${item.ono}" readonly>
+                                                <input type="hidden" name="pno" th:value="${item.pno}" readonly>
+                                                <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
+                                                <input th:if="${item.iExStatus.equals('미신청')}" class="btn" type="submit" name="addExchange" value="신청하기">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 주문상품 세부내역 END -->
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="checkout-form">
+                        <div class="row">
+                            <div class="col-lg-6 mb-40">
+                                <form action="#">
+                                    <h3>주문자 정보</h3>
+                                    <!-- 숨김 데이터 -->
+                                    <input type="hidden" name="mno" th:value="${orderVO.mno}" readonly>
+                                    <input type="hidden" name="ono" th:value="${orderVO.ono}" readonly>
+                                    <!-- 표시 데이터 -->
+                                    <div class="row">
+                                        <div class="col-sm-6 col-xs-12 mb-30">
+                                            <label th:for="orderDate">주문일시</label>
+                                            <input type="text" name="orderDate" th:value="${orderVO.orderDate}" readonly>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 mb-30">
+                                            <label th:for="name">주문자 성명</label>
+                                            <input type="text" name="name" th:value="${orderVO.name}" readonly>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 mb-30">
+                                            <label th:for="phoneNum">주문자 연락처(휴대전화)</label>
+                                            <input type="text" name="mobileNum" th:value="${orderVO.mobileNum}" readonly>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 mb-30">
+
+                                        </div>
+                                    </div>
+                                    <h3>받는사람 정보</h3>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-xs-12 mb-30">
+                                            <label th:for="receiverName">받는사람 성명</label>
+                                            <input type="text" name="receiverName" th:value="${orderVO.receiverName}" readonly>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 mb-30">
+                                            <label th:for="receiverPhone">받는사람 연락처</label>
+                                            <input type="text" name="receiverPhone" th:value="${orderVO.receiverPhone}" readonly>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 mb-30">
+                                            <label th:for="postcode">우편번호</label>
+                                            <input type="text" name="postcode" th:value="${orderVO.postcode}" readonly>
+                                        </div>
+                                        <div class="col-xs-12 mb-30">
+                                            <label th:for="address">도로명주소</label>
+                                            <input type="text" name="address" th:value="${orderVO.address}" readonly>
+                                        </div>
+                                        <div class="col-xs-12 mb-30">
+                                            <label th:for="detailAddress">세부주소</label>
+                                            <input type="text" name="detailAddress" th:value="${orderVO.detailAddress}" readonly>
+                                        </div>
+                                        <div class="order-notes">
+                                            <label th:for="message">주문 요청사항 메세지</label>
+                                            <textarea id="message" name="message" th:text="${orderVO.message}" readonly></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- 주문 결제 내역 -->
+                            <div class="col-lg-6 col-12 mb-40">
+                                <div class="order-wrapper">
+                                    <h3>결제 내역</h3>
+                                    <div class="order-table table-responsive mb-30">
+                                        <table class="table"><!-- 클래스명 제거시 디자인 통일됨 -->
+                                            <thead>
+                                            <tr>
+                                                <th class="product-name">구분</th>
+                                                <th class="product-total">금액(단위: 원)</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="item : ${orderVO.orderItemList}">
+                                                <td class="product-name">
+                                                    [[${item.iName}]] <strong class="product-qty"> × [[${item.iCount}]]</strong>
+                                                </td>
+                                                <td class="product-total">
+                                                    <span class="amount">[[${item.iTotalPrice}]]</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <th>총 상품가격</th>
+                                                <td><strong>[[${orderVO.tProductPrice}]]</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <th>배송비</th>
+                                                <td>[[${orderVO.tShipFee}]]</td>
+                                            </tr>
+                                            <tr>
+                                                <th>사용 포인트</th>
+                                                <td>[[${orderVO.tUsePoint}]]</td>
+                                            </tr>
+                                            <tr>
+                                                <th>최종 결제금액</th>
+                                                <td><strong>[[${orderVO.tTotalPrice}]]</strong>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-30">
+                                        <label th:for="tSavePoint">총 적립 포인트</label>
+                                        <input type="text" name="tSavePoint" th:value="${orderVO.tSavePoint}" readonly>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-30">
+                                        <label th:for="tPayStatus">결재상태</label>
+                                        <input type="text" name="tPayStatus" th:value="${orderVO.tPayStatus}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- PAGE SECTION END -->
 </body>
+
+<!-- mypage footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+
 <script>
     $(document).ready(function (){
         // 뒤로가기 버튼 클릭

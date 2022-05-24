@@ -7,13 +7,13 @@
 
     <!-- tbl_deleteMem 데이터 등록 -->
     <insert id="insert">
-        insert into tbl_deleteMem (id, password, name, nickName, email, phoneNum, gender, SSNum,
-                                   postcode, address, detailAddress, auth, grade,
-                                   delDate, delCategory, delContent)
-            values (#{id}, #{password}, #{name}, #{nickName},
-                    #{email}, #{phoneNum}, #{gender}, #{SSNum}, #{postcode},
-                    #{address},#{detailAddress},#{auth},#{grade},#{delDate},
-                    #{delCategory},#{delContent})
+        insert into tbl_deleteMem (id, password, name, nickName, gender, sSNum, email, phoneNum,
+                                   mobileNum, postcode, address, detailAddress, interestSports,
+                                   auth, grade, point, dMDate, dMCategory, dMContent)
+        values (#{id}, #{password}, #{name}, #{nickName},
+                #{gender}, #{sSNum}, #{email}, #{phoneNum}, #{mobileNum},
+                #{postcode},#{address},#{detailAddress},#{interestSports},#{auth},
+                #{grade},#{point},#{dMDate},#{dMCategory},#{dMContent})
     </insert>
 
     <!-- tbl_deleteMem 데이터 전체 가져오기 -->
@@ -23,12 +23,12 @@
 
     <!-- tbl_deleteMem 데이터 하나 가져오기 -->
     <select id="getOne" resultType="com.green.team4.vo.sw.DeleteMemVO">
-        select * from tbl_deleteMem where delNo=#{delNo}
+        select * from tbl_deleteMem where dMNo=#{dMNo}
     </select>
 
     <!-- tbl_deleteMem 데이터 삭제 -->
     <delete id="delete">
-        delete from tbl_deleteMem where delNo=#{delNo}
+        delete from tbl_deleteMem where dMNo=#{dMNo}
     </delete>
 
 </mapper>
