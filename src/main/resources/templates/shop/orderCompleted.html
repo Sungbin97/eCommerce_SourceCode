@@ -32,11 +32,11 @@
 <h5>상품 정보</h5>
 <div class="ProductInfo_div">
     <div class="Product_div" th:each="product : ${order.orders}">
-        <img class="product_div_img" th:src="${product.pImageURL}">
+        <img class="product_div_img" th:src="|/display?fileName=${product.pImage}|">
         <p th:text="${product.pName}"></p>
-        <p th:if="${product.pColor} != '없음'">색상 : [[${product.pColor}]]</p>
-        <p th:if="${product.pOption} != '없음'">[[${product.pOptionName}]] : [[${product.pOption}]]</p>
-        <p th:if="${product.pOption2} != '없음'">[[${product.pOptionName2}]] : [[${product.pOption2}]]</p>
+        <p th:if="${product.pColor} != null">색상 : [[${product.pColor}]]</p>
+        <p th:if="${product.pOption} != null">[[${product.pOptionName}]] : [[${product.pOption}]]</p>
+        <p th:if="${product.pOption2} != null">[[${product.pOptionName2}]] : [[${product.pOption2}]]</p>
         <p>[[${product.pPrice}]]원</p>
         <p >[[${product.iCount}]]개</p>
     </div>

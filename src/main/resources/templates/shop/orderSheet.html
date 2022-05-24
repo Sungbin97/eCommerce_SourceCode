@@ -132,14 +132,14 @@
                     <th>판매가</th>
                 </tr>
             </table>
-
+<!--            [[${orderlist}]]-->
             <table class="product_table" th:each="product :${orderlist}">
                 <tr>
-                    <td><img th:src="${product.pImageURL}"></td>
+                    <td><img th:src="|/display?fileName=${product.pImage}|"></td>
                     <td class="product_name_td" th:text="${product.pName}"></td>
-                    <td th:if="${product.pColor} != '없음'" class="product_color_td">색상 : [[${product.pColor}]]</td>
-                    <td th:if="${product.pOption} != '없음'" class="product_color_td">옵션1<small>([[${product.pOptionName}]]) : [[${product.pOption}]]</small></td>
-                    <td th:if="${product.pOption2} != '없음'" class="product_color_td">옵션2<small>([[${product.pOptionName2}]]) : [[${product.pOption2}]]</small></td>
+                    <td th:if="${product.pColor} != null" class="product_color_td">색상 : [[${product.pColor}]]</td>
+                    <td th:if="${product.pOption} != null" class="product_color_td">옵션1<small>([[${product.pOptionName}]]) : [[${product.pOption}]]</small></td>
+                    <td th:if="${product.pOption2} != null" class="product_color_td">옵션2<small>([[${product.pOptionName2}]]) : [[${product.pOption2}]]</small></td>
                     <td class="product_price_td">
                         가격 : <span th:text="${#numbers.formatInteger(product.salePrice + product.pOptionPrice, 0, 'COMMA')}+원"></span> | 수량 [[${product.itemCount}]]개
                         총 가격 :<span th:text="${#numbers.formatInteger(product.totalPrice, 0, 'COMMA')}+원"></span>

@@ -16,7 +16,7 @@ public interface ShopMapper {
     public int update(ProductVO pvo);
     public int delete(int pno);
     public ProductVO getOne(int p_no);
-    public ProductVO getProductWithOpt(Product_optVO povo);
+    public Product_optVO getProductWithOpt(Product_optVO povo);
     //페이징 처리
 
    public List<ProductVO> getListByCategoryAndPage(Map<String,Object> map);
@@ -46,6 +46,7 @@ public interface ShopMapper {
     public List<Product_optVO> getOptions(int pno);
     public List<Product_optVO> getOptions2(int pno);
 //    public List<Product_optVO> getOptList(int pno);
+
     public List<ProductVO> getOneWithOpt(int pno);
     //에이젝스에서 쓸거
     public List<Product_optVO> getOptList(Product_optVO povo);

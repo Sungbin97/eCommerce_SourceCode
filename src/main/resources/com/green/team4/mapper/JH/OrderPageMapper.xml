@@ -21,7 +21,7 @@
         select pno,pName,pPrice,pDiscount,pImage from tbl_product where pno = #{pno}
     </select>
     <select id="getOrderInfoWithOpt" resultType="com.green.team4.vo.JH.DBOrderItemVO">
-        select p.pno,pName,pPrice,pDiscount,ps.pColor,ps.pAmount,ps.pOption ,ps.pOptionName,ps.pOption2 ,ps.pOptionName2  from tbl_product p
+        select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount,ps.pOption ,ps.pOptionName,ps.pOption2 ,ps.pOptionName2  from tbl_product p
        inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno}  <include refid="option"></include>
     </select>
@@ -66,7 +66,7 @@
     </update>
 <!--주문 재고 차감-->
     <update id="deductStockWithOpt">
-         update tbl_product_opt set pAmount = #{pAmount} where pno = #{pno} and pColor=#{pColor} and pOption=#{pOption} and pOption2=#{pOption2}
+         update tbl_product_opt ps set pAmount = #{pAmount} where pno = #{pno}  <include refid="option"></include>
     </update>
     <update id="deductStock">
          update tbl_product set pAmount = #{pAmount} where pno = #{pno}
