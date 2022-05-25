@@ -49,6 +49,7 @@
                                         <th>할인 후 상품 가격</th>
                                         <th>주문 수량</th>
                                         <th>최종 결재금액</th>
+                                        <th>배송조회</th>
                                         <th>취소/반품/교환</th>
                                     </tr>
                                     </thead>
@@ -65,6 +66,15 @@
                                         <td name="iDisPrice" th:text="${item.iDisPrice}"></td>
                                         <td name="iCount" th:text="${item.iCount}"></td>
                                         <td name="iTotalPrice" th:text="${item.iTotalPrice}"></td>
+                                        <td class="pro-title">
+                                            <!-- 배송조회 controller 전송용 form -->
+                                            <form th:action="@{/sw/mypage/delivery/read}" th:method="get">
+                                                <input type="hidden" name="dCategory" th:value="'일반'" readonly>
+                                                <input type="hidden" name="oINo" th:value="${item.oINo}" readonly>
+                                                <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
+                                                <input class="btn" type="submit" name="getDelivery" value="배송조회">
+                                            </form>
+                                        </td>
                                         <td class="pro-title">
                                             <!-- 취소/반품/교환 관련 controller 전송용 form -->
                                             <form th:action="@{/sw/mypage/order/exchange}" th:method="get">

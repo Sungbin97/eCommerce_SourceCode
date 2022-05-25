@@ -17,6 +17,8 @@ public class OrderItemVO {
     private String iName; // 상품명
     private String iOption; // 상품 옵션1
     private String iOptionName; // 상품 옵션1 이름
+    private String iOption2; // 상품 옵션2
+    private String iOptionName2; // 상품 옵션2 이름
     private String iColor; // 상품 색상명
     private int iPrice; // 상품 가격
     private int iDiscount; // 할인율

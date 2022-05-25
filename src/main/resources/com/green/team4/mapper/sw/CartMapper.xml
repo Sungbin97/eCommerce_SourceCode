@@ -12,11 +12,11 @@
     </insert>
 
     <!-- Cart 데이터 하나 가져오기(pno 단위) -->
-    <select id="getOneByPno" resultType="com.green.team4.vo.sw.CartVO">
+    <select id="getOneByPnoMno" resultType="com.green.team4.vo.sw.CartVO">
         select mno,cno,tbl_cart.pno,tbl_product.pMainCategory,tbl_product.pSubCategory,
                tbl_product.pName,tbl_product.pPrice,tbl_product.pImage from tbl_cart
         left outer join tbl_product on tbl_cart.pno = tbl_product.pno
-        where tbl_cart.pno=#{pno}
+        where tbl_cart.pno=#{pno} and tbl_cart.mno=#{mno}
         order by tbl_cart.cno
     </select>
 

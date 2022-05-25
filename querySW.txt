@@ -177,9 +177,9 @@ create table tbl_interest(
     foreign key (pno) references tbl_product (pno)
 );
 
-insert into tbl_interest(mno, pno) values (1,13);
-insert into tbl_interest(mno, pno) values (1,25);
-insert into tbl_interest(mno, pno) values (1,31);
+insert into tbl_interest(mno, pno) values (2,13);
+insert into tbl_interest(mno, pno) values (2,25);
+insert into tbl_interest(mno, pno) values (2,31);
 
 
 -- 장바구니 테이블(상품 세부정보는 tbl_product join하여 출력)
@@ -247,6 +247,26 @@ create table tbl_product_infoImg(
     pInformation varchar(300),
     pInfoPath varchar(500) -- 저장경로
 );
+
+-- 배송 현황 테이블 -- SW
+create table tbl_delivery(
+    mno int(50) not null, -- 회원번호
+    oINo int(50) not null, -- 주문상품 번호
+    dno int primary key auto_increment, -- 배송 번호
+    dCompanyName varchar(50) not null, -- 택배사 이름
+    dCategory varchar(50) not null, -- 택배 종류(일반구매/반품/교환)
+    dOption varchar(50) not null, -- 택배 옵션(일반/특급/퀵 등)
+    dLocation varchar(50) not null, -- 택배 현재 위치
+    dStartDate DATETIME not null, -- 배송 시작일
+    dEndDate DATETIME, -- 배송 종료일
+    dStatus varchar(50) not null, -- 배송 상태(배송준비중 등)
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (oINo) references tbl_orderItem (oINo)
+);
+
+insert into tbl_delivery (mno, oINo, dCompanyName, dCategory, dOption, dLocation, dStartDate, dStatus)
+    values (2,4,'한진택배','반품','일반배송','서울',now(),'배송중');
+
 
 commit;
 

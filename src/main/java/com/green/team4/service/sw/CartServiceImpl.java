@@ -21,7 +21,7 @@ public class CartServiceImpl implements CartService{
     public String register(CartVO cartVO) {
         log.info("CartService => register 실행 => 받은 cartVO: "+cartVO);
         // 중복 데이터 검토
-        CartVO cart = cartMapper.getOneByPno(cartVO.getPno());
+        CartVO cart = cartMapper.getOneByPnoMno(cartVO.getPno(),cartVO.getMno());
         if(cart==null){
             int result = cartMapper.insert(cartVO);
             log.info("CartService => register 실행 후 등록된 데이터 개수: "+result);
