@@ -31,65 +31,100 @@
     <div class="page-section section pt-120 pb-80">
         <div class="container">
             <div class="row">
-                <form action="#">
-                    <div class="col-xs-12">
-                        <div class="wishlist-table table-responsive mb-40">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th class="pro-title">대분류</th>
-                                    <th class="pro-title">중분류</th>
-                                    <th class="pro-title">상품번호</th>
-                                    <th class="pro-title">상품명</th>
-                                    <th class="pro-price">가격</th>
-                                    <th class="pro-thumbnail">이미지</th>
-                                    <th class="pro-title">주문하기(개별)</th>
-                                    <th class="pro-remove">삭제</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="cart : ${cartList}">
-                                    <td class="pro-title" th:text="${cart.pMainCategory}"></td>
-                                    <td class="pro-title" th:text="${cart.pSubCategory}"></td>
-                                    <td class="pro-title"  th:text="${cart.pno}"></td>
-                                    <td class="pro-title"><a th:href="@{/shop/read(pno=${cart.pno},mno=${cart.mno})}" th:text="${cart.pName}"></a></td>
-                                    <td class="pro-price" th:text="${cart.pPrice}"></td>
-                                    <td class="pro-thumbnail"><img th:src="${cart.pImage}" alt="" /></td>
-                                    <!-- 개별 주문 페이지 연결 예정 -->
-                                    <td class="pro-title">
-                                        <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
-                                            <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
-                                            <input type="hidden" name="mno" th:value="${cart.pno}" readonly>
-                                            <input type="submit" class="btn" value="개별주문">
-                                        </form>
-                                    </td>
-                                    <td class="pro-remove">
-                                        <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
-                                            <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
-                                            <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
-                                            <input type="hidden" name="pno" th:value="${cart.pno}" readonly>
-                                            <input type="hidden" name="pMainCategory" th:value="${cart.pMainCategory}" readonly>
-                                            <input type="hidden" name="pSubCategory" th:value="${cart.pSubCategory}" readonly>
-                                            <input type="hidden" name="pName" th:value="${cart.pName}" readonly>
-                                            <input type="hidden" name="pPrice" th:value="${cart.pPrice}" readonly>
-                                            <input type="hidden" name="pImage" th:value="${cart.pImage}" readonly>
-                                            <input type="button" name="cartDeleteBtn" class="btn" value="삭제">
-                                        </form>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <br/>
-                            <!-- 장바구니 전체 주문하기 버튼(링크 연결 jquery 예정) -->
-                            <div class="row-cols-lg-1">
-                                <button type="button" class="btn" name="orderAll">전체 주문하기</button>
+                <div class="col-12">
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="cart-table table-responsive mb-40">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="pro-title">대분류</th>
+                                                <th class="pro-title">중분류</th>
+                                                <th class="pro-title">상품번호</th>
+                                                <th class="pro-title">상품명</th>
+                                                <th class="pro-price">가격</th>
+                                                <th class="pro-thumbnail">이미지</th>
+                                                <th class="pro-title">주문하기(개별)</th>
+                                                <th class="pro-remove">삭제</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="cart : ${cartList}">
+                                                <td class="pro-title" th:text="${cart.pMainCategory}"></td>
+                                                <td class="pro-title" th:text="${cart.pSubCategory}"></td>
+                                                <td class="pro-title"  th:text="${cart.pno}"></td>
+                                                <td class="pro-title"><a th:href="@{/shop/read(pno=${cart.pno},mno=${cart.mno})}" th:text="${cart.pName}"></a></td>
+                                                <td class="pro-price" th:text="${cart.pPrice}"></td>
+                                                <td class="pro-thumbnail"><img th:src="${cart.pImage}" alt="" /></td>
+                                                <!-- 개별 주문 페이지 연결 예정 -->
+                                                <td class="pro-title">
+                                                    <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
+                                                        <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
+                                                        <input type="hidden" name="mno" th:value="${cart.pno}" readonly>
+                                                        <input type="submit" class="btn" value="개별주문">
+                                                    </form>
+                                                </td>
+                                                <td class="pro-remove">
+                                                    <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
+                                                        <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
+                                                        <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
+                                                        <input type="hidden" name="pno" th:value="${cart.pno}" readonly>
+                                                        <input type="hidden" name="pMainCategory" th:value="${cart.pMainCategory}" readonly>
+                                                        <input type="hidden" name="pSubCategory" th:value="${cart.pSubCategory}" readonly>
+                                                        <input type="hidden" name="pName" th:value="${cart.pName}" readonly>
+                                                        <input type="hidden" name="pPrice" th:value="${cart.pPrice}" readonly>
+                                                        <input type="hidden" name="pImage" th:value="${cart.pImage}" readonly>
+                                                        <input type="button" name="cartDeleteBtn" class="btn" value="삭제">
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
+                            <!-- Cart Total 요약 -->
+                            <!-- 공란 -->
+                            <div class="col-xl-8 col-md-7 col-12">
+                                <div class="cart-buttons mb-30">
+                                </div>
+                                <div class="cart-coupon mb-40">
+                                </div>
+                            </div>
+                            <!-- Cart 요약 및 주문 연결 -->
+                            <div class="col-xl-4 col-md-5 col-12">
+                                <div class="cart-total mb-40">
+                                    <h3>장바구니 요약</h3>
+                                    <table>
+                                        <tbody>
+                                        <tr class="cart-subtotal">
+                                            <th>Subtotal</th>
+                                            <td><span class="amount">$306.00</span></td>
+                                        </tr>
+                                        <tr class="order-total">
+                                            <th>Total</th>
+                                            <td>
+                                                <strong><span class="amount">$306.00</span></strong>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="proceed-to-checkout section mt-30">
+                                        <!-- 주문 페이지 연결 -->
+                                        <a href="#">전체 주문하러 가기</a>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+
     <!-- hidden data -->
     <input type="hidden" name="mno" th:value="${mno}" readonly>
 </body>

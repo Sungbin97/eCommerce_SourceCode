@@ -81,7 +81,7 @@ public class UploadController {
                 // 썸네일 생성
                 String thumbnailSaveName = uploadPath+File.separator+folderPath+File.separator+"s_"+uuid+"_"+fileName; // s_를 추가로 붙여줌
                 File thumbnailFile = new File(thumbnailSaveName);
-                Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,100,100);
+                Thumbnailator.createThumbnail(savePath.toFile(),thumbnailFile,300,300);
 
                 // html에 넘겨줄 List에 저장
                 resultDTOList.add(new UploadResultDTO(fileName,uuid,folderPath));
