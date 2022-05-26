@@ -38,15 +38,19 @@
                                 <tr>
                                     <th class="pro-stock-stauts">주문일자</th>
                                     <th class="pro-title">주문번호</th>
+                                    <th class="pro-title">주문세부</th>
                                     <th class="pro-title">결재상태</th>
                                     <th class="pro-price">가격</th>
-                                    <th class="pro-title">배송</th>
+                                    <th class="pro-title">배송조회</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="order : ${orderList}">
                                     <td class="pro-stock-stauts" th:text="${order.orderDate}"></td>
-                                    <td class="pro-title"><a th:href="@{/sw/mypage/order/read(ono=${order.ono})}" th:text="${order.ono}"></a></td>
+                                    <td class="pro-title">[[${order.ono}]]</td>
+                                    <td class="pro-title">
+                                        <a th:href="@{/sw/mypage/order/read(ono=${order.ono})}">[[조회]]</a>
+                                    </td>
                                     <td class="pro-title" th:text="${order.tPayStatus}"></td>
                                     <td class="pro-price" th:text="${order.tTotalPrice}"></td>
                                     <td class="pro-title">

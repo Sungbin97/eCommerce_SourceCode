@@ -32,7 +32,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#">
+                    <form>
                         <div class="row">
                             <div class="col-12">
                                 <div class="cart-table table-responsive mb-40">
@@ -43,7 +43,9 @@
                                                 <th class="pro-title">중분류</th>
                                                 <th class="pro-title">상품번호</th>
                                                 <th class="pro-title">상품명</th>
-                                                <th class="pro-price">가격</th>
+                                                <th class="pro-price">가격(개당,할인 후)</th>
+                                                <th class="pro-price">주문수량</th>
+                                                <th class="pro-price">총 결제금액</th>
                                                 <th class="pro-thumbnail">이미지</th>
                                                 <th class="pro-title">주문하기(개별)</th>
                                                 <th class="pro-remove">삭제</th>
@@ -54,8 +56,10 @@
                                                 <td class="pro-title" th:text="${cart.pMainCategory}"></td>
                                                 <td class="pro-title" th:text="${cart.pSubCategory}"></td>
                                                 <td class="pro-title"  th:text="${cart.pno}"></td>
-                                                <td class="pro-title"><a th:href="@{/shop/read(pno=${cart.pno},mno=${cart.mno})}" th:text="${cart.pName}"></a></td>
-                                                <td class="pro-price" th:text="${cart.pPrice}"></td>
+                                                <td class="pro-title"><a th:href="@{/shop/read(pno=${cart.pno},mno=${cart.mno})}" th:text="${cart.cName}"></a></td>
+                                                <td class="pro-price" th:text="${cart.cPrice}"></td>
+                                                <td class="pro-price" th:text="${cart.cCount}"></td>
+                                                <td class="pro-price" th:text="${cart.cTotalPrice}"></td>
                                                 <td class="pro-thumbnail"><img th:src="${cart.pImage}" alt="" /></td>
                                                 <!-- 개별 주문 페이지 연결 예정 -->
                                                 <td class="pro-title">
@@ -67,14 +71,7 @@
                                                 </td>
                                                 <td class="pro-remove">
                                                     <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
-                                                        <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
                                                         <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
-                                                        <input type="hidden" name="pno" th:value="${cart.pno}" readonly>
-                                                        <input type="hidden" name="pMainCategory" th:value="${cart.pMainCategory}" readonly>
-                                                        <input type="hidden" name="pSubCategory" th:value="${cart.pSubCategory}" readonly>
-                                                        <input type="hidden" name="pName" th:value="${cart.pName}" readonly>
-                                                        <input type="hidden" name="pPrice" th:value="${cart.pPrice}" readonly>
-                                                        <input type="hidden" name="pImage" th:value="${cart.pImage}" readonly>
                                                         <input type="button" name="cartDeleteBtn" class="btn" value="삭제">
                                                     </form>
                                                 </td>
@@ -98,14 +95,14 @@
                                     <h3>장바구니 요약</h3>
                                     <table>
                                         <tbody>
-                                        <tr class="cart-subtotal">
-                                            <th>Subtotal</th>
-                                            <td><span class="amount">$306.00</span></td>
-                                        </tr>
+<!--                                        <tr class="cart-subtotal">-->
+<!--                                            <th>Subtotal</th>-->
+<!--                                            <td><span class="amount">[[${cartTotalPrice}]] 원</span></td>-->
+<!--                                        </tr>-->
                                         <tr class="order-total">
                                             <th>Total</th>
                                             <td>
-                                                <strong><span class="amount">$306.00</span></strong>
+                                                <strong><span class="amount">[[${cartTotalPrice}]] 원</span></strong>
                                             </td>
                                         </tr>
                                         </tbody>

@@ -13,9 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService{
 
-    // 의존성 주입
     private final CartMapper cartMapper;
-
 
     @Override
     public String register(CartVO cartVO) {

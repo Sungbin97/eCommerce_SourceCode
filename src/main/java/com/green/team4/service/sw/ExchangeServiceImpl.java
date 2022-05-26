@@ -49,7 +49,7 @@ public class ExchangeServiceImpl implements ExchangeService{
         // 난수 생성 (10자리)
         String randNum = "";
         for (int i = 0; i < 10; i++) {
-            randNum += String.valueOf(Math.floor(Math.random()*8));
+            randNum += String.valueOf((int)Math.floor(Math.random()*8));
         }
 
         // 주문번호 조합 생성
@@ -211,9 +211,10 @@ public class ExchangeServiceImpl implements ExchangeService{
 
     @Transactional
     @Override
-    public void cancel(String ono, int pno, int eno) {
+    public void cancelAndReturn(String ono, int pno, int eno) { // 취소/반품 처리 진행
         log.info("ExchangeService => cancel 실행 => 받은 ono: "+ono);
         log.info("ExchangeService => cancel 실행 => 받은 pno: "+pno);
+        log.info("ExchangeService => cancel 실행 => 받은 eno: "+eno);
 
         // 해당 주문서 상태 변경 및 새로운 주문서 발행
         // (1) 기존 주문서 취소처리

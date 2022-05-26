@@ -16,10 +16,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-banner-content">
-                        <h1 th:text="'주문취소관리'"></h1>
+                        <h1 th:text="'반품관리'"></h1>
                         <ul class="breadcrumb">
                             <li><a href="#" th:id="goBack">adpage</a></li>
-                            <li class="active">cancelList</li>
+                            <li class="active">returnList</li>
                         </ul>
                     </div>
                 </div>
@@ -47,28 +47,28 @@
                                     <th class="pro-title">옵션1</th>
                                     <th class="pro-title">옵션2</th>
                                     <th class="pro-title">색상</th>
-                                    <th class="pro-add-to-cart">취소처리</th>
+                                    <th class="pro-add-to-cart">반품처리</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="cancel : ${cancelList}">
-                                    <td class="pro-title" th:text="${cancel.ono}"></td>
-                                    <td class="pro-title" th:text="${cancel.pno}"></td>
-                                    <td class="pro-title" th:text="${cancel.exCategory}"></td>
-                                    <td class="pro-title" th:text="${cancel.exContent}"></td>
-                                    <td class="pro-title" th:text="${cancel.exStatus}"></td>
-                                    <td class="pro-title" th:text="${cancel.exDate}"></td>
-                                    <td class="pro-title" th:text="${cancel.exEndDate}"></td>
-                                    <td class="pro-title" th:text="${cancel.eOption}"></td>
-                                    <td class="pro-title" th:text="${cancel.eOption2}"></td>
-                                    <td class="pro-title" th:text="${cancel.color}"></td>
-                                    <!-- 취소 처리 실행 form -->
+                                <tr th:each="return : ${returnList}">
+                                    <td class="pro-title" th:text="${return.ono}"></td>
+                                    <td class="pro-title" th:text="${return.pno}"></td>
+                                    <td class="pro-title" th:text="${return.exCategory}"></td>
+                                    <td class="pro-title" th:text="${return.exContent}"></td>
+                                    <td class="pro-title" th:text="${return.exStatus}"></td>
+                                    <td class="pro-title" th:text="${return.exDate}"></td>
+                                    <td class="pro-title" th:text="${return.exEndDate}"></td>
+                                    <td class="pro-title" th:text="${return.eOption}"></td>
+                                    <td class="pro-title" th:text="${return.eOption2}"></td>
+                                    <td class="pro-title" th:text="${return.color}"></td>
+                                    <!-- 반품 처리 실행 form -->
                                     <td class="pro-add-to-cart">
                                         <form th:action="@{/sb/order/cancelReg}" method="post">
-                                            <input type="hidden" name="ono" th:value="${cancel.ono}" readonly>
-                                            <input type="hidden" name="pno" th:value="${cancel.pno}" readonly>
-                                            <input type="hidden" name="eno" th:value="${cancel.eno}" readonly>
-                                            <button type="submit" th:if="${cancel.exStatus != '취소완료'}" class="btn">취소</button>
+                                            <input type="hidden" name="ono" th:value="${return.ono}" readonly>
+                                            <input type="hidden" name="pno" th:value="${return.pno}" readonly>
+                                            <input type="hidden" name="eno" th:value="${return.eno}" readonly>
+                                            <button type="submit" th:if="${return.exStatus != '반품완료'}" class="btn">반품</button>
                                         </form>
                                     </td>
                                 </tr>

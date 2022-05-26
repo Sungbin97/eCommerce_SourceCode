@@ -80,11 +80,34 @@ public class AdminOrderController {
     public String cancelReg(String ono, int pno, int eno){
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 ono: "+ono);
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 ono: "+pno);
+        log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 eno: "+eno);
 
-        exchangeService.cancel(ono,pno,eno);
+        exchangeService.cancelAndReturn(ono,pno,eno);
 
         return "redirect:/sb/order/cancelList";
     }
+
+    // 반품 신청 관리 --------------------------------------------------------------------------------
+    @GetMapping("/returnList") // 반품 관리 페이지 => 반품 처리는 취소 처리 Service 동일하게 적용(cancelReg)
+    public void returnList(Model model){
+        log.info("AdminOrderController => returnList(GET) 실행");
+
+        // 취소/반품/교환 신청 목록 가져오기
+        List<ExchangeVO> exchangeList = exchangeService.readAllAdmin();
+        log.info("exchangeList: "+exchangeList);
+
+        // 반품신청 건만 별도 저장
+        List<ExchangeVO> returnList = new ArrayList<>();
+        exchangeList.forEach(exchangeVO -> {
+            if(exchangeVO.getExCategory().equals("반품")){
+                returnList.add(exchangeVO);
+            }
+        });
+        log.info("returnList: "+returnList);
+
+        model.addAttribute("returnList",returnList);
+    }
+
 
     // 배송 처리 --------------------------------------------------------------------------------
     @GetMapping("/deliveryReg") // 배송 신규등록 화면

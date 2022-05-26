@@ -18,5 +18,5 @@ public interface ExchangeService {
     int remove(int eno); // 취소/반품/교환 삭제
 
     // 취소/반품/교환 -----------------------------------------------------------------
-    void cancel(String ono, int pno, int eno); // 취소 처리 진행
+    void cancelAndReturn(String ono, int pno, int eno); // 취소/반품 처리 진행
 }

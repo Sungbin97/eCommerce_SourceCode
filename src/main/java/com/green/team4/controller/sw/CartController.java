@@ -28,8 +28,12 @@ public class CartController {
     public void cartRead(int mno, Model model){ // 장바구니 List 가져오기
         log.info("CartController => cartRead(GET) 실행 => 받은 mno: "+mno);
         List<CartVO> cartList = cartService.readAll(mno);
+        int cartTotalPrice = 0;
+        for(CartVO cart : cartList) cartTotalPrice += cart.getCTotalPrice();
+
         model.addAttribute("mno",mno);
-        model.addAttribute("cartList",cartList);
+        model.addAttribute("cartList",cartList); // 장바구니 List
+        model.addAttribute("cartTotalPrice",cartTotalPrice); // 장바구니 물건 총 금액
     }
 
     @PostMapping("/register")
