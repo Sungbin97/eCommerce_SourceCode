@@ -24,6 +24,7 @@ public class OrderItemVO {
     private int iDiscount; // 할인율
     private int iDisPrice; // 할인된 상품 가격
     private int iCount; // 상품 수량(주문한 상품 수량)
+    private int iSavePoint; // 상품 적립포인트
     private int iTotalPrice; // 최종 결재금액
 
     private String iDeliveryStatus; // 배송 상태

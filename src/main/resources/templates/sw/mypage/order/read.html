@@ -72,7 +72,7 @@
                                                 <input type="hidden" name="dCategory" th:value="'일반'" readonly>
                                                 <input type="hidden" name="oINo" th:value="${item.oINo}" readonly>
                                                 <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
-                                                <input class="btn" type="submit" name="getDelivery" value="배송조회">
+                                                <input class="btn" type="submit" th:if="${item.iDeliveryStatus != '배송전'}" name="getDelivery" value="배송조회">
                                             </form>
                                         </td>
                                         <td class="pro-title">

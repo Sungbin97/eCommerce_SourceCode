@@ -76,4 +76,23 @@ public class OrderServiceImpl implements OrderService{
         log.info("OrderService => modifyItem 실행 후 수정된 데이터 개수: "+result);
         return result;
     }
+
+    @Override
+    public int modifyStatus(OrderVO orderVO) { // 관리자 결제상태 업데이트(취소/반품/교환때 활용)
+        log.info("OrderService => modifyStatus 실행 => 받은 orderVO: "+orderVO);
+        int result = orderMapper.update(orderVO);
+        log.info("OrderService => modifyStatus 실행 후 수정된 데이터 개수: "+result);
+        return result;
+    }
+
+    @Override
+    public int register(OrderVO orderVO) { // 취소/반품/교환 새주문서 등록
+        log.info("OrderService => register 실행 => 받은 orderVO: "+orderVO);
+        int result = orderMapper.insert(orderVO); // 주문서 등록
+        orderVO.getOrderItemList().forEach(i->{
+            orderItemMapper.insert(i); // 주문상품 List에서 하나씩 꺼내서 등록
+        });
+        log.info("OrderService => register 실행 후 등록된 데이터 개수: "+result);
+        return result;
+    }
 }

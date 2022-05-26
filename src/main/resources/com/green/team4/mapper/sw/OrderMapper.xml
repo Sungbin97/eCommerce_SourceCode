@@ -39,5 +39,22 @@
         left outer join tbl_memberInfo on tbl_order.mno = tbl_memberInfo.mno
         order by tbl_order.orderDate desc
     </select>
+
+    <!-- Order 데이터 수정(취소/반품/교환 신청, 결제상태만 변경 (관리자 전용)) -->
+    <update id="update">
+        update tbl_order
+        set tPayStatus=#{tPayStatus}
+        where ono=#{ono}
+    </update>
+
+    <!-- Order 데이터 등록(취소/반품/교환 처리 완료 후 새 주문서 등록) -->
+    <insert id="insert">
+        insert into tbl_order (mno, ono, receiverName, receiverPhone,
+                               postcode, address, detailAddress, message,
+                               tProductPrice, tShipFee, tUsePoint, tTotalPrice,
+                               tSavePoint)
+        values (#{mno},#{ono},#{receiverName},#{receiverPhone},#{postcode},#{address},#{detailAddress},
+                #{message},#{tProductPrice},#{tShipFee},#{tUsePoint},#{tTotalPrice},#{tSavePoint})
+    </insert>
     
 </mapper>
