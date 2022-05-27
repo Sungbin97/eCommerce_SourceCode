@@ -3276,7 +3276,7 @@ a.meanmenu-reveal i {
   margin-right: 10px;
   margin-top: 3px;
 }
-.login-reg-form form input[type="submit"] {
+.login-reg-form form input[type="submit"]{
   background-color: #282828;
   border: medium none;
   color: #fff;
@@ -3287,6 +3287,7 @@ a.meanmenu-reveal i {
   text-transform: uppercase;
   width: auto;
 }
+
 .login-reg-form form input[type="submit"]:hover {
   background-color: #3f3f3f;
 }

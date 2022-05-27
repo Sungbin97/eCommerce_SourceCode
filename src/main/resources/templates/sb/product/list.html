@@ -85,12 +85,11 @@
                 <a th:href="@{/sb/product/modify(pno=${getOne.pno})}"><li>
                     <img th:src="|/display?fileName=${getOne.pImage}|" style="width: 150px; height: 150px"/></li></a>
                 <ul>
-                <li th:text="'품번: '+${getOne.pno}"></li>
-                <li th:text="'품명: '+${getOne.pName}"/>
-                <li th:text="'카테고리: '+${getOne.pMainCategory}"/>
-                <li th:text="'가격: '+${getOne.pPrice}"/>
-                <li th:text="'이미지: '+${getOne.pImage}"/>
-                <li th:text="'상품정보: '+${getOne.pInformation}"/>
+                    <li th:text="'상품번호: '+${getOne.pno}"></li>
+                    <li th:text="'상품명: '+${getOne.pName}"/>
+                    <li th:text="'메인카테고리: '+${getOne.pMainCategory}"/>
+                    <li th:text="'서브카테고리: '+${getOne.pSubCategory}"/>
+                    <li th:text="'등록일: '+${getOne.pRegdate}"/>
                 </ul>
             </form>
             <h5>전체 상품 목록</h5>
