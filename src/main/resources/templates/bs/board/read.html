@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${item.title}"></title>
+    <!-- head fragment -->
+    <th:block th:replace="bs/board/fragments/header.html :: head"></th:block>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<body>
+<!-- header fragment -->
+<th:block th:replace="bs/board/fragments/header.html :: headerFragment"></th:block>
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-45">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <!-- Blog Item -->
+                <div class="blog-item mb-75">
+                    <!-- Image -->
+                    <div class="image"><img src="img/blog/3.jpg" alt=""></div>
+                    <!-- Content -->
+                    <div class="content fix">
+                        <!-- Date -->
+                        <span th:if="${item.modDate==null}">
+                            <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}"></span>
+                        </span>
+                        <span th:if="${item.modDate!=null}">
+                            <span class="date" th:text="${#dates.format(item.modDate, 'MM-dd')}"></span>
+                        </span>
+                        <!-- Title -->
+                        <h4 class="title" th:text="${item.title}"></h4>
+                        <p th:text="${item.content}"></p>
+                        <div class="row mt-50 mb-20">
+                            <div class="col-md-6 col-12 mb-30"><img src="img/blog/4.jpg" alt=""></div>
+                            <div class="col-md-6 col-12 mb-30"><img src="img/blog/5.jpg" alt=""></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bs-div-btn">
+                <button class="btn" id="modify">수정</button>
+                <button class="btn" id="list">목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div>
+    <div class="blog-section section pb-80">
+        <div class="container">
+            <div class="row">
+                <!-- Home Blog Item -->
+                <div class="col-lg-6 col-12  mb-40">
+                    <div class="home-blog-item">
+                        <!-- Image -->
+                        <a href="blog-details.html" class="image float-start"><img src="img/blog/1.jpg" alt=""></a>
+                        <!-- Content -->
+                            <!-- UserName : userid/상세정보등 mypage-blog로 연결 -->
+                            <h4 class="title" th:text="${item.userName}"><a href="#"></a></h4>
+                            <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>                     </div>
+                    </div>
+                </div>
+                <!-- Home Blog Item -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="openForm" action="modify" method="get">
+    <input type="hidden" name="page" th:value="${cri.page}">
+    <input type="hidden" name="pageNum" th:value="${cri.pageNum}">
+    <input type="hidden" name="uNo" th:value="${item.uNo}">
+</form>
+</body>
+<!-- PAGE SECTION END -->
+
+<!-- footer fragment -->
+<th:block th:replace="bs/board/fragments/footer.html :: footerFragment"></th:block>
+<script>
+    $(document).ready(function (){
+        $("#modify").on("click",function (e){
+            e.preventDefault();
+            $('#openForm').submit();
+        })
+        let openForm = $("#openForm")
+        $("#list").on("click",function (e){
+            e.preventDefault();
+            openForm.attr('action','list');
+            openForm.submit();
+        })
+
+
+    })
+
+</script>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.team4.mapper.bs.BoardMapper">
+    <!-- result Map : myBatis에서 제공하는 자동 매핑으로 해결이 어려운 경우를 위해 구조를 설계할 수 있도록 만들어진 도구이다. -->
+
+    <!--  sql 태그를 사용해 자주 사용하는 칼럼을 따로 묶어주었다. sql은 스네이크 케이스, dto는 카멜 케이스를 사용하므로
+        application.properties에 map-underscore-to-comel-case를 추가할 것-->
+
+
+    <insert id="insert" parameterType="com.green.team4.vo.bs.BoardVO">
+        insert into user_tbl values ( null, #{userId},#{userName},#{userPassword},#{title},#{content},now(),null)
+    </insert>
+
+    <select id="readOne" parameterType="long" resultType="com.green.team4.vo.bs.BoardVO">
+        select uNo, userName, title, content, regDate, modDate
+        from user_tbl
+        where uNo=#{uNo}
+    </select>
+
+    <update id="modify" parameterType="com.green.team4.vo.bs.BoardVO">
+        update user_tbl set
+                            title = #{title},
+                            content = #{content},
+                            modDate = now()
+        where uNo= #{uNo}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from user_tbl where uNo=#{uNo}
+    </delete>
+
+    <select id="readList" parameterType="com.green.team4.vo.bs.BoardVO" resultType="com.green.team4.vo.bs.BoardVO">
+        select uNo, title, content,username, regDate, modDate from user_tbl;
+    </select>
+    <!--    include : sql 조각을 사용할 수 있게 해준다. id로 연결-->
+    <select id="getPageList" parameterType="com.green.team4.vo.bs.Criteria" resultType="com.green.team4.vo.bs.BoardVO">
+        select uNo, title, content, userName, regDate, modDate
+        from user_tbl
+        <trim prefix="where">
+            <if test="type=='title' and keyword != null and keyword !='' ">
+                title like concat('%',#{keyword},'%')
+            </if>
+            <if test="type=='content' and keyword != null and keyword !='' ">
+                content like concat('%',#{keyword},'%')
+            </if>
+            <if test="type=='userName' and keyword != null and keyword !='' ">
+                userName like concat('%',#{keyword},'%')
+            </if>
+            <if test="type=='' and keyword==''">
+
+            </if>
+        </trim>
+
+        order by uNo desc, regDate desc
+        limit #{page}, #{pageNum}
+    </select>
+    <select id="getTotalCount" resultType="int">
+        select count(*) from user_tbl where uNo > 0
+        <choose>
+            <when test="type=='title' and keyword != null and keyword !=''">
+                and title like concat('%',#{keyword},'%')
+            </when>
+            <when test="type=='content' and keyword != null and keyword !=''">
+                and content like concat('%',#{keyword},'%')
+            </when>
+            <when test="type=='userName' and keyword != null and keyword !=''">
+                and userName like concat('%',#{keyword},'%')
+            </when>
+        </choose>
+
+    </select>
+</mapper>
