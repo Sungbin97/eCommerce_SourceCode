@@ -5,6 +5,13 @@
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
     <title>mypage-order-read</title>
 </head>
+<style>
+    tr#item td, tr#itemHead th{
+        text-align: center;
+    }
+</style>
+
+
 <body>
     <!-- mypage header fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
@@ -36,10 +43,10 @@
                         <h3>주문 상품 세부내역은 <a data-bs-toggle="collapse" href="#checkout-login">여기를 클릭하세요</a></h3>
                         <div id="checkout-login" class="checkout-login collapse fix">
                             <div class="checkout-login-wrapper mt-30">
-                                <p>주문상품 세부내역</p>
+                                <p>주문상품별 세부내역</p>
                                 <table id="orderTable" class="table">
                                     <thead>
-                                    <tr>
+                                    <tr id="itemHead">
                                         <th>상품명</th>
                                         <th>상품 옵션명</th>
                                         <th>상품 옵션 세부</th>
@@ -49,14 +56,15 @@
                                         <th>할인 후 상품 가격</th>
                                         <th>주문 수량</th>
                                         <th>최종 결재금액</th>
+                                        <th>적립 포인트</th>
                                         <th>배송조회</th>
                                         <th>취소/반품/교환</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="item:${orderVO.orderItemList}">
+                                    <tr id="item" th:each="item:${orderVO.orderItemList}">
                                         <!-- 상품 세부페이지 링크 연결 예정 -->
-                                        <td name="iName"><a th:href="@{/shop/read(pno=${item.pno},mno=${orderVO.mno})}"><strong>[[${item.iName}]]</strong></a></td>
+                                        <td name="iName"><a th:href="@{/shop/read(pno=${item.pno},mno=${orderVO.mno})}"><strong style="text-align: center">[[${item.iName}]]</strong></a></td>
                                         <input type="hidden" name="pno" th:value="${item.pno}" readonly>
                                         <td name="iOptionName" th:text="${item.iOptionName}"></td>
                                         <td name="iOption" th:text="${item.iOption}"></td>
@@ -66,6 +74,7 @@
                                         <td name="iDisPrice" th:text="${item.iDisPrice}"></td>
                                         <td name="iCount" th:text="${item.iCount}"></td>
                                         <td name="iTotalPrice" th:text="${item.iTotalPrice}"></td>
+                                        <td name="isavePoint" th:text="${item.iSavePoint}"></td>
                                         <td class="pro-title">
                                             <!-- 배송조회 controller 전송용 form -->
                                             <form th:action="@{/sw/mypage/delivery/read}" th:method="get">
@@ -82,7 +91,7 @@
                                                 <input type="hidden" name="ono" th:value="${item.ono}" readonly>
                                                 <input type="hidden" name="pno" th:value="${item.pno}" readonly>
                                                 <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
-                                                <input th:if="${item.iExStatus.equals('미신청') && orderVO.tPayStatus.equals('결제완료')}" class="btn" type="submit" name="addExchange" value="신청하기">
+                                                <input style="margin: auto" th:if="${item.iExStatus.equals('미신청') && orderVO.tPayStatus.equals('결제완료')}" class="btn" type="submit" name="addExchange" value="신청하기">
                                             </form>
                                         </td>
                                     </tr>

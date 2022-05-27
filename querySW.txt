@@ -21,6 +21,8 @@ create table tbl_memberInfo(
     point int(100) default 0 -- 회원 보유 포인트
 );
 
+update tbl_memberInfo set point = 750 where mno=2;
+
 -- 탈퇴 회원 테이블
 create table tbl_deleteMem(
     dMNo int(30) primary key auto_increment, -- 탈퇴회원 번호
@@ -76,6 +78,34 @@ create table tbl_product_opt(
     pOptionPrice int(11) default 0 -- 옵션 추가금액
 );
 
+select distinct pOption, pOptionName, pOption2, pOptionName2 from tbl_product_opt where pno=402;
+
+insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
+                             pOption2, pOptionName2, pColor, pOptionPrice)
+values (402,10,'S','사이즈','토끼','그림','red',200);
+insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
+                             pOption2, pOptionName2, pColor, pOptionPrice)
+values (402,10,'S','사이즈','토끼','그림','blue',200);
+insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
+                             pOption2, pOptionName2, pColor, pOptionPrice)
+values (402,10,'S','사이즈','다람쥐','그림','red',200);
+insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
+                             pOption2, pOptionName2, pColor, pOptionPrice)
+values (402,10,'S','사이즈','다람쥐','그림','blue',200);
+
+insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
+                             pOption2, pOptionName2, pColor, pOptionPrice)
+values (402,10,'M','사이즈','토끼','그림','red',200);
+insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
+                             pOption2, pOptionName2, pColor, pOptionPrice)
+values (402,10,'M','사이즈','토끼','그림','blue',200);
+insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
+                             pOption2, pOptionName2, pColor, pOptionPrice)
+values (402,10,'M','사이즈','다람쥐','그림','red',200);
+insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
+                             pOption2, pOptionName2, pColor, pOptionPrice)
+values (402,10,'M','사이즈','다람쥐','그림','blue',200);
+
 -- 주문 테이블(tbl_orderItem과 set)
 create table tbl_order(
     mno int(30) not null, -- 회원번호
@@ -103,6 +133,21 @@ insert into tbl_order (mno, ono, receiverName, receiverPhone,
 values (1,'12345678','받는이이름','받는이연락처','13455','기본주소','세부주소','감사합니다.'
        ,5000,3000,4000,4000,100);
 
+insert into tbl_order (mno, ono, receiverName, receiverPhone,
+                       postcode, address, detailAddress, message,
+                       tProductPrice, tShipFee, tUsePoint, tTotalPrice,
+                       tSavePoint)
+values (2,'123456789','받는이이름','받는이연락처','13455','기본주소','세부주소','감사합니다.'
+       ,3000,3000,1000,5000,250);
+
+insert into tbl_order (mno, ono, receiverName, receiverPhone,
+                       postcode, address, detailAddress, message,
+                       tProductPrice, tShipFee, tUsePoint, tTotalPrice,
+                       tSavePoint)
+values (2,'1234567890','받는이이름','받는이연락처','1212','기본주소','세부주소','테스트입니다.'
+       ,15000,3000,1000,17000,750);
+
+
 -- 주문 상품 테이블
 create table tbl_orderItem(
     ono varchar(50), -- 주문 번호
@@ -118,7 +163,7 @@ create table tbl_orderItem(
     iDiscount int(30), -- 상품 할인률(%)
     iDisPrice int(50), -- 할인된 상품 가격 (상품 가격에 할인률 적용한 가격)
     iCount int(50), -- 상품 수량(주문한 상품 수량)
-    savePoint int(50), -- 새로 추가(하나의 상품별 적립 포인트)!!!!!!!!!!!!!!
+    isavePoint int(50), -- 새로 추가(하나의 상품별 적립 포인트)!!!!!!!!!!!!!!
     iTotalPrice int(50), -- 최종 결재금액
     iDeliveryStatus varchar(30) default '배송전', -- 배송 상태
     iExStatus varchar(30) default '미신청', -- 교환반품취소 신청 상태
@@ -126,14 +171,16 @@ create table tbl_orderItem(
     FOREIGN KEY (pno) REFERENCES tbl_product(pno)
 );
 
-insert into tbl_orderItem (ono, pno, iName, iOption,
-                           iOptionName, iColor, iPrice,
-                           iDiscount, iDisPrice, iCount,
+insert into tbl_orderItem (ono, pno, iName, iOption, iOptionName, iOption2, iOptionName2,
+                           iColor, iPrice, iDiscount, iDisPrice, iCount, iSavePoint,
                            iTotalPrice)
-values ('12345678',5,'상품명5','상품명옵션','상품명옵션이름','상품색상',2000,
-        50,1000,5,5000);
+values ('1234567890',404,'테스트상품명2','95','사이즈','별','장식','BLACK',5000,0,5000,1,250,5000);
+insert into tbl_orderItem (ono, pno, iName, iOption, iOptionName, iOption2, iOptionName2,
+                           iColor, iPrice, iDiscount, iDisPrice, iCount, iSavePoint,
+                           iTotalPrice)
+values ('1234567890',405,'테스트상품명3','115','사이즈','해','장식','RED',10000,0,10000,1,500,10000);
 
-
+delete from tbl_order where ono='123456789';
 -- 리뷰 테이블
 create table tbl_review(
     rno int(10) not null auto_increment primary key,
@@ -187,11 +234,29 @@ create table tbl_cart(
     mno int(30) not null, -- 회원번호
     cno int(30) primary key auto_increment, -- 장바구니 번호
     pno int(30) not null, -- 상품번호
+    cName varchar(50), -- 상품명
+    cOption varchar(50), -- 상품 옵션1
+    cOptionName varchar(50), -- 상품 옵션1 이름
+    cOption2 varchar(50), -- 상품 옵션1
+    cOptionName2 varchar(50), -- 상품 옵션1 이름
+    cColor varchar(50), -- 상품 색상명
+    cPrice int(50), -- 상품 가격(순수 상품가격)
+    cDiscount int(30), -- 상품 할인률(%)
+    cDisPrice int(50), -- 할인된 상품 가격 (상품 가격에 할인률 적용한 가격)
+    cCount int(50), -- 상품 수량(주문한 상품 수량)
+    cTotalPrice int(50), -- 최종 결재금액
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (pno) references tbl_product (pno)
 );
+insert into tbl_cart (mno, pno, cName, cOption, cOptionName, cOption2,
+                      cOptionName2, cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
+values (2,1,'상품명1','사이즈','100','장식','다람쥐','Blue',1000,0.5,500,2,1000);
+insert into tbl_cart (mno, pno, cName, cOption, cOptionName, cOption2,
+                      cOptionName2, cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
+values (2,2,'상품명2','사이즈','100','장식','토끼','Red',1000,0,1000,2,2000);
 
--- 취소/반품/교환 테이블
+
+-- 취소/반품/교환 테이블 *수정 SW 0525
 create table tbl_exchange(
     mno int(30) not null, -- 회원번호(tbl_memberInfo)
     ono varchar(50) not null, -- 주문번호(tbl_order)
@@ -202,10 +267,16 @@ create table tbl_exchange(
     exStatus varchar(50) not null, -- 진행 상태(접수중, 접수완료, 처리완료)
     exDate DATETIME default now(), -- 신청일
     exEndDate DATETIME, -- 처리 완료일
+    eOptionName varchar(50),
+    eOption varchar(50),
+    eOptionName2 varchar(50),
+    eOption2 varchar(50),
+    color varchar(50),
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (ono) references tbl_order (ono),
     foreign key (pno) references tbl_product (pno)
 );
+
 
 -- 취소/반품/교환 신청 첨부파일 테이블
 create table tbl_exchangeFiles(
@@ -256,17 +327,13 @@ create table tbl_delivery(
     dCompanyName varchar(50) not null, -- 택배사 이름
     dCategory varchar(50) not null, -- 택배 종류(일반구매/반품/교환)
     dOption varchar(50) not null, -- 택배 옵션(일반/특급/퀵 등)
-    dLocation varchar(50) not null, -- 택배 현재 위치
-    dStartDate DATETIME not null, -- 배송 시작일
+    dLocation varchar(50), -- 택배 현재 위치
+    dStartDate DATETIME, -- 배송 시작일
     dEndDate DATETIME, -- 배송 종료일
     dStatus varchar(50) not null, -- 배송 상태(배송준비중 등)
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (oINo) references tbl_orderItem (oINo)
 );
-
-insert into tbl_delivery (mno, oINo, dCompanyName, dCategory, dOption, dLocation, dStartDate, dStatus)
-    values (2,4,'한진택배','반품','일반배송','서울',now(),'배송중');
-
 
 commit;
 

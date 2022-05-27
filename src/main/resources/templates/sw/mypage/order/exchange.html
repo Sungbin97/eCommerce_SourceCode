@@ -213,6 +213,13 @@
     $(document).ready(function (e){
 
         // 교환 관련 옵션 태그 비활성화 이벤트
+
+        // (1) 페이지 로딩시 default 숨김
+        $("#eOption").hide();
+        $("#eOption2").hide();
+        $("#color").hide();
+
+        // (2) 교환카테고리 선택 시 활성화
         $("select[name=exCategory]").change(function (){
             if($("select[name=exCategory]").val() === '교환'){
                 $("#eOption").show();

@@ -31,7 +31,6 @@ public class ExchangeServiceImpl implements ExchangeService{
     private final ExchangeFilesMapper exchangeFilesMapper;
     private final OrderService orderService;
     private final MemberInfoMapper memberInfoMapper;
-
     private final ProductOptMapper productOptMapper;
 
 
@@ -64,7 +63,6 @@ public class ExchangeServiceImpl implements ExchangeService{
         // (1) 취소 주문상품을 제외한 '업데이트 주문상품 List' 생성
         List<OrderItemVO> newItemlist = oldVO.getOrderItemList().stream().filter(i->i.getPno()!=pno).collect(Collectors.toList());
         log.info("신규 생성된 주문상품 list: "+newItemlist);
-
 
         // (2) 주문서 결제정보 업데이트에 활용할 정보 준비
         int tShipFee = oldVO.getTShipFee(); // 배송비

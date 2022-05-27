@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,7 @@ public class AdminOrderController {
     }
 
     // 반품 신청 관리 --------------------------------------------------------------------------------
+
     @GetMapping("/returnList") // 반품 관리 페이지 => 반품 처리는 취소 처리 Service 동일하게 적용(cancelReg)
     public void returnList(Model model){
         log.info("AdminOrderController => returnList(GET) 실행");
@@ -108,20 +110,59 @@ public class AdminOrderController {
         model.addAttribute("returnList",returnList);
     }
 
+    // 교환 관리 --------------------------------------------------------------------------------
+
+    @GetMapping("/changeList") // 교환 관리 페이지
+    public void changeList(Model model){
+        log.info("AdminOrderController => changeList(GET) 실행");
+
+        // 취소/반품/교환 신청 목록 가져오기
+        List<ExchangeVO> exchangeList = exchangeService.readAllAdmin();
+        log.info("exchangeList: "+exchangeList);
+
+        // 교환신청 건만 별도 저장
+        List<ExchangeVO> changeList = new ArrayList<>();
+        exchangeList.forEach(exchangeVO -> {
+            if(exchangeVO.getExCategory().equals("교환")){
+                changeList.add(exchangeVO);
+            }
+        });
+        log.info("changeList: "+changeList);
+
+        model.addAttribute("changeList",changeList);
+    }
+
 
     // 배송 처리 --------------------------------------------------------------------------------
     @GetMapping("/deliveryReg") // 배송 신규등록 화면
-    public void deliveryRegister(String ono, int oINo, Model model){
-        log.info("DeliveryController => deliveryRegister(GET) 실행 => 받은 oIno: "+oINo);
+    public void deliveryRegister(
+            @RequestParam(value = "ono", required = false) String ono,
+            @RequestParam(value = "oINo", required = false) Integer oINo,
+            @RequestParam(value = "pno", required = false) Integer pno,
+            Model model){
+        log.info("DeliveryController => deliveryRegister(GET) 실행 => 받은 oINo(일반배송 신청시 넘어옴): "+oINo);
+        log.info("DeliveryController => deliveryRegister(GET) 실행 => 받은 pno(교환배송 신청시 넘어옴): "+pno);
         log.info("DeliveryController => deliveryRegister(GET) 실행 => 받은 ono: "+ono);
 
         // 해당 주문 건의 mno 가져오기
         OrderVO orderVO = orderService.readOne(ono);
         int mno = orderVO.getMno();
 
+        // 주문 상품번호 가져오기
+        if(oINo == null) { // 주문상품번호를 안받아왔다면(교환 페이지에서 넘어온 경우)
+            OrderVO order = orderService.readOne(ono); // 해당 주문서 가져오기
+            order.getOrderItemList().forEach(item->{
+                if(item.getPno()==pno){
+                    int getOINo = item.getOINo();
+                    model.addAttribute("oINo",getOINo);
+                    log.info("별도로 가져온 oINo"+getOINo);
+                }
+            });
+        }
+        else model.addAttribute("oINo",oINo); // 주문상품번호를 받아왔다면(일반 배송 페이지에서 넘어온 경우)
+
         model.addAttribute("mno",mno);
         model.addAttribute("ono",ono);
-        model.addAttribute("oINo",oINo);
     }
 
     @PostMapping("/deliveryReg") // 배송 신규등록 진행
