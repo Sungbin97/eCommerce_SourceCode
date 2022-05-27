@@ -43,6 +43,11 @@
     .thumbs{
         display: inline-block;
     }
+    .modal{
+        margin:0 auto;
+        text-align: center;
+    }
+
 
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -167,7 +172,7 @@
                         <div >
                         <button class="add-to-cart btn_buy first">구매하기</button>
 <!--                            data-bs-toggle="modal" data-bs-target="#exampleModal"-->
-                        <button class="add-to-cart btn_cart btn btn-primary second"  >장바구니 담기</button>
+                        <button class="add-to-cart btn_cart btn btn-primary second " data-bs-toggle="modal" data-bs-target="#exampleModal"  >장바구니 담기</button>
 
                         </div>
                     </div>
@@ -225,61 +230,62 @@
 
                 </div>
             </div>
-
-
         </div>
     </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">안내</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        장바구니에 등록 되었습니다.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>
+                        <a th:href="@{/sw/mypage/cart/list(mno=${member.mno})}"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">안내</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: center">
+                        이미 등록한 상품입니다.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>
+                        <a th:href="@{/sw/mypage/cart/list(mno=${member.mno})}"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
-<!--    &lt;!&ndash; Button trigger modal &ndash;&gt;-->
-<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-<!--        Launch demo modal-->
-<!--    </button>-->
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    장바구니에 등록 되었습니다.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">계속 쇼핑하기</button>
-                    <button type="button" class="btn btn-primary">장바구니 가기</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    이미 등록한 상품입니다.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">계속 쇼핑하기</button>
-                    <button type="button" class="btn btn-primary">장바구니 가기</button>
-                </div>
-            </div>
-        </div>
-    </div>
-<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-<!--        Launch demo modal-->
-<!--    </button>-->
+
+
+
 
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <script th:inline="javascript">
+    // $("#exampleModal").click(function (){
+    //     console.log(this)
+    //      $(this).attr("id","#exampleModal2")
+    // })
+    $(".gotoCart").click(function (){
 
-
+    })
 
     $(".btn_cart").click(function (e){
         e.preventDefault()
@@ -299,8 +305,7 @@
                 console.log(result)
                 if(result === "이미 장바구니에 추가되어있습니다."){
                    let modalID = $(this).data("bs-target")
-                    // $(this).attr("data-bs-target","#exampleModal2")
-
+                     $(this).attr("data-bs-target","#exampleModal2")
                 }
                 else{
                     $(this).attr("data-bs-target","#exampleModal1")
