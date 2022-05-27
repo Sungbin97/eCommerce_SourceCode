@@ -210,9 +210,9 @@ public class ExchangeServiceImpl implements ExchangeService{
     @Transactional
     @Override
     public void cancelAndReturn(String ono, int pno, int eno) { // 취소/반품 처리 진행
-        log.info("ExchangeService => cancel 실행 => 받은 ono: "+ono);
-        log.info("ExchangeService => cancel 실행 => 받은 pno: "+pno);
-        log.info("ExchangeService => cancel 실행 => 받은 eno: "+eno);
+        log.info("ExchangeService => cancelAndReturn 실행 => 받은 ono: "+ono);
+        log.info("ExchangeService => cancelAndReturn 실행 => 받은 pno: "+pno);
+        log.info("ExchangeService => cancelAndReturn 실행 => 받은 eno: "+eno);
 
         // 해당 주문서 상태 변경 및 새로운 주문서 발행
         // (1) 기존 주문서 취소처리
@@ -257,12 +257,14 @@ public class ExchangeServiceImpl implements ExchangeService{
             newMemberInfoVO.setPoint(updatePoint); // 해당 회원 포인트 현황 업데이트
             memberInfoMapper.updateByAdmin(newMemberInfoVO); // DB에 포인트 현황 업데이트한 회원정보 저장
 
-            // (6) 취소 신청 테이블에서 해당 취소신청 건 진행상태 변경
-            ExchangeVO exchangeVO = exchangeMapper.getOne(eno);
-            exchangeVO.setExStatus("취소완료");
-            exchangeVO.setExEndDate(LocalDateTime.now());
-            exchangeMapper.update(exchangeVO);
+
         }
+
+        // (6) 취소 신청 테이블에서 해당 취소신청 건 진행상태 변경
+        ExchangeVO exchangeVO = exchangeMapper.getOne(eno);
+        exchangeVO.setExStatus("취소완료");
+        exchangeVO.setExEndDate(LocalDateTime.now());
+        exchangeMapper.update(exchangeVO);
     }
 
 
