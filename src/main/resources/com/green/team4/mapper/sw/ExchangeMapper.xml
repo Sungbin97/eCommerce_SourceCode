@@ -12,15 +12,18 @@
         </selectKey>
         <![CDATA[
         insert into tbl_exchange (mno, ono, pno, exCategory, exContent,
-                    exStatus, exDate)
-                VALUES (#{mno},#{ono},#{pno},#{exCategory},#{exContent},#{exStatus},#{exDate})
+                    exStatus, exDate, exEndDate, eOptionName, eOption, eOptionName2, eOption2, color)
+                VALUES (#{mno},#{ono},#{pno},#{exCategory},#{exContent},#{exStatus},#{exDate},
+                    #{exEndDate},#{eOptionName},#{eOption},#{eOptionName2},#{eOption2},#{color})
         ]]>
     </insert>
 
     <!-- tbl_exchange 데이터 전체 가져오기(mno 단위) -->
     <select id="getAll" resultType="com.green.team4.vo.sw.ExchangeVO">
         select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.pno,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exDate,exEndDate,
-               tbl_product.pName,tbl_orderItem.iDisPrice,tbl_orderItem.iCount,tbl_orderItem.iTotalPrice
+               tbl_product.pName,tbl_orderItem.iDisPrice,tbl_orderItem.iCount,tbl_orderItem.iTotalPrice,
+               tbl_exchange.exEndDate, tbl_exchange.eOptionName, tbl_exchange.eOption, tbl_exchange.eOptionName2,
+               tbl_exchange.eOption2, tbl_exchange.color
         from tbl_exchange
         left outer join tbl_product on tbl_exchange.pno = tbl_product.pno
         left outer join tbl_orderItem on tbl_exchange.ono = tbl_orderItem.ono and tbl_exchange.pno = tbl_orderItem.pno
@@ -28,10 +31,24 @@
         order by tbl_exchange.exDate
     </select>
 
+    <!-- tbl_exchange 데이터 전체 가져오기 -->
+    <select id="getAllAdmin" resultType="com.green.team4.vo.sw.ExchangeVO">
+        select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.pno,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exDate,exEndDate,
+               tbl_product.pName,tbl_orderItem.iDisPrice,tbl_orderItem.iCount,tbl_orderItem.iTotalPrice,
+               tbl_exchange.exEndDate, tbl_exchange.eOptionName, tbl_exchange.eOption, tbl_exchange.eOptionName2,
+               tbl_exchange.eOption2, tbl_exchange.color
+        from tbl_exchange
+        left outer join tbl_product on tbl_exchange.pno = tbl_product.pno
+        left outer join tbl_orderItem on tbl_exchange.ono = tbl_orderItem.ono and tbl_exchange.pno = tbl_orderItem.pno
+        order by tbl_exchange.exDate
+    </select>
+
     <!-- tbl_exchange 데이터 하나 가져오기(eno 단위) -->
     <select id="getOne" resultType="com.green.team4.vo.sw.ExchangeVO">
         select tbl_exchange.mno,tbl_exchange.ono,tbl_exchange.pno,tbl_exchange.eno,exCategory,exContent,tbl_exchange.exStatus,exDate,exEndDate,
-               tbl_product.pName,tbl_orderItem.iDisPrice,tbl_orderItem.iCount,tbl_orderItem.iTotalPrice
+               tbl_product.pName,tbl_orderItem.iDisPrice,tbl_orderItem.iCount,tbl_orderItem.iTotalPrice,
+               tbl_exchange.exEndDate, tbl_exchange.eOptionName, tbl_exchange.eOption, tbl_exchange.eOptionName2,
+               tbl_exchange.eOption2, tbl_exchange.color
         from tbl_exchange
                  left outer join tbl_product on tbl_exchange.pno = tbl_product.pno
                  left outer join tbl_orderItem on tbl_exchange.ono = tbl_orderItem.ono and tbl_exchange.pno = tbl_orderItem.pno

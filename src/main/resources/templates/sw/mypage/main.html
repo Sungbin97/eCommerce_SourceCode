@@ -7,6 +7,14 @@
     <title>mypage-main</title>
 </head>
 
+<!-- 그래프용 style -->
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 300px;
+    }
+</style>
+
 <body>
     <!-- mypage header fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
@@ -40,6 +48,9 @@
                             <div class="coupon-form mb-30">
                                 <h3>쇼핑 요약</h3>
                                 <p>쇼핑 정보를 확인해보세요</p>
+                                <div>
+                                    <div id="chartdiv"></div>
+                                </div>
                                 <div>
                                     <button class="btn" name="memberInfo">
                                         개인정보관리
@@ -79,19 +90,14 @@
                         </div>
                     </div>
 
-
                 </div>
             </div>
         </div>
     </div>
     <!-- PAGE SECTION END -->
 
-<!--    &lt;!&ndash; 그래프 태그 &ndash;&gt;-->
-<!--    <h3>나의 첼린지</h3>-->
-<!--    <button type="button" name="addChallenge" class="btn btn-info">나의 첼린지 추가하기</button>-->
-<!--    <div id="displayChallenge">-->
-<!--        <div id="chartdiv"></div>-->
-<!--    </div>-->
+
+
 
 
     <!-- 페이지 진입한 회원의 mno (hidden) -->
@@ -218,6 +224,108 @@
         $("button[name=curLocationBtn]").click(function (){
             getCurrentPosBtn();
         })
+
+
+        // Chart 컨트롤 ---------------------------------------------------------------------------------------
+
+        am5.ready(function() {
+
+            // Create root element
+            var root = am5.Root.new("chartdiv");
+
+            // Set themes
+            root.setThemes([
+                am5themes_Animated.new(root)
+            ]);
+
+            // Create chart
+            var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                panX: true,
+                panY: true,
+                wheelX: "panX",
+                wheelY: "zoomX",
+                pinchZoomX:true
+            }));
+
+            // Add cursor
+            var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
+            cursor.lineY.set("visible", false);
+
+            // Create axes
+            var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+            xRenderer.labels.template.setAll({
+                rotation: -90,
+                centerY: am5.p50,
+                centerX: am5.p100,
+                paddingRight: 15
+            });
+            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+                maxDeviation: 0.3,
+                categoryField: "name",
+                renderer: xRenderer,
+                tooltip: am5.Tooltip.new(root, {})
+            }));
+            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                maxDeviation: 0.3,
+                renderer: am5xy.AxisRendererY.new(root, {})
+            }));
+
+            // Create series
+            var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+                name: "Series 1",
+                xAxis: xAxis,
+                yAxis: yAxis,
+                valueYField: "value",
+                sequencedInterpolation: true,
+                categoryXField: "name",
+                tooltip: am5.Tooltip.new(root, {
+                    labelText:"{valueY}"
+                })
+            }));
+
+            series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
+            series.columns.template.adapters.add("fill", function(fill, target) {
+                return chart.get("colors").getIndex(series.columns.indexOf(target));
+            });
+
+            series.columns.template.adapters.add("stroke", function(stroke, target) {
+                return chart.get("colors").getIndex(series.columns.indexOf(target));
+            });
+
+            // Set data
+            var data = [];
+            // for (let i = 0; i < 100; i++) {
+            //     data.push({
+            //         country: "5"+"/"+i,
+            //         value: i
+            //     })
+            // }
+            data.push({
+                    name:"찜한 상품",
+                    value:parseInt($("span[name=itrCnt]").text())
+                },{
+                    name:"장바구니",
+                    value:parseInt($("span[name=cartCnt]").text())
+                },{
+                    name:"주문개수",
+                    value:parseInt($("span[name=orderCnt]").text())
+                },{
+                    name:"취소/반품/교환",
+                    value:parseInt($("span[name=exCnt]").text())
+                }
+            )
+            console.log(data);
+
+            xAxis.data.setAll(data);
+            series.data.setAll(data);
+
+            // Make stuff animate on load
+            series.appear(1000);
+            chart.appear(1000, 100);
+
+        }); // end am5.ready()
+
+
     })
 
 

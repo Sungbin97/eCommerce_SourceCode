@@ -23,6 +23,12 @@ public class ExchangeVO {
     private LocalDateTime exDate; // 신청일
     private LocalDateTime exEndDate; // 처리 완료일
 
+    private String eOptionName; // 옵션1이름
+    private String eOption; // 옵션1
+    private String eOptionName2; // 옵션2이름
+    private String eOption2; // 옵션2
+    private String color; // 색상명
+
     // tbl_product 에서 join 으로 가져올 data
     private String pName; // 상품명
 

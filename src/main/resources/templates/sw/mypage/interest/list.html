@@ -45,7 +45,8 @@
                                     <th class="pro-title">상품명</th>
                                     <th class="pro-price">가격</th>
                                     <th class="pro-thumbnail">이미지</th>
-                                    <th class="pro-add-to-cart">장바구니 추가</th>
+                                    <th class="pro-add-to-cart">상품보러가기</th>
+<!--                                    <th class="pro-add-to-cart">장바구니 추가(미정)</th>-->
                                     <th class="pro-remove">삭제</th>
                                 </tr>
                                 </thead>
@@ -55,16 +56,19 @@
                                     <td class="pro-title" id="pMainCategory" th:text="${itr.pMainCategory}"></td>
                                     <td class="pro-title" id="pSubCategory" th:text="${itr.pSubCategory}"></td>
                                     <td class="pro-title"  th:text="${itr.pno}"></td>
-                                    <td class="pro-title" id="pName"><a th:href="@{/shop/read(pno=${itr.pno},mno=${itr.mno})}" th:text="${itr.pName}"></a></td>
+                                    <td class="pro-title" id="pName">[[${itr.pName}]]</td>
                                     <td class="pro-price" id="pPrice" th:text="${itr.pPrice}"></td>
                                     <td class="pro-thumbnail" id="pImage"><img th:src="${itr.pImage}" alt="" /></td>
-                                    <td class="pro-add-to-cart">
-                                        <form>
-                                            <input type="hidden" id="mno" name="mno" th:value="${itr.mno}" readonly>
-                                            <input type="hidden" id="pno" name="pno" th:value="${itr.pno}" readonly>
-                                            <input type="button" name="addToCartBtn" class="btn" value="장바구니에 추가">
-                                        </form>
+                                    <td class="pro-title">
+                                        <a th:href="@{/shop/read(pno=${itr.pno},mno=${itr.mno})}" th:text="'클릭'"></a>
                                     </td>
+<!--                                    <td class="pro-add-to-cart">-->
+<!--                                        <form>-->
+<!--                                            <input type="hidden" id="mno" name="mno" th:value="${itr.mno}" readonly>-->
+<!--                                            <input type="hidden" id="pno" name="pno" th:value="${itr.pno}" readonly>-->
+<!--                                            <input type="button" name="addToCartBtn" class="btn" value="장바구니에 추가">-->
+<!--                                        </form>-->
+<!--                                    </td>-->
                                     <td class="pro-remove">
                                         <form id="itrDeleteForm" th:action="@{/sw/mypage/interest/delete}" th:method="post">
                                             <input type="hidden" name="mno" th:value="${itr.mno}" readonly>
@@ -105,30 +109,30 @@
             }
         })
 
-        // 장바구니 추가 버튼 클릭
-        $("input[name=addToCartBtn]").click(function (){
-            var mno = $(this).form().find("#mno").val()
-            var pno = $(this).form().find("#pno").val()
-            console.log("클릭된 mno: ",mno)
-            console.log("클릭된 pno: ",pno)
-            var data ={
-                mno:mno,
-                pno:pno
-            }
-            console.log("modal => 입력받은 data: ",data)
-            $.ajax({
-                url:'/sw/mypage/cart/register',
-                method:'post',
-                data:JSON.stringify(data),
-                contentType:'application/json; charset=utf-8',
-                dataType:'text',
-                success:function (result){
-                    console.log("주소 저장 => Ajax통신 성공 후 받은 result: ",result);
-                    alert(result)
-                    self.location.reload();
-                }
-            })
-        })
+        // // 장바구니 추가 버튼 클릭
+        // $("input[name=addToCartBtn]").click(function (){
+        //     var mno = $(this).form().find("#mno").val()
+        //     var pno = $(this).form().find("#pno").val()
+        //     console.log("클릭된 mno: ",mno)
+        //     console.log("클릭된 pno: ",pno)
+        //     var data ={
+        //         mno:mno,
+        //         pno:pno
+        //     }
+        //     console.log("modal => 입력받은 data: ",data)
+        //     $.ajax({
+        //         url:'/sw/mypage/cart/register',
+        //         method:'post',
+        //         data:JSON.stringify(data),
+        //         contentType:'application/json; charset=utf-8',
+        //         dataType:'text',
+        //         success:function (result){
+        //             console.log("주소 저장 => Ajax통신 성공 후 받은 result: ",result);
+        //             alert(result)
+        //             self.location.reload();
+        //         }
+        //     })
+        // })
 
         // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
         $("#goBack").click(function (){

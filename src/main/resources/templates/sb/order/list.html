@@ -78,30 +78,34 @@
             <table id="orderTable" class="table">
                 <thead>
                 <tr>
-                    <th>주문일시</th>
-                    <th>받는사람</th>
                     <th>주문번호</th>
-                    <th>결재상태</th>
-                    <th>배송상태</th>
+                    <th>주문상품번호</th>
+                    <th>상품번호</th>
                     <th>상품명</th>
+                    <th>옵션1이름</th>
+                    <th>옵션1</th>
+                    <th>옵션2이름</th>
+                    <th>옵션2</th>
+                    <th>색상명</th>
+                    <th></th>
                     <th>상품 및 배송비</th>
                     <th>총 결제금액</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <tr th:each="order : ${orderList}">
+                <tr th:each="order : ${itemList}">
                     <td th:text="${order.orderDate}"></td>
                     <td th:text="${order.receiverName}"></td>
                     <td><a th:href="@{/sw/mypage/order/read(ono=${order.ono})}" th:text="${order.ono}"></a></td>
                     <input type="hidden" th:name="ono" th:value="${order.ono}">
-                    <td><select th:name="payStatus">
-                        <option th:value="${order.payStatus}" th:text="'현재상태: '+${order.payStatus}"></option>
+                    <td><select th:name="tPayStatus">
+                        <option th:value="${order.tPayStatus}" th:text="'현재상태: '+${order.tPayStatus}"></option>
                         <option value="확인중">확인중</option>
                         <option value="결제완료">결제완료</option>
                     </select></td>
                     <td><select th:name="deliveryStatus">
-                        <option th:value="${order.payStatus}" th:text="'현재상태: '+${order.payStatus}"></option>
+                        <option th:value="${order.tPayStatus}" th:text="'현재상태: '+${order.tPayStatus}"></option>
                         <option value="확인중">확인중</option>
                         <option value="배송준비중">배송준비중</option>
                         <option value="배송중">배송중</option>

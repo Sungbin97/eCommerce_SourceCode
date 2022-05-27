@@ -126,7 +126,7 @@
                                 <div class="col-sm-6 col-xs-12 mb-20">
                                     <label name="exCategory">카테고리 <span class="required">*</span></label>
                                     <select name="exCategory" size="1" required>
-                                        <option value="none">==카테고리를 선택하세요==</option>
+                                        <option value="">==카테고리를 선택하세요==</option>
                                         <option value="취소">취소</option>
                                         <option value="교환">교환</option>
                                         <option value="반품">반품</option>
@@ -140,6 +140,39 @@
                                     <label>신청일자</label>
                                     <input type="text" th:value="${#calendars.format(#calendars.createNow(),'yyyy-MM-dd HH:mm:ss')}">
                                 </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+
+                                </div>
+                                <div id="eOption" class="col-sm-6 col-xs-12 mb-20" >
+                                    <label>옵션명1: [[${orderItem.iOptionName}]] </label>
+                                    <input type="hidden" name="eOptionName" th:value="${orderItem.iOptionName}">
+                                    <select name="eOption">
+                                        <option value="">==카테고리를 선택하세요==</option>
+                                        <div th:each="opt1:${opt1ListN}">
+                                            <option th:value="${opt1}">[[${opt1}]]</option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <div id="eOption2" class="col-sm-6 col-xs-12 mb-20" >
+                                    <label>옵션명2: [[${orderItem.iOptionName2}]] </label>
+                                    <input type="hidden" name="eOptionName2" th:value="${orderItem.iOptionName2}">
+                                    <select name="eOption2">
+                                        <option value="">==카테고리를 선택하세요==</option>
+                                        <div th:each="opt2:${opt2ListN}">
+                                            <option th:value="${opt2}">[[${opt2}]]</option>
+                                        </div>
+                                    </select>
+                                </div>
+                                <div id="color" class="col-sm-6 col-xs-12 mb-20" >
+                                    <label>색상</label>
+                                    <select name="color">
+                                        <option value="">==카테고리를 선택하세요==</option>
+                                        <div th:each="color:${colorListN}">
+                                            <option th:value="${color}">[[${color}]]</option>
+                                        </div>
+                                    </select>
+                                </div>
+
                                 <div class="col-xs-12 mb-20 order-notes">
                                     <label>신청사유 <span class="required">*</span></label>
                                     <textarea name="exContent" cols="100" rows="10"></textarea>
@@ -178,6 +211,37 @@
 
 <script>
     $(document).ready(function (e){
+
+        // 교환 관련 옵션 태그 비활성화 이벤트
+
+        // (1) 페이지 로딩시 default 숨김
+        $("#eOption").hide();
+        $("#eOption2").hide();
+        $("#color").hide();
+
+        // (2) 교환카테고리 선택 시 활성화
+        $("select[name=exCategory]").change(function (){
+            if($("select[name=exCategory]").val() === '교환'){
+                $("#eOption").show();
+                $("#eOption2").show();
+                $("#color").show();
+            }
+            else {
+                $("#eOption").hide();
+                $("#eOption2").hide();
+                $("#color").hide();
+            }
+        })
+
+        // form select option 값 검증용(별도 이벤트X)
+        $("select[name=eOption]").change(function (){
+            var eOption = $("select[name=eOption]").val();
+            console.log(eOption);
+        })
+        $("select[name=eOption2]").change(function (){
+            var eOption2 = $("select[name=eOption2]").val();
+            console.log(eOption2);
+        })
 
         var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$")
         var maxSize = 10485760; // 10MB
@@ -281,10 +345,10 @@
                 alert("신청사유를 반드시 작성해주세요")
                 return
             }
-            if($("#fileInput").val()===""){
-                alert("사진을 반드시 첨부해주세요")
-                return
-            }
+            // if($("#fileInput").val()===""){
+            //     alert("사진을 반드시 첨부해주세요")
+            //     return
+            // }
 
             // 첨부 이미지 등록
             $(".uploadResult li").each(function (i,obj){

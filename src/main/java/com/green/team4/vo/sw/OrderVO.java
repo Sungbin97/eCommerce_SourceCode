@@ -31,7 +31,7 @@ public class OrderVO {
     private int tTotalPrice; // 총 결제금액
 
     private String tPayStatus; // 결재 상태
-    private String tSavePoint; // 적립 포인트
+    private int tSavePoint; // 적립 포인트
 
     // tbl_memberInfo join 해서 가져올 칼럼
     private String name; // 주문자 성명 (tbl_memberInfo)

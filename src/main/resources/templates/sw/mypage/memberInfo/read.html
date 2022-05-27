@@ -65,8 +65,13 @@
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
                                     <label>성별 <span class="required">*</span></label>
-                                    <input type="checkbox" name="gender" id="option1" th:if="${memberInfo.gender == '남성'}" th:value="'남성'" checked> 남성
-                                    <input type="checkbox" name="gender" id="option2" th:if="${memberInfo.gender == '여성'}" th:value="'여성'" checked> 여성
+                                    <label>남성
+                                        <input type="checkbox" name="gender" id="option1" th:value="'남성'">
+                                    </label>
+                                    <label>여성
+                                        <input type="checkbox" name="gender" id="option2" th:value="'여성'">
+                                    </label>
+                                    <input type="hidden" id="getGender" th:value="${memberInfo.gender}">
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
                                     <label>전화번호 </label>
@@ -174,12 +179,6 @@
         </div>
     </div><br/>
 
-
-
-
-
-
-
     <!-- hidden data -->
     <input type="hidden" id="interestSports" th:value="${memberInfo.interestSports}">
 
@@ -244,8 +243,22 @@
     $(document).ready(function (){
 
         // 일반 이벤트
+        // 관심스포츠 데이터 입력
         var interestSports = $("input[id=interestSports]").val();
         $("select[name=interestSports]").val(interestSports).prop("selected",true);
+
+        // 성별 체크박스 이벤트
+        // 처음 로딩시
+        var genderData = $("input#getGender").val();
+        if(genderData === '남성') $("input#option1").attr("checked","checked");
+        else $("input#option2").attr("checked","checked");
+        // 성별 변경 시
+        $("input[name=gender]").change(function (){
+            var newGender = $(this).val();
+            $("input#getGender").val(newGender);
+            console.log($("input#getGender").val())
+        })
+
 
         // 배송지 Modal
 

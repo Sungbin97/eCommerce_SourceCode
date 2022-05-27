@@ -21,14 +21,29 @@
         on p.pno = #{p.pno};
     </select>
 
-    <select id="getOpt" resultType="com.green.team4.vo.JH.Product_optVO">
-        select * from tbl_product_opt where pno=#{pno};
+    <!-- 상품 옵션정도 모두 가져오기 -->
+    <select id="getProductOption" resultType="com.green.team4.vo.JH.Product_optVO">
+        select distinct * from tbl_product_opt
+        where pno=#{pno}
+
     </select>
 
-    <update id="update">
+    <select id="getOpt" resultType="com.green.team4.vo.JH.Product_optVO">
+        select * from tbl_product_opt where pno=#{pno}
+    </select>
+
+    <!-- 테이블 수정사항 미업데이트되어 주석처리함 SW 0526 -->
+<!--    <update id="update">-->
+<!--        update tbl_product_opt-->
+<!--            set pSize=#{pSize}, pColor=#{pColor}, pAmount=#{pAmount}-->
+<!--                where pcno=#{pcno}-->
+<!--    </update>-->
+
+    <!-- tbl_product_opt 취소/교환/반품 시 재고 업데이트용 -->
+    <update id="updateAmt">
         update tbl_product_opt
-            set pSize=#{pSize}, pColor=#{pColor}, pAmount=#{pAmount}
-                where pcno=#{pcno}
+        set pAmount=#{pAmount}
+        where pcno=#{pcno}
     </update>
 
     <delete id="delete">

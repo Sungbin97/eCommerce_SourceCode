@@ -30,10 +30,10 @@ public class DeliveryController {
     private final DeliveryService deliveryService;
     private final OrderItemMapper orderItemMapper;
 
-    @GetMapping("/read")
-    public void DeliveryRead(int oINo,String dCategory, Model model){ // 배송 정보 가져오기
-        log.info("DeliveryController => DeliveryRead(GET) 실행 => 받은 oIno: "+oINo);
-        log.info("DeliveryController => DeliveryRead(GET) 실행 => 받은 dCategory: "+dCategory);
+    @GetMapping("/read") // 배송 정보 가져오기
+    public void deliveryRead(int oINo,String dCategory, Model model){
+        log.info("DeliveryController => deliveryRead(GET) 실행 => 받은 oIno: "+oINo);
+        log.info("DeliveryController => deliveryRead(GET) 실행 => 받은 dCategory: "+dCategory);
 
         // 주문 상품 정보 가져오기
         OrderItemVO orderItemVO = orderItemMapper.getOne(oINo);
@@ -42,4 +42,5 @@ public class DeliveryController {
         DeliveryVO deliveryVO = deliveryService.readOneByOINoDCat(oINo,dCategory);
         model.addAttribute("deliveryVO",deliveryVO);
     }
+
 }
