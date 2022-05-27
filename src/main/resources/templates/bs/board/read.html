@@ -30,6 +30,7 @@
                         </span>
                         <!-- Title -->
                         <h4 class="title" th:text="${item.title}"></h4>
+                        <span th:src="@{${item.getImgPath()}}"></span>
                         <p th:text="${item.content}"></p>
                         <div class="row mt-50 mb-20">
                             <div class="col-md-6 col-12 mb-30"><img src="img/blog/4.jpg" alt=""></div>

@@ -61,7 +61,7 @@ public class BoardServiceImpl implements BoardService {
         String originFileName = imgFile.getOriginalFilename();
         String fileName = "";
 
-        String projectPath = System.getProperty("user.dir") + "src/main/resource/static/file";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/file";
 
         UUID uuid = UUID.randomUUID();
         fileName = uuid + "_" + originFileName;
@@ -69,8 +69,8 @@ public class BoardServiceImpl implements BoardService {
         File saveFile = new File(projectPath,fileName);
         imgFile.transferTo(saveFile);
 
-        vo.setOriginFileName(originFileName);
-        vo.setFileName(fileName);
+        vo.setImgName(originFileName);
+        vo.setImgPath(fileName);
         mapper.insert(vo);
 
     }

@@ -40,6 +40,7 @@ public class BoardController {
 
     @PostMapping("/register")
     public String register(BoardVO vo,MultipartFile imgFile) throws IOException {
+        log.info(imgFile);
         boardService.saveFile(vo,imgFile);
         log.info("게시글 등록 성공");
         return "redirect:list";
