@@ -14,7 +14,7 @@ public interface ShopService {
     public int register(ProductVO pvo);
     public ProductVO getOne(int p_no);
     //옵션을 통한 데이터 구하기
-    public ProductVO getProductWithOpt(Product_optVO povo);
+    public Product_optVO getProductWithOpt(Product_optVO povo);
 
     public List<ProductVO> getListByCategoryAndPage(Map<String,Object> map);
 

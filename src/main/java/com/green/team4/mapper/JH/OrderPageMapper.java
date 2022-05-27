@@ -32,7 +32,7 @@ public interface OrderPageMapper {
 
     //주문 재고 차감
     public int deductStock(ProductVO pvo);
-    public int deductStockWithOpt(ProductVO pvo);
+    public int deductStockWithOpt(Product_optVO povo);
 //    /* 장바구니 제거(주문한거만) */
 //    public int deleteOrderCart(장바구니 VO);
 }

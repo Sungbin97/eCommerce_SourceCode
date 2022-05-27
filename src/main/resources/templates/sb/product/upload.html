@@ -1,139 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>상품등록페이지</title>
+  <!-- mypage head fragment -->
+  <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+  <title>product/upload</title>
 </head>
-<body>
-<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
 <style>
-  .bd-navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1071;
-    min-height: 4rem;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
-  }
-  .bd-sidebar {
-    position: sticky;
-    top: 4rem;
-    z-index: 1000;
-    height: calc(100vh - 4rem);
-    background: #eee;
-    border-right: 1px solid rgba(0,0,0,.1);
-    overflow-y: auto;
-    min-width: 160px;
-    max-width: 220px;
-  }
-  .bd-sidebar .nav {
-    display: block;
-  }
-  .bd-sidebar .nav>li>a {
-    display: block;
-    padding: .25rem 1.5rem;
-    font-size: 90%;
-  }
+.required{
+  color: red;
+}
 </style>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+<body>
+<!-- mypage header fragment -->
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
-<header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active"><a class="nav-link" href="#">홈</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">메인 페이지</a></li>
-      <li class="nav-item"><a class="nav-link" href="/sw/mypage/main?mno=8">마이 페이지</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">쇼핑몰 페이지</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
-      <li class="nav-item"><a class="nav-link" href="/sb/adpage">관리자 페이지</a></li>
-    </ul>
-  </div>
-</header>
-
-<div class="container-fluid">
-  <div class="row flex-nowrap">
-    <div class="col-3 bd-sidebar">
-      <ul class="nav">
-        <h4>관리자 페이지</h4>
-        <li>
-        <li>
-          <a href="/sb/member/member?mno=1">회원관리</a>
-          <a href="/sb/product/list?pno=1">상품관리</a>
-          <a href="/sb/product/upload">상품등록</a>
-          <a href="/sb/product/modify?pno=1">상품정보수정</a>
-          <a href="/sb/order/list">주문/배송관리</a>
-          <a href="/sb/statistics/sales">각종 통계</a>
-          <a href="/sb/mail/list">EMAIL & SMS</a>
-          <a href="/sb/mail/write">개별 메일 전송</a>
-          <a href="/sb/mail/list">자동 메일 및 문자(예정)</a>
-        </li>
-        </li>
-      </ul>
-      <br>
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="page-banner-content">
+          <h1 th:text="'상품등록'"></h1>
+          <ul class="breadcrumb">
+            <li><a th:href="@{/sb/product/list?pno=1}">member</a></li>
+            <li class="active">upload</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
-      <body>
-      <form method="post" action="/sb/product/upload" enctype="multipart/form-data">
-
-        <div class="inputArea">
-          <label>메인카테고리</label>
-          <select id="category" name="pMainCategory">
-            <option value="남성 옷">남성 옷</option>
-            <option value="여성 옷">여성 옷</option>
-            <option value="식품">식품</option>
-            <option value="엑세서리 및 기구">엑세서리 및 기구</option>
-          </select>
-        </div>
-
-        <div class="inputArea">
-          <label>서브카테고리</label>
-          <select id="subCategory" name="pSubCategory">
-            <option value="상의">상의</option>
-            <option value="하의">하의</option>
-            <option value="신발">신발</option>
-            <option value="보충제">보충제</option>
-            <option value="영양제">영양제</option>
-            <option value="ing">ing</option>
-          </select>
-        </div>
-
-        <div class="inputArea">
-          <label for="pName">상품코드</label>
-          <input type="text" id="pCode" name="pCode" />
-        </div>
-
-        <div class="inputArea">
-          <label for="pName">상품명</label>
-          <input type="text" id="pName" name="pName" />
-        </div>
-
-        <div class="inputArea">
-          <label for="price">상품가격</label>
-          <input type="text" id="price" name="pPrice" />
-        </div>
-
-        <div class="inputArea">
-          <label>상품 대표이미지</label>
-          <input type="file" name="pImg" multiple>
-        </div>
-
-        <div class="inputArea">
-          <label>상품 상세정보 대표이미지</label>
-          <input type="file" name="pInfo" multiple>
-        </div>
-
-        <div class="uploadResult"></div>
-        <input type="submit" value="등록">
-      </form>
   </div>
 </div>
-</body>
-<script>
+<!-- PAGE SECTION START -->
 
-</script>
-    </main>
+<!-- modify -->
+<div class="page-section section pt-120 pb-45">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-12 mx-auto">
+        <div class="login-reg-form">
+          <form class="forModify" method="post" action="/sb/product/upload" enctype="multipart/form-data">
+            <div class="row">
+              <h3>상품등록</h3>
+              <p>판매할 상품을 등록하세요</p>
+              <div class="col-sm-6 col-xs-12 mb-20">
+                <div class="inputArea">
+                  <h7>메인카테고리<span class="required">*</span></h7>
+                  <select id="category" name="pMainCategory">
+                    <option value="남성 옷">남성 옷</option>
+                    <option value="여성 옷">여성 옷</option>
+                    <option value="식품">식품</option>
+                    <option value="엑세서리 및 기구">엑세서리 및 기구</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xs-12 mb-20">
+                <div class="inputArea">
+                  <h7>서브카테고리<span class="required">*</span></h7>
+                  <select id="subCategory" name="pSubCategory">
+                    <option value="상의">상의</option>
+                    <option value="하의">하의</option>
+                    <option value="신발">신발</option>
+                    <option value="보충제">보충제</option>
+                    <option value="영양제">영양제</option>
+                    <option value="ing">ing</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xs-12 mb-20">
+                <label for="pName">상품명<span class="required">*</span></label>
+                <input type="text" id="pName" name="pName" />
+              </div>
+              <div class="col-sm-6 col-xs-12 mb-20">
+                <label for="price">상품가격<span class="required">*</span></label>
+                <input type="text" id="price" name="pPrice" />
+              </div>
+              <div class="col-sm-6 col-xs-12 mb-20">
+                <label>상품 대표이미지<span class="required">*</span></label>
+                <input type="file" name="pImg" multiple>
+              </div>
+              <div class="col-sm-6 col-xs-12 mb-20">
+                <label>상품 상세정보 대표이미지<span class="required">*</span></label>
+                <input type="file" name="pInfo" multiple>
+              </div>
+              <input type="submit" value="등록">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+</body>
+<!-- mypage footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+
 </html>

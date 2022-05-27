@@ -27,9 +27,10 @@ public class OrderPageItemVO {
     private String pOptionName2;
     private int pOptionPrice;
     private int pPrice;
-    private String pImageURL;
+    private String pImage;
     private double pDiscount; // 상품할인율
     /* 만들어 낼 값 */
+
     private int salePrice; //상품 파는가격(할인적용된 한개의 가격)
 
     private int totalPrice; // 총가격
@@ -39,7 +40,8 @@ public class OrderPageItemVO {
     private int totalPoint; // 총 받을 포인트
 
     public void initSaleTotal(){
-        this.salePrice =(int) (this.pPrice * (1-this.pDiscount));
+
+        this.salePrice =(int)((this.pPrice+this.pOptionPrice) * (1-this.pDiscount));
         this.totalPrice = this.salePrice * this.itemCount;
         this.point = (int)(Math.floor(this.salePrice*0.05));
         this.totalPoint = this.point*this.itemCount;

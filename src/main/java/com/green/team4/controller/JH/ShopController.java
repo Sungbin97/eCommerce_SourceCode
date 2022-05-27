@@ -49,6 +49,13 @@ public class ShopController {
 
 
     }
+    @GetMapping("/listAll")
+    public String listGet(Model model){
+        model.addAttribute("list",shopService.getListAll());
+
+
+        return "shop/list";
+    }
 
 
     // 상품 상세페이지
@@ -58,25 +65,10 @@ public class ShopController {
         log.info("pno : "+pno);
        log.info("mno : " + mno);
         ProductVO pvo = shopService.getOne(pno);
-//        List<ProductVO>list =shopService.getOneWithOpt(pno);
-//        if(list.size() ==0 ){ //옵션이 읎어요
-//            System.out.println("옵션 없음");
-//            model.addAttribute("pvo",pvo);
-//            model.addAttribute("member",memberInfoService.readOne(mno));
-//            model.addAttribute("pList",shopService.getOneWithOpt(pno));
-//        }
         model.addAttribute("member",memberInfoService.readOne(mno));
         System.out.println(pvo);
         model.addAttribute("pvo",pvo);
-//        model.addAttribute("colors",shopService.getColors(pvo.getPno()));
-//        model.addAttribute("options",shopService.getOptions(pvo.getPno()));
-//        model.addAttribute("options2",shopService.getOptions2(pvo.getPno()));
-//        log.info(shopService.getColors(pvo.getPno()));
-//        log.info(shopService.getOptions(pvo.getPno()));
-//        log.info(shopService.getOptions2(pvo.getPno()));
-//        log.info(shopService.getOneWithOpt(pno));
 
-//        model.addAttribute("pList",shopService.getOneWithOpt(pno));
     }
 
 

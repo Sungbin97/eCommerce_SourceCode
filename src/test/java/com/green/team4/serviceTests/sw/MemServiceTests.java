@@ -83,18 +83,18 @@ public class MemServiceTests {
         list.forEach(System.out::println);
     }
 
-    @Test
-    public void testUpdate(){
-        MemberInfoVO memberInfoVO = service.readOne(24);
-        memberInfoVO.setPassword("pw"+"수정");
-        memberInfoVO.setNickName("nickName"+"수정");
-        memberInfoVO.setEmail("email"+"수정"+"@test.com");
-        memberInfoVO.setPhoneNum("1234-"+"수정");
-        memberInfoVO.setAddress("경기도 성남시 분당구 운중동"+"수정");
-
-        int result = service.modify(memberInfoVO);
-        System.out.println("수정된 개수: "+result);
-    }
+//    @Test
+//    public void testUpdate(){
+//        MemberInfoVO memberInfoVO = service.readOne(24);
+//        memberInfoVO.setPassword("pw"+"수정");
+//        memberInfoVO.setNickName("nickName"+"수정");
+//        memberInfoVO.setEmail("email"+"수정"+"@test.com");
+//        memberInfoVO.setPhoneNum("1234-"+"수정");
+//        memberInfoVO.setAddress("경기도 성남시 분당구 운중동"+"수정");
+//
+//        int result = service.modify(memberInfoVO);
+//        System.out.println("수정된 개수: "+result);
+//    }
 
 //    @Test .... 사용 X
 //    public void testDelete(){

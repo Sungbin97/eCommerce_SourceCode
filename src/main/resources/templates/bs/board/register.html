@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- head fragment -->
+    <th:block th:replace="bs/board/fragments/header.html :: head"></th:block>
+    <title>Title</title>
+    <link href="fragments/header.html">
+</head>
+<body>
+<!-- header fragment -->
+<th:block th:replace="bs/board/fragments/header.html :: headerFragment"></th:block>
+<div class="page-section section pt-120 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div class="login-reg-form">
+                    <form action="register" method="post">
+                        <div class="row">
+                            <div class="col-xs-12 mb-20">
+                                <label for="title">제목 <span class="required">*</span></label>
+                                <input id="title" name="title" type="text"/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label for="content">내용</label>
+                                <textarea id="content" name="content"></textarea>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label for="userName">작성자 <span class="required">*</span></label>
+                                <input id="userName" name="userName" type="text"/>
+                            </div>
+
+                            <div class="col-xs-12">
+                                <a href="list"><button type="text">List</button></a>
+                                <input value="Register" type="submit">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- Body main wrapper end -->
+<!-- footer fragment -->
+<th:block th:replace="bs/board/fragments/footer.html :: footerFragment"></th:block>
+</html>

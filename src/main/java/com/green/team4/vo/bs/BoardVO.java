@@ -9,7 +9,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserVO {
+public class BoardVO {
     private Long uNo;
     private String userId;
     private String userName;
@@ -19,4 +19,5 @@ public class UserVO {
     private Date regDate;
     private Date modDate;
     private boolean delete_state;
+    private Long totalCount; // count(*)
 }

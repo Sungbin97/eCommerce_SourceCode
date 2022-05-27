@@ -31,14 +31,14 @@
   </div>
 </div>
 <!-- uploadOpt -->
-<div class="page-section section pt-120 pb-45" >
+<div class="page-section section pt-120 pb-45">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-12 mx-auto">
         <div class="login-reg-form">
           <form class="forModify" method="post" action="/sb/product/uploadOpt" enctype="multipart/form-data">
             <div class="row">
-              <h3>상품상세등록</h3>
+              <h3>상품등록</h3>
               <p>판매할 상품의 옵션을 등록하세요</p>
               <div class="col-sm-6 col-xs-12 mb-20">
                 <div class="inputArea">
@@ -79,66 +79,13 @@
                 <input type="text" id="price" name="pOptPrice" th:placeholder="${product.pPrice}" th:value="${product.pPrice}"/>
               </div>
               <div class="col-sm-6 col-xs-12 mb-20">
-                <input type="hidden" id="price" name="pOptPrice" th:placeholder="${product.pPrice}" th:value="${product.pPrice}"/>
-              </div>
-              <div class="col-sm-6 col-xs-12 mb-20">
-                <label>상품 대표이미지</label>
+                <label>상품 대표이미지<span class="required">*</span></label>
                 <img th:src="|/display?fileName=${product.pImage}|" style="width: 150px; height: 150px"/>
               </div>
               <div class="col-sm-6 col-xs-12 mb-20">
-                <label>상품 상세정보 대표이미지</label>
+                <label>상품 상세정보 대표이미지<span class="required">*</span></label>
                 <img th:src="|/display?fileName=${product.pInformation}|" style="width: 150px; height: 150px"/>
               </div>
-
-              <!--옵션등록-->
-              <div class="col-sm-6 col-xs-12 mb-20">
-                <label>옵션1<span class="required">*</span></label>
-                <label><input type="text" id="option1" name="pOptionName" placeholder="옵션명"></label>
-              </div>
-              <div class="col-sm-6 col-xs-12 mb-20">
-                <button id="btnCloths" type="button">옷</button>
-                <div id="clothsOpt"></div>
-                <button id="btnShoes" type="button">신발</button>
-                <div id="shoesOpt"></div>
-              </div>
-              <div class="col-sm-6 col-xs-12 mb-20">
-                <label>옵션2<span class="required">*</span></label>
-                <label><input type="text" class="opt2" id="optionName2" name="pOptionName2" placeholder="옵션명" readonly></label>
-                <button type="button" id="btnNull">없음</button>
-              </div>
-              <div class="col-sm-6 col-xs-12 mb-20">
-                <ul id="insertOpt2">
-                  <li><input type="text" class="opt2" name="opt2" placeholder="직접입력" /><button type="button" id="btnAddOpt2">옵션추가</button></li>
-                </ul>
-              </div>
-
-              <div class="col-sm-6 col-xs-12 mb-20">
-                <label>색상<span class="required">*</span></label>
-                <label><input type="checkbox" name="colorOpt" value="BLACK">BLACK</label>
-                <label><input type="checkbox" name="colorOpt" value="WHITE">WHITE</label>
-                <label><input type="checkbox" name="colorOpt" value="RED">RED</label>
-                <label><input type="checkbox" name="colorOpt" value="BLUE">BLUE</label>
-                <label><input type="checkbox" name="colorOpt" value="YELLOW">YELLOW</label>
-                <label><input type="checkbox" name="colorOpt" value="GREEN">GREEN</label>
-                <label><input type="checkbox" name="colorOpt" value="PURPLE">PURPLE</label>
-                <label><input type="text" placeholder="직접입력"/>
-              </div>
-
-              <div class="col-sm-6 col-xs-12 mb-20">
-                <label>수량<span class="required">*</span></label>
-                <input type="text" id="amount" name="pAmount" />
-              </div>
-
-              <div class="col-sm-6 col-xs-12 mb-20">
-                <label>상품이미지<span class="required">*</span></label>
-                <input type="file" name="uploadFilesImg" multiple>
-              </div>
-
-              <div class="col-sm-6 col-xs-12 mb-20">
-                <label>상품소개<span class="required">*</span></label>
-                <input type="file" id="pInfo" name="uploadFilesInfo" multiple>
-              </div>
-
             </div>
             <input type="submit" value="등록">
           </form>
@@ -148,6 +95,99 @@
   </div>
 </div>
 <br/>
+
+      <form method="post" action="/sb/product/uploadOpt" enctype="multipart/form-data">
+        <h3>옵션별 수량 등록</h3>
+        <div class="inputArea">
+          <label>메인카테고리</label>
+          <select id="category" name="pMainCategory">
+            <option th:value="${product.pMainCategory}" th:text="${product.pMainCategory}"></option>
+            <option value="남성 옷">남성 옷</option>
+            <option value="여성 옷">여성 옷</option>
+            <option value="식품">식품</option>
+            <option value="엑세서리 및 기구">엑세서리 및 기구</option>
+          </select>
+        </div>
+
+        <div class="inputArea">
+          <label>서브카테고리</label>
+          <select id="subCategory" name="pSubCategory">
+            <option th:value="${product.pSubCategory}" th:text="${product.pSubCategory}"></option>
+            <option value="상의">상의</option>
+            <option value="하의">하의</option>
+            <option value="신발">신발</option>
+            <option value="보충제">보충제</option>
+            <option value="영양제">영양제</option>
+            <option value="ing">ing</option>
+          </select>
+        </div>
+
+        <div class="inputArea">
+          <label for="pName">상품번호</label>
+          <input type="text" name="pno" th:placeholder="${product.pno}" th:value="${product.pno}"/>
+        </div>
+
+        <div class="inputArea">
+          <label for="pName">상품명</label>
+          <input type="text" id="pName" name="pName" th:placeholder="${product.pName}" th:value="${product.pName}"/>
+        </div>
+
+        <div class="inputArea">
+          <label for="price">상품가격</label>
+          <input type="text" id="price" name="pOptPrice" th:placeholder="${product.pPrice}" th:value="${product.pPrice}"/>
+        </div>
+
+        <div class="inputArea">
+          <label>옵션1</label>
+          <label><input type="text" id="option1" name="pOptionName" placeholder="옵션명"></label>
+        </div>
+
+        <button id="btnCloths" type="button">옷</button>
+        <div id="clothsOpt"></div>
+        <button id="btnShoes" type="button">신발</button>
+        <div id="shoesOpt"></div>
+
+        <div class="inputArea">
+          <label>옵션2</label>
+        </div>
+        <button type="button" id="btnNull">없음</button>
+        <ul id="insertOpt2">
+          <label><input type="text" class="opt2" id="optionName2" name="pOptionName2" placeholder="옵션명" readonly></label>
+          <li><input type="text" class="opt2" name="opt2" placeholder="직접입력" /><button type="button" id="btnAddOpt2">옵션추가</button></li>
+        </ul>
+
+
+        <div class="inputArea">
+          <label>색상</label>
+          <label><input type="checkbox" name="colorOpt" value="BLACK">BLACK</label>
+          <label><input type="checkbox" name="colorOpt" value="WHITE">WHITE</label>
+          <label><input type="checkbox" name="colorOpt" value="RED">RED</label>
+          <label><input type="checkbox" name="colorOpt" value="BLUE">BLUE</label>
+          <label><input type="checkbox" name="colorOpt" value="YELLOW">YELLOW</label>
+          <label><input type="checkbox" name="colorOpt" value="GREEN">GREEN</label>
+          <label><input type="checkbox" name="colorOpt" value="PURPLE">PURPLE</label>
+          <label><input type="text" placeholder="직접입력"/>
+        </div>
+
+        <div class="inputArea">
+          <label>수량</label>
+          <input type="text" id="amount" name="pAmount" />
+        </div>
+
+        <div class="inputArea">
+          <label>상품이미지</label>
+          <input type="file" name="uploadFilesImg" multiple>
+        </div>
+
+        <div class="inputArea">
+          <label>상품소개</label>
+          <input type="file" id="pInfo" name="uploadFilesInfo" multiple>
+        </div>
+
+        <input type="submit" value="최종 등록">
+      </form>
+  </div>
+</div>
 </body>
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>

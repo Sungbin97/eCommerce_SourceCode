@@ -19,7 +19,7 @@
          inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno};
     </select>
-    <select id="getProductWithOpt" resultType="com.green.team4.vo.sb.ProductVO">
+    <select id="getProductWithOpt" resultType="com.green.team4.vo.JH.Product_optVO">
         select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount,
                ps.pOption,ps.pOptionName,ps.pOption2,ps.pOptionName2,ps.pOptionPrice  from tbl_product p
        inner join tbl_product_opt ps on p.pno = ps.pno
@@ -96,9 +96,6 @@
 
     </sql>
    
-
-
-
 
 
     <!--    페이징-->
