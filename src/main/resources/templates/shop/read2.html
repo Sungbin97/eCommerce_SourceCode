@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    img{
+        width: 300px;
+        height: 300px;
+
+    }
+    .product-item{
+        display: inline-block;
+        margin: 20px;
+        border: 1px solid;
+    }
+
+
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<body>
+    상품 상세페이지입니다.
+<div class="product-detailed-box">
+
+</div>
+    <div class="product-outline">
+
+    </div>
+    <img th:src="|/display?fileName=${pvo.pImage}|">
+    <div>
+        <h3>[[${pvo.pName}]]</h3><br>
+
+
+        <div class="price_div">
+            <p class="option_price" th:value="${pvo.pPrice}">[[${pvo.pPrice}]]원</p><br>
+
+        </div>
+<!--    상품 옵션-->
+        <div class="product_option_div">
+            <p class="color_p">색상</p>
+            <div class="color_div">
+
+            </div>
+            <p class="option_p">옵션1</p>
+            <div class="option_div">
+
+            </div>
+            <p class="option2_p">옵션2</p>
+            <div class="option2_div">
+
+            </div>
+        </div>
+<!--        수량-->
+        <div>
+            <form>
+                수량 :
+                <input id="amountBox" type=number name=pAmount value="1" min="1" max="99">
+            </form>
+        </div>
+
+        <form th:action="@{/order/${member.id}}"  method="get" class="order_form">
+            <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
+            <input type="text" name="orders[0].pColor" value="">
+            <input type="text" name="orders[0].pOption" value="">
+            <input type="text" name="orders[0].pOption2" value="">
+            <input type="text" name="orders[0].pOptionPrice" value="0">
+            <input type="hidden" name="orders[0].itemCount" value="">
+        </form>
+
+        <button class="btn_buy">구매하기</button>
+            <button id="detailBtn">상품 상세설명</button>
+            <button id="reviewBtn">리뷰([[${pvo.pReviewCnt}]])</button>
+            <button id="deliInfoBtn">배송환불사항</button>
+
+    </div>
+    <div class="review_not_div">
+
+    </div>
+    <div class="review-header">
+
+    </div>
+   <div class="review_div">
+
+   </div>
+    <div class="review_pageInfo_div">
+        <ul class="pageMaker">
+
+        </ul>
+    </div>
+
+    <div class="product-detailInfo">
+
+    </div>
+    <div class="product-deleveryInfo">
+
+    </div>
+<!--    th:src="|/display?fileName=${product.pImage}|"-->
+
+
+
+<script th:inline="javascript">
+
+    $(document).ready(function (){
+
+        let color =$("input[name='orders[0].pColor']").val();
+        let option =$("input[name='orders[0].pOption']").val();
+        let option2 =$("input[name='orders[0].pOption2']").val();
+        let pno2 = $("input[name='orders[0].pno']").val()
+        console.log(option)
+        opt = {
+            'pno' : pno2,
+            'color' : color,
+            'option' : option,
+            'option2' : option2,
+        }
+        loadOptions(opt)
+        $("input[name='orders[0].pColor']").val(color)
+
+        function loadOptions(opt){
+
+            option = {
+                'pno' : opt.pno,
+                'pColor':opt.color,
+                'pOption':opt.option,
+                'pOption2':opt.option2,
+            }
+            $.ajax({
+                type: "get",
+                url: "/rest/getOptions",
+                data: option,
+                contentType: "application/json;charset=UTF-8",
+                success: (result) => {
+                    console.log(result)
+                    showOptionsAll(result)
+                },
+            });
+        }
+        function showOptionsAll(result){
+            console.log("showOptionsAll",result)
+            let colorStr = "";
+            let optionStr = "";
+            let optionStr2 = "";
+            let colorList =result[0]
+            let optionList =result[1]
+            let optionList2 =result[2]
+            if(colorList.length ==0 && optionList.length ==0 && optionList2.length ==0){
+                $(".color_p").html("")
+                $(".option_p").html("")
+                $(".option2_p").html("")
+            }
+            $(colorList).each(function (index,obj){
+                console.log("showOptions",obj)
+                if(obj ===null){
+                    $(".color_p").html("")
+                }
+                else{
+                    colorStr += "<button class='colorBtn' value=" +obj +">" + obj + "</button>"
+                }
+
+            })
+            $(optionList).each(function (index,obj){
+                console.log("showOptions",obj)
+                if(obj ===null){
+                    $(".option_p").html("")
+                }
+                else{
+                    optionStr += "<button class='optBtn' value=" +obj +">" + obj + "</button>"
+                }
+
+            })
+            $(optionList2).each(function (index,obj){
+                console.log("showOptions",obj)
+                if(obj ===null){
+                    $(".option2_p").html("")
+                }
+                else{
+                    optionStr2 += "<button class='optBtn2' value=" +obj +">" + obj + "</button>"
+                }
+            })
+            if(colorList.length>1){
+                $(".color_p").html("색상")
+            }
+            if(optionList.length>1){
+                $(".option_p").html("옵션1")
+            }
+            if(colorList.length>1){
+                $(".option2_p").html("옵션2")
+            }
+            $(".color_div").html(colorStr)
+            $(".option_div").html(optionStr)
+            $(".option2_div").html(optionStr2)
+        }
+        $(".color_div").on("click",".colorBtn",function (){
+            let color =$(this).val();
+            $("input[name='orders[0].pOption']").val('');
+            $("input[name='orders[0].pOption2']").val('');
+            $("input[name='orders[0].pOptionPrice']").val('');
+            let option =$("input[name='orders[0].pOption']").val();
+            let option2 =$("input[name='orders[0].pOption2']").val();
+            let pno = $("input[name='orders[0].pno']").val()
+            console.log(option)
+            opt = {
+                'pno' : pno,
+                'color' : color,
+                'option' : option,
+                'option2' : option2,
+            }
+            loadOpt(opt)
+            loadOpt2(opt)
+            loadPrice(opt)
+            $("input[name='orders[0].pColor']").val(color)
+
+        })
+        $(".option_div").on("click",".optBtn",function (){
+            console.log(this)
+            $("input[name='orders[0].pOptionPrice']").val('');
+            let color =$("input[name='orders[0].pColor']").val()
+            let option =$(this).val();
+            let option2 =$("input[name='orders[0].pOption2']").val();
+            let pno = $("input[name='orders[0].pno']").val()
+            console.log(option)
+            opt = {
+                'pno' : pno,
+                'color' : color,
+                'option' : option,
+                'option2' : option2,
+            }
+            loadOpt2(opt)
+            loadPrice(opt)
+            $("input[name='orders[0].pOption']").val(option)
+        })
+        $(".option2_div").on("click",".optBtn2",function (){
+            let val =$(this).text()
+            let color =$("input[name='orders[0].pColor']").val()
+            let option =$("input[name='orders[0].pOption']").val();
+            let option2 =$(this).text()
+            let pno = $("input[name='orders[0].pno']").val()
+            opt = {
+                'pno' : pno,
+                'color' : color,
+                'option' : option,
+                'option2' : option2,
+            }
+            $("input[name='orders[0].pOption2']").val(val)
+            loadPrice(opt)
+
+        })
+        function loadOpt(opt){
+            option = {
+                'pno' : opt.pno,
+                'pColor':opt.color,
+                'pOption':opt.option,
+                'pOption2':opt.option2,
+            }
+            $.ajax({
+                type: "get",
+                url: "/rest/getOptions",
+                data: option,
+                contentType: "application/json;charset=UTF-8",
+                success: (result) => {
+                    console.log(result)
+                    showOptions(result)
+                },
+            });
+        }
+        function loadOpt2(opt){
+            option = {
+                'pno' : opt.pno,
+                'pColor':opt.color,
+                'pOption':opt.option,
+                'pOption2':opt.option2,
+            }
+            $.ajax({
+                type: "get",
+                url: "/rest/getOptions",
+                data: option,
+                contentType: "application/json;charset=UTF-8",
+                success: (result) => {
+                    showOptions2(result)
+                },
+            });
+        }
+        function loadPrice(opt){
+            option = {
+                'pno' : opt.pno,
+                'pColor':opt.color,
+                'pOption':opt.option,
+                'pOption2':opt.option2,
+            }
+            $.ajax({
+                type: "get",
+                url: "/rest/getPrice",
+                data: option,
+                contentType: "application/json;charset=UTF-8",
+                success: (result) => {
+                    console.log("price : " , result)
+                    showPrice(result)
+                },
+            });
+        }
+        function showOptions(result){
+            let str = "";
+            let list =result[1]
+            $(list).each(function (index,obj){
+                console.log("showOptions",obj)
+                if(obj === null){
+
+                }
+                else{
+                    str += "<button class='optBtn' value=" +obj +">" + obj + "</button>"
+                }
+
+            })
+            $("input[name='orders[0].pOption']").val('')
+            $("input[name='orders[0].pOption2']").val('')
+            $(".option_div").html(str)
+        }
+        function showOptions2(result){
+            let str = "";
+            let list =result[2]
+            $(list).each(function (index,obj){
+                console.log("showOptions2",obj)
+                if(obj === null){
+
+                }
+                else{
+                    str += "<button class='optBtn2' value=" +obj+">" + obj + "</button>"
+                }
+            })
+            $("input[name='orders[0].pOption2']").val('')
+
+            $(".option2_div").html(str)
+        }
+        function showPrice(result){
+            console.log("ds",result)
+            let price = result
+            if( result === ''){
+                $(".price_div").html('')
+            }
+            else{
+                console.log("가격 : ", result)
+                str ='';
+                str += "<p >"+ result[0] +"원</p>"
+                // str += "<input type='text' name='optionPrice_input' value='"+result[2] +"'>"
+                $(".price_div").html(str)
+                $("input[name='orders[0].pOptionPrice']").val(result[2])
+            }
+
+        }
+
+        /* 바로구매 버튼 */
+        $(".btn_buy").on("click", function(){
+            let itemCount = $("#amountBox").val();
+            let id = [[${member.id}]]
+            $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
+            //$(".order_form").find("input[name='orders[0].pOptionPrice']").val(optionPrice);
+            $(".order_form").attr("action","/order/"+id)
+            $(".order_form").submit();
+
+        });
+
+        let detailInfo = $(".product-detailInfo")
+        let deleveryInfo = $(".product-deleveryInfo")
+        let review_div = $(".review_div")
+        let pagingdiv = $(".review_pageInfo_div")
+        let review_not_div = $(".review_not_div")
+        let pageMaker = $(".pageMaker")
+        let pno = [[${pvo.pno}]]
+        let reviewCnt = [[${pvo.pReviewCnt}]]
+        let reviewHeader = $(".review-header");
+        //리뷰 불러오기
+        function loadReviews(){
+            $.getJSON("/rest/getreviews" ,{pno:pno},function (data){
+
+                makeReviewContent(data)
+            })//getJson
+        }//loadreview
+
+
+        const cri = {
+            pno : [[${pvo.pno}]],
+            page : 1,
+            numperPage : 10,
+            sort : ''
+        }
+        //리뷰 초기화
+        let reviewListInit = function(cri){
+            $.getJSON("/rest/getreviews",cri,function (data){
+                makeReviewContent(data)
+            })
+        }
+
+        /* 리뷰 동적 생성 메서드 */
+        function makeReviewContent(data){
+
+            if(data.list.length === 0){
+
+                review_not_div.html('<span>리뷰가 없습니다.</span>');
+                reviewHeader.html('')
+                review_div.html('');
+                detailInfo.html('')
+                deleveryInfo.html('');
+                pageMaker.html('');
+            }
+            else {
+
+                review_not_div.html('');
+                detailInfo.html('')
+                deleveryInfo.html('');
+                const list = data.list;
+                const pageInfo = data.pageInfo;
+                // const userId = '${member.memberId}';
+                let str ="";
+                $(list).each(function (i,obj){
+                    console.log(obj)
+                    str += '<li>';
+                    /* 아이디 */
+                    str += '<p class="id_span" value="'+obj.mno+'">'+ obj.mno+'</p>';
+                    /* 날짜 */
+                    str += '<p class="date_span">'+formatTime(obj.rregDate) +'</p>';
+                    /* 평점 */
+                    str += '<span class="rating_span">평점 : <span class="rating_value_span">'+ obj.rrating +'</span>점</span>';
+                    // if(obj.mno === userId){
+                    //     str += '<a class="update_reply_btn" href="'+ obj.replyId +'">수정</a><a class="delete_reply_btn" href="'+ obj.replyId +'">삭제</a>';
+                    // }
+                    str += '<div class="reply_bottom_txt">'+ obj.rcontent +'</div>';
+                    str += '<input type="hidden" name="review_rno_input" value="'+obj.rno +'">'
+                    str +='<button type="button" class="btn btn-primary"  > 도움이 돼요!</button>';
+                    str += '<span>추천수 : ' +obj.likeHit +'</span>'
+
+                    str += '</li>';
+                });
+                review_div.html(str)
+
+                let review_pageMaker = '';
+                console.log(pageInfo)
+                /* prev */
+                if(pageInfo.prev){
+                    let prev_num = pageInfo.start -1;
+                    review_pageMaker += '<li class="pageMaker_btn prev">';
+                    review_pageMaker += '<a href="'+ prev_num +'">이전</a>';
+                    review_pageMaker += '</li>';
+                }
+                /* numbre btn */
+                for(let i = pageInfo.start; i < pageInfo.end+1; i++){
+                    review_pageMaker += '<li class="pageMaker_btn ';
+                    if(pageInfo.cri.page === i){
+                        review_pageMaker += 'active';
+                    }
+                    review_pageMaker += '">';
+                    review_pageMaker += '<a href="'+i+'">'+i+'</a>';
+                    review_pageMaker += '</li>';
+                }
+                /* next */
+                if(pageInfo.next){
+                    let next_num = pageInfo.end +1;
+                    review_pageMaker += '<li class="pageMaker_btn next">';
+                    review_pageMaker += '<a href="'+ next_num +'">다음</a>';
+                    review_pageMaker += '</li>';
+                }
+
+                reviewhead = "";
+                reviewhead += "<div class='review-sortContainer'><p> [[${pvo.pRating}]]([[${pvo.pReviewCnt}]])</p>"
+                reviewhead  += "<a href='new'>최신리뷰순</a>&nbsp"
+                reviewhead  += "<a href='best'>베스트순</a>&nbsp"
+                reviewhead  += "<a href='ratingdesc'>평점높은순</a>&nbsp"
+                reviewhead  += "<a href='ratingasc'>평점낮은순</a>&nbsp"
+                reviewhead  += "</div>"
+                reviewHeader.html(reviewhead)
+                pageMaker.html(review_pageMaker)
+
+
+            }
+        }
+        //페이지 이동
+        $(".pageMaker").on("click",'.pageMaker_btn a',function (e){
+            e.preventDefault();
+            let page = $(this).attr("href")
+            cri.page = page;
+            reviewListInit(cri);
+        })
+        //댓글 정렬
+        $(".review-header").on("click",".review-sortContainer a",function (e){
+            e.preventDefault();
+            let sort = $(this).attr("href")
+            cri.sort = sort;
+            reviewListInit(cri)
+        })
+
+
+        function formatTime(str){
+            var date = new Date();
+            return date.getFullYear()+'/'+(date.getMonth()+1)+'/'+date.getDate()+' '+date.getHours()+':'+date.getMinutes();
+        }
+        $(".review_div").on("click",".btn-primary",function (e){
+            e.preventDefault();
+            let rmno =  $(this).parent().find('.id_span').text()
+            console.log(rmno)
+            let rno= $(this).parent().find("input[name='review_rno_input']").val()
+            //console.log( $(this).parent().find("input[name='review_rno_input']").val())
+             commentLike(rno,rmno);
+
+
+        })
+        function commentLike(rno,rmno){
+            let mno = [[${member.mno}]]
+            let pno = [[${pvo.pno}]]
+            console.log("pno",pno,"rmno",rmno,"rno",rno,"mno",mno)
+
+            $.ajax({
+                type : "POST",
+                url : "/rest/commentLike",
+                data : {'pno' : pno ,'rno' : rno, 'rmno' : rmno, 'mno': mno },
+                error : function(){
+                    alert("통신 에러");
+                },
+                success : function(likeCheck) {
+
+                    if(likeCheck == 0){
+                        alert("추천완료.");
+                        loadReviews()
+                    }
+                    else if (likeCheck == 1){
+                        alert("추천취소");
+                        loadReviews()
+
+
+                    }
+                }
+            });
+        }
+
+
+        function loadProductDetailed(){
+            $.getJSON("/rest/getinfo/" + pno,function (data){
+                let str ="";
+                $(data).each(function (){
+                    console.log(this.pimage)
+                     str += "<div><img src=|/display?fileName="+this.pimage+"|<img>"
+                    str += "</div>"
+                })
+                detailInfo.html(str)
+                reviewHeader.html('')
+                review_not_div.html('');
+                review_div.html('');
+                deleveryInfo.html('');
+                pageMaker.html('');
+            })
+        }
+
+        function loadDeliDetailed(){
+            $.getJSON("/rest/getinfo/" + pno,function (data){
+                let str ="";
+                $(data).each(function (){
+                    str += "<div><h5>" + this.pdelivery +"</h5>"
+                    str += "<p>" + "배송비 백만원 싫으면 직접가져가" +"</p>";
+                    str += "</div>"
+                })
+                deleveryInfo.html(str);
+                reviewHeader.html('')
+                detailInfo.html('')
+                review_not_div.html('');
+                review_div.html('');
+                pageMaker.html('');
+            })
+        }
+
+
+
+
+
+        $(".color_div").each(function (){
+            let color = $(this).find(".colorBtn").text();
+            $(this).find(".colorBtn").css("color",color)
+
+        })
+
+        $("#reviewBtn").click(function (){
+
+            loadReviews();
+        })
+        $("#detailBtn").click(function (){
+
+            loadProductDetailed();
+        })
+        $("#deliInfoBtn").click(function (){
+
+            loadDeliDetailed();
+        })
+
+
+
+
+
+
+    })
+</script>
+</body>
+</html>

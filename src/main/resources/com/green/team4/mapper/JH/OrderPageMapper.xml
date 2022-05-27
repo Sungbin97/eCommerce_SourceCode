@@ -55,8 +55,8 @@
 <!-- 주문 상품 테이블 등록 -->
 	<insert id="enrollOrderItem">
 
-		insert into tbl_orderitem(ono, pno,iName, iCount, iPrice, iDiscount, iDisPrice,savePoint ,iOption,iOptionName,iOption2,iOptionName2,iColor,iTotalPrice)
-		values(#{ono}, #{pno},#{pName},#{iCount}, #{pPrice}, #{pDiscount},#{iDisPrice}, #{savePoint},#{pOption},#{pOptionName},#{pOption2},#{pOptionName2},#{pColor},#{iTotalPrice})
+		insert into tbl_orderitem(ono, pno,iName, iCount, iPrice, iDiscount, iDisPrice,iSavePoint ,iOption,iOptionName,iOption2,iOptionName2,iColor,iTotalPrice)
+		values(#{ono}, #{pno},#{pName},#{iCount}, #{pPrice}, #{pDiscount},#{iDisPrice}, #{iSavePoint},#{pOption},#{pOptionName},#{pOption2},#{pOptionName2},#{pColor},#{iTotalPrice})
 
 	</insert>
 	

@@ -49,6 +49,13 @@ public class ShopController {
 
 
     }
+    @GetMapping("/listAll")
+    public String listGet(Model model){
+        model.addAttribute("list",shopService.getListAll());
+
+
+        return "shop/list";
+    }
 
 
     // 상품 상세페이지
