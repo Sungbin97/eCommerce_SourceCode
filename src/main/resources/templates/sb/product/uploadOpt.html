@@ -117,33 +117,34 @@
 
         <div class="inputArea">
           <label>옵션1</label>
-          <label><input type="text" name="pOptionName" placeholder="옵션명"></label>
-
-          <button id="btnCloths" type="button">옷</button>
-          <div id="clothsOpt"></div>
-          <button id="btnShoes" type="button">신발</button>
-          <div id="shoesOpt"></div>
+          <label><input type="text" id="option1" name="pOptionName" placeholder="옵션명"></label>
 
         </div>
+
+        <button id="btnCloths" type="button">옷</button>
+        <div id="clothsOpt"></div>
+        <button id="btnShoes" type="button">신발</button>
+        <div id="shoesOpt"></div>
 
         <div class="inputArea">
           <label>옵션2</label>
         </div>
+        <button type="button" id="btnNull">없음</button>
         <ul id="insertOpt2">
-          <label><input type="text" name="pOptionName2" placeholder="옵션명"></label>
-          <li><input type="text" name="opt2" placeholder="직접입력" value=""/><button type="button" id="btnAddOpt2">옵션추가</button></li>
+          <label><input type="text" class="opt2" id="optionName2" name="pOptionName2" placeholder="옵션명" readonly></label>
+          <li><input type="text" class="opt2" name="opt2" placeholder="직접입력" /><button type="button" id="btnAddOpt2">옵션추가</button></li>
         </ul>
 
 
         <div class="inputArea">
           <label>색상</label>
-          <label><input type="checkbox" name="color" value="BLACK">BLACK</label>
-          <label><input type="checkbox" name="color" value="WHITE">WHITE</label>
-          <label><input type="checkbox" name="color" value="RED">RED</label>
-          <label><input type="checkbox" name="color" value="BLUE">BLUE</label>
-          <label><input type="checkbox" name="color" value="YELLOW">YELLOW</label>
-          <label><input type="checkbox" name="color" value="GRE ">GREEN</label>
-          <label><input type="checkbox" name="color" value="PURPLE">PURPLE</label>
+          <label><input type="checkbox" name="colorOpt" value="BLACK">BLACK</label>
+          <label><input type="checkbox" name="colorOpt" value="WHITE">WHITE</label>
+          <label><input type="checkbox" name="colorOpt" value="RED">RED</label>
+          <label><input type="checkbox" name="colorOpt" value="BLUE">BLUE</label>
+          <label><input type="checkbox" name="colorOpt" value="YELLOW">YELLOW</label>
+          <label><input type="checkbox" name="colorOpt" value="GREEN">GREEN</label>
+          <label><input type="checkbox" name="colorOpt" value="PURPLE">PURPLE</label>
           <label><input type="text" placeholder="직접입력"/>
         </div>
 
@@ -198,6 +199,23 @@
         "<li><input type=" + "text " + "name=" + "opt2 " + "placeholder=" + "직접입력 " + "value=''"
           + "/><button type=" + "button " + "id=" + "btnAddOpt2" + ">옵션추가</button></li>"
         )
+    })
+
+    let flag2 = false;
+    $("#option1").change(function(){
+      flag2 = true;
+      $("#optionName2").removeAttr("readonly");
+    })
+
+    $("#option2").click(function(){
+      if(flag2 === false){
+        console.log(flag2);
+        alert("옵션1부터 작성해야함");
+      }
+    })
+
+    $("#btnNull").click(function(){
+      $(".opt2").attr("value", "없음");
     })
 
  })

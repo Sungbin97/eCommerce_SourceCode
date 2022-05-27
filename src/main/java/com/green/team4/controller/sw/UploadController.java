@@ -61,9 +61,9 @@ public class UploadController {
 
             // 실제 파일 이름 IE나 Edge는 전체 경로가 들어오므로
             String originalName = uploadFile.getOriginalFilename(); // 원본 파일 이름 가져오기
-            log.info("originalName: "+originalName);
+//            log.info("originalName: "+originalName);
             String fileName = originalName.substring(originalName.lastIndexOf("\\")+1); // 파일 이름 수정
-            log.info("fileName: "+fileName);
+//            log.info("fileName: "+fileName);
 
             // 날짜 폴더 생성
             String folderPath = makeFolder();
@@ -95,14 +95,14 @@ public class UploadController {
     // 파일 Display
     @GetMapping("/display")
     public ResponseEntity<byte[]> getFile(String fileName){
-        log.info("UploadController => getFile 실행 => 받은 fileName: "+fileName);
+//        log.info("UploadController => getFile 실행 => 받은 fileName: "+fileName);
         ResponseEntity<byte[]> result = null;
         try{
             String srcFileName = URLDecoder.decode(fileName,"UTF-8");
-            log.info("fileName: "+fileName);
+//            log.info("fileName: "+fileName);
             File file = new File(uploadPath+File.separator+srcFileName);
 
-            log.info("File: "+file);
+//            log.info("File: "+file);
             HttpHeaders header = new HttpHeaders();
 
             // MIME 타입 처리
@@ -111,7 +111,7 @@ public class UploadController {
             // 파일 데이터 처리
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
         } catch (Exception e){
-            log.error(e.getMessage());
+//            log.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return result;
