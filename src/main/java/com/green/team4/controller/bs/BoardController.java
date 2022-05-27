@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/bs/board/*")
@@ -24,6 +27,7 @@ public class BoardController {
     public void list(Model model, Criteria criteria) {
         PageMaker pageMaker = new PageMaker(criteria, boardService.getTotal(criteria));
         log.info("list로 이동....");
+
         model.addAttribute("items", boardService.getPageList(criteria));
         model.addAttribute("pageMaker",pageMaker);
 
@@ -35,8 +39,8 @@ public class BoardController {
     }
 
     @PostMapping("/register")
-    public String register(BoardVO vo) {
-        boardService.insert(vo);
+    public String register(BoardVO vo,MultipartFile imgFile) throws IOException {
+        boardService.saveFile(vo,imgFile);
         log.info("게시글 등록 성공");
         return "redirect:list";
     }

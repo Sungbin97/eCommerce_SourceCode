@@ -20,8 +20,7 @@ create table user_delete_tbl(
      title varchar(100) not null,
      content varchar(1000) not null,
      regDate date,
-     modDate date,
-     delete_state varchar(10) default 'Y'
+     modDate date
 );
 select * from user_tbl;
 alter table user_tbl modify delete_state boolean default 1;

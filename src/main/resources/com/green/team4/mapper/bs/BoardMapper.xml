@@ -47,7 +47,7 @@
             <if test="type=='userName' and keyword != null and keyword !='' ">
                 userName like concat('%',#{keyword},'%')
             </if>
-            <if test="type=='' and keyword==''">
+            <if test="type=='' and keyword=='' and keyword !=''">
 
             </if>
         </trim>
@@ -57,17 +57,18 @@
     </select>
     <select id="getTotalCount" resultType="int">
         select count(*) from user_tbl where uNo > 0
-        <choose>
-            <when test="type=='title' and keyword != null and keyword !=''">
+            <if test="type=='title' and keyword != null and keyword !=''">
                 and title like concat('%',#{keyword},'%')
-            </when>
-            <when test="type=='content' and keyword != null and keyword !=''">
+            </if>
+            <if test="type=='content' and keyword != null and keyword !=''">
                 and content like concat('%',#{keyword},'%')
-            </when>
-            <when test="type=='userName' and keyword != null and keyword !=''">
+            </if>
+            <if test="type=='userName' and keyword != null and keyword !=''">
                 and userName like concat('%',#{keyword},'%')
-            </when>
-        </choose>
+            </if>
+            <if test="type=='null' and keyword == null and keyword == ''">
+
+            </if>
 
     </select>
 </mapper>

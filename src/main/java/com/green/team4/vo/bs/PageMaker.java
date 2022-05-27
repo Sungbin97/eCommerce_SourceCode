@@ -18,10 +18,12 @@ public class PageMaker {
         this.total = total;
         // Math.ceil : 올림
         this.endPage = (int)(Math.ceil((double)(criteria.getPage())/(double)10) * 10);
+        System.out.println(criteria.getPage());
         this.startPage = this.endPage - 10 + 1;
-        int realEnd = (int)(Math.ceil(total/(double)10) * 10);
+        int realEnd = (int)(Math.ceil((double)total/(double)10));
+        System.out.println("@@ realEnd : " + realEnd);
         if(endPage>realEnd){
-            endPage = realEnd;
+            this.endPage = realEnd;
         }
         prev = startPage > 1;
         next = endPage * cri.getPageNum() < total;

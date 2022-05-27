@@ -20,4 +20,6 @@ public class BoardVO {
     private Date modDate;
     private boolean delete_state;
     private Long totalCount; // count(*)
+    private String originFileName;
+    private String FileName;
 }
