@@ -1,185 +1,135 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-main</title>
+    <title>member/modify</title>
 </head>
 <body>
-<!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
-<!-- PAGE BANNER SECTION -->
-<div class="page-banner-section section">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="page-banner-content">
-                    <h1 th:text="${memName}+'님'"></h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li class="active">myPage</li>
-                    </ul>
+    <!-- mypage header fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+    <!-- PAGE BANNER SECTION -->
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'회원정소'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a th:href="@{/sb/member/member?mno=1}">member</a></li>
+                            <li class="active">modify</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="col-12">
-    <div class="checkout-form">
-        <div class="row">
-            <div class="col-lg-6 mb-40">
-                <form action="#">
-                    <h3>Billing Details</h3>
-                    <div class="row">
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="b_f_name">First Name <span class="required">*</span></label>
-                            <input id="b_f_name" type="text"/>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="b_l_name">Last Name <span class="required">*</span></label>
-                            <input id="b_l_name" type="text"/>
-                        </div>
-                        <div class="col-xs-12 mb-30">
-                            <label for="b_c_name">Company Name</label>
-                            <input id="b_c_name" type="text"/>
-                        </div>
-                        <div class="col-xs-12 mb-30">
-                            <label>Address <span class="required">*</span></label>
-                            <input type="text" placeholder="Street address" />
-                        </div>
-                        <div class="col-xs-12 mb-30">
-                            <input type="text" placeholder="Apartment, suite, unit etc. (optional)" />
-                        </div>
-                        <div class="col-xs-12 mb-30">
-                            <label for="b_city">Town / City <span class="required">*</span></label>
-                            <input id="b_city" type="text" placeholder="Town / City" />
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label>State / County <span class="required">*</span></label>
-                            <input type="text"/>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="b_zip">Postcode / Zip <span class="required">*</span></label>
-                            <input id="b_zip" type="text" placeholder="Postcode / Zip" />
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="b_email">Email Address <span class="required">*</span></label>
-                            <input id="b_email" type="email"/>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="b_phone">Phone  <span class="required">*</span></label>
-                            <input id="b_phone" type="text" placeholder="Phone Number" />
-                        </div>
-                        <div class="col-xs-12 mb-30">
-                            <input id="b_c_account" type="checkbox" data-target="createp_account" />
-                            <label for="b_c_account">Create an account?</label>
-                            <div class="collapse mt-20" data-collapse="createp_account">
-                                <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                <label for="b_a_password">Account password  <span class="required">*</span></label>
-                                <input id="b_a_password" type="password" placeholder="Password" />
+    <!-- PAGE SECTION START -->
+
+    <!-- modify -->
+    <div class="page-section section pt-120 pb-45">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 mx-auto">
+                    <div class="login-reg-form">
+                        <form class="forModify" th:action="@{/sb/member/modify}" th:method="post">
+                            <div class="row">
+                                <h3>회원상세정보</h3>
+                                <p>수정할 내용을 입력하시고 수정 등록을 눌러주세요</p>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>회원번호 <span class="required">*</span></label>
+                                    <input type="text" name="mno" th:value="${getOne.mno}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>이름 <span class="required">*</span></label>
+                                    <input type="text" name="name" th:placeholder="${getOne.name}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>별명 <span class="required">*</span></label>
+                                    <input type="text" name="nickName" th:placeholder="${getOne.nickName}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>아이디 <span class="required">*</span></label>
+                                    <input type="text" name="id" readonly th:placeholder="${getOne.id}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>비밀번호 <span class="required">*</span></label>
+                                    <input type="text" name="password" th:placeholder="${getOne.password}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>주민등록번호 <span class="required">*</span></label>
+                                    <input type="text" name="sSNum" th:placeholder="${getOne.sSNum}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>성별 <span class="required">*</span></label>
+                                    <input type="text" name="gender" th:placeholder="${getOne.gender}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>전화번호 </label>
+                                    <input type="text" name="phoneNum" th:placeholder="${getOne.phoneNum}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>휴대전화번호 <span class="required">*</span></label>
+                                    <input type="text" name="mobileNum" th:placeholder="${getOne.mobileNum}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>이메일 <span class="required">*</span></label>
+                                    <input type="email" name="email" th:placeholder="${getOne.email}"/>
+                                </div>
+                                <div class="col-xs-12 mb-20">
+                                    <label>주소 <span class="required">*</span></label>
+                                    <input type="text" name="postcode"  th:placeholder="${getOne.postcode}" />
+                                </div>
+                                <div class="col-xs-12 mb-20">
+                                    <input type="text"  name="address" th:placeholder="${getOne.address}" />
+                                </div>
+                                <div class="col-xs-12 mb-20">
+                                    <input type="text"  name="detailAddress"  th:placeholder="${getOne.detailAddress}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>관심운동 <span class="required">*</span></label>
+                                    <input type="text" name="interestSports" th:placeholder="${getOne.interestSports}" />
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>등급 <span class="required">*</span></label>
+                                    <input type="text" name="grade" th:placeholder="${getOne.grade}"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>보유 포인트 <span class="required">*</span></label>
+                                    <input type="text" name="point" th:placeholder="${getOne.point}" />
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <input value="회원정보 수정등록" type="submit">
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <h3>
-                        <input id="ship_form" type="checkbox" data-target="shipping_form" />
-                        <label for="ship_form">Ship to a different address?</label>
-                    </h3>
-                    <div class="collapse row" data-collapse="shipping_form">
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="s_f_name">First Name <span class="required">*</span></label>
-                            <input id="s_f_name" type="text"/>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="s_l_name">Last Name <span class="required">*</span></label>
-                            <input id="s_l_name" type="text"/>
-                        </div>
-                        <div class="col-xs-12 mb-30">
-                            <label for="s_c_name">Company Name</label>
-                            <input id="s_c_name" type="text"/>
-                        </div>
-                        <div class="col-xs-12 mb-30">
-                            <label>Address <span class="required">*</span></label>
-                            <input type="text" placeholder="Street address" />
-                        </div>
-                        <div class="col-xs-12 mb-30">
-                            <input type="text" placeholder="Apartment, suite, unit etc. (optional)" />
-                        </div>
-                        <div class="col-xs-12 mb-30">
-                            <label for="s_city">Town / City <span class="required">*</span></label>
-                            <input id="s_city" type="text" placeholder="Town / City" />
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label class="s_county">State / County <span class="required">*</span></label>
-                            <input id="s_county" type="text"/>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="s_zip">Postcode / Zip <span class="required">*</span></label>
-                            <input id="s_zip" type="text" placeholder="Postcode / Zip" />
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="s_email">Email Address <span class="required">*</span></label>
-                            <input id="s_email" type="email"/>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-30">
-                            <label for="s_phone">Phone  <span class="required">*</span></label>
-                            <input id="s_phone" type="text" placeholder="Phone Number" />
-                        </div>
-                    </div>
-                    <div class="order-notes">
-                        <label for="order_note">Order Notes</label>
-                        <textarea id="order_note" placeholder="Notes about your order, e.g. special notes for delivery." ></textarea>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+<br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <form th:action="@{/sb/member/remove}" th:method="post">
+                    <input type="hidden" name="mno" th:value="${getOne.mno}">
+                    <input type="submit" class="btn" value="회원삭제">
+                </form>
+            </div>
+        </div>
+    </div><br/>
 
-<!-- PAGE SECTION END -->
-        <main>
-            <h5>회원 정보 수정 및 삭제</h5>
-            <form th:action="@{/sb/member/modify(mno=${getOne.mno})}" method="post">
-              <li th:text="${getOne.mno}" readonly="readonly"></li>
-
-                <li th:text="'이름: '+${getOne.name}"></li>
-                <input th:name="name" th:value="${getOne.name}">
-
-                <li th:text="'아이디: '+${getOne.id}"></li>
-                <input th:name="id" th:value="${getOne.id}">
-
-                <li th:text="'패스워드: '+${getOne.password}"></li>
-                <input th:name="password" th:value="${getOne.password}">
-
-                <li th:text="'닉네임: '+${getOne.nickName}"></li>
-                <input th:name="nickName" th:value="${getOne.nickName}">
-
-                <li th:text="'주소: '+${getOne.address}"></li>
-                <input th:name="address" th:value="${getOne.address}">
-
-                <li th:text="'주민번호: '+${getOne.SSNum}"></li>
-                <input th:name="SSNum" th:value="${getOne.SSNum}">
-
-                <li th:text="'이메일: '+${getOne.email}"></li>
-                <input th:name="email" th:value="${getOne.email}">
-
-                <li th:text="'전화번호: '+${getOne.phoneNum}"></li>
-                <input th:name="phoneNum" th:value="${getOne.phoneNum}">
-
-                <li th:text="'권한: '+${getOne.auth}"></li>
-                <input th:name="auth" th:value="${getOne.auth}">
-
-                <li th:text="'등급: '+${getOne.grade}"></li>
-                <input th:name="grade" th:value="${getOne.grade}">
-
-                <input type="submit" th:value="수정"/>
-            </form>
-            <form th:action="@{/sb/member/remove(mno=${getOne.mno})}" method="post">
-                <input type="submit" th:value="삭제"/>
-            </form>
-        </main>
-    </div>
 </body>
+
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+
+<script>
+
+</script>
 </html>
