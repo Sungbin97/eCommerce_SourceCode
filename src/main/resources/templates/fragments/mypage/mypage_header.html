@@ -67,7 +67,42 @@
                                         <li><a href="index-3.html">Home three</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="shop.html">shop</a>
+                                <li><a href="shop.html">New Brand</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="shop.html">shop</a></li>
+                                        <li><a href="product-details.html">product details</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="shop.html">Best Sellers</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="shop.html">shop</a></li>
+                                        <li><a href="product-details.html">product details</a></li>
+                                    </ul>
+                                </li>
+                                <li class="cate_li"><a th:href="@{/shop/list(pCateCode='10',page=1,numPerPage=10,sort='',keyword='')}">국내</a>
+                                    <ul class="sub-menu">
+                                        <li class="cate_li" th:if="${cate.pCateCode.startsWith('10')}" th:each="cate : ${cateTier2List}"  ><a th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring( 0, 3 )},page=1,numPerPage=10,sort='',keyword='')}">[[${cate.pCateName}]]</a></li>
+                                    </ul>
+                                </li>
+                                <li class="cate_li"><a class="cate_a" th:href="@{/shop/list(pCateCode='20',page=1,numPerPage=10,sort='',keyword='')}">국외</a>
+                                    <ul class="sub-menu">
+                                        <li class="cate_li" th:if="${cate.pCateCode.startsWith('20')}" th:each="cate : ${cateTier2List}"><a class="cate_a" th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring( 0, 3 )},page=1,numPerPage=10,sort='',keyword='')}">[[${cate.pCateName}]]</a></li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="shop.html">KIDS</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="shop.html">shop</a></li>
+                                        <li><a href="product-details.html">product details</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="shop.html">Nutrition</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="shop.html">shop</a></li>
+                                        <li><a href="product-details.html">product details</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="shop.html">accessories</a>
                                     <ul class="sub-menu">
                                         <li><a href="shop.html">shop</a></li>
                                         <li><a href="product-details.html">product details</a></li>
@@ -166,5 +201,5 @@
             </div>
         </header>
         <!-- END HEADER SECTION -->
-</div>
+    </div>
 </html>

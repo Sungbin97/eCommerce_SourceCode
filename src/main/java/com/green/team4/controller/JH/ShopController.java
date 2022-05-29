@@ -1,9 +1,11 @@
 package com.green.team4.controller.JH;
 
+import com.green.team4.service.JH.CategoryService;
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
 
 import com.green.team4.service.sw.MemberInfoService;
+import com.green.team4.vo.JH.CategoryVO;
 import com.green.team4.vo.JH.ItemPageCriteria;
 import com.green.team4.vo.JH.PagingVO;
 import com.green.team4.vo.JH.Product_optVO;
@@ -29,6 +31,9 @@ public class ShopController {
     private ReviewService reviewService;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private MemberInfoService memberInfoService;
     @GetMapping("/start")
     public void start(){
@@ -44,9 +49,16 @@ public class ShopController {
         System.out.println(cri);
         pagingVO.setCri(cri);
         pagingVO.setTotalProductData(shopService.getTotaldatabyFind(cri));
+        List<ProductVO> productList = shopService.getListByFind(cri);
+        Set<String> uniqueCateName = new HashSet<>();
+        for(ProductVO pvo : productList){
+            System.out.println(pvo);
+            uniqueCateName.add(pvo.getPCateName());
+        }
+        model.addAttribute("UniqueCateName",uniqueCateName);
         model.addAttribute("list",shopService.getListByFind(cri));
         model.addAttribute("pagingVO",pagingVO);
-
+        model.addAttribute("cateTier2List",categoryService.getCateTier2());
 
     }
     @GetMapping("/listAll")

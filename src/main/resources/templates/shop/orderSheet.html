@@ -7,10 +7,19 @@
     <title>mypage-main</title>
 </head>
 <style>
+    .address_search_btn{
+        margin-bottom: 20px;
+
+    }
     .addressInfo_input_div{
         display: none;
     }
     .img_td{
+        width: 300px;
+        height: 100px;
+    }
+    .img_th{
+        width: 600px;
         height: 100px;
     }
     .addressBtn_1{
@@ -65,6 +74,9 @@
         line-height: 30px;
         color: #555;
         cursor: pointer;
+    }
+    .pName{
+        width: 300px;
     }
 </style>
 <body>
@@ -187,7 +199,7 @@
                                             <label for="b_phone">연락처  <span class="required">*</span></label>
                                             <input id="b_phone" type="text" class="receiverPhone_input"  name="receiverPhone"  />
                                         </div>
-                                        <div class="address-box">
+                                        <div class="address-box ">
                                             <a class="address_search_btn" onclick="execution_daum_address()">주소 찾기</a><br>
                                             <div class="col-sm-2 col-xs-12 mb-30">
                                                 <label>우편번호 <span class="required">*</span></label>
@@ -234,7 +246,7 @@
                                     <table th:each="product :${orderlist}">
                                         <thead>
                                         <tr>
-                                            <th class="product-name">상품이미지</th>
+                                            <th class="product-name ">이미지</th>
                                             <th class="product-name">상품명</th>
                                             <th class="product-name">수량</th>
                                             <th th:if="${product.pColor} != null" class="product-name">색상</th>
@@ -247,8 +259,8 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td><img class="img_td" th:src="|/display?fileName=${product.pImage}|"></td>
-                                            <td class="product_name_td">
+                                            <td class="img_th"><img class="img_td" th:src="|/display?fileName=${product.pImage}|"></td>
+                                            <td class="product_name_td pName">
                                                 [[${product.pName}]]
                                             </td>
                                             <td>

@@ -13,6 +13,7 @@ public interface ShopService {
     public List<ProductVO> getListWithCategory(String p_category);
     public int register(ProductVO pvo);
     public ProductVO getOne(int p_no);
+    public ProductVO getOneWithPno (int p_no);
     //옵션을 통한 데이터 구하기
     public Product_optVO getProductWithOpt(Product_optVO povo);
 

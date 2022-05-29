@@ -35,6 +35,10 @@ public class ShopServiceImpl implements ShopService {
         return shopMapper.getOne(p_no);
     }
 
+    @Override
+    public ProductVO getOneWithPno(int p_no) {
+        return shopMapper.getOneWithPno(p_no);
+    }
 
 
     @Override

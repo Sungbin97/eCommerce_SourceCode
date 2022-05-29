@@ -47,28 +47,31 @@ public class ShopMapperTest {
         String[] ejpgs = {"equipment0.jpg","equipment1.jpg","equipment2.jpg","equipment3.jpg"};
         String[] sizes = {"XXL","XL","L","M","S"};
         String[] colors = {"red","green","blue","white","black"};
+        String [] cate = {"101001","101002","101003","102001","102002","103001","103002","103003","103004","104001"
+        ,"104002","104003","105001","105002","105003","106001","106002","106003","107001","107002","107003"
+        ,"201001","201002","201003","202001","202002","203001","203002","203003","204001","204002","204003"};
         for (int i = 0; i < 200; i++) {
             ProductVO pvo = new ProductVO();
-            int randidx = (int)(Math.random()*maincategories.length);
-            pvo.setPMainCategory(maincategories[randidx]);
+            int randidx = (int)(Math.random()*cate.length);
+            //pvo.setPMainCategory(maincategories[randidx]);
+            pvo.setPCateCode(cate[randidx]);
+//           switch (pvo.getPMainCategory()){
 
-           switch (pvo.getPMainCategory()){
-
-               case "의류" : pvo.setPSubCategory(clothes[(int)(Math.random()*clothes.length)]);
-                            pvo.setPImage( "/images/"+cjpgs[(int)(Math.random()*cjpgs.length)]);
-//                            pvo.setp(sizes[(int)(Math.random()*sizes.length)]);
-//                            pvo.setP_color(colors[(int)(Math.random()*colors.length)]);
-                   break;
-               case "식품" : pvo.setPSubCategory(food[(int)(Math.random()*food.length)]);
-                            pvo.setPImage("/images/"+fjpgs[(int)(Math.random()*fjpgs.length)] );
-                   break;
-               case "운동용품" : pvo.setPSubCategory(equipment[(int)(Math.random()*equipment.length)]);
-                             pvo.setPImage("/images/"+ejpgs[(int)(Math.random()*ejpgs.length)] );
-//                             pvo.setP_color(colors[(int)(Math.random()*colors.length)]);
-                   break;
+//               case "의류" : pvo.setPSubCategory(clothes[(int)(Math.random()*clothes.length)]);
+//                            pvo.setPImage( "/images/"+cjpgs[(int)(Math.random()*cjpgs.length)]);
+////                            pvo.setp(sizes[(int)(Math.random()*sizes.length)]);
+////                            pvo.setP_color(colors[(int)(Math.random()*colors.length)]);
+//                   break;
+//               case "식품" : pvo.setPSubCategory(food[(int)(Math.random()*food.length)]);
+//                            pvo.setPImage("/images/"+fjpgs[(int)(Math.random()*fjpgs.length)] );
+//                   break;
+//               case "운동용품" : pvo.setPSubCategory(equipment[(int)(Math.random()*equipment.length)]);
+//                             pvo.setPImage("/images/"+ejpgs[(int)(Math.random()*ejpgs.length)] );
+////                             pvo.setP_color(colors[(int)(Math.random()*colors.length)]);
+//                   break;
 
 
-           }
+           //}
             pvo.setPPrice((int)(Math.random()*11100)+1000);
             pvo.setPAmount((int)(Math.random()*100)+1);
 
@@ -113,7 +116,7 @@ public class ShopMapperTest {
 
         ItemPageCriteria cri = new ItemPageCriteria();
 
-        cri.setMain_category("상의");
+
         //cri.setSub_category("잠옷");
         mapper.getTotaldatabyFind(cri);
         System.out.println(mapper.getListByFind(cri));
@@ -129,7 +132,7 @@ public class ShopMapperTest {
 
         ItemPageCriteria cri = new ItemPageCriteria();
         // fCri.setMain_category("식품");
-        cri.setMain_category("상의");
+
         //fCri.setSub_category2("프로틴바");
         System.out.println(mapper.getTotaldatabyFind(cri));
 

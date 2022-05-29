@@ -803,6 +803,8 @@ input:focus, textarea:focus {
 
 /*-- Main Menu --*/
 
+
+
 .main-menu > ul {
   display: block;
   float: left;
@@ -864,6 +866,7 @@ input:focus, textarea:focus {
   position: relative;
   text-transform: uppercase;
 }
+
 .sub-menu li:hover a {
   color: #3f3f3f;
   padding-left: 15px;

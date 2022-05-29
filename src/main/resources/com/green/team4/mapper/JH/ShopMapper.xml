@@ -19,6 +19,11 @@
          inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno};
     </select>
+    <select id="getOneWithPno" resultType="com.green.team4.vo.sb.ProductVO">
+        select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount,ps.pcno,ps.pColor,ps.pOption,ps.pOption2,ps.pOptionName,ps.pOptionName2  from tbl_product p
+                                                                                                       inner join tbl_product_opt ps on p.pno = ps.pno
+        where p.pno = #{pno};
+    </select>
     <select id="getProductWithOpt" resultType="com.green.team4.vo.JH.Product_optVO">
         select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount,
                ps.pOption,ps.pOptionName,ps.pOption2,ps.pOptionName2,ps.pOptionPrice  from tbl_product p
@@ -26,12 +31,16 @@
         where p.pno = #{pno} <include refid="price"></include>
     </select>
 
+<!--    <insert id="insert">-->
+<!--        insert into tbl_product (pName,pMainCategory,pPrice,pAmount,pImage,pSubCategory,pInformation,pCateCode)-->
+<!--        values (#{pName},#{pMainCategory},#{pPrice},#{pAmount},-->
+<!--                #{pImage},#{pSubCategory},#{pInformation},#{pCateCode})-->
+<!--    </insert>-->
     <insert id="insert">
-        insert into tbl_product (pName,pMainCategory,pPrice,pAmount,pImage,pSubCategory,pInformation)
-        values (#{pName},#{pMainCategory},#{pPrice},#{pAmount},
-                #{pImage},#{pSubCategory},#{pInformation})
+        insert into tbl_product (pName,pPrice,pAmount,pImage,pInformation,pCateCode)
+        values (#{pName},#{pPrice},#{pAmount},
+                #{pImage},#{pInformation},#{pCateCode})
     </insert>
-
 
     <select id="getColors" resultType="com.green.team4.vo.JH.Product_optVO">
         select distinct ps.pColor from tbl_product p
@@ -111,100 +120,117 @@
 
 
 
+<!--    <select id="getListByFind" resultType="com.green.team4.vo.sb.ProductVO">-->
+<!--        select * from tbl_product-->
+<!--        where-->
+<!--        <include refid="keyword"></include>-->
+<!--        <include refid="sort"></include>-->
+<!--        limit #{startPage}, #{numPerPage}-->
+<!--    </select>-->
     <select id="getListByFind" resultType="com.green.team4.vo.sb.ProductVO">
-        select * from tbl_product
-        where
-        <include refid="keyword"></include>
-        <include refid="mainCategory"></include> <include refid="subCategory"></include>
+        select * from tbl_product P
+        left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
+        <include refid="criteria"></include>
         <include refid="sort"></include>
         limit #{startPage}, #{numPerPage}
     </select>
     <select id="getTotaldatabyFind" resultType="int">
-        select count(pno)
-        from tbl_product
-        where
-        <include refid="keyword"></include>
-        <include refid="mainCategory"></include>
-        <include refid="subCategory"></include>
+        select count(pno) from tbl_product P
+        left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
+        <include refid="criteria"></include>
+        <include refid="sort"></include>
+    </select>
 
-    </select>
-    <select id="getListBySearch" resultType="com.green.team4.vo.sb.ProductVO">
-        select * from tbl_product
-        where pName like concat('%',#{keyword},'%')
-        order by pno desc limit 5
-    </select>
+<!--    <select id="getListBySearch" resultType="com.green.team4.vo.sb.ProductVO">-->
+<!--        select * from tbl_product-->
+<!--        where pName like concat('%',#{keyword},'%')-->
+<!--        order by pno desc limit 5-->
+<!--    </select>-->
     <sql id="keyword">
 
         <if test="keyword != null and keyword != '' "  >
             pName like concat('%',#{keyword},'%')
         </if>
 
-
     </sql>
-    <sql id="mainCategory">
-
-        <if test="main_category != null and main_category != ''">
-            <if test="main_category == '의류'">
-                pMainCategory ='의류'
-            </if>
-            <if test="main_category == '식품'">
-                pMainCategory ='식품'
-            </if>
-            <if test="main_category == '운동용품'">
-                pMainCategory ='운동용품'
-            </if>
-        </if>
-
+    <sql id="criteria">
+        <trim prefix="where (" suffix=")" prefixOverrides="and" >
+            <trim prefix="and">
+                <choose>
+                    <when test="pCateCode != null and pCateCode != ''">
+                        P.pCateCode like concat(#{pCateCode},'%')
+                    </when>
+                    <when test="keyword != null and keyword != ''">
+                        P.pName like concat('%',#{keyword},'%')
+                    </when>
+                </choose>
+            </trim>
+        </trim>
     </sql>
-    <sql id="subCategory">
-        <if test="sub_category != null and sub_category != ''">
-            <if test="sub_category == '비타민C'">
-                and  pSubCategory = '비타민C'
-            </if>
-            <if test="sub_category == '비타민D'">
-                and  pSubCategory = '비타민D'
-            </if>
-            <if test="sub_category == '종합 비타민'">
-                and  pSubCategory = '종합 비타민'
-            </if>
-            <if test="sub_category == '오메가3'">
-                and  pSubCategory = '오메가3'
-            </if>
-            <if test="sub_category == '아르기닌'">
-                and  pSubCategory = '아르기닌'
-            </if>
-            <if test="sub_category == '티셔츠'">
-                and  pSubCategory = '티셔츠'
-            </if>
-            <if test="sub_category == '셔츠'">
-                and  pSubCategory ='셔츠'
-            </if>
-            <if test="sub_category == '기능성티'">
-                and  pSubCategory = '기능성티'
-            </if>
-            <if test="sub_category == '런닝복'">
-                and  pSubCategory ='런닝복'
-            </if>
-            <if test="sub_category == '반팔티'">
-                and  pSubCategory ='반팔티'
-            </if>
-            <if test="sub_category == '벤치프레스'">
-                and  pSubCategory = '벤치프레스'
-            </if>
-            <if test="sub_category == '로잉머신'">
-                and  pSubCategory = '로잉머신'
-            </if>
-            <if test="sub_category == '철봉'">
-                and  pSubCategory ='철봉'
-            </if>
-            <if test="sub_category == '런닝머신'">
-                and  pSubCategory = '런닝머신'
-            </if>
-            <if test="sub_category == '덤벨'">
-                and  pSubCategory = '덤벨'
-            </if>
-        </if>
-    </sql>
+<!--    <sql id="mainCategory">-->
+
+<!--        <if test="main_category != null and main_category != ''">-->
+<!--            <if test="main_category == '의류'">-->
+<!--                pMainCategory ='의류'-->
+<!--            </if>-->
+<!--            <if test="main_category == '식품'">-->
+<!--                pMainCategory ='식품'-->
+<!--            </if>-->
+<!--            <if test="main_category == '운동용품'">-->
+<!--                pMainCategory ='운동용품'-->
+<!--            </if>-->
+<!--        </if>-->
+
+<!--    </sql>-->
+<!--    <sql id="subCategory">-->
+<!--        <if test="sub_category != null and sub_category != ''">-->
+<!--            <if test="sub_category == '비타민C'">-->
+<!--                and  pSubCategory = '비타민C'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '비타민D'">-->
+<!--                and  pSubCategory = '비타민D'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '종합 비타민'">-->
+<!--                and  pSubCategory = '종합 비타민'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '오메가3'">-->
+<!--                and  pSubCategory = '오메가3'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '아르기닌'">-->
+<!--                and  pSubCategory = '아르기닌'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '티셔츠'">-->
+<!--                and  pSubCategory = '티셔츠'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '셔츠'">-->
+<!--                and  pSubCategory ='셔츠'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '기능성티'">-->
+<!--                and  pSubCategory = '기능성티'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '런닝복'">-->
+<!--                and  pSubCategory ='런닝복'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '반팔티'">-->
+<!--                and  pSubCategory ='반팔티'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '벤치프레스'">-->
+<!--                and  pSubCategory = '벤치프레스'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '로잉머신'">-->
+<!--                and  pSubCategory = '로잉머신'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '철봉'">-->
+<!--                and  pSubCategory ='철봉'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '런닝머신'">-->
+<!--                and  pSubCategory = '런닝머신'-->
+<!--            </if>-->
+<!--            <if test="sub_category == '덤벨'">-->
+<!--                and  pSubCategory = '덤벨'-->
+<!--            </if>-->
+<!--        </if>-->
+<!--    </sql>-->
     <sql id="sort">
 
         <if test="sort == '' ">

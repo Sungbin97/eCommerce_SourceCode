@@ -47,7 +47,9 @@
         margin:0 auto;
         text-align: center;
     }
-
+.pro-thumb-img-slider{
+    width: 20px;
+}
 
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -79,11 +81,11 @@
                 <!-- Tab panes -->
                 <div class="tab-content mb-10">
                     <div class="pro-large-img tab-pane active" id="pro-large-img-1">
-                        <img th:src="|/display?fileName=${pvo.pImage}|" alt="">
 
+                        <img th:src="|/display?fileName=${pvo.pImage}|" alt="">
                     </div>
                     <div class="pro-large-img tab-pane" id="pro-large-img-2">
-                        <img src="/display?fileName="+${pvo.pImage}>
+
                     </div>
                     <div class="pro-large-img tab-pane" id="pro-large-img-3">
                         <img src="img/product/12.jpg" alt="" />
@@ -92,17 +94,17 @@
                         <img src="img/product/13.jpg" alt="" />
                     </div>
                     <div class="pro-large-img tab-pane" id="pro-large-img-5">
-                        <img src="img/product/14.jpg" alt="" />
+
                     </div>
                 </div>
                 <!-- Single Product Thumbnail Slider -->
-                <div class="pro-thumb-img-slider">
-<!--                    <div><a href="#pro-large-img-1" data-toggle="tab"><img th:src="|/display?fileName=${pvo.pImage}|" alt=""></a></div>-->
-<!--                    <div><a href="#pro-large-img-2" data-toggle="tab"><img th:src="|/display?fileName=${pvo.pImage}|"/></a></div>-->
-<!--                    <div><a href="#pro-large-img-3" data-toggle="tab"><img src="img/product/12.jpg" alt="" /></a></div>-->
-<!--                    <div><a href="#pro-large-img-4" data-toggle="tab"><img src="img/product/13.jpg" alt="" /></a></div>-->
-<!--                    <div><a href="#pro-large-img-5" data-toggle="tab"><img src="img/product/14.jpg" alt="" /></a></div>-->
-                </div>
+<!--                <div class="pro-thumb-img-slider">-->
+<!--                    <div><a href="#pro-large-img-1" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
+<!--                    <div><a href="#pro-large-img-2" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
+<!--                    <div><a href="#pro-large-img-3" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
+<!--                    <div><a href="#pro-large-img-4" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
+<!--                    <div><a href="#pro-large-img-5" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
+<!--                </div>-->
             </div>
 <!--             Single Product Details-->
             <div class="col-md-7 col-sm-6 col-xs-12 mb-40">
@@ -154,7 +156,7 @@
 
 
                     </div>
-
+                    [[${pvo}]]
                     <form th:action="@{/order/${member.id}}"  method="get" class="order_form">
                         <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
                         <input type="hidden" name="orders[0].pColor" value="">
@@ -279,26 +281,39 @@
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <script th:inline="javascript">
-    // $("#exampleModal").click(function (){
-    //     console.log(this)
-    //      $(this).attr("id","#exampleModal2")
-    // })
-    $(".gotoCart").click(function (){
-
-    })
 
     $(".btn_cart").click(function (e){
         e.preventDefault()
+        // <!--                        mno, pno, cName, cOption, cOptionName, cOption2,-->
+        // <!--                        cOptionName2, cColor, cPrice, cDiscount,-->
+        // <!--                        cDisPrice, cCount, cTotalPrice-->
+
+        // <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
+        //     <input type="hidden" name="orders[0].pColor" value="">
+        //     <input type="hidden" name="orders[0].pOption" value="">
+        //     <input type="hidden" name="orders[0].pOption2" value="">
+        //     <input type="hidden" name="orders[0].pOptionPrice" value="0">
+        //     <input type="hidden" name="orders[0].itemCount" value="">
 
         let cartMno=  [[${member.mno}]]
         let cartPno = [[${pvo.pno}]]
+        let pName = [[${pvo.pName}]]
+        let cOption = $("input[name='orders[0].pOption']").val()
+        let cOptionName = "옵션1"
+        let cOption2 = $("input[name='orders[0].pOption2']").val()
+        let cOptionName2 = "옵션2"
+        let cColor = $("input[name='orders[0].pColor']").val()
+        let cPrice = [[${pvo.pPrice}]]+$("input[name='orders[0].pOptionPrice']").val()
+        console.log("cPrice : ",cPrice)
+        console.log("pName : ",pName)
 
         $.ajax({
             type: "post",
             url: "/sw/mypage/cart/register",
             data: JSON.stringify({
-                mno : cartMno,
-                pno: cartPno
+                'mno' : cartMno,
+                'pno': cartPno,
+                'cName' : pName
             }),
             contentType: "application/json;charset=UTF-8",
             success: (result) => {
@@ -316,6 +331,7 @@
 
 
     $(document).ready(function (){
+
         let rating =Math.round([[${pvo.pRating}]])
         let nonactive = 5-rating
         let str = ' <span>([[${pvo.pReviewCnt}]])</span>';
