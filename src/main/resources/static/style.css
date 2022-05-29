@@ -1168,6 +1168,7 @@ a.meanmenu-reveal i {
   top: 100%;
 }
 
+
 .all-cart-product{
   padding-top: 20px;
 }
@@ -1435,6 +1436,22 @@ a.meanmenu-reveal i {
   margin-left: 28px;
   padding: 0;
   text-transform: uppercase;
+}
+/*강정현 추가*/
+.isotope-product-filter a {
+    background-color: transparent;
+    border: medium none;
+    color: #818181;
+    display: block;
+    float: left;
+    font-family: "Catamaran",sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 18px;
+    margin-left: 28px;
+    padding: 0;
+    text-transform: uppercase;
 }
 .isotope-product-filter button:first-child {
   margin-left: 0;

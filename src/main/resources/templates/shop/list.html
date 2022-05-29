@@ -5,6 +5,22 @@
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
     <title>mypage-main</title>
 </head>
+<style>
+    .search_result_div{
+        width: 200px;
+    }
+    .search_img{
+        display: block;
+        float: left;
+        margin-right: 15px;
+        width: 95px;
+    }
+    .search_Name{
+        width: 95px;
+        font-size: 20px;
+        text-align: center;
+    }
+</style>
 <body>
 <!-- mypage header fragment -->
 <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
@@ -31,8 +47,14 @@
         <button id="findBtn">검색</button>
     </form>
 </div>
+<div class="bg-light" >
+    <table class="table table-hover bg-light">
+        <tbody id="selectView">
 
+        </tbody>
+    </table>
 
+</div>
 
 
 
@@ -44,16 +66,13 @@
                 <p class="aaa"></p>
             </div>
             <div class="isotope-product-filter col-auto" >
-                <button class="active" data-filter="*">all</button>
-                <button  th:data-filter="|.${cateName}|" th:each="cateName : ${UniqueCateName}" th:text="${cateName}"></button>
-
+                <a  th:href="@{/shop/list(pCateCode=${category.pCateCode},page=1,numPerPage=10,sort='',keyword='')}"  th:data-filter="|.${category.pCateCode}|" th:value="${category.pCateCode}" th:each="category : ${cateTier3List}" th:text="${category.pCateName}"></a>
             </div>
             <!-- Product Filter Toggle -->
             <div class="col-auto">
                 <button class="product-filter-toggle">filter</button>
             </div>
         </div>
-
         <!-- Product Filter Wrapper -->
         <div class="row">
             <div class="col-xs-12">
@@ -62,13 +81,14 @@
                     <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
                         <h5>Sort by</h5>
                         <ul class="sort-by">
-                            <li><a href="#">Default</a></li>
-                            <li><a href="#">Popularity</a></li>
-                            <li><a href="#">Average rating</a></li>
-                            <li><a href="#">Newness</a></li>
-                            <li><a href="#">Price: Low to High</a></li>
-                            <li><a href="#">Price: High to Low</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='',keyword=${cri.keyword})}">기본</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='ratingDesc',keyword=${cri.keyword})}">평점순</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='reviewCntDesc',keyword=${cri.keyword})}">리뷰많은순</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='new',keyword=${cri.keyword})}">신제품순</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='priceasc',keyword=${cri.keyword})}">가격낮은순</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='pricedesc',keyword=${cri.keyword})}">가격높은순</a></li>
                         </ul>
+
                     </div>
                     <!-- Product Filter -->
                     <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
@@ -116,12 +136,12 @@
         <div class="isotope-grid row">
 
 
-            <div class="isotope-item  col-xl-3 col-lg-4 col-md-6 col-12 mb-50" th:classappend="${dto.pCateName}" th:each="dto : ${list}">
+            <div class="isotope-item  col-xl-3 col-lg-4 col-md-6 col-12 mb-50" th:classappend="${dto.pCateCode}" th:each="dto : ${list}">
                 <div class="product-item product-item-2 text-center">
                     <!-- Product Image -->
                     <div class="product-img">
                         <!-- Image -->
-                        <a class="image" th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|" alt=""></a>
+                        <a class="image"  th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|" alt=""></a>
                         <!-- Action Button -->
                         <div class="action-btn-2">
                             <a href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
@@ -132,7 +152,7 @@
                     <!-- Portfolio Info -->
                     <div class="product-info">
                         <!-- Title -->
-                        <h5 class="title"><a th:href="@{/shop/read(pno=${dto?.pno},mno=2)}">[[${dto?.pName}]]</a></h5>
+                        <h5 class="title"><a th:href="@{/shop/read(pno=${dto?.pno},mno=2)}">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
                         <!-- Price -->
                         <div class="price-ratting fix">
                             <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
@@ -144,6 +164,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="text-center col-xs-12 mt-30">
                 <a href="#" class="btn load-more-product">load more</a>
@@ -167,14 +188,42 @@
 <!--                <button class="page-link" >다음</button>-->
 <!--            </a>-->
 <!--        </div>-->
+
     </div>
 </div>
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 </body>
 <script>
+    let selectView = $('#selectView');
 
+    function loadGetListBysearch(){
+        let keyword  = $('#keyword').val();
+        console.log("검색어 들어오나유?",keyword);
+        $.getJSON("/rest/getListBySearch/"+keyword,function (data){
+            console.log(data)
+            let str = "";
+            $(data).each(function (){
+                console.log(this.pImage)
+                // str +=	'<tr><td ><a href="/shop/read?pno='+this.pno+'"><img class="search_img" src=/display?fileName='+this.pimage+'></a></td>';
+                // str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a>';
+                // str +=   '<p style="font-size:7px">'+this.pprice+'원</p></td>';
+                str += '<div class="search_result_div">'
+                str +=	'<a href="/shop/read?pno='+this.pno+'"><img class="search_img" src=/display?fileName='+this.pimage+'></a><br>';
+                str +=	'<br><a class="search_Name"  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a>';
+                str +=   '<span style="font-size:7px">'+this.pprice+'원</span>';
+                str += '</div>'
+                str += '<hr/>';
+            })
+            selectView.html(str);
+        })
+
+    }
+    $("input[name='keyword']").keyup(function (){
+        loadGetListBysearch();
+    })
     $(document).ready(function (){
+
 
     })
 

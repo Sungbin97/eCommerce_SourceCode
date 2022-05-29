@@ -47,18 +47,17 @@ public class ShopController {
 
         PagingVO pagingVO = new PagingVO();
         System.out.println(cri);
+        String code = "";
+        if(cri.getPCateCode() !=null && cri.getPCateCode() != ""){
+            code=cri.getPCateCode().substring(0,3);
+            model.addAttribute("cateTier3List",categoryService.getCateTier3(code));
+        }
         pagingVO.setCri(cri);
         pagingVO.setTotalProductData(shopService.getTotaldatabyFind(cri));
-        List<ProductVO> productList = shopService.getListByFind(cri);
-        Set<String> uniqueCateName = new HashSet<>();
-        for(ProductVO pvo : productList){
-            System.out.println(pvo);
-            uniqueCateName.add(pvo.getPCateName());
-        }
-        model.addAttribute("UniqueCateName",uniqueCateName);
         model.addAttribute("list",shopService.getListByFind(cri));
         model.addAttribute("pagingVO",pagingVO);
         model.addAttribute("cateTier2List",categoryService.getCateTier2());
+
 
     }
     @GetMapping("/listAll")

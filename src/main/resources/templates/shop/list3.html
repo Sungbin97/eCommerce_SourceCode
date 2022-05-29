@@ -209,37 +209,37 @@
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 <script th:inline="javascript">
+    let selectView = $('#selectView');
 
+    function loadGetListBysearch(){
+        let keyword  = $('#keyword').val();
+        console.log("검색어 들어오나유?",keyword);
+        $.getJSON("/rest/getListBySearch/"+keyword,function (data){
+            console.log(data)
+            let str = "";
+            $(data).each(function (){
+                console.log(this.pImage)
+                str +=	'<tr> <td ><a href="/shop/read?pno='+this.pno+'"><img class="search-img" src="'+this.pimage+'"></a></td>';
+                str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?pno='+this.pno+'">'+this.pname+' <p style="font-size:8px;">'+this.psubCategory+'</p></a>';
+                str +=   '<p style="font-size:7px">'+this.pprice+'원</p></td>';
+                str += '<hr/>';
+            })
+            selectView.html(str);
+        })
+
+    }
+    $("input[name='keyword']").keyup(function (){
+        loadGetListBysearch();
+    })
+    // $(".product-item").click(function (e){
+    //     e.preventDefault();
+    //     let mnoForm = $(".mnoForm");
+    //     // mnoForm.find("input[name='mno']")
+    //     mnoForm.submit();
+    // })
     $(document).ready(function (){
 
-        let selectView = $('#selectView');
 
-        function loadGetListBysearch(){
-            let keyword  = $('#keyword').val();
-            console.log("검색어 들어오나유?",keyword);
-            $.getJSON("/rest/getListBySearch/"+keyword,function (data){
-                console.log(data)
-                let str = "";
-                $(data).each(function (){
-                    console.log(this.pImage)
-                    str +=	'<tr> <td ><a href="/shop/read?pno='+this.pno+'"><img class="search-img" src="'+this.pimage+'"></a></td>';
-                    str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?pno='+this.pno+'">'+this.pname+' <p style="font-size:8px;">'+this.psubCategory+'</p></a>';
-                     str +=   '<p style="font-size:7px">'+this.pprice+'원</p></td>';
-                    str += '<hr/>';
-                })
-                selectView.html(str);
-            })
-
-        }
-        $("input[name='keyword']").keyup(function (){
-            loadGetListBysearch();
-        })
-        // $(".product-item").click(function (e){
-        //     e.preventDefault();
-        //     let mnoForm = $(".mnoForm");
-        //     // mnoForm.find("input[name='mno']")
-        //     mnoForm.submit();
-        // })
 
     })
 </script>

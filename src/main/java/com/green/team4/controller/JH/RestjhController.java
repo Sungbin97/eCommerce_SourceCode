@@ -31,20 +31,7 @@ public class RestjhController {
     @Autowired
     private ShopService shopService;
 
-    // review 불러오기
-//    @GetMapping("/getreviews/{pno}")
-//    public ResponseEntity<List<ReviewVO>> getreviews(@PathVariable ("pno") int pno){
-//        log.info("getreviews 입장" );
-//        log.info(" p_no " + pno);
-//        ResponseEntity<List<ReviewVO>> responseEntity = null;
-//        try {
-//            responseEntity = new ResponseEntity<>(reviewService.getReviewList(pno), HttpStatus.OK);
-//        }catch (Exception e){
-//            responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
-//            e.printStackTrace();
-//        }
-//        return responseEntity;
-//    }
+    //리뷰 컨트롤러
     @GetMapping(value = "/getreviews",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReviewPageVO> getreviews(ItemPageCriteria cri){
         log.info("getreviews 입장" );
@@ -59,7 +46,7 @@ public class RestjhController {
         return responseEntity;
     }
 
-    // 상품 상세 정보 불러오기(상세정보 , 배송정보)
+    // 상품 상세 정보 불러오기 컨트롤러(상세정보 , 배송정보)
     @GetMapping("/getinfo/{pno}")
     public ResponseEntity<ProductVO> getinfo(@PathVariable ("pno") int pno){
         log.info("getinfo 입장" );
@@ -73,8 +60,11 @@ public class RestjhController {
         }
         return responseEntity;
     }
+
+    //검색 컨트롤러
     @GetMapping(value = "/getListBySearch/{keyword}")
     public ResponseEntity<List<ProductVO>> getListBySearch(@PathVariable("keyword") String keyword){
+        log.info("getListBySearch 입장" );
         ResponseEntity<List<ProductVO>> responseEntity = null;
         try{
             responseEntity = new ResponseEntity<>(shopService.getListBySearch(keyword),HttpStatus.OK);
@@ -83,14 +73,14 @@ public class RestjhController {
         }
         return responseEntity;
     }
+
+    //옵션 컨트롤러
     @GetMapping(value = "/getOptions")
     public ResponseEntity<List<Set<String>>> getOptions( Product_optVO povo){
 
 //        log.info("getOptions 입장");
 //        log.info("povo" +povo);
 //        System.out.println("optList: "+shopService.getOptList(povo));
-
-
         List<Product_optVO> options = shopService.getOptList(povo);
 //        System.out.println("options"+options);
         Set<String> uniqueColor = new HashSet<>();
@@ -105,7 +95,6 @@ public class RestjhController {
         list.add(uniqueColor);
         list.add(uniqueOpt);
         list.add(uniqueOpt2);
-
 //        System.out.println(uniqueColor);
 //        System.out.println(uniqueOpt);
 //        System.out.println(uniqueOpt2);
@@ -119,6 +108,7 @@ public class RestjhController {
 
         return responseEntity;
     }
+    // 옵션 가격 컨트롤러
     @GetMapping(value = "/getPrice")
     public ResponseEntity<List<Integer>> getprice( Product_optVO povo){
         System.out.println("getPrice 입장");
@@ -140,7 +130,7 @@ public class RestjhController {
         }
         return responseEntity;
     }
-
+    // 리뷰 좋아요 컨트롤러
     @PostMapping(value = "/commentLike")
     public int ReviewLike(int pno,int rno,int mno,int rmno){
         System.out.println("입장");
@@ -162,5 +152,10 @@ public class RestjhController {
         return 0;
     }
 
+    @GetMapping(value = "filter")
+    public ResponseEntity<List<ProductVO>> filter(){
+
+        return null;
+    }
 
 }

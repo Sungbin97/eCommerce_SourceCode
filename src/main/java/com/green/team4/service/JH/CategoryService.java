@@ -13,5 +13,6 @@ public interface CategoryService {
     /* 외국 카테고리 리스트 */
     public List<CategoryVO> getCateCode2();
     public List<CategoryVO> getCateTier2();
+    public List<CategoryVO> getCateTier3(String code);
 
 }

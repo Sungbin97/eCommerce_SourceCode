@@ -79,15 +79,16 @@
                                         <li><a href="product-details.html">product details</a></li>
                                     </ul>
                                 </li>
-                                <li class="cate_li"><a th:href="@{/shop/list(pCateCode='10',page=1,numPerPage=10,sort='',keyword='')}">국내</a>
+<!--                                th:href="@{/shop/list(pCateCode='10',page=1,numPerPage=10,sort='',keyword='')}"-->
+                                <li class="cate_li"><a>국내</a>
                                     <ul class="sub-menu">
-                                        <li class="cate_li" th:if="${cate.pCateCode.startsWith('10')}" th:each="cate : ${cateTier2List}"  ><a th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring( 0, 3 )},page=1,numPerPage=10,sort='',keyword='')}">[[${cate.pCateName}]]</a></li>
+                                        <li class="cate_li" th:if="${cate.pCateCode.startsWith('1')}" th:each="cate : ${cateTier2List}" ><a th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring(0,3)},page=1,numPerPage=10,sort='',keyword='')}">[[${cate.pCateName}]]</a></li>
                                     </ul>
                                 </li>
-                                <li class="cate_li"><a class="cate_a" th:href="@{/shop/list(pCateCode='20',page=1,numPerPage=10,sort='',keyword='')}">국외</a>
+<!--                                th:href="@{/shop/list(pCateCode='20',page=1,numPerPage=10,sort='',keyword='')}"-->
+                                <li class="cate_li"><a>국외</a>
                                     <ul class="sub-menu">
-                                        <li class="cate_li" th:if="${cate.pCateCode.startsWith('20')}" th:each="cate : ${cateTier2List}"><a class="cate_a" th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring( 0, 3 )},page=1,numPerPage=10,sort='',keyword='')}">[[${cate.pCateName}]]</a></li>
-
+                                        <li class="cate_li" th:if="${cate.pCateCode.startsWith('2')}" th:each="cate : ${cateTier2List}"><a  th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring(0,3)},page=1,numPerPage=10,sort='',keyword='')}">[[${cate.pCateName}]]</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="shop.html">KIDS</a>
@@ -132,12 +133,18 @@
                             <div class="header-search">
                                 <button class="search-toggle"><i class="pe-7s-search"></i></button>
                                 <div class="header-search-form">
-                                    <form action="#">
-                                        <input type="text" placeholder="Search">
-                                        <button><i class="fa fa-long-arrow-right"></i></button>
+<!--                                    <form action="#">-->
+<!--                                        <input type="text" placeholder="Search">-->
+<!--                                        <button><i class="fa fa-long-arrow-right"></i></button>-->
+<!--                                    </form>-->
+                                    <form class="searchForm" action="/shop/list" method="get">
+                                        <input type="text" placeholder="Search" id="keyword" name="keyword">
+                                        <button id="findBtn"><i class="fa fa-long-arrow-right"></i></button>
                                     </form>
+                                    <div id="selectView"></div>
                                 </div>
                             </div>
+
                             <!-- header Account -->
                             <div class="header-account">
                                 <ul>

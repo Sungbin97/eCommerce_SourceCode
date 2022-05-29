@@ -141,11 +141,11 @@
         <include refid="sort"></include>
     </select>
 
-<!--    <select id="getListBySearch" resultType="com.green.team4.vo.sb.ProductVO">-->
-<!--        select * from tbl_product-->
-<!--        where pName like concat('%',#{keyword},'%')-->
-<!--        order by pno desc limit 5-->
-<!--    </select>-->
+    <select id="getListBySearch" resultType="com.green.team4.vo.sb.ProductVO">
+        select * from tbl_product
+        where pName like concat('%',#{keyword},'%')
+        order by pno desc limit 5
+    </select>
     <sql id="keyword">
 
         <if test="keyword != null and keyword != '' "  >

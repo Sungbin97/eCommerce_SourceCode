@@ -33,4 +33,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryVO> getCateTier2() {
         return categoryMapper.getCateTier2();
     }
+
+    @Override
+    public List<CategoryVO> getCateTier3(String code) {
+        return categoryMapper.getCateTier3(code);
+    }
 }

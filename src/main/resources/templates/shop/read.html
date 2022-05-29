@@ -47,9 +47,7 @@
         margin:0 auto;
         text-align: center;
     }
-.pro-thumb-img-slider{
-    width: 20px;
-}
+
 
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -98,13 +96,13 @@
                     </div>
                 </div>
                 <!-- Single Product Thumbnail Slider -->
-<!--                <div class="pro-thumb-img-slider">-->
-<!--                    <div><a href="#pro-large-img-1" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
-<!--                    <div><a href="#pro-large-img-2" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
-<!--                    <div><a href="#pro-large-img-3" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
-<!--                    <div><a href="#pro-large-img-4" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
-<!--                    <div><a href="#pro-large-img-5" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>-->
-<!--                </div>-->
+                <div class="pro-thumb-img-slider">
+                    <div><a href="#pro-large-img-1" data-toggle="tab"><img th:src="|/display?fileName=${pvo.pImage}|" alt=""></a></div>
+                    <div><a href="#pro-large-img-2" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>
+                    <div><a href="#pro-large-img-3" data-toggle="tab"><img src="/images/clothes0.jpg" alt="" /></a></div>
+                    <div><a href="#pro-large-img-4" data-toggle="tab"><img src="/images/equipment0.jpg" alt="" /></a></div>
+                    <div><a href="#pro-large-img-5" data-toggle="tab"><img src="/images/food1.jpg" alt="" /></a></div>
+                </div>
             </div>
 <!--             Single Product Details-->
             <div class="col-md-7 col-sm-6 col-xs-12 mb-40">
@@ -156,7 +154,7 @@
 
 
                     </div>
-                    [[${pvo}]]
+
                     <form th:action="@{/order/${member.id}}"  method="get" class="order_form">
                         <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
                         <input type="hidden" name="orders[0].pColor" value="">
@@ -168,8 +166,9 @@
 
                     <!-- Quantity Cart -->
                     <div class="quantity-cart section">
+
                         <div class="product-quantity">
-                            <input id="amountBox" type=number name=pAmount value="1" min="1" max="99">
+                            <input id="amountBox" type="text" value="1">
                         </div>
                         <div >
                         <button class="add-to-cart btn_buy first">구매하기</button>
@@ -993,5 +992,16 @@
 
     })
 </script>
+
 </body>
+<!-- jQuery latest version -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- Bootstrap js -->
+<script src="/js/bootstrap.bundle.min.js"></script>
+<!-- Plugins js -->
+<script src="/js/plugins.js"></script>
+<!-- Ajax Mail js -->
+<script src="/js/ajax-mail.js"></script>
+<!-- Main js -->
+<script src="/js/main.js"></script>
 </html>

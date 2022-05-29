@@ -34,4 +34,5 @@ public class ProductVO {
 //    카테고리 추가 0528 수정(JH)
     private String pCateCode;
     private String pCateName;
+    private String CateParent;
 }

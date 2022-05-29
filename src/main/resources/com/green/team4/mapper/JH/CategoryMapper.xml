@@ -27,5 +27,8 @@
     <select id="getCateTier2" resultType="com.green.team4.vo.JH.CategoryVO">
         select * from tbl_product_cate where tier='2';
 	</select>
+    <select id="getCateTier3" resultType="com.green.team4.vo.JH.CategoryVO">
+        select * from tbl_product_cate where tier='3' and  pCateCode like concat(#{pCateCode},'%')
+    </select>
 
 </mapper>

@@ -95,7 +95,6 @@ var productGrid = $('.isotope-grid');
 productGrid.imagesLoaded( function() {
     /*-- Filter List --*/
     productFilter.on( 'click', 'button', function() {
-        console.log("하이")
         productFilter.find('button').removeClass('active');
         $(this).addClass('active');
         var filterValue = $(this).attr('data-filter');

@@ -13,5 +13,6 @@ public interface CategoryMapper {
     public List<CategoryVO> getCateCode1();
 
     public List<CategoryVO> getCateTier2();
+    public List<CategoryVO> getCateTier3(String code);
     public List<CategoryVO> getCateCode2();
 }
