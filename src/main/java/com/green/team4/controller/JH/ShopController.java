@@ -35,10 +35,6 @@ public class ShopController {
 
     @Autowired
     private MemberInfoService memberInfoService;
-    @GetMapping("/start")
-    public void start(){
-
-    }
 
 
     @GetMapping("/list")
@@ -69,13 +65,7 @@ public class ShopController {
         model.addAttribute("list",shopService.getListByFind(cri));
         model.addAttribute("pagingVO",pagingVO);
     }
-    @GetMapping("/listAll")
-    public String listGet(Model model){
-        model.addAttribute("list",shopService.getListAll());
 
-
-        return "shop/list";
-    }
 
 
     // 상품 상세페이지
@@ -96,7 +86,6 @@ public class ShopController {
 
     @GetMapping("/orderCompleted")
     public void orderCompleted(int p_no , Model model){
-
 
     }
 }

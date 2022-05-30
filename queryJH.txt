@@ -1,21 +1,30 @@
-0524일자 상품 테이블
+0531일자 수정
+-- 상품 테이블
 create table tbl_product(
     pno int(30) primary key auto_increment, -- 상품 번호
     pName varchar(50) not null, -- 상품명
-    pMainCategory varchar(50) not null, -- 메인 카테고리
-    pSubCategory varchar(50) not null, -- 서브 카테고리
     pSize varchar(50), -- 상품 사이즈 (추후 별도 테이블로 분리 예정)
     pPrice int(50), -- 상품 가격 (추후 별도 테이블로 분리 예정)
     pAmount int(30), -- 상품 재고
     pColor varchar(50), -- 상품 색상
     pRegdate DATETIME default now(), -- 상품 등록일
-    pImage varchar(300) not null, -- 상품 대표 이미지
-    pInformation varchar(300) not null, -- 상품 세부정보 대표 이미지
+    pImage varchar(300) , -- 상품 대표 이미지
+    pInformation varchar(300) , -- 상품 세부정보 대표 이미지
     pRating decimal(2,1), -- 상품 평점
     pReviewCnt int(20), -- 상품 리뷰 개수
-    pDiscount int(10) -- 상품 할인률(%)
+    pDiscount int(10), -- 상품 할인률(%),
+    pCatecode varchar(30) -- 카테고리 코드
 );
--- 리뷰
+-- 상품 카테고리 테이블
+create table tbl_product_cate(
+    tier int(1) not null, -- 카테고리 등급 ( 대분류 1 , 중분류 2 ,소분류 3)
+    pCateName varchar(30) not null, -- 카테고리 이름
+    pCatecode varchar(30) not null, -- 카테고리 코드
+    cateParent varchar(30) -- 바로 상위 카테고리
+    -- primary key(pCatecode)
+);
+
+-- 리뷰테이블
 create table tbl_review(
 	rno int(10) not null auto_increment primary key,
 	pno int(10) not null,
@@ -37,7 +46,8 @@ rmno int(10) ,
 RNO int(10)
 );
 
-// 상품 옵션 테이블 (옵션2 ,옵션2 이름 추가)
+
+// 상품 옵션 테이블
 create table tbl_product_opt(
 	pcno int(5) auto_increment primary key,
 	pno int(5),
@@ -51,7 +61,7 @@ create table tbl_product_opt(
 
 );
 
--- 주문 테이블 (수정  없음)
+-- 주문 테이블
 create table tbl_order(
     mno int(30) not null, -- 회원번호
     ono varchar(50) primary key , -- 주문번호
@@ -95,7 +105,7 @@ create table tbl_orderItem(
     FOREIGN KEY (ono) REFERENCES tbl_order(ono),
     FOREIGN KEY (pno) REFERENCES tbl_product(pno)
 );
--- 멤버 테이블 (수정사항 없음)
+-- 멤버 테이블
 create table tbl_memberInfo(
     mno int(30) primary key auto_increment, -- 회원번호
     id varchar(50) not null, -- 아이디
