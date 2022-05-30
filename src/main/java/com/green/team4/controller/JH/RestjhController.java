@@ -1,5 +1,6 @@
 package com.green.team4.controller.JH;
 
+import com.green.team4.service.JH.CategoryService;
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
 
@@ -30,6 +31,9 @@ public class RestjhController {
 
     @Autowired
     private ShopService shopService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     //리뷰 컨트롤러
     @GetMapping(value = "/getreviews",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -151,12 +155,17 @@ public class RestjhController {
 
         return 0;
     }
-    @PostMapping(value = "/star")
-    public double star(int pno){
-        System.out.println("입장");
-        ProductVO pvo=shopService.getOne(pno);
-
-        return  pvo.getPRating();
+    @GetMapping("/getCategoryList/")
+    public ResponseEntity<List<CategoryVO>> getCateTier2(){
+        log.info("getCategoryList 입장" );
+        ResponseEntity<List<CategoryVO>> responseEntity = null;
+        try {
+            responseEntity = new ResponseEntity<>(categoryService.cateList(),HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
+        }
+        return responseEntity;
     }
 
     @GetMapping(value = "filter")

@@ -60,7 +60,7 @@
         <div class="row justify-content-between">
 
             <div class="isotope-product-filter col-auto" >
-                <a  th:href="@{/shop/list(pCateCode=${category.pCateCode},page=1,numPerPage=10,sort='',keyword='')}"  th:data-filter="|.${category.pCateCode}|" th:value="${category.pCateCode}" th:each="category : ${cateTier3ListWithCode}" th:text="${category.pCateName}"></a>
+                <a  th:href="@{/shop/list(pCateCode=${category.pCateCode},tier=${category.tier},page=1,numPerPage=10,sort='',keyword='')}"  th:data-filter="|.${category.pCateCode}|" th:value="${category.pCateCode}" th:each="category : ${cateTier3ListWithCode}" th:text="${category.pCateName}"></a>
             </div>
             <!-- Product Filter Toggle -->
             <div class="col-auto">
@@ -75,12 +75,12 @@
                     <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
                         <h5>Sort by</h5>
                         <ul class="sort-by">
-                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='',keyword=${cri.keyword})}">기본</a></li>
-                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='ratingDesc',keyword=${cri.keyword})}">평점순</a></li>
-                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='reviewCntDesc',keyword=${cri.keyword})}">리뷰많은순</a></li>
-                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='new',keyword=${cri.keyword})}">신제품순</a></li>
-                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='priceasc',keyword=${cri.keyword})}">가격낮은순</a></li>
-                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},page=1,numPerPage=10,sort='pricedesc',keyword=${cri.keyword})}">가격높은순</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=1,numPerPage=10,sort='',keyword=${cri.keyword})}">기본</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=1,numPerPage=10,sort='ratingDesc',keyword=${cri.keyword})}">평점순</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=1,numPerPage=10,sort='reviewCntDesc',keyword=${cri.keyword})}">리뷰많은순</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=1,numPerPage=10,sort='new',keyword=${cri.keyword})}">신제품순</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=1,numPerPage=10,sort='priceasc',keyword=${cri.keyword})}">가격낮은순</a></li>
+                            <li><a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=1,numPerPage=10,sort='pricedesc',keyword=${cri.keyword})}">가격높은순</a></li>
                         </ul>
 
                     </div>
@@ -251,4 +251,6 @@
 <script src="/js/ajax-mail.js"></script>
 <!-- Main js -->
 <script src="/js/main.js"></script>
+<!--카테고리 js (JH추가)-->
+<script src="/js/category.js"></script>
 </html>

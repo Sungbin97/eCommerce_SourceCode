@@ -908,7 +908,6 @@
             $.getJSON("/rest/getinfo/" + pno,function (data){
                 let str ="";
                 $(data).each(function (){
-                    console.log(this.pimage)
                     str+="<div class=\"pro-info-tab tab-pane\" id=\"data-sheet\">\n" +
                         "                <table class=\"table-data-sheet\">\n" +
                         "                    <tbody>\n" +
@@ -1048,4 +1047,6 @@
 <script src="/js/ajax-mail.js"></script>
 <!-- Main js -->
 <script src="/js/main.js"></script>
+<!--카테고리 js (JH추가)-->
+<script src="/js/category.js"></script>
 </html>

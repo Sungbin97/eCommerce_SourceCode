@@ -13,9 +13,8 @@ public class ItemPageCriteria {
     private int page;
     private int numPerPage;
 
-//    private String main_category;
-//    private String sub_category;
     private String pCateCode;
+    private int tier;
     private String keyword;
     private String sort;
 
