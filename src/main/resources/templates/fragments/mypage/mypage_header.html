@@ -79,34 +79,60 @@
                                         <li><a href="product-details.html">product details</a></li>
                                     </ul>
                                 </li>
-<!--                                th:href="@{/shop/list(pCateCode='10',page=1,numPerPage=10,sort='',keyword='')}"-->
-                                <li class="cate_li"><a>국내</a>
-                                    <ul class="sub-menu">
-                                        <li class="cate_li" th:if="${cate.pCateCode.startsWith('1')}" th:each="cate : ${cateTier2List}" ><a th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring(0,3)},page=1,numPerPage=10,sort='',keyword='')}">[[${cate.pCateName}]]</a></li>
+                                <li ><a>MEN</a>
+                                    <ul class="sub-menu shopCategory">
+                                        <div class="shopCategory_div"  th:each="cate : ${cateTier2List}">
+                                            <li  th:if="${cate.pCateCode.startsWith('1')}"  >
+                                                <a class="tier2_a" style="font-size: 15px"  th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring(0,3)},page=1,numPerPage=10,sort='',keyword='')}"><strong>[[${cate.pCateName}]]</strong></a>
+                                                <ul >
+                                                    <li  th:each="cateTier3 : ${cateTier3List}" th:if="${cate.pCateCode == cateTier3.cateParent }" >
+                                                        <a class="tier3_a" style="font-size: 13px" th:href="@{/shop/list(pCateCode=${cateTier3.pCateCode},page=1,numPerPage=10,sort='',keyword='')}" >[[${cateTier3.pCateName}]]</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </div>
                                     </ul>
                                 </li>
-<!--                                th:href="@{/shop/list(pCateCode='20',page=1,numPerPage=10,sort='',keyword='')}"-->
-                                <li class="cate_li"><a>국외</a>
-                                    <ul class="sub-menu">
-                                        <li class="cate_li" th:if="${cate.pCateCode.startsWith('2')}" th:each="cate : ${cateTier2List}"><a  th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring(0,3)},page=1,numPerPage=10,sort='',keyword='')}">[[${cate.pCateName}]]</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="shop.html">KIDS</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="shop.html">shop</a></li>
-                                        <li><a href="product-details.html">product details</a></li>
+                                <li ><a>WOMEN</a>
+                                    <ul class="sub-menu shopCategory">
+                                        <div class="shopCategory_div"  th:each="cate : ${cateTier2List}">
+                                            <li  th:if="${cate.pCateCode.startsWith('2')}"  >
+                                                <a class="tier2_a" style="font-size: 15px"  th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring(0,3)},page=1,numPerPage=10,sort='',keyword='')}"><strong>[[${cate.pCateName}]]</strong></a>
+                                                <ul >
+                                                    <li  th:each="cateTier3 : ${cateTier3List}" th:if="${cate.pCateCode == cateTier3.cateParent }" >
+                                                        <a class="tier3_a" style="font-size: 13px" th:href="@{/shop/list(pCateCode=${cateTier3.pCateCode},page=1,numPerPage=10,sort='',keyword='')}" >[[${cateTier3.pCateName}]]</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </div>
                                     </ul>
                                 </li>
                                 <li><a href="shop.html">Nutrition</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="shop.html">shop</a></li>
-                                        <li><a href="product-details.html">product details</a></li>
+                                    <ul class="sub-menu shopCategory">
+                                        <div class="shopCategory_div"  th:each="cate : ${cateTier2List}">
+                                            <li  th:if="${cate.pCateCode.startsWith('3')}"  >
+                                                <a class="tier2_a" style="font-size: 15px"  th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring(0,3)},page=1,numPerPage=10,sort='',keyword='')}"><strong>[[${cate.pCateName}]]</strong></a>
+                                                <ul >
+                                                    <li  th:each="cateTier3 : ${cateTier3List}" th:if="${cate.pCateCode == cateTier3.cateParent }" >
+                                                        <a class="tier3_a" style="font-size: 13px" th:href="@{/shop/list(pCateCode=${cateTier3.pCateCode},page=1,numPerPage=10,sort='',keyword='')}" >[[${cateTier3.pCateName}]]</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </div>
                                     </ul>
                                 </li>
                                 <li><a href="shop.html">accessories</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="shop.html">shop</a></li>
-                                        <li><a href="product-details.html">product details</a></li>
+                                    <ul class="sub-menu shopCategory">
+                                        <div class="shopCategory_div"  th:each="cate : ${cateTier2List}">
+                                            <li  th:if="${cate.pCateCode.startsWith('4')}"  >
+                                                <a class="tier2_a" style="font-size: 15px"  th:href="@{/shop/list(pCateCode=${cate.pCateCode.substring(0,3)},page=1,numPerPage=10,sort='',keyword='')}"><strong>[[${cate.pCateName}]]</strong></a>
+                                                <ul >
+                                                    <li  th:each="cateTier3 : ${cateTier3List}" th:if="${cate.pCateCode == cateTier3.cateParent }" >
+                                                        <a class="tier3_a" style="font-size: 13px" th:href="@{/shop/list(pCateCode=${cateTier3.pCateCode},page=1,numPerPage=10,sort='',keyword='')}" >[[${cateTier3.pCateName}]]</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </div>
                                     </ul>
                                 </li>
                                 <li><a href="#">Pages</a>

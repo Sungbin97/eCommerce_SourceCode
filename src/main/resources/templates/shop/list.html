@@ -66,7 +66,7 @@
                 <p class="aaa"></p>
             </div>
             <div class="isotope-product-filter col-auto" >
-                <a  th:href="@{/shop/list(pCateCode=${category.pCateCode},page=1,numPerPage=10,sort='',keyword='')}"  th:data-filter="|.${category.pCateCode}|" th:value="${category.pCateCode}" th:each="category : ${cateTier3List}" th:text="${category.pCateName}"></a>
+                <a  th:href="@{/shop/list(pCateCode=${category.pCateCode},page=1,numPerPage=10,sort='',keyword='')}"  th:data-filter="|.${category.pCateCode}|" th:value="${category.pCateCode}" th:each="category : ${cateTier3ListWithCode}" th:text="${category.pCateName}"></a>
             </div>
             <!-- Product Filter Toggle -->
             <div class="col-auto">
@@ -130,7 +130,6 @@
                 </div>
             </div>
         </div>
-
 
 
         <div class="isotope-grid row">

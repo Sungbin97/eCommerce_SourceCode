@@ -50,14 +50,14 @@ public class ShopController {
         String code = "";
         if(cri.getPCateCode() !=null && cri.getPCateCode() != ""){
             code=cri.getPCateCode().substring(0,3);
-            model.addAttribute("cateTier3List",categoryService.getCateTier3(code));
+            model.addAttribute("cateTier3ListWithCode",categoryService.getCateTier3WithCode(code));
         }
         pagingVO.setCri(cri);
         pagingVO.setTotalProductData(shopService.getTotaldatabyFind(cri));
         model.addAttribute("list",shopService.getListByFind(cri));
         model.addAttribute("pagingVO",pagingVO);
         model.addAttribute("cateTier2List",categoryService.getCateTier2());
-
+        model.addAttribute("cateTier3List",categoryService.getCateTier3());
 
     }
     @GetMapping("/listAll")
