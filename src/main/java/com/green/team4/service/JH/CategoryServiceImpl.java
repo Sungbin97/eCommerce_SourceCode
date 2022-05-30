@@ -18,6 +18,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryVO getCateName(String code) {
+        return categoryMapper.getCateName( code);
+    }
+
+    @Override
     public List<CategoryVO> getCateCode1() {
 
         return categoryMapper.getCateCode1();

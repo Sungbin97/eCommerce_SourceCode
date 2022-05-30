@@ -20,6 +20,13 @@
         font-size: 20px;
         text-align: center;
     }
+    .float-end{
+        margin-right: 80px;
+    }
+    .reviewCnt_span{
+     font-size:12px;
+        margin-left: 3px;
+    }
 </style>
 <body>
 <!-- mypage header fragment -->
@@ -41,30 +48,17 @@
     </div>
 </div>
 
-<div>
-    <form class="searchForm" action="/shop/list" method="get">
-        <input  type="text" id="keyword" name="keyword"   placeholder="검색어를 입력해주세요">
-        <button id="findBtn">검색</button>
-    </form>
-</div>
-<div class="bg-light" >
-    <table class="table table-hover bg-light">
-        <tbody id="selectView">
-
-        </tbody>
-    </table>
-
-</div>
-
-
 
 <div class="page-section section pt-120 pb-120">
-    <div class="container">
 
+    <div class="container">
+        <div class="cateName_div" th:if="${pCateName} != null">
+            <h4>[[${pCateName.pCateName}]]</h4>
+            <br>
+            <br>
+        </div>
         <div class="row justify-content-between">
-            <div class="cateName_div">
-                <p class="aaa"></p>
-            </div>
+
             <div class="isotope-product-filter col-auto" >
                 <a  th:href="@{/shop/list(pCateCode=${category.pCateCode},page=1,numPerPage=10,sort='',keyword='')}"  th:data-filter="|.${category.pCateCode}|" th:value="${category.pCateCode}" th:each="category : ${cateTier3ListWithCode}" th:text="${category.pCateName}"></a>
             </div>
@@ -156,10 +150,28 @@
                         <div class="price-ratting fix">
                             <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
                         </div>
-                        <div>
-                            <span>평점 : [[${dto.pRating}]]([[${dto.pReviewCnt}]])</span>
-                        </div>
+                        <br>
+                        <span class="ratting float-end "  >
+                                <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
+                                    <i class="fa fa-star active"
+                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
+                                     <i class="fa fa-star"
+                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>
+                                    <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
+                                </th:block>
+
+                            </span>
+                        <span th:if="${#numbers.formatInteger(dto.pRating,0)} ==0" class="ratting float-end">
+                                    <i class="fa fa-star "></i>
+                                    <i class="fa fa-star "></i>
+                                    <i class="fa fa-star "></i>
+                                    <i class="fa fa-star "></i>
+                                    <i class="fa fa-star "></i>
+                            <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
+                        </span>
+
                     </div>
+
                 </div>
             </div>
         </div>

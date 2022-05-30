@@ -47,6 +47,7 @@ public class ShopController {
 
         PagingVO pagingVO = new PagingVO();
         System.out.println(cri);
+
         String code = "";
         if(cri.getPCateCode() !=null && cri.getPCateCode() != ""){
             code=cri.getPCateCode().substring(0,3);
@@ -58,6 +59,7 @@ public class ShopController {
         model.addAttribute("pagingVO",pagingVO);
         model.addAttribute("cateTier2List",categoryService.getCateTier2());
         model.addAttribute("cateTier3List",categoryService.getCateTier3());
+        model.addAttribute("pCateName",categoryService.getCateName(  cri.getPCateCode()));
 
     }
     @GetMapping("/listAll")
@@ -76,8 +78,10 @@ public class ShopController {
         log.info("pno : "+pno);
        log.info("mno : " + mno);
         ProductVO pvo = shopService.getOne(pno);
+
         model.addAttribute("member",memberInfoService.readOne(mno));
-        System.out.println(pvo);
+        model.addAttribute("relatedList",shopService.getListByRand( pvo.getPCateCode().substring(0,3)));
+        System.out.println(shopService.getListByRand( pvo.getPName()));
         model.addAttribute("pvo",pvo);
 
     }

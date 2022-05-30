@@ -37,6 +37,7 @@ public interface ShopMapper {
     public List<ProductVO> getListByFind(ItemPageCriteria cri);
 
     public List<ProductVO> getListBySearch(String keyword);
+    public List<ProductVO> getListByRand(String keyword);
     public int getTotaldatabyFind(ItemPageCriteria cri);
 
     //옵션처리

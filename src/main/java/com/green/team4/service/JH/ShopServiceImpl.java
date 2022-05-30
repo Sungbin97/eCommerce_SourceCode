@@ -78,6 +78,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public List<ProductVO> getListByRand(String keyword) {
+        return shopMapper.getListByRand(keyword);
+    }
+
+    @Override
     public List<Product_optVO> getColors(int pno) {
         return shopMapper.getColors(pno);
     }

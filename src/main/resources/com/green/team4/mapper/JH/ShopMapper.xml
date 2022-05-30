@@ -31,11 +31,6 @@
         where p.pno = #{pno} <include refid="price"></include>
     </select>
 
-<!--    <insert id="insert">-->
-<!--        insert into tbl_product (pName,pMainCategory,pPrice,pAmount,pImage,pSubCategory,pInformation,pCateCode)-->
-<!--        values (#{pName},#{pMainCategory},#{pPrice},#{pAmount},-->
-<!--                #{pImage},#{pSubCategory},#{pInformation},#{pCateCode})-->
-<!--    </insert>-->
     <insert id="insert">
         insert into tbl_product (pName,pPrice,pAmount,pImage,pInformation,pCateCode)
         values (#{pName},#{pPrice},#{pAmount},
@@ -145,6 +140,11 @@
         select * from tbl_product
         where pName like concat('%',#{keyword},'%')
         order by pno desc limit 5
+    </select>
+    <select id="getListByRand" resultType="com.green.team4.vo.sb.ProductVO">
+        select * from tbl_product
+        where pCateCode like concat('%',#{keyword},'%')
+        order by rand() limit 10
     </select>
     <sql id="keyword">
 

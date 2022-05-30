@@ -151,6 +151,13 @@ public class RestjhController {
 
         return 0;
     }
+    @PostMapping(value = "/star")
+    public double star(int pno){
+        System.out.println("입장");
+        ProductVO pvo=shopService.getOne(pno);
+
+        return  pvo.getPRating();
+    }
 
     @GetMapping(value = "filter")
     public ResponseEntity<List<ProductVO>> filter(){

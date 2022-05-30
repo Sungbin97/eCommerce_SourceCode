@@ -30,6 +30,7 @@ public interface ShopService {
     public int getTotaldatabyFind(ItemPageCriteria cri);
 
     public List<ProductVO> getListBySearch(String keyword);
+    public List<ProductVO> getListByRand(String keyword);
 
     //    옵션
     public List<Product_optVO> getColors(int pno);

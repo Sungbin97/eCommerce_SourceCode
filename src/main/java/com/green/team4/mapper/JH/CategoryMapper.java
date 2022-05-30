@@ -8,14 +8,15 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
     public List<CategoryVO> cateList();
-
+    public CategoryVO getCateName(String code);
 
     public List<CategoryVO> getCateCode1();
+    public List<CategoryVO> getCateCode2();
 
     public List<CategoryVO> getCateTier2();
     public List<CategoryVO> getCateTier3WithCode(String code);
 
     public List<CategoryVO> getCateTier3( );
 
-    public List<CategoryVO> getCateCode2();
+
 }

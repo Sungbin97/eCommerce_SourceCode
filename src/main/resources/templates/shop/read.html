@@ -47,7 +47,13 @@
         margin:0 auto;
         text-align: center;
     }
-
+    .float-end{
+        margin-right: 80px;
+    }
+    .reviewCnt_span{
+        font-size:12px;
+        margin-left: 3px;
+    }
 
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -79,29 +85,18 @@
                 <!-- Tab panes -->
                 <div class="tab-content mb-10">
                     <div class="pro-large-img tab-pane active" id="pro-large-img-1">
-
-                        <img th:src="|/display?fileName=${pvo.pImage}|" alt="">
-                    </div>
-                    <div class="pro-large-img tab-pane" id="pro-large-img-2">
-
-                    </div>
-                    <div class="pro-large-img tab-pane" id="pro-large-img-3">
-                        <img src="img/product/12.jpg" alt="" />
-                    </div>
-                    <div class="pro-large-img tab-pane" id="pro-large-img-4">
-                        <img src="img/product/13.jpg" alt="" />
-                    </div>
-                    <div class="pro-large-img tab-pane" id="pro-large-img-5">
-
+                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" alt="">
                     </div>
                 </div>
                 <!-- Single Product Thumbnail Slider -->
                 <div class="pro-thumb-img-slider">
-                    <div><a href="#pro-large-img-1" data-toggle="tab"><img th:src="|/display?fileName=${pvo.pImage}|" alt=""></a></div>
-                    <div><a href="#pro-large-img-2" data-toggle="tab"><img src="/images/food0.jpg" alt="" /></a></div>
-                    <div><a href="#pro-large-img-3" data-toggle="tab"><img src="/images/clothes0.jpg" alt="" /></a></div>
-                    <div><a href="#pro-large-img-4" data-toggle="tab"><img src="/images/equipment0.jpg" alt="" /></a></div>
-                    <div><a href="#pro-large-img-5" data-toggle="tab"><img src="/images/food1.jpg" alt="" /></a></div>
+                    <div><a href="#pro-large-img-1" data-toggle="tab"><img class="small" th:src="|/display?fileName=${pvo.pImage}|" alt=""></a></div>
+                    <div><a href="#pro-large-img-1" data-toggle="tab"><img class="small" src="/images/food0.jpg" alt="" /></a></div>
+                    <div><a href="#pro-large-img-1" data-toggle="tab"><img class="small" src="/images/clothes0.jpg" alt="" /></a></div>
+                    <div><a href="#pro-large-img-1" data-toggle="tab"><img class="small" th:src="|/display?fileName=${pvo.pImage}|" alt=""></a></div>
+                    <div><a href="#pro-large-img-1" data-toggle="tab"><img class="small" src="/images/food1.jpg" alt="" /></a></div>
+<!--                    <div th:each=""><a href="#pro-large-img-1" data-toggle="tab"><img class="small" th:src="|/display?fileName=${pvo.pImage}|" src=""></a></div>-->
+
                 </div>
             </div>
 <!--             Single Product Details-->
@@ -117,8 +112,8 @@
                         </div>
                         <!-- Ratting -->
                         <span class="ratting float-end">
-
-                            <span>  [[${pvo.pRating}]]([[${pvo.pReviewCnt}]])</span>
+                            <span class="star_span"></span>
+                            <span></span>
                         </span>
 
                     </div>
@@ -130,7 +125,6 @@
                             지속 가능한 면 생산을 목표로 하는 비영리 단체, '베터 코튼 이니셔티브'와 파트너십을 통해 탄생한 제품입니다.</p>
                     <div>
 
-
                     </div>
                     <!-- Product Color -->
                     <div>
@@ -138,20 +132,14 @@
                         <div class="color-list section ">
 
 
-
                         </div>
                     </div>
                     <!-- Product Size -->
                     <div class="product_option_div">
 
-
-
-
                     </div>
 
                     <div class="product_option2_div">
-
-
 
                     </div>
 
@@ -194,7 +182,59 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="hellod">
+
+            <!-- PRODUCT SECTION START -->
+            <div class="product-section section pb-120">
+                <br>
+                <br>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="section-title text-center col-xs-12 mb-60">
+                            <h2>추천 상품</h2>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="product-slider product-slider-4">
+                            <!-- Product Item Start -->
+                            <div class="col-xs-12" th:each="related : ${relatedList}">
+                                <div class="product-item text-center" >
+                                    <div class="product-img">
+                                        <a class="image" th:href="@{/shop/read(pno=${related.pno},mno=2)}"><img th:src="|/display?fileName=${related.pImage}|" alt=""/></a>
+                                        <a class="wishlist" href="#" title="Wishlist"><i class="pe-7s-like"></i></a>
+                                    </div>
+                                    <div class="product-info text-left">
+                                        <h5 class="title" th:text="${related.pName}"><a href="product-details.html"></a></h5>
+                                        <div class="price-ratting fix">
+                                            <span class="price float-start"><span class="new" th:text="${related.pPrice}"></span></span>
+                                            <span class="ratting float-end "  >
+                                <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">
+                                    <i class="fa fa-star active"
+                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
+                                     <i class="fa fa-star"
+                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>
+                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>
+                                </th:block>
+                                </span>
+                                    <span th:if="${#numbers.formatInteger(related.pRating,0)} ==0" class="ratting float-end">
+                                        <i class="fa fa-star "></i>
+                                        <i class="fa fa-star "></i>
+                                        <i class="fa fa-star "></i>
+                                        <i class="fa fa-star "></i>
+                                        <i class="fa fa-star "></i>
+                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>
+                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Product Item End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- PRODUCT SECTION END -->
+            <div class="row" id="hellod">
             <!-- Nav tabs -->
             <div class="col-xs-12">
                 <ul class="pro-info-tab-list section">
@@ -328,6 +368,10 @@
         });
     })
 
+    $(".small").click(function (){
+        let newPic = $(this).attr("src");
+        $("#bigPic").attr("src",newPic)
+    })
 
     $(document).ready(function (){
 
@@ -340,7 +384,7 @@
         for(let i=0;i<nonactive;i++){
             str+='<i class="fa fa-star"></i>'
         }
-        $('.float-end').html(str)
+        $('.star_span').html(str)
 
 
 

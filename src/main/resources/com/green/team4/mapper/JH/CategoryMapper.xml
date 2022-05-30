@@ -34,4 +34,8 @@
     <select id="getCateTier3" resultType="com.green.team4.vo.JH.CategoryVO">
         select * from tbl_product_cate where tier='3'
     </select>
+
+    <select id="getCateName"  resultType="com.green.team4.vo.JH.CategoryVO">
+        select * from tbl_product_cate where pCateCode=#{pCateCode}
+    </select>
 </mapper>
