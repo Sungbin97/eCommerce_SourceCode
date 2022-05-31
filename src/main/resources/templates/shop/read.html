@@ -323,37 +323,46 @@
 
     $(".btn_cart").click(function (e){
         e.preventDefault()
-        // <!--                        mno, pno, cName, cOption, cOptionName, cOption2,-->
-        // <!--                        cOptionName2, cColor, cPrice, cDiscount,-->
-        // <!--                        cDisPrice, cCount, cTotalPrice-->
-
-        // <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
-        //     <input type="hidden" name="orders[0].pColor" value="">
-        //     <input type="hidden" name="orders[0].pOption" value="">
-        //     <input type="hidden" name="orders[0].pOption2" value="">
-        //     <input type="hidden" name="orders[0].pOptionPrice" value="0">
-        //     <input type="hidden" name="orders[0].itemCount" value="">
 
         let cartMno=  [[${member.mno}]]
         let cartPno = [[${pvo.pno}]]
-        let pName = [[${pvo.pName}]]
+        let cName = [[${pvo.pName}]]
+        let cDiscount = [[${pvo.pDiscount}]]
+        let cPrice =[[${pvo.pPrice}]]
+        let cDisPrice = cPrice * (1-cDiscount)
+        let cCount = $("input[name='orders[0].itemCount']").val()
+        let cTotalPrice = cDisPrice * cCount
         let cOption = $("input[name='orders[0].pOption']").val()
         let cOptionName = "옵션1"
         let cOption2 = $("input[name='orders[0].pOption2']").val()
         let cOptionName2 = "옵션2"
         let cColor = $("input[name='orders[0].pColor']").val()
-        let cPrice = [[${pvo.pPrice}]]+$("input[name='orders[0].pOptionPrice']").val()
-        console.log("cPrice : ",cPrice)
-        console.log("pName : ",pName)
+        let cOptionPrice = [[${pvo.pPrice}]]+$("input[name='orders[0].pOptionPrice']").val()
+        // <!--                        mno, pno, cName, cOption, cOptionName, cOption2,-->
+        // <!--                        cOptionName2, cColor, cPrice, cDiscount,-->
+        // <!--                        cDisPrice, cCount, cTotalPrice-->
+
+        data = {
+            mno : cartMno,
+            pno: cartPno,
+            cname :cName,
+            coption:cOption,
+            coptionName:cOptionName,
+            coption2:cOption2,
+            coptionName2:cOptionName2,
+            ccolor : cColor,
+            cprice : cPrice,
+            cdiscount : cDiscount,
+            cdisPrice : cDisPrice,
+            ccount : cCount,
+            ctotalPrice : cTotalPrice,
+            coptionPrice : cOptionPrice
+        }
 
         $.ajax({
             type: "post",
             url: "/sw/mypage/cart/register",
-            data: JSON.stringify({
-                'mno' : cartMno,
-                'pno': cartPno,
-                'cName' : pName
-            }),
+            data: JSON.stringify(data),
             contentType: "application/json;charset=UTF-8",
             success: (result) => {
                 console.log(result)
