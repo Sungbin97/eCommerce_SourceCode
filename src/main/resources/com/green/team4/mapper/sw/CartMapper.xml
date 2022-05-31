@@ -19,7 +19,6 @@
         select mno, cno, tbl_cart.pno, cName, cOption, cOptionName, cOption2,
                cOptionName2, cColor, cPrice, cDiscount,
                cDisPrice, cCount, cTotalPrice,
-               tbl_product.pMainCategory,tbl_product.pSubCategory,
                tbl_product.pImage from tbl_cart
         left outer join tbl_product on tbl_cart.pno = tbl_product.pno
         where tbl_cart.pno=#{pno} and tbl_cart.mno=#{mno}
@@ -31,7 +30,6 @@
         select mno, cno, tbl_cart.pno, cName, cOption, cOptionName, cOption2,
                cOptionName2, cColor, cPrice, cDiscount,
                cDisPrice, cCount, cTotalPrice,
-               tbl_product.pMainCategory,tbl_product.pSubCategory,
                tbl_product.pImage from tbl_cart
                left outer join tbl_product on tbl_cart.pno = tbl_product.pno
         where tbl_cart.cno=#{cno}
@@ -42,7 +40,6 @@
         select mno, cno, tbl_cart.pno, cName, cOption, cOptionName, cOption2,
                cOptionName2, cColor, cPrice, cDiscount,
                cDisPrice, cCount, cTotalPrice,
-               tbl_product.pMainCategory,tbl_product.pSubCategory,
                tbl_product.pImage from tbl_cart
         left outer join tbl_product on tbl_cart.pno = tbl_product.pno
         where mno=#{mno}
