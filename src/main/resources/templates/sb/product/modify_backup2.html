@@ -22,10 +22,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-banner-content">
-                    <h1 th:text="'상품옵션등록'"></h1>
+                    <h1 th:text="'등록상품수정'"></h1>
                     <ul class="breadcrumb">
-                        <li><a th:href="@{/sb/product/upload}">upload</a></li>
-                        <li class="active">uploadOpt</li>
+                        <li><a th:href="@{/sb/product/list(pno=${product.pno})}">List</a></li>
+                        <li class="active">Modify</li>
                     </ul>
                 </div>
             </div>
@@ -73,8 +73,8 @@
                 <div class="checkout-form">
                     <div class="row">
                         <div class="col-lg-6 mb-40">
-                            <form class="forModify" method="post" action="/sb/product/uploadOpt" enctype="multipart/form-data">
-                                <h3>등록한 상품정보</h3>
+                            <form class="forModify" method="post" action="/sb/product/modify" enctype="multipart/form-data">
+                                <h3>등록한 상품정보 수정</h3>
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12 mb-20">
                                         <h7>메인카테고리</h7>
@@ -116,16 +116,18 @@
                                     <div class="col-sm-6 col-xs-12 mb-20">
                                         <label>상품 대표이미지</label>
                                         <img th:src="|/display?fileName=${product.pImage}|" style="width: 150px; height: 150px"/>
+                                        <input type="hidden" th:name="pImage" th:value="${product.pImage}">
                                     </div>
                                     <div class="col-sm-6 col-xs-12 mb-20">
                                         <label>상품 상세정보 대표이미지</label>
                                         <img th:src="|/display?fileName=${product.pInformation}|" style="width: 150px; height: 150px"/>
+                                        <input type="hidden" th:name="pInformation" th:value="${product.pInformation}">
                                     </div>
                                 </div>
                                 </div>
                                 <div class="col-lg-6 col-12 mb-40">
                                     <div class="coupon-form mb-30">
-                                            <h3>상품 옵션 등록</h3>
+                                            <h3>상품 옵션 수정</h3>
 
                                             <div class="col-sm-6 col-xs-12 mb-20">
                                                 <h7>상세옵션1<span class="required">*</span></h7>
@@ -216,37 +218,23 @@
                                                        class="colorClass"
                                                        value='selectall'
                                                        onclick='selectAllColor(this)'/>
-                                                <table style="border-spacing: 9px; border-collapse: separate;">
+                                                <table style="border-spacing: 9px; border-collapse: separate;" th:each="color : ${colors}">
                                                     <thead>
                                                         <tr>
-                                                            <th>BLACK</th>
-                                                            <th>WHITE</th>
-                                                            <th>GRAY</th>
-                                                            <th>YELLOW</th>
-                                                            <th>GREEN</th>
-                                                            <th>PURPLE</th>
-                                                            <th>RED</th>
-                                                            <th>BLUE</th>
+                                                            <th th:text="${color}"></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <th><input class="colorClass" type="checkbox" name="colorOpt" value="BLACK"/></th>
-                                                            <th><input class="colorClass" type="checkbox" name="colorOpt" value="WHITE"/></th>
-                                                            <th><input class="colorClass" type="checkbox" name="colorOpt" value="GRAY"/></th>
-                                                            <th><input class="colorClass" type="checkbox" name="colorOpt" value="YELLOW"/></th>
-                                                            <th><input class="colorClass" type="checkbox" name="colorOpt" value="GREEN"/></th>
-                                                            <th><input class="colorClass" type="checkbox" name="colorOpt" value="PURPLE"/></th>
-                                                            <th><input class="colorClass" type="checkbox" name="colorOpt" value="RED"/></th>
-                                                            <th><input class="colorClass" type="checkbox" name="colorOpt" value="BLUE"/></th>
+                                                            <th><input class="colorClass" type="checkbox" name="colorOpt"/></th>
                                                         </tr>
                                                     </tbody>
                                                 </table>
+
                                             </div>
 
                                             <div class="col-sm-6 col-xs-12 mb-20">
                                                 <h7>수량<span class="required">*</span></h7>
-                                                <br/>
                                                 <input type="text" id="amount" name="pAmount" />
                                             </div>
                                             <br/>

@@ -3,6 +3,7 @@ package com.green.team4.mapperTests;
 import com.green.team4.mapper.sb.ProductMapper;
 import com.green.team4.mapper.sb.ProductOptMapper;
 import com.green.team4.mapper.sb.ProductImgMapper;
+import com.green.team4.service.sb.ProductOptService;
 import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sb.ProductImgVO;
 import com.green.team4.vo.sb.ProductVO;
@@ -12,17 +13,63 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 public class ProductMapperTests {
 
     @Autowired
     ProductMapper productMapper;
-
     @Autowired
     ProductOptMapper productOptMapper;
     @Autowired
     ProductImgMapper productImgMapper;
+    @Autowired
+    ProductOptService productOptService;
+
+    public List<String> distinct(int pno, List list){
+        List<Product_optVO> optList = productOptMapper.getOpt(pno);
+
+        List<String> resultList = new ArrayList<>();
+
+        optList.forEach(opt -> {
+            resultList.add(opt.getPOptionName());
+        });
+
+        return resultList;
+    }
+    @Test
+    public void getColors(){
+
+        List<Product_optVO> optList = productOptMapper.getOpt(219);
+
+        List<String> opt1NameList = new ArrayList<>();
+        List<String> opt1List = new ArrayList<>();
+        List<String> opt2NameList = new ArrayList<>();
+        List<String> opt2List = new ArrayList<>();
+        List<String> colorList = new ArrayList<>();
+
+        optList.forEach(opt -> {
+            opt1NameList.add(opt.getPOptionName());
+            opt1List.add(opt.getPOption());
+            opt2NameList.add(opt.getPOptionName2());
+            opt2List.add(opt.getPOption2());
+            colorList.add(opt.getPColor());
+        });
+
+        List<String> opt1NameListN = opt1NameList.stream().distinct().collect(Collectors.toList());
+        List<String> opt1ListN = opt1List.stream().distinct().collect(Collectors.toList());
+        List<String> opt2NameListN = opt2NameList.stream().distinct().collect(Collectors.toList());
+        List<String> opt2ListN = opt2List.stream().distinct().collect(Collectors.toList());
+        List<String> colorListN = colorList.stream().distinct().collect(Collectors.toList());
+
+        opt1NameListN.forEach(System.out::println);
+        opt1ListN.forEach(System.out::println);
+        opt2NameListN.forEach(System.out::println);
+        opt2ListN.forEach(System.out::println);
+        colorListN.forEach(System.out::println);
+
+    }
 
     @Test
     public void insert(){
@@ -84,47 +131,28 @@ public class ProductMapperTests {
         }
     }
 
-    @Test
-    public void optUpdate(){
-        Product_optVO vo = productOptMapper.getOpt(1);
-        vo.setPColor("하기싫다");
-        vo.setPAmount(74);
-        productOptMapper.update(vo);
-    }
+//    @Test
+//    public void optUpdate(){
+//        Product_optVO vo = productOptMapper.getOpt(1);
+//        vo.setPColor("하기싫다");
+//        vo.setPAmount(74);
+//        productOptMapper.update(vo);
+//    }
 
-    @Test
-    public void getOptJoin(){
-        System.out.println(productOptMapper.getProductJoin(10));
-    }
-
-    @Test
-    public void getOpt(){
-        System.out.println(productOptMapper.getOpt(1));
-    }
+//    @Test
+//    public void getOptJoin(){
+//        System.out.println(productOptMapper.getProductJoin(10));
+//    }
+//
+//    @Test
+//    public void getOpt(){
+//        System.out.println(productOptMapper.getOpt(1));
+//    }
 
     @Test
     public void deleteOpt(){
         productOptMapper.delete(2);
     }
-
-    //ProductImgMapper 테스트
-//    @Test
-//    public void insertImg(){
-//        String [] sizes = {"90", "95", "100", "105", "110", "115"};
-//        String [] colors = {"빨강", "주황", "노랑", "초록", "파랑", "남색", "보라"};
-//
-//        for (String s: sizes){
-//            ProductImgVO imgVO = new ProductImgVO();
-//            imgVO.setPno(32);
-//            imgVO.setPName("1");
-//            imgVO.setPThumbnail(s);
-//            imgVO.setPOriginal(s);
-//            for (String c: colors){
-//                imgVO.setPInformation(c);
-//                productImgMapper.insert(imgVO);
-//            }
-//        }
-//    }
 
     @Test
     public void getOneImg(){
@@ -136,5 +164,7 @@ public class ProductMapperTests {
         List<ProductImgVO> result = productImgMapper.getAll();
         result.forEach(System.out::println);
     }
+
+
 
 }

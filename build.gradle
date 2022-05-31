@@ -34,9 +34,10 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/net.coobird/thumbnailator
 	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.12' // 썸네일 만들기
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.6.3' // JavaMailSender
-
-
+	// JavaMailSender
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.6.3'
+	//Paging
+	implementation group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.7'
 
 }
 

@@ -89,6 +89,17 @@
                                     </ul>
                                 </li>
                                 <li><a href="contact.html">Contact</a></li>
+
+                                <li><a href="blog.html">Admin</a>
+                                    <ul class="sub-menu">
+                                        <li><a th:href="@{/sb/member/member?mno=1}">member</a></li>
+                                        <li><a th:href="@{/sb/product/upload}">product upload</a></li>
+                                        <li><a th:href="@{/sb/product/list(pno=1)}">product list</a></li>
+                                        <li><a th:href="@{/sb/mail/write}">mail write</a></li>
+                                        <li><a th:href="@{/sb/mail/list}">mail list</a></li>
+                                    </ul>
+                                </li>
+
                             </ul>
                         </nav>
                         <!-- header-search & total-cart -->

@@ -10,8 +10,8 @@ import java.util.List;
 public interface ProductOptMapper {
     int insert(Product_optVO vo);
     List<Product_optVO> getAll();
-    List<Product_optVO> getProductJoin(int pno);
-    Product_optVO getOpt(int pno);
     int update(Product_optVO vo);
     int delete(int pno);
+    List<Product_optVO> getColors(int pno);
+    List<Product_optVO> getOpt(int pno);
 }
