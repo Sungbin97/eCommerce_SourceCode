@@ -61,6 +61,14 @@
                                                 <td class="pro-price" th:text="${cart.cCount}"></td>
                                                 <td class="pro-price" th:text="${cart.cTotalPrice}"></td>
                                                 <td class="pro-thumbnail"><img th:src="${cart.pImage}" alt="" /></td>
+                                                <td class="cart_info_td">
+                                                    <input type="hidden" class="individual_pno_input" th:value="${cart.pno}">
+                                                    <input type="hidden" class="individual_itemCount_input" th:value="${1}">
+                                                    <input type="hidden" class="individual_pColor_input" th:value="${cart.cColor}">
+                                                    <input type="hidden" class="individual_pOption_input" th:value="${cart.cOption}">
+                                                    <input type="hidden" class="individual_pOption2_input" th:value="${cart.cOption2}">
+                                                   <input type="hidden" class="individual_pOptionPrice_input" th:value="${0}">
+                                                </td>
                                                 <!-- 개별 주문 페이지 연결 예정 -->
                                                 <td class="pro-title">
                                                     <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
@@ -109,8 +117,10 @@
                                     </table>
                                     <div class="proceed-to-checkout section mt-30">
                                         <!-- 주문 페이지 연결 -->
-                                        <a >전체 주문하러 가기</a>
+                                        <a class="order_btn">전체 주문하러 가기</a>
+                                        <form class="order_form" th:action="@{/order/dsa}" method="get">
 
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +142,41 @@
 
 <script>
 
+    $(".order_btn").click(function (e){
+        let form_contents ='';
+        let orderNumber = 0;
+        $(".cart_info_td").each(function (index,ele){
+            let pno = $(ele).find(".individual_pno_input").val();
+            let itemCount = $(ele).find(".individual_itemCount_input").val();
+            let pOption = $(ele).find(".individual_pOption_input").val();
+            let pOption2 = $(ele).find(".individual_pOption2_input").val();
+            let pColor = $(ele).find(".individual_pColor_input").val();
+            let pOptionPrice = $(ele).find(".individual_pOptionPrice_input").val();
+            console.log(ele)
+            console.log(itemCount)
+            let pno_input = "<input name='orders[" + orderNumber + "].pno' type='hidden' value='" + pno + "'>";
+            form_contents += pno_input;
 
+            let itemCount_input = "<input name='orders[" + orderNumber + "].itemCount' type='hidden' value='" + itemCount + "'>";
+            form_contents += itemCount_input;
+
+            let pOption_input = "<input name='orders[" + orderNumber + "].pOption' type='hidden' value='" + pOption + "'>";
+            form_contents += pOption_input;
+
+            let pOption2_input = "<input name='orders[" + orderNumber + "].pOption2' type='hidden' value='" + pOption2 + "'>";
+            form_contents += pOption2_input;
+
+            let pColor_input = "<input name='orders[" + orderNumber + "].pColor' type='hidden' value='" + pColor + "'>";
+            form_contents += pColor_input;
+
+            let pOptionPrice_input = "<input name='orders[" + orderNumber + "].pOptionPrice' type='hidden' value='" + pOptionPrice + "'>";
+            form_contents += pOptionPrice_input;
+
+            orderNumber += 1;
+        })
+        $(".order_form").html(form_contents);
+        $(".order_form").submit();
+    })
     $(document).ready(function (){
         // 장바구니 삭제 버튼 클릭하면 동작
         $("input[name=cartDeleteBtn]").click(function (e){

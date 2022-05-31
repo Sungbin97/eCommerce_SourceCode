@@ -327,10 +327,10 @@
         let cartMno=  [[${member.mno}]]
         let cartPno = [[${pvo.pno}]]
         let cName = [[${pvo.pName}]]
+        let pImage = [[${pvo.pImage}]]
         let cDiscount = [[${pvo.pDiscount}]]
         let cPrice =[[${pvo.pPrice}]]
         let cDisPrice = cPrice * (1-cDiscount)
-        let cCount = $("input[name='orders[0].itemCount']").val()
         let cTotalPrice = cDisPrice * cCount
         let cOption = $("input[name='orders[0].pOption']").val()
         let cOptionName = "옵션1"
@@ -338,10 +338,6 @@
         let cOptionName2 = "옵션2"
         let cColor = $("input[name='orders[0].pColor']").val()
         let cOptionPrice = [[${pvo.pPrice}]]+$("input[name='orders[0].pOptionPrice']").val()
-        // <!--                        mno, pno, cName, cOption, cOptionName, cOption2,-->
-        // <!--                        cOptionName2, cColor, cPrice, cDiscount,-->
-        // <!--                        cDisPrice, cCount, cTotalPrice-->
-
         data = {
             mno : cartMno,
             pno: cartPno,
@@ -354,9 +350,9 @@
             cprice : cPrice,
             cdiscount : cDiscount,
             cdisPrice : cDisPrice,
-            ccount : cCount,
             ctotalPrice : cTotalPrice,
-            coptionPrice : cOptionPrice
+            coptionPrice : cOptionPrice,
+            pimage:pImage
         }
 
         $.ajax({
@@ -1046,16 +1042,5 @@
 </script>
 
 </body>
-<!-- jQuery latest version -->
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<!-- Bootstrap js -->
-<script src="/js/bootstrap.bundle.min.js"></script>
-<!-- Plugins js -->
-<script src="/js/plugins.js"></script>
-<!-- Ajax Mail js -->
-<script src="/js/ajax-mail.js"></script>
-<!-- Main js -->
-<script src="/js/main.js"></script>
-<!--카테고리 js (JH추가)-->
-<script src="/js/category.js"></script>
+
 </html>
