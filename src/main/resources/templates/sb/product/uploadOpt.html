@@ -77,26 +77,12 @@
                                 <h3>등록한 상품정보</h3>
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12 mb-20">
-                                        <h7>메인카테고리</h7>
-                                        <select id="category" name="pMainCategory">
-                                            <option th:value="${product.pMainCategory}" th:text="${product.pMainCategory}"></option>
-                                            <option value="남성 옷">남성 옷</option>
-                                            <option value="여성 옷">여성 옷</option>
-                                            <option value="식품">식품</option>
-                                            <option value="엑세서리 및 기구">엑세서리 및 기구</option>
-                                        </select>
+                                        <label>카테고리코드</label>
+                                        <input type="text" name="pCateCode" th:placeholder="${product.pCateCode}" th:value="${product.pCateCode}"/>
                                     </div>
                                     <div class="col-sm-6 col-xs-12 mb-20">
-                                        <h7>서브카테고리</h7>
-                                        <select id="subCategory" name="pSubCategory">
-                                            <option th:value="${product.pSubCategory}" th:text="${product.pSubCategory}"></option>
-                                            <option value="상의">상의</option>
-                                            <option value="하의">하의</option>
-                                            <option value="신발">신발</option>
-                                            <option value="보충제">보충제</option>
-                                            <option value="영양제">영양제</option>
-                                            <option value="ing">ing</option>
-                                        </select>
+                                        <label>카테고리코드</label>
+                                        <input type="text" placeholder="예정" readonly/>
                                     </div>
                                     <div class="col-sm-6 col-xs-12 mb-20">
                                         <label for="pName">상품번호</label>

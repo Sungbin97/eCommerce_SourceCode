@@ -21,7 +21,7 @@
                     <div class="page-banner-content">
                         <h1 th:text="'상품목록'"></h1>
                         <ul class="breadcrumb">
-                            <li><a th:href="@{/sb/product/list(pno=${getOne.pno})}">product</a></li>
+                            <li><a th:href="@{/sb/product/list(pno=${product.pno})}">product</a></li>
                             <li class="active">list</li>
                         </ul>
                     </div>
@@ -60,8 +60,7 @@
                                     <ul>
                                         <li th:text="'상품번호: '+${getOne.pno}"></li>
                                         <li th:text="'상품명: '+${getOne.pName}"/>
-                                        <li th:text="'메인카테고리: '+${getOne.pMainCategory}"/>
-                                        <li th:text="'서브카테고리: '+${getOne.pSubCategory}"/>
+                                        <li th:text="'카테고리코드: '+${getOne.pCateCode}"/>
                                         <li th:text="'등록일: '+${getOne.pRegdate}"/>
                                     </ul>
                                 </form>
@@ -81,8 +80,7 @@
                                     <option value="pno">상품번호</option>
                                     <option value="pName">상품명</option>
                                     <option value="pPrice">가격</option>
-                                    <option value="pMainCategory">메인카테고리</option>
-                                    <option value="pSubCategory">서브카테고리</option>
+                                    <option value="pCateCode">카테고리코드</option>
                                 </select>
                                 <br/>
                                 <input type="hidden" name="pno" th:value="${getOne.pno}">
@@ -115,7 +113,7 @@
                                     <tbody>
                                     <tr th:each="dto : ${products.getList()}">
                                             <td class="pro-price">[[${dto.pno}]]</td>
-                                            <td class="pro-price"><div class="product-quantity">[[${dto.pMainCategory}]] --> [[${dto.pSubCategory}]]</div></td>
+                                            <td class="pro-price"><div class="product-quantity">[[${dto.pCateCode}]]</div></td>
                                             <td class="pro-thumbnail"><img th:src="|/display?fileName=${dto.pImage}|" style="width: 100px; height: 100px"/></a></td>
                                             <td class="pro-title"><a th:href="@{/sb/product/modify(pno=${dto.pno})}">[[${dto.pName}]]</a></td>
                                             <td class="pro-price" id="price" th:text="|₩${#numbers.formatInteger(dto.pPrice, 0, 'COMMA')}|" ></td>

@@ -137,6 +137,7 @@ public class ProductController {
         List<ProductVO> list = productService.getAll();
         model.addAttribute("list", list);
         model.addAttribute("getOne", productService.getOne(pno));
+        model.addAttribute("product", productService.getOne(pno));
 
         //페이징
         PageInfo<PagingEntity> products = new PageInfo<>(pagingService.getProductList(pageNum, search), 10);
@@ -177,7 +178,7 @@ public class ProductController {
         model.addAttribute("opt2Name", opt2NameListN);
         model.addAttribute("opt2List", opt2ListN);
         model.addAttribute("colorList", colorListN);
-//        model.addAttribute("getOpt", productOptMapper.getOpt(pno));
+
     }
 
     @PostMapping("/modify")

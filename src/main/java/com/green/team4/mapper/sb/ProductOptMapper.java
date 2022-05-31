@@ -10,9 +10,10 @@ import java.util.List;
 public interface ProductOptMapper {
     int insert(Product_optVO vo);
     List<Product_optVO> getAll();
-    List<Product_optVO> getProductJoin(int pno);
     List<Product_optVO> getProductOption(int pno);
-    Product_optVO getOpt(int pno);
+    List<Product_optVO> getColors(int pno);
+    List<Product_optVO> getOpt(int pno);
     int updateAmt(Product_optVO vo); // 재고만 업데이트 (취소/반품/교환)
+    int update(Product_optVO vo);
     int delete(int pno);
 }

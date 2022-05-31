@@ -57,9 +57,25 @@
             </select>
             <input type="text">
         </td>
-        <td>옵션명2</td>
-        <td>옵션2</td>
-        <td>색상</td>
+        <td>
+            <input th:placeholder="${opt2Name[0]}">
+        </td>
+        <td>
+            <select>
+                <div th:each="opt2 : ${opt2List}">
+                    <option>[[${opt2}]]</option>
+                </div>
+            </select>
+            <input type="text">
+        </td>
+        <td>
+            <select>
+                <div th:each="color : ${colorList}">
+                    <option>[[${color}]]</option>
+                </div>
+            </select>
+            <input type="text">
+        </td>
         <td>재고</td>
     </tbody>
 </table>

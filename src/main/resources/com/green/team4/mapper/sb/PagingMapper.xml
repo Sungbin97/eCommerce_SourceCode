@@ -16,10 +16,7 @@
             AND pName LIKE CONCAT('%',#{search},'%')
         </if>
         <if test="keyword == 'pMainCategory'">
-            AND pMainCategory LIKE CONCAT('%',#{search},'%')
-        </if>
-        <if test="keyword == 'pSubCategory'">
-            AND pSubCategory LIKE CONCAT('%',#{search},'%')
+            AND pCateCode LIKE CONCAT('%',#{search},'%')
         </if>
         <if test="keyword == 'pPrice'">
             AND pPrice LIKE CONCAT('%',#{search},'%')

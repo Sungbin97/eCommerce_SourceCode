@@ -40,7 +40,7 @@ public class ProductServiceOptImpl implements ProductOptService{
     @Override
     public List<Product_optVO> getOpt(int pno) {
         List list = new ArrayList();
-        list.add(productOptMapper.getOpt(pno));
+        list.add(productOptMapper.getProductOption(pno));
         return list;
     }
 }

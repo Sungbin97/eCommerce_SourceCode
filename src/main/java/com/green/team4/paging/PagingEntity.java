@@ -6,7 +6,6 @@ import lombok.Data;
 public class PagingEntity {
     int pno;
     String pName;
-    String pMainCategory;
-    String pSubCategory;
+    String pCateCode;
     String pPrice;
 }
