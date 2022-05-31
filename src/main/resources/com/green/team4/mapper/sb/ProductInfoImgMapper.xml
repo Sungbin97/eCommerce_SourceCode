@@ -18,11 +18,11 @@
         select * from tbl_product_infoImg where pno = #{pno}
     </select>
 
-<!--    <update id="update">-->
-<!--        update tbl_product_img-->
-<!--            set pName=#{pName}, pThumbnail=#{pThumbnail}, pImage=#{pImage}, pImagePath=#{pImagePath}, pInformation=#{pInformation}, pInfoPath=#{pInfoPath}-->
-<!--                where pno=#{pno}-->
-<!--    </update>-->
+    <update id="update">
+        update tbl_product_infoImg
+            set pno=#{pno}, pName=#{pName}, pInformation=#{pInformation}, pInfoPath=#{pInfoPath}
+                where pno=#{pno}
+    </update>
 
     <delete id="delete">
         delete from tbl_product_infoImg where pno=#{pno}

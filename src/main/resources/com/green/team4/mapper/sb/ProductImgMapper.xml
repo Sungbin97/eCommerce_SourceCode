@@ -20,7 +20,7 @@
 
     <update id="update">
         update tbl_product_img
-            set pName=#{pName}, pThumbnail=#{pThumbnail}, pImage=#{pImage}, pImagePath=#{pImagePath}, pInformation=#{pInformation}, pInfoPath=#{pInfoPath}
+            set pName=#{pName}, pImage=#{pImage}, pImagePath=#{pImagePath}
                 where pno=#{pno}
     </update>
 

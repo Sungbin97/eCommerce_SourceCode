@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>product/modify</title>
+</head>
+<style>
+    .required{
+        color: red;
+    }
+</style>
+<body>
+<!-- mypage header fragment -->
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1 th:text="'상품정보수정'"></h1>
+                    <ul class="breadcrumb">
+                        <li><a th:href="@{/sb/product/list(pno=${getOne.pno})}">product</a></li>
+                        <li class="active">uploadOpt</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
+            <h5>상품정보수정</h5>
+            <h7>상품정보</h7>
+            <form th:action="@{/sb/product/modify(pno=${getOne.pno})}" method="post">
+              <li th:text="'상품번호: '+${getOne.pno}" readonly="readonly"></li>
+
+                <li th:text="'상품명: '+${getOne.pName}"></li>
+                <input th:name="pName" th:value="${getOne.pName}">
+
+                <li th:text="'메인카테고리: '+${getOne.pMainCategory}"></li>
+                <input th:name="pMainCategory" th:value="${getOne.pMainCategory}">
+
+                <li th:text="'서브카테고리: '+${getOne.pSubCategory}"></li>
+                <input th:name="pSubCategory" th:value="${getOne.pSubCategory}">
+
+                <li th:text="'가격: '+${getOne.pPrice}"></li>
+                <input th:name="pPrice" th:value="${getOne.pPrice}">
+
+                <li th:text="'수량: '+${getOne.pAmount}"></li>
+                <input th:name="pAmount" th:value="${getOne.pAmount}">
+
+<!--                <li th:text="'색상: '+${getOne.pColor}"></li>-->
+<!--                <input th:name="pColor" th:value="${getOne.pColor}">-->
+
+                <li th:text="'정보: '+${getOne.pInformation}"></li>
+                <input th:name="pInformation" th:value="${getOne.pInformation}">
+
+                <li th:text="'이미지 원본: '+${getOne.pImage}"></li>
+                <img th:src="|/display?fileName=${getOne.pImage}|" style="width: 100px; height: 100px"/>
+                <input th:name="pImage" th:value="${getOne.pImage}">
+
+                <input type="submit" th:value="수정"/>
+            </form>
+            <form th:action="@{/sb/product/remove(pno=${getOne.pno})}" method="post">
+                <input type="submit" th:value="삭제"/>
+            </form>
+        </main>
+
+</body>
+</html>

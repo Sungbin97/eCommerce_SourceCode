@@ -1,119 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>MemberModify</title>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <!-- START HEADER SECTION -->
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'상품목록'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a th:href="@{/sb/product/list(pno=${product.pno})}">product</a></li>
+                            <li class="active">list</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END HEADER SECTION -->
+    <title>product/list</title>
 </head>
 <body>
-<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
-<style>
-    .bd-navbar {
-        position: sticky;
-        top: 0;
-        z-index: 1071;
-        min-height: 4rem;
-        box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
-    }
-    .bd-sidebar {
-        position: sticky;
-        top: 4rem;
-        z-index: 1000;
-        height: calc(100vh - 4rem);
-        background: #eee;
-        border-right: 1px solid rgba(0,0,0,.1);
-        overflow-y: auto;
-        min-width: 160px;
-        max-width: 220px;
-    }
-    .bd-sidebar .nav {
-        display: block;
-    }
-    .bd-sidebar .nav>li>a {
-        display: block;
-        padding: .25rem 1.5rem;
-        font-size: 90%;
-    }
-</style>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-<header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active"><a class="nav-link" href="#">홈</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">메인 페이지</a></li>
-            <li class="nav-item"><a class="nav-link" href="/sw/mypage/main?mno=8">마이 페이지</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">쇼핑몰 페이지</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
-            <li class="nav-item"><a class="nav-link" href="/sb/adpage">관리자 페이지</a></li>
-        </ul>
-    </div>
-</header>
-<div class="container-fluid">
-    <div class="row flex-nowrap">
-        <div class="col-3 bd-sidebar">
-            <ul class="nav">
-                <h4>관리자 페이지</h4>
-                <li>
-                    <a href="/sb/member/member?mno=1">회원관리</a>
-                    <a href="/sb/product/list?pno=1">상품관리</a>
-                    <a href="/sb/product/upload">상품등록</a>
-                    <a href="/sb/product/modify?pno=1">상품정보수정</a>
-                    <a href="/sb/order/list">주문/배송관리</a>
-                    <a href="/sb/statistics/sales">각종 통계</a>
-                    <a href="/sb/mail/list">EMAIL & SMS</a>
-                    <a href="/sb/mail/write">개별 메일 전송</a>
-                    <a href="/sb/mail/list">자동 메일 및 문자(예정)</a>
-                </li>
-            </ul>
-            <br>
-        </div>
-        <main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
-            <h5>상품정보수정</h5>
-            <h7>상품정보</h7>
-            <form th:action="@{/sb/product/modify(pno=${getOne.pno})}" method="post">
-              <li th:text="'상품번호: '+${getOne.pno}" readonly="readonly"></li>
+<!-- mypage header fragment -->
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
-                <li th:text="'상품명: '+${getOne.pName}"></li>
-                <input th:name="pName" th:value="${getOne.pName}">
+<h2>상품수정</h2>
+<table>
+    <thead>
+        <th>상품번호</th>
+        <th>상품명</th>
+        <th>옵션명1</th>
+        <th>옵션1</th>
+        <th>옵션명2</th>
+        <th>옵션2</th>
+        <th>색상</th>
+        <th>재고</th>
+    </thead>
+    <tbody>
+        <td>
+            <input th:placeholder="${product.pno}">
+        </td>
+        <td>
+            <input th:placeholder="${product.pName}">
+        </td>
+        <td>
+            <input th:placeholder="${opt1Name[0]}">
+        </td>
+        <td>
+            <select>
+                <div th:each="opt1 : ${opt1List}">
+                    <option>[[${opt1}]]</option>
+                </div>
+            </select>
+            <input type="text">
+        </td>
+        <td>옵션명2</td>
+        <td>옵션2</td>
+        <td>색상</td>
+        <td>재고</td>
+    </tbody>
+</table>
 
-<!--                <li th:text="'상품코드: '+${getOne.pCode}"></li>-->
-<!--                <input th:name="pCode" th:value="${getOne.pCode}">-->
 
-                <li th:text="'메인카테고리: '+${getOne.pMainCategory}"></li>
-                <input th:name="pMainCategory" th:value="${getOne.pMainCategory}">
 
-                <li th:text="'서브카테고리: '+${getOne.pSubCategory}"></li>
-                <input th:name="pSubCategory" th:value="${getOne.pSubCategory}">
 
-<!--                <li th:text="'사이즈: '+${getOpt.pSize}"></li>-->
-<!--                <input th:name="pSize" th:value="${getOne.pSize}">-->
 
-                <li th:text="'가격: '+${getOne.pPrice}"></li>
-                <input th:name="pPrice" th:value="${getOne.pPrice}">
 
-                <li th:text="'수량: '+${getOne.pAmount}"></li>
-                <input th:name="pAmount" th:value="${getOne.pAmount}">
-
-<!--                <li th:text="'색상: '+${getOne.pColor}"></li>-->
-<!--                <input th:name="pColor" th:value="${getOne.pColor}">-->
-
-                <li th:text="'정보: '+${getOne.pInformation}"></li>
-                <input th:name="pInformation" th:value="${getOne.pInformation}">
-
-                <li th:text="'이미지 원본: '+${getOne.pImage}"></li>
-                <img th:src="|/display?fileName=${getOne.pImage}|" style="width: 100px; height: 100px"/>
-                <input th:name="pImage" th:value="${getOne.pImage}">
-
-                <input type="submit" th:value="수정"/>
-            </form>
-            <form th:action="@{/sb/product/remove(pno=${getOne.pno})}" method="post">
-                <input type="submit" th:value="삭제"/>
-            </form>
-        </main>
-    </div>
 </body>
+<!-- FOOTER TOP SECTION START -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<!-- FOOTER BOTTOM SECTION END -->
 </html>
