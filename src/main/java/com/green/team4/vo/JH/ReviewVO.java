@@ -1,6 +1,5 @@
 package com.green.team4.vo.JH;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.util.Date;

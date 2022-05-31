@@ -36,6 +36,17 @@ public class CartController {
         model.addAttribute("cartTotalPrice",cartTotalPrice); // 장바구니 물건 총 금액
     }
 
+    @PostMapping("/modify") // 장바구니 업데이트 하기
+    public ResponseEntity<CartVO> cartModify(@RequestBody CartVO cartVO){
+        log.info("CartController => cartModify(POST) 실행 => 받은 cartVO: "+cartVO);
+
+        // 장바구니 업데이트 서비스 호출
+        CartVO updateCart = cartService.modify(cartVO); // 업데이트 후 수정된 장바구니 상품 가져오기
+        log.info("업데이트된 장바구니 상품: "+updateCart);
+
+        return new ResponseEntity<>(updateCart,HttpStatus.OK);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<String> cartRegister(@RequestBody CartVO cartVO){ // 장바구니 신규 추가
         log.info("CartController => cartRegister(POST) 실행 => 받은 cartVO: "+cartVO);

@@ -15,6 +15,7 @@ public class ExchangeVO {
     // tbl_exchange 에서 가져올 data
     private int mno; // 회원번호(tbl_memberInfo)
     private String ono; // 주문번호(tbl_order)
+    private String newOno; // 처리 후 신규 발행한 주문서 번호
     private int pno; // 상품번호(tbl_product)
     private int eno; // 취소/반품/교환 번호
     private String exCategory; // 분류(취소/반품/교환 중 택1)  -- 수정 가능

@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
-
     @Autowired
     private ReviewMapper reviewMapper;
 
@@ -23,7 +22,6 @@ public class ReviewServiceImpl implements ReviewService{
         reviewMapper.write(rvo);
         setReviewCnt(rvo.getPno());
         setRating(rvo.getPno());
-
     }
 
     @Override

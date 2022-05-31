@@ -41,14 +41,13 @@ public class MemberInfoController {
         // ShipmentInfo 가져오기
         List<ShipmentVO> shipList = shipmentService.readAll(mno);
         model.addAttribute("shipmentList",shipList);
-
     }
 
     @PostMapping("/memModify") // 개인정보 수정 진행 (회원 전용)
-    public void memberModify(MemberInfoVO memberInfoVO, Model model){
+    public String memberModify(MemberInfoVO memberInfoVO, Model model){
         log.info("MemberInfoController => memberModify(POST) 실행 => 받은 MemberInfoVO: "+memberInfoVO);
         memberInfoService.modifyByMember(memberInfoVO);
-        model.addAttribute("memberInfo",memberInfoVO);
+        return "redirect:/sw/mypage/memberInfo/read?mno="+memberInfoVO.getMno();
     }
 
     @GetMapping("/memDelete") // 회원탈퇴 화면 가져오기

@@ -2,6 +2,7 @@ package com.green.team4.service.sw;
 
 
 import com.green.team4.vo.sw.ExchangeVO;
+import com.green.team4.vo.sw.OrderVO;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface ExchangeService {
 
     // 취소/반품/교환 -----------------------------------------------------------------
     void cancelAndReturn(String ono, int pno, int eno); // 취소/반품 처리 진행
+    OrderVO change(String ono, int pno, int eno); // 교환 처리 진행
 }

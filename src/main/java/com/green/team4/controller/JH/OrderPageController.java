@@ -28,6 +28,7 @@ public class OrderPageController {
         log.info("id : "+id);
         log.info("orders : "+orders.getOrders());
 
+
         model.addAttribute("orderlist",orderPageService.getProductListInfo(orders.getOrders()));
         model.addAttribute("memberInfo",memberInfoService.getMemberInfo(id));
         return "shop/orderSheet";

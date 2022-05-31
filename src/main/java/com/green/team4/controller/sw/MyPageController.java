@@ -23,6 +23,7 @@ public class MyPageController {
     private final CartService cartService;
     private final OrderService orderService;
     private final ExchangeService exchangeService;
+    private final ReviewMpService reviewMpService;
 
     @GetMapping("/main")
     public void getMainPage(int mno, Model model){
@@ -55,6 +56,11 @@ public class MyPageController {
         List<ExchangeVO> exList = exchangeService.readAll(mno);
         int exCnt = exList.size();
         model.addAttribute("exCnt",exCnt);
+
+        // 상품 리뷰 작성 건 수 가져오기
+        List<ReviewMpVO> reviewList = reviewMpService.readAllByMno(mno);
+        int rCnt = reviewList.size();
+        model.addAttribute("rCnt",rCnt);
 
 
     }

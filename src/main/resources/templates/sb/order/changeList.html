@@ -37,7 +37,8 @@
                             <table>
                                 <thead>
                                 <tr>
-                                    <th class="pro-title">주문번호</th>
+                                    <th class="pro-title">주문번호(처리전)</th>
+                                    <th class="pro-title">주문번호(처리후)</th>
                                     <th class="pro-title">상품번호</th>
                                     <th class="pro-title">구분</th>
                                     <th class="pro-title">교환사유</th>
@@ -54,6 +55,7 @@
                                 <tbody>
                                 <tr th:each="change : ${changeList}">
                                     <td class="pro-title" th:text="${change.ono}"></td>
+                                    <td class="pro-title" th:text="${change.newOno}"></td>
                                     <td class="pro-title" th:text="${change.pno}"></td>
                                     <td class="pro-title" th:text="${change.exCategory}"></td>
                                     <td class="pro-title" th:text="${change.exContent}"></td>
@@ -65,19 +67,19 @@
                                     <td class="pro-title" th:text="${change.color}"></td>
                                     <!-- 교환 처리 실행 form -->
                                     <td class="pro-add-to-cart">
-                                        <form th:action="@{/sb/order/cancelReg}" method="post">
+                                        <form>
                                             <input type="hidden" name="ono" th:value="${change.ono}" readonly>
                                             <input type="hidden" name="pno" th:value="${change.pno}" readonly>
                                             <input type="hidden" name="eno" th:value="${change.eno}" readonly>
-                                            <button type="submit" th:if="${change.exStatus != '교환완료'}" class="btn">교환</button>
+                                            <button type="button" id="initChange" th:if="${change.exStatus != '교환완료'}" class="btn">교환</button>
                                         </form>
                                     </td>
                                     <!-- 교환 배송등록 form -->
                                     <td class="pro-add-to-cart">
                                         <form th:action="@{/sb/order/deliveryReg}" method="get">
-                                            <input type="hidden" name="ono" th:value="${change.ono}" readonly>
+                                            <input type="hidden" name="ono" th:value="${change.newOno}" readonly>
                                             <input type="hidden" name="pno" th:value="${change.pno}" readonly>
-                                            <button type="submit" class="btn">배송등록</button>
+                                            <button type="submit" class="btn">배송등록(등록완료시 비활성화 필요)</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -98,9 +100,34 @@
 <script>
     $(document).ready(function (){
 
+        // 일반 이벤트
         $("#goBack").click(function (){
             window.location.href = '/sb/adpage'
         })
+
+        // 교환 처리 진행 => 새로 발행한 주문서 번호 반환
+        $("#initChange").click(function (e) {
+            var data = {
+                ono: $(this).form().find("input[name=ono]").val(),
+                pno: parseInt($(this).form().find("input[name=pno]").val()),
+                eno: parseInt($(this).form().find("input[name=eno]").val())
+            }
+            console.log("입력받은 data: ", data)
+            $.ajax({
+                url: '/sb/order/changeReg',
+                method: 'post',
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'text',
+                success: function (newOno) {
+                    console.log("Ajax통신 성공 후 받은 result: ", newOno);
+                    alert("교환처리 성공(신규발행 주문번호: "+newOno+")")
+                    self.location.reload();
+                }
+            })
+        })
+
+
     })
 </script>
 </html>

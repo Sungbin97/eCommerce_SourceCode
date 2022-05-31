@@ -37,37 +37,37 @@
                             <thead>
                             <tr>
                                 <th class="pro-stock-stauts">신청일</th>
+                                <th class="pro-stock-stauts">처리 완료일</th>
                                 <th class="pro-title">접수번호</th>
                                 <th class="pro-title">주문번호</th>
-                                <th class="pro-title">상품번호</th>
+<!--                                <th class="pro-title">상품번호</th>-->
                                 <th class="pro-title">상품명</th>
-                                <th class="pro-title">수량</th>
-                                <th class="pro-price">총 금액</th>
+<!--                                <th class="pro-title">수량</th>-->
+<!--                                <th class="pro-price">총 금액</th>-->
                                 <th class="pro-title">신청유형</th>
                                 <th class="pro-title">진행상태</th>
-                                <th class="pro-stock-stauts">처리 완료일</th>
                                 <th class="pro-title">삭제</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="exchange : ${exList}">
                                 <td class="pro-stock-stauts" name="exDate" th:text="${exchange.exDate}"></td>
+                                <td class="pro-stock-stauts" name="exEndDate" th:text="${exchange.exEndDate}"></td>
                                 <td class="pro-title"><a th:href="@{/sw/mypage/exchange/read(eno=${exchange.eno})}" th:text="${exchange.eno}"></a></td>
-                                <td class="pro-title" th:text="${exchange.ono}"></td>
-                                <td class="pro-title" th:text="${exchange.pno}"></td>
+                                <td class="pro-title"><a th:href="@{/sw/mypage/order/read(ono=${exchange.ono})}" th:text="${exchange.ono}"></a></td>
+<!--                                <td class="pro-title" th:text="${exchange.pno}"></td>-->
                                 <td class="pro-title" th:text="${exchange.pName}"></td>
-                                <td class="pro-title" th:text="${exchange.iCount}"></td>
-                                <td class="pro-title" th:text="${exchange.iTotalPrice}"></td>
+<!--                                <td class="pro-title" th:text="${exchange.iCount}"></td>-->
+<!--                                <td class="pro-title" th:text="${exchange.iTotalPrice}"></td>-->
                                 <td class="pro-title" th:text="${exchange.exCategory}"></td>
                                 <td class="pro-title" th:text="${exchange.exStatus}"></td>
-                                <td class="pro-stock-stauts" name="exEndDate" th:text="${exchange.exEndDate}"></td>
                                 <td class="pro-remove">
                                     <form th:action="@{/sw/mypage/exchange/delete}" th:method="post">
                                         <input type="hidden" name="mno" th:value="${exchange.mno}" readonly>
                                         <input type="hidden" name="eno" th:value="${exchange.eno}" readonly>
                                         <input type="hidden" name="ono" th:value="${exchange.ono}" readonly>
                                         <input type="hidden" name="pno" th:value="${exchange.pno}" readonly>
-                                        <input type="button" name="exDeleteBtn" class="btn" value="삭제">
+                                        <input type="submit" th:if="${#strings.contains(exchange.exStatus,'접수 전')}" name="exDeleteBtn" class="btn" value="취소하기">
                                     </form>
                                 </td>
                             </tr>

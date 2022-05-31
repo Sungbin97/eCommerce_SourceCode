@@ -24,7 +24,7 @@
     <select id="getOneByOINoDCat" resultType="com.green.team4.vo.sw.DeliveryVO">
         select mno, oINo, dno, dCompanyName, dCategory, dOption,
                dLocation, dStartDate, dEndDate, dStatus from tbl_delivery
-        where oINo=#{oINo} and dCategory=#{dCategory}
+        where oINo=#{oINo}
     </select>
 
     <!-- Delivery 데이터 전체 가져오기 -->

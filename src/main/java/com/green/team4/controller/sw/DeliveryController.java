@@ -31,15 +31,15 @@ public class DeliveryController {
     private final OrderItemMapper orderItemMapper;
 
     @GetMapping("/read") // 배송 정보 가져오기
-    public void deliveryRead(int oINo,String dCategory, Model model){
+    public void deliveryRead(int oINo, Model model){
         log.info("DeliveryController => deliveryRead(GET) 실행 => 받은 oIno: "+oINo);
-        log.info("DeliveryController => deliveryRead(GET) 실행 => 받은 dCategory: "+dCategory);
+//        log.info("DeliveryController => deliveryRead(GET) 실행 => 받은 dCategory: "+dCategory);
 
         // 주문 상품 정보 가져오기
         OrderItemVO orderItemVO = orderItemMapper.getOne(oINo);
         model.addAttribute("item",orderItemVO);
 
-        DeliveryVO deliveryVO = deliveryService.readOneByOINoDCat(oINo,dCategory);
+        DeliveryVO deliveryVO = deliveryService.readOneByOINoDCat(oINo);
         model.addAttribute("deliveryVO",deliveryVO);
     }
 

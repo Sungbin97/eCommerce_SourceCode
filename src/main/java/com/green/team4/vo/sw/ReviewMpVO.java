@@ -2,18 +2,34 @@ package com.green.team4.vo.sw;
 
 import lombok.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class OrderItemVO {
+@Builder
+public class ReviewMpVO {
 
-    // tbl_orderItem 칼럼
-    private String ono; // 주문번호
-    private int oINo; // 주문 상품 번호
-    private int pno; // 상품 번호
+    private int rno; // 리뷰 번호
+    private int pno ; // 상품 번호
+    private int mno ; // 회원 번호
+    private int oINo ; // 주문상품 번호
+    private int rRating; // 평점
+    private int likeHit ; // 좋아요 개수
+    private String rContent; // 리뷰 내용
 
+    private LocalDateTime rRegdate; // 등록일
+    private LocalDateTime rUpdatedate; // 수정일
+    
+    private List<ReviewFilesMpVO> reviewFilesList; // 첨부파일
+
+    // orderItem 테이블 join 데이터
     private String iName; // 상품명
     private String iOption; // 상품 옵션1
     private String iOptionName; // 상품 옵션1 이름
@@ -26,8 +42,5 @@ public class OrderItemVO {
     private int iCount; // 상품 수량(주문한 상품 수량)
     private int iSavePoint; // 상품 적립포인트
     private int iTotalPrice; // 최종 결재금액
-
-    private String iDeliveryStatus; // 배송 상태
-    private String iExStatus; // 교환반품취소 신청 상태
-    private String iReviewStatus; // 리뷰등록 여부
 }
+

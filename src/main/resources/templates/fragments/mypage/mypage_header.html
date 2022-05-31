@@ -25,6 +25,7 @@
         <!-- Responsive css -->
         <link rel="stylesheet" href="/css/responsive.css">
 
+
     </head>
 </div>
 
@@ -54,36 +55,10 @@
                                         <li><a href="index-3.html">Home three</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="shop.html">New Brand</a>
+                                <li><a href="shop.html">shop</a>
                                     <ul class="sub-menu">
                                         <li><a href="shop.html">shop</a></li>
                                         <li><a href="product-details.html">product details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="shop.html">Best Sellers</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="shop.html">shop</a></li>
-                                        <li><a href="product-details.html">product details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a th:href="@{/shop/list(pCateCode='100000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">MEN</a>
-                                    <ul class="sub-menu shopCategory firstCategory">
-
-                                    </ul>
-                                </li>
-                                <li ><a th:href="@{/shop/list(pCateCode='200000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">WOMEN</a>
-                                    <ul class="sub-menu shopCategory secondCategory">
-
-                                    </ul>
-                                </li>
-                                <li><a th:href="@{/shop/list(pCateCode='300000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">Nutrition</a>
-                                    <ul class="sub-menu shopCategory thirdCategory">
-
-                                    </ul>
-                                </li>
-                                <li><a th:href="@{/shop/list(pCateCode='400000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">accessories</a>
-                                    <ul class="sub-menu shopCategory fourthCategory">
-
                                     </ul>
                                 </li>
                                 <li><a href="#">Pages</a>
@@ -102,17 +77,6 @@
                                     </ul>
                                 </li>
                                 <li><a href="contact.html">Contact</a></li>
-
-                                <li><a href="blog.html">Admin</a>
-                                    <ul class="sub-menu">
-                                        <li><a th:href="@{/sb/member/member?mno=1}">member</a></li>
-                                        <li><a th:href="@{/sb/product/upload}">product upload</a></li>
-                                        <li><a th:href="@{/sb/product/list(pno=1)}">product list</a></li>
-                                        <li><a th:href="@{/sb/mail/write}">mail write</a></li>
-                                        <li><a th:href="@{/sb/mail/list}">mail list</a></li>
-                                    </ul>
-                                </li>
-
                             </ul>
                         </nav>
                         <!-- header-search & total-cart -->
@@ -121,18 +85,12 @@
                             <div class="header-search">
                                 <button class="search-toggle"><i class="pe-7s-search"></i></button>
                                 <div class="header-search-form">
-<!--                                    <form action="#">-->
-<!--                                        <input type="text" placeholder="Search">-->
-<!--                                        <button><i class="fa fa-long-arrow-right"></i></button>-->
-<!--                                    </form>-->
-                                    <form class="searchForm" action="/shop/list" method="get">
-                                        <input type="text" placeholder="Search" id="keyword" name="keyword">
-                                        <button id="findBtn"><i class="fa fa-long-arrow-right"></i></button>
+                                    <form action="#">
+                                        <input type="text" placeholder="Search">
+                                        <button><i class="fa fa-long-arrow-right"></i></button>
                                     </form>
-                                    <div id="selectView"></div>
                                 </div>
                             </div>
-
                             <!-- header Account -->
                             <div class="header-account">
                                 <ul>
@@ -196,5 +154,5 @@
             </div>
         </header>
         <!-- END HEADER SECTION -->
-    </div>
+</div>
 </html>

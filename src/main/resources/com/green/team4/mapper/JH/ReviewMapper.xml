@@ -7,10 +7,12 @@
         select * from tbl_review where pno= #{pno}
     </select>
 
+    <!-- write -->
     <insert id="write">
         insert into tbl_review (pno,mno,rRating,likeHit,rImageURL,rContent,rRegdate,rUpdatedate)
         values (#{pno},#{mno},#{rRating},#{likeHit},#{rImageURL},#{rContent},#{rRegdate},#{rUpdatedate})
     </insert>
+
 <!--리뷰 갯수 구하기-->
    <delete id="delete">
        delete from tbl_review where rv_no = #{rv_no}

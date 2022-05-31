@@ -35,10 +35,10 @@ public class DeliveryServiceImpl implements DeliveryService{
     }
 
     @Override
-    public DeliveryVO readOneByOINoDCat(int oINo, String dCategory) {
+    public DeliveryVO readOneByOINoDCat(int oINo) {
         log.info("DeliveryService => readOneByOINoDCat 실행 => 받은 oINo: "+oINo);
-        log.info("DeliveryService => readOneByOINoDCat 실행 => 받은 oINo: "+dCategory);
-        DeliveryVO deliveryVO = deliveryMapper.getOneByOINoDCat(oINo,dCategory);
+//        log.info("DeliveryService => readOneByOINoDCat 실행 => 받은 oINo: "+dCategory);
+        DeliveryVO deliveryVO = deliveryMapper.getOneByOINoDCat(oINo);
         log.info("DeliveryService => readOneByOINoDCat 실행 후 받은 deliveryVO: "+deliveryVO);
         return deliveryVO;
     }

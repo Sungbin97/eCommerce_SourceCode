@@ -39,12 +39,12 @@
                                 <thead>
                                 <tr>
                                     <th class="pro-stock-stauts">찜한 날짜</th>
-                                    <th class="pro-title">대분류</th>
-                                    <th class="pro-title">중분류</th>
+<!--                                    <th class="pro-title">대분류</th>-->
+<!--                                    <th class="pro-title">중분류</th>-->
                                     <th class="pro-title">상품번호</th>
+                                    <th class="pro-thumbnail">이미지</th>
                                     <th class="pro-title">상품명</th>
                                     <th class="pro-price">가격</th>
-                                    <th class="pro-thumbnail">이미지</th>
                                     <th class="pro-add-to-cart">상품보러가기</th>
 <!--                                    <th class="pro-add-to-cart">장바구니 추가(미정)</th>-->
                                     <th class="pro-remove">삭제</th>
@@ -53,12 +53,12 @@
                                 <tbody>
                                 <tr th:each="itr : ${itrList}">
                                     <td class="pro-stock-stauts" name="itrDate" th:text="${itr.itrDate}"></td>
-                                    <td class="pro-title" id="pMainCategory" th:text="${itr.pMainCategory}"></td>
-                                    <td class="pro-title" id="pSubCategory" th:text="${itr.pSubCategory}"></td>
+<!--                                    <td class="pro-title" id="pMainCategory" th:text="${itr.pMainCategory}"></td>-->
+<!--                                    <td class="pro-title" id="pSubCategory" th:text="${itr.pSubCategory}"></td>-->
                                     <td class="pro-title"  th:text="${itr.pno}"></td>
+                                    <td class="pro-thumbnail" id="pImage"><img th:src="${itr.pImage}" alt="" /></td>
                                     <td class="pro-title" id="pName">[[${itr.pName}]]</td>
                                     <td class="pro-price" id="pPrice" th:text="${itr.pPrice}"></td>
-                                    <td class="pro-thumbnail" id="pImage"><img th:src="${itr.pImage}" alt="" /></td>
                                     <td class="pro-title">
                                         <a th:href="@{/shop/read(pno=${itr.pno},mno=${itr.mno})}" th:text="'클릭'"></a>
                                     </td>
@@ -72,6 +72,7 @@
                                     <td class="pro-remove">
                                         <form id="itrDeleteForm" th:action="@{/sw/mypage/interest/delete}" th:method="post">
                                             <input type="hidden" name="mno" th:value="${itr.mno}" readonly>
+                                            <input type="hidden" name="pno" th:value="${itr.pno}" readonly>
                                             <input type="hidden" name="itrNo" th:value="${itr.itrNo}" readonly>
                                             <input type="button" name="itrDeleteBtn" class="btn" value="삭제">
                                         </form>
