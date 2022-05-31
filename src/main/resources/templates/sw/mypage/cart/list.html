@@ -39,39 +39,53 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th class="pro-title">대분류</th>
-                                                <th class="pro-title">중분류</th>
                                                 <th class="pro-title">상품번호</th>
-                                                <th class="pro-title">상품명</th>
-                                                <th class="pro-price">가격(개당,할인 후)</th>
-                                                <th class="pro-price">주문수량</th>
-                                                <th class="pro-price">총 결제금액</th>
                                                 <th class="pro-thumbnail">이미지</th>
+                                                <th class="pro-title">상품명</th>
+                                                <th class="pro-title">옵션1</th>
+                                                <th class="pro-title">옵션2</th>
+                                                <th class="pro-price">가격(개당,할인 후)</th>
+                                                <th class="pro-quantity">주문수량</th>
+                                                <th class="pro-price">총 결제금액</th>
+
                                                 <th class="pro-title">주문하기(개별)</th>
                                                 <th class="pro-remove">삭제</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr th:each="cart : ${cartList}">
-                                                <td class="pro-title" th:text="${cart.pMainCategory}"></td>
-                                                <td class="pro-title" th:text="${cart.pSubCategory}"></td>
+                                                <input type="hidden" th:id="${cart.cno}"> <!-- 행 검색용(숨김) -->
                                                 <td class="pro-title"  th:text="${cart.pno}"></td>
-                                                <td class="pro-title"><a th:href="@{/shop/read(pno=${cart.pno},mno=${cart.mno})}" th:text="${cart.cName}"></a></td>
-                                                <td class="pro-price" th:text="${cart.cPrice}"></td>
-                                                <td class="pro-price" th:text="${cart.cCount}"></td>
-                                                <td class="pro-price" th:text="${cart.cTotalPrice}"></td>
                                                 <td class="pro-thumbnail"><img th:src="${cart.pImage}" alt="" /></td>
+                                                <td class="pro-title"><a th:href="@{/shop/read(pno=${cart.pno},mno=${cart.mno})}" th:text="${cart.cName}"></a></td>
+                                                <td class="pro-title">[[${cart.cOption}]]<span style="font-size: x-small">([[${cart.cOptionName}]])</span></td>
+                                                <td class="pro-title">[[${cart.cOption2}]]<span style="font-size: x-small">([[${cart.cOptionName2}]])</span></td>
+                                                <td class="pro-price" th:text="${cart.cDisPrice}"></td>
+                                                <td class="pro-quantity">
+                                                    <div class="product-quantity">
+                                                        <input type="text" name="qtyInput" th:value="${cart.cCount}" />
+                                                        <span class="dec qtybtn">
+                                                            <i class="fa fa-angle-left"></i>
+                                                        </span>
+                                                        <span class="inc qtybtn">
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td class="pro-price" name="cTotalPrice" th:text="${cart.cTotalPrice}"></td>
+
                                                 <!-- 개별 주문 페이지 연결 예정 -->
                                                 <td class="pro-title">
                                                     <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
                                                         <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
-                                                        <input type="hidden" name="mno" th:value="${cart.pno}" readonly>
+                                                        <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
                                                         <input type="submit" class="btn" value="개별주문">
                                                     </form>
                                                 </td>
                                                 <td class="pro-remove">
                                                     <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
                                                         <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
+                                                        <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
                                                         <input type="button" name="cartDeleteBtn" class="btn" value="삭제">
                                                     </form>
                                                 </td>
@@ -95,20 +109,17 @@
                                     <h3>장바구니 요약</h3>
                                     <table>
                                         <tbody>
-<!--                                        <tr class="cart-subtotal">-->
-<!--                                            <th>Subtotal</th>-->
-<!--                                            <td><span class="amount">[[${cartTotalPrice}]] 원</span></td>-->
-<!--                                        </tr>-->
                                         <tr class="order-total">
                                             <th>Total</th>
                                             <td>
-                                                <strong><span class="amount">[[${cartTotalPrice}]] 원</span></strong>
+                                                <strong><span id="cartTotal" class="amount">[[${cartTotalPrice}]] 원</span></strong>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <div class="proceed-to-checkout section mt-30">
                                         <!-- 주문 페이지 연결 -->
+                                        <!-- 넘길때 mno만 넘기고, controller에서 장바구니 List 가져와서 List로 넘길 예정 -->
                                         <a href="#">전체 주문하러 가기</a>
                                     </div>
                                 </div>
@@ -131,6 +142,78 @@
 
 <script>
     $(document).ready(function (){
+
+        // 장바구니 업데이트 Ajax 통신 함수
+        const updateCart = (cCount, mno, cno) =>{
+
+            var data ={
+                mno:mno,
+                cno:cno,
+                ccount:cCount
+            }
+
+            console.log("입력받은 data: ",data)
+            $.ajax({
+                url:'/sw/mypage/cart/modify',
+                method:'post',
+                data:JSON.stringify(data),
+                contentType:'application/json; charset=utf-8',
+                dataType:'json',
+                success:function (cartVO){
+                    console.log("Ajax통신 성공 후 받은 cartVO: ",cartVO);
+
+                    // 해당 장바구니 상품 행 가져오기
+                    // (1) 상품 금액 태그 가져오기
+                    var cno = cartVO.cno;
+                    var targetTotal = $("input#"+cno+"").closest("tr").find("td[name=cTotalPrice]"); // 해당 태그 찾기
+
+                    // (1-1) 장바구니 총 금액 태그 가져오기
+                    var cartTotal = $("#cartTotal").text() // 총 장바구니 금액 원본
+                    var modCartTotal = cartTotal.replace(" 원","") // ' 원' 문자 제거한 장바구니 금액
+
+                    // (2) 상품 금액 증감 내역 기록
+                    var originalTotal = targetTotal.text(); // 기존 상품 결제금액
+                    var newTotal = cartVO.ctotalPrice // 수정된 상품 결제금액
+                    var dif = newTotal - parseInt(originalTotal); // 기존 대비 증감 금액
+
+                    // (3) 상품 금액 + 장바구니 총 금액 수정하기
+                    targetTotal.text(cartVO.ctotalPrice) // 상품 결제 금액 수정
+                    var finalCartTotal = parseInt(modCartTotal) + dif; // 최종 수정된 장바구니 총 금액(기존금액+증감금액)
+                    $("#cartTotal").html(finalCartTotal+" 원"); // 총 장바구니 금액 수정
+                }
+            })
+
+        }
+
+        // 장바구니 특정 상품 수량 +- 누르면
+        $(".fa-angle-left,.fa-angle-right").click(function (){
+            console.log("-버튼 클릭")
+
+            // Target 태그 가져오기
+            var targetInput = $(this).closest("tr").find("input[name=qtyInput]"); // 대상 input
+            var originalVal = targetInput.val(); // 기존 수량
+
+            // +- 버튼에 따라 수량 업데이트 진행
+            console.log($(this).attr('class'))
+            if($(this).hasClass('fa-angle-left')){
+                var updateVal = parseInt(originalVal) - 1; // 변경 수량
+                targetInput.val(updateVal); // 변경 수량 업데이트
+            }
+            else {
+                var updateVal = parseInt(originalVal) + 1;
+                targetInput.val(updateVal);
+            }
+
+            // Ajax 통신용 데이터 가져오기
+            var mno = $(this).closest("tr").find("input[name=mno]").val();
+            var cno = $(this).closest("tr").find("input[name=cno]").val();
+            console.log(mno)
+            console.log(cno)
+
+            // Ajax 통신 함수 호출
+            updateCart(updateVal,mno,cno);
+        })
+
         // 장바구니 삭제 버튼 클릭하면 동작
         $("input[name=cartDeleteBtn]").click(function (e){
             if(!confirm("정말 삭제하시겠습니까?")){

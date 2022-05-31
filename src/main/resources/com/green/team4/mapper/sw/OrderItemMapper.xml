@@ -8,7 +8,7 @@
     <!-- OrderItem 데이터 전체 가져오기(ono 단위) -->
     <select id="getAll" resultType="com.green.team4.vo.sw.OrderItemVO">
         select ono, oINo, pno, iName, iOption, iOptionName,iOption2,iOptionName2, iColor, iPrice,
-               iDiscount, iDisPrice, iCount, iTotalPrice,iSavePoint, iDeliveryStatus, iExStatus
+               iDiscount, iDisPrice, iCount, iTotalPrice,iSavePoint, iDeliveryStatus, iExStatus, iReviewStatus
         from tbl_orderItem
         where tbl_orderItem.ono=#{ono}
     </select>
@@ -16,7 +16,7 @@
     <!-- OrderItem 데이터 전체 가져오기(ono 단위) -->
     <select id="getAllAdmin" resultType="com.green.team4.vo.sw.OrderItemVO">
         select ono, oINo, pno, iName, iOption, iOptionName,iOption2,iOptionName2, iColor, iPrice,
-               iDiscount, iDisPrice, iCount, iTotalPrice,iSavePoint, iDeliveryStatus, iExStatus
+               iDiscount, iDisPrice, iCount, iTotalPrice,iSavePoint, iDeliveryStatus, iExStatus, iReviewStatus
         from tbl_orderItem
         order by oINo desc;
     </select>
@@ -24,7 +24,7 @@
     <!-- OrderItem 데이터 전체 가져오기(배송전/미신청 건들만) -->
     <select id="getNormalDelivery" resultType="com.green.team4.vo.sw.OrderItemVO">
         select ono, oINo, pno, iName, iOption, iOptionName,iOption2,iOptionName2, iColor, iPrice,
-               iDiscount, iDisPrice, iCount, iTotalPrice,iSavePoint, iDeliveryStatus, iExStatus
+               iDiscount, iDisPrice, iCount, iTotalPrice,iSavePoint, iDeliveryStatus, iExStatus, iReviewStatus
         from tbl_orderItem
         where iDeliveryStatus='배송전' and iExStatus='미신청'
         order by oINo desc;
@@ -33,15 +33,15 @@
     <!-- OrderItem 데이터 하나 가져오기(oINo 단위) -->
     <select id="getOne" resultType="com.green.team4.vo.sw.OrderItemVO">
         select ono, oINo, pno, iName, iOption, iOptionName,iOption2,iOptionName2, iColor, iPrice,
-               iDiscount, iDisPrice, iCount, iTotalPrice,iSavePoint, iDeliveryStatus, iExStatus
+               iDiscount, iDisPrice, iCount, iTotalPrice,iSavePoint, iDeliveryStatus, iExStatus, iReviewStatus
         from tbl_orderItem
         where tbl_orderItem.oINo=#{oINo}
     </select>
 
-    <!-- OrderItem 데이터 수정(취소/반품/교환 신청, 배송 상태만 변경 (관리자 전용)) -->
+    <!-- OrderItem 데이터 수정(취소/반품/교환 신청, 배송 상태, 리뷰등록 여부만 변경 -->
     <update id="update">
         update tbl_orderItem
-        set iDeliveryStatus=#{iDeliveryStatus}, iExStatus=#{iExStatus}
+        set iDeliveryStatus=#{iDeliveryStatus}, iExStatus=#{iExStatus}, iReviewStatus=#{iReviewStatus}
         where ono=#{ono} and pno=#{pno}
     </update>
 

@@ -12,12 +12,11 @@ import com.green.team4.vo.sw.OrderItemVO;
 import com.green.team4.vo.sw.OrderVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,6 +129,19 @@ public class AdminOrderController {
         log.info("changeList: "+changeList);
 
         model.addAttribute("changeList",changeList);
+    }
+
+    @PostMapping("/changeReg")
+    public ResponseEntity<String> changeReg(@RequestBody ExchangeVO exchangeVO){ // 교환 처리 진행
+        log.info("AdminOrderController => changeReg(POST) 실행 => 받은 exchangeVO: "+exchangeVO);
+        log.info("AdminOrderController => changeReg(POST) 실행 => 받은 ono: "+exchangeVO.getOno());
+        log.info("AdminOrderController => changeReg(POST) 실행 => 받은 pno: "+exchangeVO.getPno());
+        log.info("AdminOrderController => changeReg(POST) 실행 => 받은 eno: "+exchangeVO.getEno());
+
+        // 교환 처리 후 새로발행한 주문서
+        OrderVO newOrderVO = exchangeService.change(exchangeVO.getOno(),exchangeVO.getPno(),exchangeVO.getEno());
+
+        return new ResponseEntity<>(newOrderVO.getOno(), HttpStatus.OK);
     }
 
 

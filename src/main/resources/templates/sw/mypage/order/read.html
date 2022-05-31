@@ -48,16 +48,17 @@
                                     <thead>
                                     <tr id="itemHead">
                                         <th>상품명</th>
-                                        <th>상품 옵션명</th>
-                                        <th>상품 옵션 세부</th>
-                                        <th>상품 색상</th>
-                                        <th>상품 가격</th>
-                                        <th>할인률</th>
-                                        <th>할인 후 상품 가격</th>
-                                        <th>주문 수량</th>
+                                        <th>옵션1</th>
+                                        <th>옵션2</th>
+                                        <th>색상</th>
+<!--                                        <th>가격</th>-->
+<!--                                        <th>할인률</th>-->
+                                        <th>가격(할인 후)</th>
+                                        <th>주문수량</th>
                                         <th>최종 결재금액</th>
                                         <th>적립 포인트</th>
-                                        <th>배송조회</th>
+                                        <th>배송</th>
+                                        <th>리뷰</th>
                                         <th>취소/반품/교환</th>
                                     </tr>
                                     </thead>
@@ -66,11 +67,11 @@
                                         <!-- 상품 세부페이지 링크 연결 예정 -->
                                         <td name="iName"><a th:href="@{/shop/read(pno=${item.pno},mno=${orderVO.mno})}"><strong style="text-align: center">[[${item.iName}]]</strong></a></td>
                                         <input type="hidden" name="pno" th:value="${item.pno}" readonly>
-                                        <td name="iOptionName" th:text="${item.iOptionName}"></td>
-                                        <td name="iOption" th:text="${item.iOption}"></td>
+                                        <td name="iOption">[[${item.iOption}]]<span style="font-size: x-small">([[${item.iOptionName}]])</span></td>
+                                        <td name="iOption">[[${item.iOption2}]]<span style="font-size: x-small">([[${item.iOptionName2}]])</span></td>
                                         <td name="iColor" th:text="${item.iColor}"></td>
-                                        <td name="iPrice" th:text="${item.iPrice}"></td>
-                                        <td name="iDiscount" th:text="${item.iDiscount}+'%'"></td>
+<!--                                        <td name="iPrice" th:text="${item.iPrice}"></td>-->
+<!--                                        <td name="iDiscount" th:text="${item.iDiscount}+'%'"></td>-->
                                         <td name="iDisPrice" th:text="${item.iDisPrice}"></td>
                                         <td name="iCount" th:text="${item.iCount}"></td>
                                         <td name="iTotalPrice" th:text="${item.iTotalPrice}"></td>
@@ -78,10 +79,21 @@
                                         <td class="pro-title">
                                             <!-- 배송조회 controller 전송용 form -->
                                             <form th:action="@{/sw/mypage/delivery/read}" th:method="get">
-                                                <input type="hidden" name="dCategory" th:value="'일반'" readonly>
+<!--                                                <input type="hidden" name="dCategory" th:value="'일반'" readonly>-->
                                                 <input type="hidden" name="oINo" th:value="${item.oINo}" readonly>
                                                 <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
                                                 <input class="btn" type="submit" th:if="${item.iDeliveryStatus != '배송전'}" name="getDelivery" value="배송조회">
+                                                <div th:if="${item.iDeliveryStatus == '배송전'}">배송전</div>
+                                            </form>
+                                        </td>
+                                        <td class="pro-title">
+                                            <!-- 리뷰등록 관련 controller 전송용 form -->
+                                            <form th:action="@{/sw/mypage/order/regReview}" th:method="get">
+                                                <input type="hidden" name="mno" th:value="${orderVO.mno}" readonly>
+                                                <input type="hidden" name="ono" th:value="${item.ono}" readonly>
+                                                <input type="hidden" name="oINo" th:value="${item.oINo}" readonly>
+                                                <input style="margin: auto" th:if="${item.iReviewStatus.equals('미등록')}" class="btn" type="submit" name="regReview" value="리뷰쓰러가기">
+                                                <div th:if="${item.iReviewStatus != '미등록'}">등록완료</div>
                                             </form>
                                         </td>
                                         <td class="pro-title">
@@ -92,6 +104,7 @@
                                                 <input type="hidden" name="pno" th:value="${item.pno}" readonly>
                                                 <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
                                                 <input style="margin: auto" th:if="${item.iExStatus.equals('미신청') && orderVO.tPayStatus.equals('결제완료')}" class="btn" type="submit" name="addExchange" value="신청하기">
+                                                <div th:if="${item.iExStatus != '미신청'}">신청완료</div>
                                             </form>
                                         </td>
                                     </tr>

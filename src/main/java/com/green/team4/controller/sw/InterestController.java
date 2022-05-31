@@ -32,7 +32,7 @@ public class InterestController {
     @PostMapping("/delete")
     public String itrDelete(InterestVO interestVO){ // 찜 삭제
         log.info("InterestController => itrDelete(POST) 실행 => 받은 interestVO: "+interestVO);
-        interestService.remove(interestVO.getItrNo());
+        interestService.remove(interestVO.getMno(),interestVO.getPno());
         return "redirect:/sw/mypage/interest/list?mno="+interestVO.getMno();
     }
 }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>mypage-review-list</title>
+</head>
+
+<body>
+    <!-- mypage header fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+    <!-- PAGE BANNER SECTION -->
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'리뷰'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a href="#" th:id="goBack">mypage</a></li>
+                            <li class="active">review-list</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- review List -->
+    <div class="page-section section pt-120 pb-120">
+        <div class="container">
+
+            <div class="isotope-grid row">
+                <div class="isotope-item ptable col-xl-3 col-lg-4 col-md-6 col-12 mb-50" th:each="review : ${reviewList}">
+                    <div class="product-item product-item-2 text-center">
+                        <input type="hidden" name="mno" th:value="${review.mno}"> <!-- 숨김 -->
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/sw/mypage/review/read(rno=${review.rno})}"> <!-- 리뷰 세부조회 연결 -->
+                                <img th:src="|/display?fileName=${review.reviewFilesList[0].getThumbnailURL}|" alt=""> <!-- 첨부파일 중 맨 첫번째 사진만 show -->
+                            </a>
+                            <!-- Action Button -->
+                            <div class="action-btn-2">
+                                <a th:href="@{/shop/read(pno=${review.pno},mno=${review.mno})}" data-bs-toggle="modal"  data-bs-target="#quickViewModal" title="상품보러가기"><i class="pe-7s-look"></i></a>
+                            </div>
+                        </div>
+                        <!-- Portfolio Info -->
+                        <div class="product-info">
+                            <!-- Title -->
+                            <h5 class="title"><a th:href="@{/shop/read(pno=${review.pno},mno=${review.mno})}">[[${review.iName}]]</a></h5>
+                            <!-- 구매정보 -->
+                            <div class="price-ratting fix">
+                                <span class="price"><span class="new">[[${review.iDisPrice}]] 원</span><span class="old">[[${review.iPrice}]] 원</span></span>
+                            </div>
+                            <div>
+                                <span>평점 : [[${review.rRating}]]([[${review.likeHit}]])</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center col-xs-12 mt-30">
+                    <a href="#" class="btn load-more-product">load more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+
+<!-- mypage footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+
+<script>
+    $(document).ready(function (){
+
+        // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
+        $("#goBack").click(function (){
+            var mno = $("input[name=mno]").val();
+            window.location.href = '/sw/mypage/main?mno='+mno;
+        })
+    })
+</script>
+</html>
