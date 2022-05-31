@@ -93,18 +93,18 @@ public class ProductController {
 
     @PostMapping("/uploadOpt")
     public String uploadPost(Integer pno, ProductImgVO imgVO, Product_optVO optVO, ProductInfoImgVO infoVO,
-                             @RequestParam("opt1") String[] opt1,
-                             @RequestParam("opt2") String[] opt2,
-                             @RequestParam("colorOpt") String[] colors,
+                             @RequestParam(value = "opt1" ,required = false) String[] opt1,
+                             @RequestParam(value = "opt2" , required = false) String[] opt2,
+                             @RequestParam(value = "colorOpt", required = false) String[] colors,
                              @RequestParam("uploadFilesImg") MultipartFile[] imgFiles,
                              @RequestParam("uploadFilesInfo") MultipartFile[] infoFiles) throws IOException {
         log.info("받아온 pno: " + pno);
         log.info("받아온 pOptionName: " + optVO.getPOptionName());
         log.info("받아온 pOptionName2: " + optVO.getPOptionName2());
 
-        for (String o1 : opt1) System.out.println("받아온 옵션1: " + o1);
-        for (String o2 : opt2) System.out.println("받아온 옵션2: " + o2);
-        for (String c : colors) System.out.println("받아온 색상: " + c);
+//        for (String o1 : opt1) System.out.println("받아온 옵션1: " + o1);
+//        for (String o2 : opt2) System.out.println("받아온 옵션2: " + o2);
+//        for (String c : colors) System.out.println("받아온 색상: " + c);
 
         //옵션 저장
         for (String o1 : opt1){
