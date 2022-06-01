@@ -1,14 +1,13 @@
 package com.green.team4.service.sw;
 
-import com.green.team4.mapper.sw.DeleteMemMapper;
-import com.green.team4.mapper.sw.MemberInfoMapper;
-import com.green.team4.mapper.sw.ShipmentMapper;
-import com.green.team4.vo.sw.DeleteMemVO;
-import com.green.team4.vo.sw.MemberInfoVO;
-import com.green.team4.vo.sw.ShipmentVO;
+import com.green.team4.mapper.sb.MailMapper;
+import com.green.team4.mapper.sw.*;
+import com.green.team4.vo.sb.MailVO;
+import com.green.team4.vo.sw.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,9 +17,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberInfoServiceImpl implements MemberInfoService{
 
-    private final MemberInfoMapper memberInfoMapper;
+    private final InterestMapper interestMapper;
+    private final CartMapper cartMapper;
+    private final MailMapper mailMapper;
+    private final ReviewMpMapper reviewMpMapper;
+    private final ReviewFilesMpMapper reviewFilesMpMapper;
+    private final DeliveryMapper deliveryMapper;
+    private final ExchangeMapper exchangeMapper;
+    private final ExchangeFilesMapper exchangeFilesMapper;
+    private final OrderMapper orderMapper;
+    private final OrderItemMapper orderItemMapper;
     private final ShipmentMapper shipmentMapper;
+    private final MemberInfoMapper memberInfoMapper;
     private final DeleteMemMapper deleteMemMapper;
+
 
     // 회원정보 전체 가져오기
     @Override
@@ -58,14 +68,15 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         return modResult;
     }
 
-    // 회원정보 삭제(회원탈퇴) - 배송지 정보 및 결제 정보도 함께 삭제
+    // 회원정보 삭제(회원탈퇴) - 회원 관련 모든 정보 삭제
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int remove(int mno,String delCategory, String delContent) {
         log.info("MemberInfoService => remove 실행 => 받은 mno: "+mno);
         log.info("MemberInfoService => remove 실행 => 받은 delCategory: "+delCategory);
         log.info("MemberInfoService => remove 실행 => 받은 delContent: "+delContent);
 
-        // 탈퇴회원 데이터 입력(tbl_deleteMem) -------------------------------------------------
+        // 탈퇴회원 데이터 입력(tbl_deleteMem) --------------------------------------------------------
         MemberInfoVO memberInfoVO = memberInfoMapper.getOne(mno);
 
         // 기존 회원데이터 덮어쓰기
@@ -96,14 +107,52 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         int delSaveCnt = deleteMemMapper.insert(deleteMemVO);
         log.info("MemberInfoService => remove 실행 => deleteMemMapper 실행 후 입력된 데이터 개수: "+delSaveCnt);
 
-        // 데이터 삭제 ------------------------------------------------------------------------
-        // 배송지 정보 삭제
-        List<ShipmentVO> shipList = shipmentMapper.getAll(mno); // 탈퇴 회원 배송정보 모두 가져오기
-        shipList.forEach(ship->shipmentMapper.delete(ship.getSno())); // 하나씩 꺼내서 배송지 삭제
+        // 회원 데이터 모두 삭제 ------------------------------------------------------------------------
+
+        // 찜목록 삭제
+        List<InterestVO> interestList = interestMapper.getAll(mno);
+        interestList.forEach(i->interestMapper.delete(mno,i.getPno()));
+
+        // 장바구니 삭제
+        List<CartVO> cartList = cartMapper.getAll(mno);
+        cartList.forEach(i->cartMapper.delete(i.getCno()));
+
+        // 메일 삭제
+        mailMapper.delete(mno);
+
+        // 리뷰글 삭제
+        List<ReviewMpVO> reviewList = reviewMpMapper.getAllByMno(mno);
+        reviewList.forEach(i->{
+            reviewFilesMpMapper.delete(i.getRno()); // 첨부파일 삭제
+            reviewMpMapper.delete(i.getRno()); // 글 삭제
+        });
+
+        // 배송 데이터 삭제
+        List<DeliveryVO> deliveryList = deliveryMapper.getAllByMno(mno);
+        deliveryList.forEach(i->deliveryMapper.delete(i.getDno()));
+
+        // 취소/반품/교환 데이터 삭제
+        List<ExchangeVO> exList = exchangeMapper.getAll(mno);
+        exList.forEach(e->{
+            exchangeFilesMapper.delete(e.getEno()); // 신청서 첨부파일 삭제
+            exchangeMapper.delete(e.getEno()); // 신청서 삭제
+        });
+
+        // 주문 내역 삭제
+        List<OrderVO> orderList = orderMapper.getAll(mno);
+        orderList.forEach(o->{
+            orderItemMapper.delete(o.getOno()); // 주문 상품 삭제
+            orderMapper.delete(o.getOno()); // 주문서 삭제
+        });
+
+        // 개인 배송지 정보 삭제
+        List<ShipmentVO> shipList = shipmentMapper.getAll(mno);
+        shipList.forEach(ship->shipmentMapper.delete(ship.getSno())); // 배송지 삭제
 
         // 회원정보 삭제
         int delResult = memberInfoMapper.delete(mno);
         log.info("memberInfoMapper 호출 => remove 후 삭제된 개수: "+delResult);
+
         return delResult;
     }
 

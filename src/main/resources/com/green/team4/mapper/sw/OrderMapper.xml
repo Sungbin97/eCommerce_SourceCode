@@ -56,5 +56,10 @@
         values (#{mno},#{ono},#{receiverName},#{receiverPhone},#{postcode},#{address},#{detailAddress},
                 #{message},#{tProductPrice},#{tShipFee},#{tUsePoint},#{tTotalPrice},#{tSavePoint})
     </insert>
+
+    <!-- Order 삭제 -->
+    <delete id="delete">
+        delete from tbl_order where ono=#{ono}
+    </delete>
     
 </mapper>

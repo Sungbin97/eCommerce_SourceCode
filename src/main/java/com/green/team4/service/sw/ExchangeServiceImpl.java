@@ -314,7 +314,7 @@ public class ExchangeServiceImpl implements ExchangeService{
     }
 
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public OrderVO change(String ono, int pno, int eno) { // 교환 처리 진행
         log.info("ExchangeService => change 실행 => 받은 ono: "+ono);

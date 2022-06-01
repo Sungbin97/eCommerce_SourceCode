@@ -14,4 +14,6 @@ public interface OrderMapper {
     List<OrderVO> getAllAdmin();
     int update(OrderVO orderVO); // 주문서 수정
     int insert(OrderVO orderVO); // 취소/반품/교환 새 주문서 발행 내역 등록
+
+    int delete(String ono); // 주문서 삭제
 }

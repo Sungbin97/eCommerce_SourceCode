@@ -1,5 +1,6 @@
 -- 카테고리 데이터
 
+
 -- 카테고리 칼럼
 -- tier  (대분류 1 , 중분류 2 , 소분류 3)
 -- pCateName 카테고리 이름
@@ -14,7 +15,7 @@
 -- 4~마지막번째 자리는 소분류(001~999)  ex ) 101007, 202875
 
 
-  -- MEN(남성용 제품)
+-- MEN(남성용 제품)
 insert into tbl_product_cate(tier, pCateName, pCatecode) values (1, 'MEN', '100000');
 
  -- 남성의류

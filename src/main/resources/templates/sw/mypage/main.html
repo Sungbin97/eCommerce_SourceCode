@@ -68,12 +68,8 @@
                     <div class="checkout-form">
                         <div class="row">
                             <div class="coupon-form mb-30">
-                                <h3>쇼핑 요약</h3>
+                                <h3>쇼핑</h3>
                                 <p>쇼핑 정보를 확인해보세요</p>
-                                <!-- Chart -->
-<!--                                <div>-->
-<!--                                    <div id="chartdiv"></div>-->
-<!--                                </div>-->
                                 <div>
                                     <button class="btn" type="button" name="interest">
                                         찜한상품 <span class="badge" name="itrCnt" th:text="${itrCnt}"></span>
@@ -96,7 +92,7 @@
                     <div class="checkout-form">
                         <div class="row">
                             <div class="coupon-form mb-30">
-                                <h3>내가 쓴 글 요약</h3>
+                                <h3>내가 쓴 글</h3>
                                 <p>작성한 글을 확인해보세요</p>
                                 <div>
                                     <button class="btn" type="button" name="review">
@@ -130,10 +126,6 @@
         </div>
     </div>
     <!-- PAGE SECTION END -->
-
-
-
-
 
     <!-- 페이지 진입한 회원의 mno (hidden) -->
     <input type="hidden" th:name="mno" th:value="${mno}">
