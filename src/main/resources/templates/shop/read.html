@@ -136,14 +136,23 @@
                     </div>
                     <!-- Product Size -->
                     <div class="product_option_div">
-
+                        <label id="optionlabel" htmlFor="option_select">옵션1<span class="required">*</span></label>
+                        <div class= "option_div">
+                             <select id="option_select">
+                              </select>
+                        </div>
                     </div>
 
                     <div class="product_option2_div">
+                        <label htmlFor="option2_select">옵션2 <span class="required">*</span></label>
+                        <div class= "option2_div">
+                            <select id="option2_select">
+                            </select>
+                       </div>
 
                     </div>
 
-                    <form th:action="@{/order/${member.id}}"  method="get" class="order_form">
+                    <form th:action="@{/order/${member.mno}}"  method="get" class="order_form">
                         <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
                         <input type="hidden" name="orders[0].pColor" value="">
                         <input type="hidden" name="orders[0].pOption" value="">
@@ -329,15 +338,17 @@
         let cName = [[${pvo.pName}]]
         let pImage = [[${pvo.pImage}]]
         let cDiscount = [[${pvo.pDiscount}]]
-        let cPrice =[[${pvo.pPrice}]]
+        let cOptionPrice = $("input[name='orders[0].pOptionPrice']").val()
+        let cPrice =[[${pvo.pPrice}]] + Number($("input[name='orders[0].pOptionPrice']").val())
         let cDisPrice = cPrice * (1-cDiscount)
+        let cCount = $("#amountBox").val();
         let cTotalPrice = cDisPrice * cCount
         let cOption = $("input[name='orders[0].pOption']").val()
         let cOptionName = "옵션1"
         let cOption2 = $("input[name='orders[0].pOption2']").val()
         let cOptionName2 = "옵션2"
         let cColor = $("input[name='orders[0].pColor']").val()
-        let cOptionPrice = [[${pvo.pPrice}]]+$("input[name='orders[0].pOptionPrice']").val()
+        console.log(cCount)
         data = {
             mno : cartMno,
             pno: cartPno,
@@ -352,7 +363,8 @@
             cdisPrice : cDisPrice,
             ctotalPrice : cTotalPrice,
             coptionPrice : cOptionPrice,
-            pimage:pImage
+            pimage:pImage,
+            ccount:cCount
         }
 
         $.ajax({
@@ -390,8 +402,6 @@
             str+='<i class="fa fa-star"></i>'
         }
         $('.star_span').html(str)
-
-
 
 
         let color =$("input[name='orders[0].pColor']").val();
@@ -441,7 +451,7 @@
                 $(".option2_p").html("")
             }
             $(colorList).each(function (index,obj){
-                console.log("showOptions",obj)
+                console.log("showColors",obj)
                 if(obj ===null){
                     $(".color_p").html("")
                     $(".color_name").html("")
@@ -454,7 +464,7 @@
             })
             $(optionList).each(function (index,obj){
                 console.log("showOptions",obj)
-                if(obj ===null){
+                if(obj ===null || obj == ''){
                     $(".product_option_div").html("")
                 }
                 else{
@@ -467,8 +477,8 @@
 
             })
             $(optionList2).each(function (index,obj){
-                console.log("showOptions",obj)
-                if(obj ===null){
+                console.log("showOptions2",obj)
+                if(obj ===null ){
                     $(".option2_p").html("")
                 }
                 else{
@@ -483,25 +493,26 @@
             if(colorList.length>1){
                 $(".color_p").html("색상 : ")
             }
-            if(optionList.length>1){
+            // if(optionList.length>1){
+            //
+            //     aaa +='<label htmlFor="option_select">옵션1<span class="required">*</span></label>'
+            //     aaa +='<div class= "option_div">'
+            //     aaa +='<select id="option_select">'
+            //     aaa +='</select>'
+            //     aaa +='</div>'
+            // }
 
-                aaa +='<label htmlFor="option_select">옵션1<span class="required">*</span></label>'
-                aaa +='<div class= "option_div">'
-                aaa +='<select id="option_select">'
-                aaa +='</select>'
-                aaa +='</div>'
-            }
-            if(optionList2.length>1){
+            // if(optionList2.length>1){
+            //
+            //     bbb +='<label htmlFor="option2_select">옵션2 <span class="required">*</span></label>'
+            //     bbb +='<div class= "option2_div">'
+            //     bbb +='<select id="option2_select">'
+            //     bbb +='</select>'
+            //     bbb +='</div>'
+            // }
 
-                bbb +='<label htmlFor="option2_select">옵션2 <span class="required">*</span></label>'
-                bbb +='<div class= "option2_div">'
-                bbb +='<select id="option2_select">'
-                bbb +='</select>'
-                bbb +='</div>'
-            }
-
-            $(".product_option_div").html(aaa)
-            $(".product_option2_div").html(bbb)
+            // $(".product_option_div").html(aaa)
+            //$(".product_option2_div").html(bbb)
             $(".color-list").html(colorStr)
             // $(".color_div").html(colorStr)
             // $(".option_div").html(optionStr)
@@ -509,7 +520,6 @@
             $("#option2_select").html(optionStr2)
         }
         $(".color-list").on("click",".colorBtn",function (){
-            console.log("클릭")
             let color =$(this).val();
             $(".colorBtn").removeClass('active')
             $(this).addClass('active')
@@ -716,10 +726,10 @@
         /* 바로구매 버튼 */
         $(".btn_buy").on("click", function(){
             let itemCount = $("#amountBox").val();
-            let id = [[${member.id}]]
+            let mno = [[${member.mno}]]
             $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
             //$(".order_form").find("input[name='orders[0].pOptionPrice']").val(optionPrice);
-            $(".order_form").attr("action","/order/"+id)
+            $(".order_form").attr("action","/order/"+mno)
             $(".order_form").submit();
 
         });

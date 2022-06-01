@@ -109,7 +109,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
 
     //주문 페이지 서비스
     @Override
-    public MemberInfoVO getMemberInfo(String id) {
-        return memberInfoMapper.getMemberInfo(id);
+    public MemberInfoVO getMemberInfo(int mno) {
+        return memberInfoMapper.getMemberInfo(mno);
     }
 }

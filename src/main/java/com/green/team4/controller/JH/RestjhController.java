@@ -118,10 +118,10 @@ public class RestjhController {
         System.out.println("getPrice 입장");
         System.out.println(povo);
         Product_optVO product_optVO =shopService.getOptionPrice(povo);
-        int Totalprice =product_optVO.getPPrice() + product_optVO.getPOptionPrice();
+        int totalprice =product_optVO.getPPrice() + product_optVO.getPOptionPrice();
         ResponseEntity<List<Integer>> responseEntity = null;
         List<Integer> priceList = new ArrayList<>();
-        priceList.add(Totalprice);
+        priceList.add(totalprice);
         priceList.add(product_optVO.getPPrice());
         priceList.add((product_optVO.getPOptionPrice()));
 
@@ -157,7 +157,6 @@ public class RestjhController {
     }
     @GetMapping("/getCategoryList/")
     public ResponseEntity<List<CategoryVO>> getCateTier2(){
-        log.info("getCategoryList 입장" );
         ResponseEntity<List<CategoryVO>> responseEntity = null;
         try {
             responseEntity = new ResponseEntity<>(categoryService.cateList(),HttpStatus.OK);

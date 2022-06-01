@@ -22,15 +22,15 @@ public class OrderPageController {
     @Autowired
     private OrderPageService orderPageService;
 
-    @GetMapping("/order/{id}")
-    public String orderPageGet(@PathVariable("id") String id, OrderPageVO orders, Model model){
+    @GetMapping("/order/{mno}")
+    public String orderPageGet(@PathVariable("mno") int mno, OrderPageVO orders, Model model){
         System.out.println("order입장");
-        log.info("id : "+id);
+        log.info("mno : "+mno);
         log.info("orders : "+orders.getOrders());
 
 
         model.addAttribute("orderlist",orderPageService.getProductListInfo(orders.getOrders()));
-        model.addAttribute("memberInfo",memberInfoService.getMemberInfo(id));
+        model.addAttribute("memberInfo",memberInfoService.getMemberInfo(mno));
         return "shop/orderSheet";
     }
 

@@ -19,6 +19,7 @@ public class CartVO {
     private String cOption2; // 상품 옵션1
     private String cOptionName2; // 상품 옵션1 이름
     private String cColor; // 상품 색상명
+    private int cOptionPrice; // 상품 옵션 추가 가격
     private int cPrice; // 상품 가격(순수 상품가격)
     private int cDiscount; // 상품 할인률(%)
     private int cDisPrice; // 할인된 상품 가격 (상품 가격에 할인률 적용한 가격)
