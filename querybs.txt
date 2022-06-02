@@ -1,31 +1,20 @@
-create database userdb;
-use userdb;
-drop table user_tbl;
-create table user_tbl(
-    uNo int auto_increment primary key,
-    userId varchar(30),
-    userName varchar(30) not null unique key,
-    userPassword varchar(30),
-    title varchar(100) not null,
-    content varchar(1000) not null,
-    regDate date,
-    modDate date,
-    delete_state varchar(10) default 'Y'
-);
-create table user_delete_tbl(
+create table board_tbl(
      uNo int auto_increment primary key,
-     userId varchar(30),
-     userName varchar(30) not null unique key,
+     userId varchar(50),
+     userName varchar(30) not null,
      userPassword varchar(30),
      title varchar(100) not null,
      content varchar(1000) not null,
      regDate date,
-     modDate date
+     modDate date,
+     imgPath varchar(500)
 );
-select * from user_tbl;
-alter table user_tbl modify delete_state boolean default 1;
-update user_tbl set delete_state = 'Y';
-delete from user_tbl where uNo = 3;
-select * from user_tbl where uNo > 0 limit 0, 10;
-create database team4db;
-use team4db;
+create table reply_tbl(
+    rNo int auto_increment primary key,
+    uNo int not null ,
+    reply varchar(1000) not null,
+    replyer varchar(50) not null,
+    replyDate date,
+    modDate date,
+    foreign key (uNo) references board_tbl(uNo)
+);

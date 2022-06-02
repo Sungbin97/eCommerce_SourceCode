@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title th:text="${item.title}"></title>
     <!-- head fragment -->
-    <th:block th:replace="bs/board/fragments/header.html :: head"></th:block>
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
 <!-- header fragment -->
-<th:block th:replace="bs/board/fragments/header.html :: headerFragment"></th:block>
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 <!-- PAGE SECTION START -->
 <div class="page-section section pt-120 pb-45">
     <div class="container">
@@ -30,7 +30,7 @@
                         </span>
                         <!-- Title -->
                         <h4 class="title" th:text="${item.title}"></h4>
-                        <span th:src="@{${item.getImgPath()}}"></span>
+                        <img th:src="${item.imgPath}" alt="첨부이미지" th:if="${item.imgPath != null}" />
                         <p th:text="${item.content}"></p>
                         <div class="row mt-50 mb-20">
                             <div class="col-md-6 col-12 mb-30"><img src="img/blog/4.jpg" alt=""></div>
@@ -77,7 +77,7 @@
 <!-- PAGE SECTION END -->
 
 <!-- footer fragment -->
-<th:block th:replace="bs/board/fragments/footer.html :: footerFragment"></th:block>
+<th:block th:replace="fragments/mypage/mypage_footer.html :: footerFragment"></th:block>
 <script>
     $(document).ready(function (){
         $("#modify").on("click",function (e){

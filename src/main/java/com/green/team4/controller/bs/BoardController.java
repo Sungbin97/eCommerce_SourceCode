@@ -1,6 +1,7 @@
 package com.green.team4.controller.bs;
 
 import com.green.team4.service.bs.BoardService;
+import com.green.team4.service.bs.ReplyService;
 import com.green.team4.vo.bs.BoardVO;
 import com.green.team4.vo.bs.Criteria;
 import com.green.team4.vo.bs.PageMaker;
@@ -50,6 +51,7 @@ public class BoardController {
     public void read(Model model, Long uNo, Criteria criteria) {
         log.info("read로 이동");
         model.addAttribute("item", boardService.getOne(uNo));
+        log.info("경로 : "+ boardService.getOne(uNo).getImgPath());
         model.addAttribute("cri",criteria);
     }
 
@@ -75,14 +77,10 @@ public class BoardController {
         return "redirect:list";
     }
 
-    @GetMapping("/index")
-    public void index(){
-        log.info("index 연결 완료");
+    @GetMapping("/insert")
+    public void insert(){
+        log.info("reply 댓글 등록");
     }
 
-    @GetMapping("/blog")
-    public void blog(){
-        log.info("blog");
-    }
 
 }

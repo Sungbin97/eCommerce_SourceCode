@@ -24,9 +24,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardVO getOne(Long sid) {
+    public BoardVO getOne(Long uNo) {
 
-        return mapper.readOne(sid);
+        return mapper.readOne(uNo);
     }
 
     @Override
@@ -62,6 +62,7 @@ public class BoardServiceImpl implements BoardService {
         String fileName = "";
 
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/file";
+        System.out.println(projectPath);
 
         UUID uuid = UUID.randomUUID();
         fileName = uuid + "_" + originFileName;
@@ -71,6 +72,7 @@ public class BoardServiceImpl implements BoardService {
 
         vo.setImgName(originFileName);
         vo.setImgPath(fileName);
+        System.out.println("파일 이름 : " + fileName);
         mapper.insert(vo);
 
     }
