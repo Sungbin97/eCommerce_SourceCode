@@ -46,7 +46,7 @@ public class OrderPageServiceImpl implements OrderPageService {
             productsInfo.setItemCount(order.getItemCount());
             log.info("productsInfo2 : "+productsInfo);
             productsInfo.initSaleTotal();
-            log.info("dsad : "+productsInfo);
+            log.info("productsInfo3 : "+productsInfo);
             list.add(productsInfo);
 
         }
@@ -59,7 +59,7 @@ public class OrderPageServiceImpl implements OrderPageService {
         System.out.println("order서비스 입장");
         System.out.println("vo : " + vo);
         //회원정보
-        MemberInfoVO member =memberInfoMapper.getMemberInfo(vo.getId());
+        MemberInfoVO member =memberInfoMapper.getMemberInfo(vo.getMno());
         System.out.println("member: " + member);
         //주문정보(order테이블에 넣을 데이터 만들기)
         List<DBOrderItemVO> ords = new ArrayList<>();

@@ -53,7 +53,7 @@
     <!-- MemberInfo 회원데이터 아이디로 가져오기 (관리자페이지) -->
     <select id="getMemberInfo" resultType="com.green.team4.vo.sw.MemberInfoVO">
         select * from tbl_memberInfo
-        where id=#{id}
+        where mno=#{mno}
     </select>
 
 </mapper>

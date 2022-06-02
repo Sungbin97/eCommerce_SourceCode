@@ -9,16 +9,16 @@
     <insert id="insert">
         insert into tbl_cart (mno, pno, cName, cOption, cOptionName, cOption2,
                               cOptionName2, cColor, cPrice, cDiscount,
-                              cDisPrice, cCount, cTotalPrice)
+                              cDisPrice, cCount, cTotalPrice,cOptionPrice)
         values (#{mno},#{pno},#{cName},#{cOption},#{cOptionName},#{cOption2},#{cOptionName2},
-                #{cColor},#{cPrice},#{cDiscount},#{cDisPrice},#{cCount},#{cTotalPrice})
+                #{cColor},#{cPrice},#{cDiscount},#{cDisPrice},#{cCount},#{cTotalPrice},#{cOptionPrice})
     </insert>
 
     <!-- Cart 데이터 하나 가져오기(pno 단위) 사용X -->
     <select id="getOneByPnoMno" resultType="com.green.team4.vo.sw.CartVO">
         select mno, cno, tbl_cart.pno, cName, cOption, cOptionName, cOption2,
                cOptionName2, cColor, cPrice, cDiscount,
-               cDisPrice, cCount, cTotalPrice,
+               cDisPrice, cCount, cTotalPrice,cOptionPrice,
                tbl_product.pImage from tbl_cart
         left outer join tbl_product on tbl_cart.pno = tbl_product.pno
         where tbl_cart.pno=#{pno} and tbl_cart.mno=#{mno}
@@ -29,7 +29,7 @@
     <select id="getOneByCno" resultType="com.green.team4.vo.sw.CartVO">
         select mno, cno, tbl_cart.pno, cName, cOption, cOptionName, cOption2,
                cOptionName2, cColor, cPrice, cDiscount,
-               cDisPrice, cCount, cTotalPrice,
+               cDisPrice, cCount, cTotalPrice,cOptionPrice,
                tbl_product.pImage from tbl_cart
                left outer join tbl_product on tbl_cart.pno = tbl_product.pno
         where tbl_cart.cno=#{cno}
@@ -39,7 +39,7 @@
     <select id="getAll" resultType="com.green.team4.vo.sw.CartVO">
         select mno, cno, tbl_cart.pno, cName, cOption, cOptionName, cOption2,
                cOptionName2, cColor, cPrice, cDiscount,
-               cDisPrice, cCount, cTotalPrice,
+               cDisPrice, cCount, cTotalPrice,cOptionPrice,
                tbl_product.pImage from tbl_cart
         left outer join tbl_product on tbl_cart.pno = tbl_product.pno
         where mno=#{mno}
@@ -56,5 +56,7 @@
     <delete id="delete">
         delete from tbl_cart where cno=#{cno}
     </delete>
+
+
 
 </mapper>

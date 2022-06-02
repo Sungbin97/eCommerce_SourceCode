@@ -39,6 +39,7 @@
                                 <table>
                                     <thead>
                                     <tr>
+                                        <th class="pro-title all_check_input_div"><input type="checkbox" class="all_check_input input_size_20" checked><span class="all_chcek_span"></span></th>
                                         <th class="pro-title">상품번호</th>
                                         <th class="pro-thumbnail">이미지</th>
                                         <th class="pro-title">상품명</th>
@@ -47,23 +48,33 @@
                                         <th class="pro-price">가격(개당,할인 후)</th>
                                         <th class="pro-quantity">주문수량</th>
                                         <th class="pro-price">총 결제금액</th>
-
-                                        <th class="pro-title">주문하기(개별)</th>
+<!--                                        <th class="pro-title">주문하기(개별)</th>-->
                                         <th class="pro-remove">삭제</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="cart : ${cartList}">
+                                        <td>
+                                            <div class="cart_info_div">
+                                                <input class="individual_cart_checkbox" type="checkbox" checked />
+                                                <input type="hidden" class="individual_pno_input" th:value="${cart.pno}">
+                                                <input type="hidden" class="individual_itemCount_input" th:value="${cart.cCount}" >
+                                                <input type="hidden" class="individual_pColor_input" th:value="${cart.cColor}">
+                                                <input type="hidden" class="individual_pOption_input" th:value="${cart.cOption}">
+                                                <input type="hidden" class="individual_pOption2_input" th:value="${cart.cOption2}">
+                                                <input type="hidden" class="individual_pOptionPrice_input" th:value="${cart.cOptionPrice}">
+                                            </div>
+                                        </td>
                                         <input type="hidden" th:id="${cart.cno}"> <!-- 행 검색용(숨김) -->
                                         <td class="pro-title"  th:text="${cart.pno}"></td>
-                                        <td class="pro-thumbnail"><img th:src="${cart.pImage}" alt="" /></td>
+                                        <td class="pro-thumbnail"><img th:src="|/display?fileName=${cart.pImage}|" alt="" /></td>
                                         <td class="pro-title"><a th:href="@{/shop/read(pno=${cart.pno},mno=${cart.mno})}" th:text="${cart.cName}"></a></td>
                                         <td class="pro-title">[[${cart.cOption}]]<span style="font-size: x-small">([[${cart.cOptionName}]])</span></td>
                                         <td class="pro-title">[[${cart.cOption2}]]<span style="font-size: x-small">([[${cart.cOptionName2}]])</span></td>
                                         <td class="pro-price" th:text="${cart.cDisPrice}"></td>
                                         <td class="pro-quantity">
                                             <div class="product-quantity">
-                                                <input type="text" name="qtyInput" th:value="${cart.cCount}" />
+                                                <input type="text"  name="qtyInput"  th:value="${cart.cCount}" />
                                                 <span class="dec qtybtn">
                                                             <i class="fa fa-angle-left"></i>
                                                         </span>
@@ -72,16 +83,17 @@
                                                         </span>
                                             </div>
                                         </td>
+
                                         <td class="pro-price" name="cTotalPrice" th:text="${cart.cTotalPrice}"></td>
 
                                         <!-- 개별 주문 페이지 연결 예정 -->
-                                        <td class="pro-title">
-                                            <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
-                                                <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
-                                                <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
-                                                <input type="submit" class="btn" value="개별주문">
-                                            </form>
-                                        </td>
+<!--                                        <td class="pro-title">-->
+<!--                                            <form th:action="@{/sw/mypage/cart/delete}" th:method="post">-->
+<!--                                                <input type="hidden" name="mno" th:value="${cart.mno}" readonly>-->
+<!--                                                <input type="hidden" name="cno" th:value="${cart.cno}" readonly>-->
+<!--                                                <input type="submit" class="btn" value="개별주문">-->
+<!--                                            </form>-->
+<!--                                        </td>-->
                                         <td class="pro-remove">
                                             <form th:action="@{/sw/mypage/cart/delete}" th:method="post">
                                                 <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
@@ -90,6 +102,7 @@
                                             </form>
                                         </td>
                                     </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -117,10 +130,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div class="proceed-to-checkout section mt-30">
+                                <div class="proceed-to-checkout section mt-30" >
                                     <!-- 주문 페이지 연결 -->
                                     <!-- 넘길때 mno만 넘기고, controller에서 장바구니 List 가져와서 List로 넘길 예정 -->
-                                    <a href="#">전체 주문하러 가기</a>
+                                    <a class="order_btn">구매하기</a>
+                                    <form class="order_form" th:action="|@{/order/}${mno}|" method="get">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -141,8 +156,69 @@
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <script>
-    $(document).ready(function (){
+    // 장바구니로 주문하기 (JH 추가)
+    $(".order_btn").click(function (e){
 
+        let form_contents ='';
+        let orderNumber = 0;
+        $(".cart_info_div").each(function (index,ele){
+            if($(ele).find(".individual_cart_checkbox").attr("checked") === "checked"){
+
+                let pno = $(ele).find(".individual_pno_input").val();
+                let itemCount =$(ele).find(".individual_itemCount_input").val();
+                let pOption = $(ele).find(".individual_pOption_input").val();
+                let pOption2 = $(ele).find(".individual_pOption2_input").val();
+                let pColor = $(ele).find(".individual_pColor_input").val();
+                let pOptionPrice = $(ele).find(".individual_pOptionPrice_input").val();
+                let pno_input = "<input name='orders[" + orderNumber + "].pno' type='hidden' value='" + pno + "'>";
+                form_contents += pno_input;
+
+                let itemCount_input = "<input name='orders[" + orderNumber + "].itemCount' type='hidden' value='" + itemCount + "'>";
+                form_contents += itemCount_input;
+
+                let pOption_input = "<input name='orders[" + orderNumber + "].pOption' type='hidden' value='" + pOption + "'>";
+                form_contents += pOption_input;
+
+                let pOption2_input = "<input name='orders[" + orderNumber + "].pOption2' type='hidden' value='" + pOption2 + "'>";
+                form_contents += pOption2_input;
+
+                let pColor_input = "<input name='orders[" + orderNumber + "].pColor' type='hidden' value='" + pColor + "'>";
+                form_contents += pColor_input;
+
+                let pOptionPrice_input = "<input name='orders[" + orderNumber + "].pOptionPrice' type='hidden' value='" + pOptionPrice + "'>";
+                form_contents += pOptionPrice_input;
+                console.log("itemcount",itemCount)
+                orderNumber += 1;
+            }
+        })
+
+        $(".order_form").html(form_contents);
+        $(".order_form").submit();
+    })
+    $(document).ready(function (){
+        // 수량 변경시 order페이지에 넘겨줄 수량 데이터도 변경하는 이벤트 (JH 추가)
+        $(".qtybtn").click(function (){
+            let targetInput = $(this).siblings("input[name='qtyInput']").val()
+            $(this).closest("tr").find("input[class='individual_itemCount_input']").val(targetInput)
+
+        })
+        //체크박스 이벤트(JH추가)
+        $(".individual_cart_checkbox").on("click", function(){
+            if($(this).prop("checked")){
+                $(this).attr("checked",true)
+            }
+            else {
+                $(this).attr("checked",false)
+            }
+        });
+        //전체 체크박스 선택 (JH추가)
+        $(".all_check_input_div").click(function (){
+            if($(".all_check_input").prop("checked")){
+                $(".individual_cart_checkbox").attr("checked", true);
+            } else{
+                $(".individual_cart_checkbox").attr("checked", false);
+            }
+        })
         // 장바구니 업데이트 Ajax 통신 함수
         const updateCart = (cCount, mno, cno) =>{
 
@@ -189,26 +265,27 @@
         $(".fa-angle-left,.fa-angle-right").click(function (){
             console.log("-버튼 클릭")
 
-            // Target 태그 가져오기
-            var targetInput = $(this).closest("tr").find("input[name=qtyInput]"); // 대상 input
-            var originalVal = targetInput.val(); // 기존 수량
-
-            // +- 버튼에 따라 수량 업데이트 진행
-            console.log($(this).attr('class'))
+             // Target 태그 가져오기
+             var targetInput = $(this).closest("tr").find("input[name=qtyInput]"); // 대상 input
+             var originalVal = targetInput.val(); // 기존 수량
+             // +- 버튼에 따라 수량 업데이트 진행
+             console.log($(this).attr('class'))
             if($(this).hasClass('fa-angle-left')){
                 var updateVal = parseInt(originalVal) - 1; // 변경 수량
-                targetInput.val(updateVal); // 변경 수량 업데이트
+                // targetInput.val(updateVal); // 변경 수량 업데이트
             }
             else {
                 var updateVal = parseInt(originalVal) + 1;
-                targetInput.val(updateVal);
+                // targetInput.val(updateVal);
             }
+
+
 
             // Ajax 통신용 데이터 가져오기
             var mno = $(this).closest("tr").find("input[name=mno]").val();
             var cno = $(this).closest("tr").find("input[name=cno]").val();
-            console.log(mno)
-            console.log(cno)
+             // console.log(mno)
+             // console.log(cno)
 
             // Ajax 통신 함수 호출
             updateCart(updateVal,mno,cno);

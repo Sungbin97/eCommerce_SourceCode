@@ -56,7 +56,7 @@
 <!--                                    <td class="pro-title" id="pMainCategory" th:text="${itr.pMainCategory}"></td>-->
 <!--                                    <td class="pro-title" id="pSubCategory" th:text="${itr.pSubCategory}"></td>-->
                                     <td class="pro-title"  th:text="${itr.pno}"></td>
-                                    <td class="pro-thumbnail" id="pImage"><img th:src="${itr.pImage}" alt="" /></td>
+                                    <td class="pro-thumbnail" id="pImage"><img th:src="|/display?fileName=${itr.pImage}|" alt="" /></td>
                                     <td class="pro-title" id="pName">[[${itr.pName}]]</td>
                                     <td class="pro-price" id="pPrice" th:text="${itr.pPrice}"></td>
                                     <td class="pro-title">

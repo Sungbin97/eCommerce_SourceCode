@@ -40,4 +40,9 @@ public class InterestServiceImpl implements InterestService{
         log.info("InterestService => remove 실행 => 삭제된 데이터 개수: "+result);
         return result;
     }
+
+    @Override
+    public int getOne(InterestVO interestVO) {
+        return interestMapper.getOne(interestVO);
+    }
 }
