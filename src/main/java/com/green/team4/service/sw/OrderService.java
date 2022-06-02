@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface OrderService {
 
-    List<OrderVO> readAll(int mno); // 주문목록 전체 가져오기
+    int readAllCnt(int mno); // 회원 주문 목록 개수 가져오기
+    List<OrderVO> readAll(int mno, int pageNum); // 주문목록 전체 가져오기
     OrderVO readOne(String ono); // 주문목록 하나 가져오기
     List<OrderVO> readAllAdmin(); // 관리자 전체목록 가져오기
     int modifyItem(OrderItemVO orderItemVO); // 주문상품 업데이트

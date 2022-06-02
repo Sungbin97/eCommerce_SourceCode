@@ -5,6 +5,12 @@
 
 <mapper namespace="com.green.team4.mapper.sw.OrderMapper">
 
+    <!-- 회원별 Order 개수 가져오기 -->
+    <select id="getAllCnt" resultType="Integer">
+        select count(*) from tbl_order
+        where tbl_order.mno=#{mno}
+    </select>
+
     <!-- Order 데이터 전체 가져오기(mno 단위) -->
     <select id="getAll" resultType="com.green.team4.vo.sw.OrderVO">
         select tbl_order.mno,tbl_order.ono,tbl_order.orderDate,tbl_order.receiverName,tbl_order.receiverPhone,

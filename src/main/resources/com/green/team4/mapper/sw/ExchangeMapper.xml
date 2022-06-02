@@ -5,6 +5,12 @@
 
 <mapper namespace="com.green.team4.mapper.sw.ExchangeMapper">
 
+    <!-- 회원별 exchange 글 개수 가져오기 -->
+    <select id="getAllCnt" resultType="Integer">
+        select count(*) from tbl_exchange
+        where tbl_exchange.mno=#{mno}
+    </select>
+
     <!-- tbl_exchange 데이터 등록 -->
     <insert id="insert">
         <selectKey keyProperty="eno" resultType="Integer" order="AFTER">

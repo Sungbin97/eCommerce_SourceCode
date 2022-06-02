@@ -1,5 +1,6 @@
 package com.green.team4.service.sw;
 
+import com.github.pagehelper.PageHelper;
 import com.green.team4.mapper.sw.InterestMapper;
 import com.green.team4.vo.sw.InterestVO;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,13 @@ public class InterestServiceImpl implements InterestService{
     private final InterestMapper interestMapper;
 
     @Override
+    public int readAllCnt(int mno) {
+        log.info("InterestService => readAllCnt 실행 => 받은 mno: "+mno);
+        int result = interestMapper.getAllCnt(mno);
+        return result;
+    }
+
+    @Override
     public int register(InterestVO interestVO) { // 찜목록 신규 등록
         log.info("InterestService => register 실행 => 받은 interestVO: "+interestVO);
         int result = interestMapper.insert(interestVO);
@@ -25,8 +33,10 @@ public class InterestServiceImpl implements InterestService{
     }
 
     @Override
-    public List<InterestVO> readAll(int mno) { // 찜목록 전체 가져오기(mno 단위)
+    public List<InterestVO> readAll(int mno, int pageNum) { // 찜목록 전체 가져오기(mno 단위)
         log.info("InterestService => readAll 실행 => 받은 mno: "+mno);
+        log.info("InterestService => readAll 실행 => 받은 pageNum: "+pageNum);
+        PageHelper.startPage(pageNum,5); // 가져올 데이터 페이지 번호, 페이지 당 데이터 개수
         List<InterestVO> list = interestMapper.getAll(mno);
         log.info("InterestService => readAll 실행 후 받은 list: "+list);
         return list;
@@ -41,3 +51,4 @@ public class InterestServiceImpl implements InterestService{
         return result;
     }
 }
+

@@ -24,6 +24,7 @@ public class MyPageController {
     private final OrderService orderService;
     private final ExchangeService exchangeService;
     private final ReviewMpService reviewMpService;
+    private final PersonalQService personalQService;
 
     @GetMapping("/main")
     public void getMainPage(int mno, Model model){
@@ -38,8 +39,7 @@ public class MyPageController {
         model.addAttribute("memName",memName);
 
         // 찜한 상품 개수 가져오기
-        List<InterestVO> itrList = interestService.readAll(mno);
-        int itrCnt = itrList.size();
+        int itrCnt = interestService.readAllCnt(mno);
         model.addAttribute("itrCnt",itrCnt);
 
         // 장바구니 상품 개수 가져오기
@@ -48,19 +48,21 @@ public class MyPageController {
         model.addAttribute("cartCnt",cartCnt);
 
         // 주문 상품 개수 가져오기
-        List<OrderVO> orderList = orderService.readAll(mno);
-        int orderCnt = orderList.size();
+        int orderCnt = orderService.readAllCnt(mno);
         model.addAttribute("orderCnt",orderCnt);
 
         // 취소/반품/교환 신청 건 수 가져오기
-        List<ExchangeVO> exList = exchangeService.readAll(mno);
-        int exCnt = exList.size();
+        int exCnt = exchangeService.readAllCnt(mno);
         model.addAttribute("exCnt",exCnt);
 
-        // 상품 리뷰 작성 건 수 가져오기
+        // 상품 리뷰 작성 건 수 가져오기 ★★★★★★ 수정 예정
         List<ReviewMpVO> reviewList = reviewMpService.readAllByMno(mno);
         int rCnt = reviewList.size();
         model.addAttribute("rCnt",rCnt);
+
+        // 상품 리뷰 작성 건 수 가져오기
+        int pqCnt = personalQService.readAllCnt(mno);
+        model.addAttribute("pqCnt",pqCnt);
 
 
     }

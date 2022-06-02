@@ -40,12 +40,11 @@
                                     <th class="pro-title">주문번호</th>
                                     <th class="pro-title">주문세부</th>
                                     <th class="pro-title">결재상태</th>
-                                    <th class="pro-price">가격</th>
-                                    <th class="pro-title">배송조회</th>
+                                    <th class="pro-price">결제금액</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="order : ${orderList}">
+                                <tr th:each="order : ${orderList.getList()}">
                                     <td class="pro-stock-stauts" th:text="${order.orderDate}"></td>
                                     <td class="pro-title">[[${order.ono}]]</td>
                                     <td class="pro-title">
@@ -53,13 +52,6 @@
                                     </td>
                                     <td class="pro-title" th:text="${order.tPayStatus}"></td>
                                     <td class="pro-price" th:text="${order.tTotalPrice}"></td>
-                                    <td class="pro-title">
-                                        <form action="">
-
-                                        </form>
-                                    </td>
-                                    <!-- 배송조회 관련 controller 전송용 form (추가필요)-->
-
                                 </tr>
                                 </tbody>
                             </table>
@@ -68,6 +60,48 @@
                 </form>
             </div>
         </div>
+
+        <div>
+            <div>
+                <!-- Paging bootstrap -->
+<!--                <ul class="pagination h-100 justify-content-center align-items-center">-->
+<!--                    &lt;!&ndash; getPrePage : 이전 페이지 &ndash;&gt;-->
+<!--                    <li class="page-item" th:classappend="${orderList.getPrePage() == 0} ? 'disabled'">-->
+<!--                        <a class="page-link" th:href="@{/sw/mypage/order/list(pageNum=${orderList.getPrePage()}, mno=${mno})}">Previous</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item" th:each="page: ${#numbers.sequence(orderList.getNavigateFirstPage(), orderList.getNavigateLastPage())}" th:classappend="${page == orderList.getPageNum()} ? 'active'">-->
+<!--                        <a class="page-link" th:text="${page}" th:href="@{/sw/mypage/order/list(pageNum=${page}, mno=${mno})}"></a>-->
+<!--                    </li>-->
+<!--                    &lt;!&ndash; getPrePage : 다음 페이지 &ndash;&gt;-->
+<!--                    <li class="page-item" th:classappend="${orderList.getNextPage() == 0} ? 'disabled'">-->
+<!--                        <a class="page-link" th:href="@{/sw/mypage/order/list(pageNum=${orderList.getNextPage()}, mno=${mno})}">Next</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+                <!-- Paging custom -->
+                <div class="paginationC clearfix">
+                    <!-- 이전 버튼 -->
+                    <li th:if="${orderList.getPrePage() != 0}">
+                        <a th:href="@{/sw/mypage/order/list(pageNum=${orderList.getPrePage()}, mno=${mno})}">Previous</a>
+                    </li>
+                    <li th:if="${orderList.getPrePage() == 0}">
+                        <a>Previous</a>
+                    </li>
+                    <!-- 페이지 번호-->
+                    <li th:each="page: ${#numbers.sequence(orderList.getNavigateFirstPage(), orderList.getNavigateLastPage())}" th:classappend="${page == orderList.getPageNum()} ? 'active'">
+                        <a th:text="${page}" th:href="@{/sw/mypage/order/list(pageNum=${page}, mno=${mno})}"></a>
+                    </li>
+                    <!-- 다음 버튼-->
+                    <li th:if="${orderList.getNextPage() != 0}">
+                        <a th:href="@{/sw/mypage/order/list(pageNum=${orderList.getNextPage()}, mno=${mno})}">Next</a>
+                    </li>
+                    <li th:if="${orderList.getNextPage() == 0}">
+                        <a>Next</a>
+                    </li>
+                    <p>현재페이지[[${pageNum}]]</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 <!-- hidden Data -->

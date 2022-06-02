@@ -1,5 +1,6 @@
 package com.green.team4.controller.sw;
 
+import com.github.pagehelper.PageInfo;
 import com.green.team4.service.sw.InterestService;
 import com.green.team4.vo.sw.InterestVO;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,12 +23,16 @@ public class InterestController {
     // 의존성 주입
     private final InterestService interestService;
 
-    @GetMapping("/list")
-    public void itrRead(int mno, Model model){ // 찜 List 가져오기
+    @GetMapping("/list") // 찜 List 가져오기
+    public void itrRead(int mno,
+                        @RequestParam(required = false, defaultValue = "1") int pageNum,
+                        Model model){
         log.info("InterestController => itrRead(GET) 실행 => 받은 mno: "+mno);
-        List<InterestVO> itrList = interestService.readAll(mno);
-        model.addAttribute("itrList",itrList);
+        log.info("InterestController => itrRead(GET) 실행 => 받은 pageNum: "+pageNum);
+        PageInfo<InterestVO> itrListP = new PageInfo<>(interestService.readAll(mno,pageNum),10); // itrList와 한번에 보여줄 페이지 번호 반영
+        model.addAttribute("itrList",itrListP);
         model.addAttribute("mno",mno);
+        model.addAttribute("pageNum",pageNum);
     }
 
     @PostMapping("/delete")

@@ -63,13 +63,14 @@
                                         <td class="pro-price" th:text="${cart.cDisPrice}"></td>
                                         <td class="pro-quantity">
                                             <div class="product-quantity">
-                                                <input type="text" name="qtyInput" th:value="${cart.cCount}" />
+                                                <input type="hidden" name="qtyInput" th:value="${cart.cCount}"/>
+                                                <input type="text" name="qtyInput2" th:value="${cart.cCount}"/>
                                                 <span class="dec qtybtn">
-                                                            <i class="fa fa-angle-left"></i>
-                                                        </span>
+                                                    <i class="fa fa-angle-left"></i>
+                                                </span>
                                                 <span class="inc qtybtn">
-                                                            <i class="fa fa-angle-right"></i>
-                                                        </span>
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
                                             </div>
                                         </td>
                                         <td class="pro-price" name="cTotalPrice" th:text="${cart.cTotalPrice}"></td>
@@ -190,18 +191,22 @@
             console.log("-버튼 클릭")
 
             // Target 태그 가져오기
-            var targetInput = $(this).closest("tr").find("input[name=qtyInput]"); // 대상 input
+            var targetInput = $(this).closest("tr").find("input[name=qtyInput2]"); // 대상 input
             var originalVal = targetInput.val(); // 기존 수량
 
             // +- 버튼에 따라 수량 업데이트 진행
             console.log($(this).attr('class'))
             if($(this).hasClass('fa-angle-left')){
                 var updateVal = parseInt(originalVal) - 1; // 변경 수량
+                console.log("updateVal",updateVal)
                 targetInput.val(updateVal); // 변경 수량 업데이트
+                console.log("updateVal",targetInput.val())
             }
             else {
                 var updateVal = parseInt(originalVal) + 1;
+                console.log("updateVal",updateVal)
                 targetInput.val(updateVal);
+                console.log("updateVal",targetInput.val())
             }
 
             // Ajax 통신용 데이터 가져오기

@@ -11,6 +11,7 @@
     <!-- mypage header fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
+
     <!-- PAGE BANNER SECTION -->
     <div class="page-banner-section section">
         <div class="container">
@@ -51,7 +52,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="itr : ${itrList}">
+                                <tr th:each="itr : ${itrList.getList()}">
                                     <td class="pro-stock-stauts" name="itrDate" th:text="${itr.itrDate}"></td>
 <!--                                    <td class="pro-title" id="pMainCategory" th:text="${itr.pMainCategory}"></td>-->
 <!--                                    <td class="pro-title" id="pSubCategory" th:text="${itr.pSubCategory}"></td>-->
@@ -83,6 +84,28 @@
                         </div>
                     </div>
                 </form>
+                <!-- Paging custom -->
+                <div class="paginationC clearfix">
+                    <!-- 이전 버튼 -->
+                    <li th:if="${itrList.getPrePage() != 0}">
+                        <a th:href="@{/sw/mypage/interest/list(pageNum=${itrList.getPrePage()}, mno=${mno})}">Previous</a>
+                    </li>
+                    <li th:if="${itrList.getPrePage() == 0}">
+                        <a>Previous</a>
+                    </li>
+                    <!-- 페이지 번호-->
+                    <li th:each="page: ${#numbers.sequence(itrList.getNavigateFirstPage(), itrList.getNavigateLastPage())}" th:classappend="${page == itrList.getPageNum()} ? 'active'">
+                        <a th:text="${page}" th:href="@{/sw/mypage/interest/list(pageNum=${page}, mno=${mno})}"></a>
+                    </li>
+                    <!-- 다음 버튼-->
+                    <li th:if="${itrList.getNextPage() != 0}">
+                        <a th:href="@{/sw/mypage/interest/list(pageNum=${itrList.getNextPage()}, mno=${mno})}">Next</a>
+                    </li>
+                    <li th:if="${itrList.getNextPage() == 0}">
+                        <a>Next</a>
+                    </li>
+                    <p>현재페이지[[${pageNum}]]</p>
+                </div>
             </div>
         </div>
     </div>

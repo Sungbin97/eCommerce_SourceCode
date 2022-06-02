@@ -1,5 +1,7 @@
 package com.green.team4.controller.sw;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.green.team4.mapper.sb.ProductMapper;
 import com.green.team4.mapper.sb.ProductOptMapper;
 import com.green.team4.mapper.sw.OrderItemMapper;
@@ -43,14 +45,20 @@ public class OrderController {
 
     // Order -----------------------------------------------------------------------------------------
 
-    @GetMapping("/list")
-    public void orderList(int mno, Model model){ // 주문목록 모두 가져오기
+    @GetMapping("/list") // 주문목록 모두 가져오기
+    public void orderList(int mno,
+                          @RequestParam(required = false, defaultValue = "1") int pageNum,
+                          Model model){
 
         // 주문 목록 가져오기
         log.info("OrderController => orderList(GET) 실행 => 받은 mno: "+mno);
-        List<OrderVO> orderList = orderService.readAll(mno);
-        model.addAttribute("orderList",orderList);
+        log.info("OrderController => orderList(GET) 실행 => 받은 pageNum: "+pageNum);
+        PageInfo<OrderVO> orderListP = new PageInfo<>(orderService.readAll(mno,pageNum),10);
+        log.info("orderListP: "+orderListP);
+
+        model.addAttribute("orderList",orderListP);
         model.addAttribute("mno",mno);
+        model.addAttribute("pageNum",pageNum);
     }
 
     @GetMapping("/read")
@@ -138,7 +146,7 @@ public class OrderController {
     public String exRegister(ExchangeVO exchangeVO){
         log.info("OrderController => exRegister(POST) 실행 => 받은 exchangeVO: "+exchangeVO);
 
-        // 주문 상품 테이블 내 취소/반품/교환 신청 여부 내역 수정
+//        // 주문 상품 테이블 내 취소/반품/교환 신청 여부 내역 수정
         OrderVO orderVO = orderService.readOne(exchangeVO.getOno()); // 주문서 가져오기
         List<OrderItemVO> itemList = orderVO.getOrderItemList(); // 주문서 내 주문 상품 List 가져오기
         itemList.forEach(i->{

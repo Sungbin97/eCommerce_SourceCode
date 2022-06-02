@@ -78,7 +78,7 @@
                                 <div class="col-xs-12 mb-20">
                                     <label>리뷰 본문 <span class="required">*</span></label>
                                     <textarea name="rContent" class="form-control" cols="30" rows="10" th:text="${review.rContent}"></textarea>
-                                    <input type="hidden" name="rContentIpt" class="form-control">
+                                    <input type="text" name="rContentIpt" class="form-control">
                                 </div>
                                 <div>
                                     <span class="input-group-addon">첨부이미지 <span class="required">*</span></span>
@@ -115,6 +115,9 @@
 
 <script>
     $(document).ready(function (){
+
+        // textarea data => input에 담아놓기 (페이지 로딩되자마자)
+        $("input[name=rContentIpt]").val($("textarea[name=rContent]").val());
 
         // 별점
         var grade = $("input[name=rRating]").val();

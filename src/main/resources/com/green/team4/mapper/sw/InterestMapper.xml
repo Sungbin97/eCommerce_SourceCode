@@ -5,9 +5,15 @@
 
 <mapper namespace="com.green.team4.mapper.sw.InterestMapper">
 
+    <!-- 회원별 Interest 개수 가져오기 -->
+    <select id="getAllCnt" resultType="Integer">
+        select count(*) from tbl_interest
+        where tbl_interest.mno=#{mno}
+    </select>
+
     <!-- Interest 데이터 신규 추가 -->
     <insert id="insert">
-        insert into tbl_interest(mno, pno) values (#{mno},#{pno});
+        insert into tbl_interest(mno, pno) values (#{mno},#{pno})
     </insert>
 
     <!-- Interest 데이터 전체 가져오기(mno 단위) -->
@@ -17,7 +23,7 @@
         left outer join tbl_product
         on tbl_interest.pno = tbl_product.pno
         where tbl_interest.mno=#{mno}
-        order by tbl_interest.itrDate desc;
+        order by tbl_interest.itrDate desc
     </select>
 
     <!-- Interest 데이터 삭제 -->
