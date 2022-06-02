@@ -16,4 +16,7 @@ public interface ProductOptMapper {
     int updateAmt(Product_optVO vo); // 재고만 업데이트 (취소/반품/교환)
     int update(Product_optVO vo);
     int delete(int pno);
+    void updateOption1();
+    void updateOption2();
+    void updateColor();
 }

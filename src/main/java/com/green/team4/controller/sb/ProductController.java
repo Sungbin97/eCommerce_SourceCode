@@ -93,18 +93,14 @@ public class ProductController {
 
     @PostMapping("/uploadOpt")
     public String uploadPost(Integer pno, ProductImgVO imgVO, Product_optVO optVO, ProductInfoImgVO infoVO,
-                             @RequestParam(value = "opt1" ,required = false) String[] opt1,
-                             @RequestParam(value = "opt2" , required = false) String[] opt2,
-                             @RequestParam(value = "colorOpt", required = false) String[] colors,
+                             @RequestParam("opt1") String[] opt1,
+                             @RequestParam("opt2") String[] opt2,
+                             @RequestParam("colorOpt") String[] colors,
                              @RequestParam("uploadFilesImg") MultipartFile[] imgFiles,
                              @RequestParam("uploadFilesInfo") MultipartFile[] infoFiles) throws IOException {
         log.info("받아온 pno: " + pno);
         log.info("받아온 pOptionName: " + optVO.getPOptionName());
         log.info("받아온 pOptionName2: " + optVO.getPOptionName2());
-
-//        for (String o1 : opt1) System.out.println("받아온 옵션1: " + o1);
-//        for (String o2 : opt2) System.out.println("받아온 옵션2: " + o2);
-//        for (String c : colors) System.out.println("받아온 색상: " + c);
 
         //옵션 저장
         for (String o1 : opt1){
@@ -117,6 +113,10 @@ public class ProductController {
                 }
             }
         }
+        productOptMapper.updateOption1();
+        productOptMapper.updateOption2();
+        productOptMapper.updateColor();
+
         //이미지 저장
         for (MultipartFile img : imgFiles) {
             imgVO.setPImage(img.getOriginalFilename());
@@ -158,26 +158,23 @@ public class ProductController {
         List<String> opt2NameList = new ArrayList<>();
         List<String> opt2List = new ArrayList<>();
         List<String> colorList = new ArrayList<>();
+        List<Integer> amountList = new ArrayList<>();
 
-        optList.forEach(opt -> {
-            opt1NameList.add(opt.getPOptionName());
-            opt1List.add(opt.getPOption());
-            opt2NameList.add(opt.getPOptionName2());
-            opt2List.add(opt.getPOption2());
-            colorList.add(opt.getPColor());
+        optList.forEach(opt -> { // 옵션, 옵션1, item1
+            if (!opt1NameList.contains(opt.getPOptionName()))  opt1NameList.add(opt.getPOptionName());
+            if (!opt1List.contains(opt.getPOption()))          opt1List.add(opt.getPOption());
+            if (!opt2NameList.contains(opt.getPOptionName2())) opt2NameList.add(opt.getPOptionName2());
+            if (!opt2List.contains(opt.getPOption2()))         opt2List.add(opt.getPOption2());
+            if (!colorList.contains(opt.getPColor()))          colorList.add(opt.getPColor());
+            if (!amountList.contains(opt.getPAmount()))        amountList.add(opt.getPAmount());
         });
 
-        List<String> opt1NameListN = opt1NameList.stream().distinct().collect(Collectors.toList());
-        List<String> opt1ListN = opt1List.stream().distinct().collect(Collectors.toList());
-        List<String> opt2NameListN = opt2NameList.stream().distinct().collect(Collectors.toList());
-        List<String> opt2ListN = opt2List.stream().distinct().collect(Collectors.toList());
-        List<String> colorListN = colorList.stream().distinct().collect(Collectors.toList());
-
-        model.addAttribute("opt1Name", opt1NameListN);
-        model.addAttribute("opt1List", opt1ListN);
-        model.addAttribute("opt2Name", opt2NameListN);
-        model.addAttribute("opt2List", opt2ListN);
-        model.addAttribute("colorList", colorListN);
+        model.addAttribute("opt1Name", opt1NameList);
+        model.addAttribute("opt1List", opt1List);
+        model.addAttribute("opt2Name", opt2NameList);
+        model.addAttribute("opt2List", opt2List);
+        model.addAttribute("colorList", colorList);
+        model.addAttribute("amount", amountList);
 
     }
 
@@ -190,6 +187,12 @@ public class ProductController {
         productImgMapper.update(imgVO);
         productImgInfoMapper.update(infoVO);
         return "redirect:/sb/product/modify?pno="+vo.getPno();
+    }
+
+    @RequestMapping(value="/getAmount", method=RequestMethod.POST)
+    public String memberModifyPOST(@RequestBody Product_optVO optVO) throws Exception {
+//        boardService.memberModifyPOST(memberVO);
+        return "memberModify";
     }
 
     @PostMapping("/remove")
