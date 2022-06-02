@@ -46,7 +46,7 @@ public class OrderPageServiceImpl implements OrderPageService {
             productsInfo.setItemCount(order.getItemCount());
             log.info("productsInfo2 : "+productsInfo);
             productsInfo.initSaleTotal();
-            log.info("dsad : "+productsInfo);
+            log.info("productsInfo3 : "+productsInfo);
             list.add(productsInfo);
 
         }
