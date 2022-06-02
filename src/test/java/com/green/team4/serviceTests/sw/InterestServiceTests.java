@@ -20,7 +20,7 @@ public class InterestServiceTests {
         System.out.println(result);
     }
 
-    @Test void testDelete(){
-        interestService.remove(2);
-    }
+//    @Test void testDelete(){
+//        interestService.remove(2);
+//    }
 }

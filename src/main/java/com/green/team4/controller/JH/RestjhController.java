@@ -1,11 +1,15 @@
 package com.green.team4.controller.JH;
 
+import com.green.team4.mapper.sb.ProductInfoImgMapper;
 import com.green.team4.service.JH.CategoryService;
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
 
+import com.green.team4.service.sw.ReviewMpService;
 import com.green.team4.vo.JH.*;
+import com.green.team4.vo.sb.ProductInfoImgVO;
 import com.green.team4.vo.sb.ProductVO;
+import com.green.team4.vo.sw.ReviewMpVO;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +32,14 @@ public class RestjhController {
 
    @Autowired
    private  ReviewService reviewService;
-
     @Autowired
     private ShopService shopService;
-
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private ProductInfoImgMapper infoImgMapper;
+    @Autowired
+    private ReviewMpService reviewMpService;
 
     //리뷰 컨트롤러
     @GetMapping(value = "/getreviews",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,8 +47,10 @@ public class RestjhController {
         log.info("getreviews 입장" );
         log.info(" p_no " + cri);
         ResponseEntity<ReviewPageVO> responseEntity = null;
+//        List<ReviewMpVO>list =reviewMpService.readAllByPno(cri.getPno());
+//        System.out.println("list   "+list);
         try {
-            responseEntity = new ResponseEntity<>(reviewService.getReviewWithPaging(cri), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>( reviewMpService.readAllByPno(cri),HttpStatus.OK);
         }catch (Exception e){
             responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
             e.printStackTrace();
@@ -52,19 +60,31 @@ public class RestjhController {
 
     // 상품 상세 정보 불러오기 컨트롤러(상세정보 , 배송정보)
     @GetMapping("/getinfo/{pno}")
-    public ResponseEntity<ProductVO> getinfo(@PathVariable ("pno") int pno){
+    public ResponseEntity<List<ProductInfoImgVO>> getinfo(@PathVariable ("pno") int pno){
         log.info("getinfo 입장" );
         log.info(" p_no " + pno);
-        ResponseEntity<ProductVO> responseEntity = null;
+        ResponseEntity<List<ProductInfoImgVO>> responseEntity = null;
         try {
-            responseEntity = new ResponseEntity<>(shopService.getOne(pno) ,HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(infoImgMapper.infoImgList(pno) ,HttpStatus.OK);
         }catch (Exception e){
             responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
             e.printStackTrace();
         }
         return responseEntity;
     }
-
+    // 상품 상세 정보 불러오기 컨트롤러( 배송정보)
+    @GetMapping("/getDeliInfo/")
+    public ResponseEntity<List<ProductInfoImgVO>> getDeliInfo(){
+        log.info("getDeliInfo 입장" );
+        ResponseEntity<List<ProductInfoImgVO>> responseEntity = null;
+        try {
+            responseEntity = new ResponseEntity<>( HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
+        }
+        return responseEntity;
+    }
     //검색 컨트롤러
     @GetMapping(value = "/getListBySearch/{keyword}")
     public ResponseEntity<List<ProductVO>> getListBySearch(@PathVariable("keyword") String keyword){

@@ -1,5 +1,6 @@
 package com.green.team4.mapper.sb;
 
+import com.green.team4.vo.sb.ProductImgVO;
 import com.green.team4.vo.sb.ProductInfoImgVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,4 +16,8 @@ public interface ProductInfoImgMapper {
     int delete(int pno);
     int deleteImg(int ino);
     ProductInfoImgVO getEvePno();
+
+
+ // 상품별 정보 이미지 리스트 조회 (JH추가)
+    List<ProductInfoImgVO> infoImgList(int pno);
 }

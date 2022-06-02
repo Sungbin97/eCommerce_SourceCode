@@ -43,7 +43,7 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public ReviewPageVO getReviewWithPaging(ItemPageCriteria cri) {
         ReviewPageVO reviewPageVO = new ReviewPageVO();
-        reviewPageVO.setList(reviewMapper.getReviewListWithPaging(cri));
+        //reviewPageVO.setList(reviewMapper.getReviewListWithPaging(cri));
         reviewPageVO.setPageInfo(new PagingVO(cri,reviewMapper.getReviewsCount(cri.getPno())));
         return reviewPageVO;
     }

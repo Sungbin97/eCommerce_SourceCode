@@ -1,5 +1,8 @@
 package com.green.team4.controller.JH;
 
+import com.green.team4.mapper.sb.ProductImgMapper;
+import com.green.team4.mapper.sb.ProductInfoImgMapper;
+import com.green.team4.mapper.sb.ProductMapper;
 import com.green.team4.service.JH.CategoryService;
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
@@ -26,17 +29,16 @@ import java.util.*;
 public class ShopController {
     @Autowired
     private ShopService shopService;
-
     @Autowired
     private ReviewService reviewService;
-
     @Autowired
     private CategoryService categoryService;
-
     @Autowired
     private MemberInfoService memberInfoService;
-
-
+    @Autowired
+    private ProductImgMapper productImgMapper;
+    @Autowired
+    private ProductInfoImgMapper productInfoImgMapper;
     @GetMapping("/list")
     public void listGet( @ModelAttribute("cri") ItemPageCriteria cri, Model model){
         log.info("listget");
@@ -80,6 +82,9 @@ public class ShopController {
         model.addAttribute("relatedList",shopService.getListByRand( pvo.getPCateCode().substring(0,3)));
         System.out.println(shopService.getListByRand( pvo.getPName()));
         model.addAttribute("pvo",pvo);
+        model.addAttribute("pImgs", productImgMapper.imgList(pno));
+        model.addAttribute("pInfoImgs", productInfoImgMapper.infoImgList(pno));
+
 
     }
 

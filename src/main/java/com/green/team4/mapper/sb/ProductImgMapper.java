@@ -16,4 +16,7 @@ public interface ProductImgMapper {
     int delete(int pno);
     int deleteImg(int ino);
     ProductImgVO getEvePno();
+
+     //상품별  이미지 리스트 조회 (JH추가)
+    List<ProductImgVO> imgList(int pno);
 }

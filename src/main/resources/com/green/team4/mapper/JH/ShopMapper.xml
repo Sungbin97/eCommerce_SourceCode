@@ -59,7 +59,7 @@
             where pno = #{pno}   <include refid="option"></include>
         </select>
         <select id="getOptionPrice" resultType="com.green.team4.vo.JH.Product_optVO">
-            select P.pPrice,pOptionPrice from tbl_product P
+            select P.pPrice,pOptionPrice,ps.pAmount from tbl_product P
             inner join tbl_product_opt ps on p.pno = ps.pno
             where p.pno = #{pno}  <include refid="price"></include>
         </select>

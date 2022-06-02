@@ -1,8 +1,10 @@
 package com.green.team4.service.sw;
 
+import com.green.team4.mapper.JH.ReviewMapper;
 import com.green.team4.mapper.sw.OrderItemMapper;
 import com.green.team4.mapper.sw.ReviewFilesMpMapper;
 import com.green.team4.mapper.sw.ReviewMpMapper;
+import com.green.team4.vo.JH.*;
 import com.green.team4.vo.sw.OrderItemVO;
 import com.green.team4.vo.sw.ReviewFilesMpVO;
 import com.green.team4.vo.sw.ReviewMpVO;
@@ -21,6 +23,8 @@ public class ReviewMpServiceImpl implements ReviewMpService{
     private final ReviewMpMapper reviewMpMapper;
     private final ReviewFilesMpMapper reviewFilesMpMapper;
     private final OrderItemMapper orderItemMapper;
+
+    private final ReviewMapper reviewMapper;
 
     @Override
     public int register(ReviewMpVO reviewMpVO) { // 리뷰 신규 등록
@@ -44,27 +48,36 @@ public class ReviewMpServiceImpl implements ReviewMpService{
         OrderItemVO orderItemVO = orderItemMapper.getOne(reviewMpVO.getOINo());
         orderItemVO.setIReviewStatus("등록완료");
         orderItemMapper.update(orderItemVO);
+
+        setReviewCnt(reviewMpVO.getPno());//(JH추가)
+        setRating(reviewMpVO.getPno());//(JH추가)
+
         return result;
     }
 
     @Override
-    public List<ReviewMpVO> readAllByPno(int pno) { // 리뷰 가져오기 (pno 단위)
-        log.info("ReviewMpService => readAllByPno 실행 => 받은 pno: "+pno);
+    public ReviewPageVO readAllByPno(ItemPageCriteria cri) { // 리뷰 가져오기 (pno 단위)
+        log.info("ReviewMpService => readAllByPno 실행 => 받은 pno: "+cri.getPno());
 
         // 리뷰 글 모두 가져오기
-        List<ReviewMpVO> reviewList = reviewMpMapper.getAllByMno(pno);
+        ReviewPageVO reviewPageVO = new ReviewPageVO();
+        List<ReviewMpVO> reviewList = reviewMpMapper.getAllByPno(cri);
         log.info("ReviewMpService => readAllByPno 실행 후 받은 reviewList: "+reviewList);
+
 
         // 리뷰 첨부파일 모두 가져오기
         List<ReviewMpVO> resultList = new ArrayList<>();
 
         reviewList.forEach(reviewMpVO -> {
             List<ReviewFilesMpVO> fileList = reviewFilesMpMapper.getAll(reviewMpVO.getRno());
+            System.out.println(fileList);
             reviewMpVO.setReviewFilesList(fileList);
             resultList.add(reviewMpVO);
+            System.out.println(resultList);
         });
-
-        return resultList;
+        reviewPageVO.setList(resultList);
+        reviewPageVO.setPageInfo(new PagingVO(cri,reviewMapper.getReviewsCount(cri.getPno())));
+        return reviewPageVO;
     }
 
     @Override
@@ -107,14 +120,42 @@ public class ReviewMpServiceImpl implements ReviewMpService{
         log.info("ReviewMpService => modify 실행 => 받은 reviewMpVO: "+reviewMpVO);
         int result = reviewMpMapper.update(reviewMpVO);
         log.info("ReviewMpService => modify 실행 후 수정된 데이터 개수: "+result);
+
+        setReviewCnt(reviewMpVO.getPno());//(JH추가)
+        setRating(reviewMpVO.getPno());//(JH추가)
+
         return result;
     }
 
     @Override
-    public int remove(int rno) { // 리뷰 삭제
-        log.info("ReviewMpService => remove 실행 => 받은 rno: "+rno);
-        int result = reviewMpMapper.delete(rno);
+    public int remove(ReviewMpVO reviewMpVO) { // 리뷰 삭제
+        log.info("ReviewMpService => remove 실행 => 받은 rno: "+reviewMpVO.getRno());
+        int result = reviewMpMapper.delete(reviewMpVO);
         log.info("ReviewMpService => remove 실행 후 삭제된 데이터 개수: "+result);
+
+        setReviewCnt(reviewMpVO.getPno());//(JH추가)
+        setRating(reviewMpVO.getPno());//(JH추가)
         return result;
     }
+    //상품테이블에 평점 업데이트(JH추가)
+    public void setRating(int pno){
+        Double ratingAvg = reviewMapper.getRatingAvg(pno);
+        if(ratingAvg == null){
+            ratingAvg=0.0;
+        }
+        UpdateReviewVO urvo = new UpdateReviewVO();
+        urvo.setPno(pno);
+        urvo.setPRating(ratingAvg);
+        reviewMapper.updateRating(urvo);
+
+    }
+//    상품테이블에 리뷰 갯수 업데이트(JH추가)
+    public void setReviewCnt(int pno){
+        int cnt=reviewMapper.getReviewsCount(pno);
+        UpdaterReviewCntVO urcvo = new UpdaterReviewCntVO();
+        urcvo.setPno(pno);
+        urcvo.setPReviewCnt(cnt);
+        reviewMapper.updateReviewsCount(urcvo);
+    }
+
 }

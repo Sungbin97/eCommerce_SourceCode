@@ -38,9 +38,12 @@
 
     <select id="getOneInfoList" resultType="com.green.team4.vo.sb.ProductImgVO">
         <!-- pno를 통한 상품 정보 이미지 리스트 조회 -->
-        select p.pno, p.pname, i.infoPath, i.pInformation from  tbl_product p
+        select p.pno, p.pname, i.pInfoPath, i.pInformation from  tbl_product p
         inner join tbl_product_infoImg i
         on p.pno = #{p.pno};
     </select>
-
+<!--    상품별 이미지 리스트 조회 (JH추가)-->
+    <select id="infoImgList" resultType="com.green.team4.vo.sb.ProductInfoImgVO">
+        select  * from tbl_product_infoImg where pno = #{pno}
+    </select>
 </mapper>
