@@ -43,6 +43,24 @@
         where pno=#{pno}
     </update>
 
+    <update id="updateOption1">
+        update tbl_product_opt
+        set pOption=null
+        where pOption="없음"
+    </update>
+
+    <update id="updateOption2">
+        update tbl_product_opt
+        set pOption2=null
+        where pOption2="없음"
+    </update>
+
+    <update id="updateColor">
+        update tbl_product_opt
+        set pColor=null
+        where pColor="없음"
+    </update>
+
     <!-- tbl_product_opt 취소/교환/반품 시 재고 업데이트용 -->
     <update id="updateAmt">
         update tbl_product_opt

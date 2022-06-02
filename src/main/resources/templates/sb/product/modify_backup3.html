@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <!-- START HEADER SECTION -->
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'상품목록'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a th:href="@{/sb/product/list(pno=${product.pno})}">product</a></li>
+                            <li class="active">list</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END HEADER SECTION -->
+    <title>product/list</title>
+</head>
+<body>
+<!-- mypage header fragment -->
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+<h2>상품수정</h2>
+<table>
+    <thead>
+        <th>상품번호</th>
+        <th>상품명</th>
+        <th>옵션명1</th>
+        <th>옵션1</th>
+        <th>옵션명2</th>
+        <th>옵션2</th>
+        <th>색상</th>
+        <th>재고</th>
+    </thead>
+    <tbody>
+        <td>
+            <input th:placeholder="${product.pno}">
+        </td>
+        <td>
+            <input th:placeholder="${product.pName}">
+        </td>
+        <td>
+            <input th:placeholder="${opt1Name[0]}">
+        </td>
+        <td>
+            <select>
+                <div th:each="opt1 : ${opt1List}">
+                    <option>[[${opt1}]]</option>
+                </div>
+            </select>
+
+        </td>
+        <td>
+            <input th:placeholder="${opt2Name[0]}">
+        </td>
+        <td>
+            <select>
+                <div th:each="opt2 : ${opt2List}">
+                    <option>[[${opt2}]]</option>
+                </div>
+            </select>
+
+        </td>
+        <td>
+            <select>
+                <div th:each="color : ${colorList}">
+                    <option>[[${color}]]</option>
+                </div>
+            </select>
+
+        </td>
+        <td>
+            <input type="text">
+        </td>
+    </tbody>
+    <form method="get">
+        <div>
+            <input type="hidden" th:value="${opt1List[0]}">
+            <input type="hidden" th:value="${opt2List[0]}">
+            <input type="hidden" th:value="${colorList[0]}">
+        </div>
+        <button type="submit">재고조회</button>
+    </form>
+</table>
+
+
+
+</body>
+<!-- FOOTER TOP SECTION START -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<!-- FOOTER BOTTOM SECTION END -->
+</html>

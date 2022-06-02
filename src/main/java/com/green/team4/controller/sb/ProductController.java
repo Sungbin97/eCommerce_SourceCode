@@ -113,6 +113,10 @@ public class ProductController {
                 }
             }
         }
+        productOptMapper.updateOption1();
+        productOptMapper.updateOption2();
+        productOptMapper.updateColor();
+
         //이미지 저장
         for (MultipartFile img : imgFiles) {
             imgVO.setPImage(img.getOriginalFilename());

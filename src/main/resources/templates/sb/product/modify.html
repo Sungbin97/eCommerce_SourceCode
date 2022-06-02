@@ -1,92 +1,321 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <!-- START HEADER SECTION -->
-    <div class="page-banner-section section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-banner-content">
-                        <h1 th:text="'상품목록'"></h1>
-                        <ul class="breadcrumb">
-                            <li><a th:href="@{/sb/product/list(pno=${product.pno})}">product</a></li>
-                            <li class="active">list</li>
-                        </ul>
+    <title>product/uploadOpt</title>
+</head>
+<style>
+    .required{
+        color: red;
+    }
+</style>
+
+<body>
+<!-- mypage header fragment -->
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1 th:text="'상품옵션등록'"></h1>
+                    <ul class="breadcrumb">
+                        <li><a th:href="@{/sb/product/upload}">upload</a></li>
+                        <li class="active">uploadOpt</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="customer-login mb-40">
+                    <!-- LOGIN START -->
+                    <h3>Returning customer? <a data-bs-toggle="collapse" href="#checkout-login">Click here to login</a></h3>
+                    <div id="checkout-login" class="checkout-login collapse fix">
+                        <div class="checkout-login-wrapper mt-30">
+                            <p>Quisque gravida turpis sit amet nulla posuere lacinia. Cras sed est sit amet ipsum luctus.</p>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <form action="#">
+                                    <div class="fix mb-20">
+                                        <label>Username or email <span class="required">*</span></label>
+                                        <input type="text" />
+                                    </div>
+                                    <div class="fix mb-20">
+                                        <label>Password  <span class="required">*</span></label>
+                                        <input type="text" />
+                                    </div>
+                                    <div class="fix mb-20">
+                                        <input type="submit" value="Login" />
+                                        <label class="remember-me-box">
+                                            <input type="checkbox" />
+                                            Remember me 
+                                        </label>
+                                    </div>
+                                    <a href="#">Lost your password?</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- LOGIN END -->						
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="checkout-form">
+                    <div class="row">
+                        <div class="col-lg-6 mb-40">
+                            <form class="forModify" method="post" action="/sb/product/uploadOpt" enctype="multipart/form-data">
+                                <h3>등록한 상품정보</h3>
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-12 mb-20">
+                                        <label>카테고리코드</label>
+                                        <input type="text" name="pCateCode" th:placeholder="${product.pCateCode}" th:value="${product.pCateCode}"/>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-20">
+                                        <label>카테고리코드</label>
+                                        <input type="text" placeholder="예정" readonly/>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-20">
+                                        <label for="pName">상품번호</label>
+                                        <input type="text" name="pno" th:placeholder="${product.pno}" th:value="${product.pno}"/>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-20">
+                                        <label for="pName">상품명</label>
+                                        <input type="text" id="pName" name="pName" th:placeholder="${product.pName}" th:value="${product.pName}"/>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-20">
+                                        <label for="price">상품가격</label>
+                                        <input type="text" id="price" name="pOptPrice" th:placeholder="${product.pPrice}" th:value="${product.pPrice}"/>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-20">
+                                        <input type="hidden" />
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-20">
+                                        <label>상품 대표이미지</label>
+                                        <img th:src="|/display?fileName=${product.pImage}|" style="width: 150px; height: 150px"/>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-20">
+                                        <label>상품 상세정보 대표이미지</label>
+                                        <img th:src="|/display?fileName=${product.pInformation}|" style="width: 150px; height: 150px"/>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-lg-6 col-12 mb-40">
+                                    <div class="coupon-form mb-30">
+                                            <h3>상품 재고 관리</h3>
+
+                                            <div class="col-sm-6 col-xs-12 mb-20">
+                                                <h7>옵션1<span class="required">*</span></h7>
+                                                <label><input type="text" id="option1" name="pOptionName" th:value="${opt1Name[0]}"></label>
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12 mb-20">
+                                                <h7>등록된 옵션<span class="required">*</span></h7>
+                                                <div th:each="opt1 : ${opt1List}">
+                                                    <div style="float: left; width: 33%;">
+                                                        [[${opt1}]]
+                                                        <input type="radio" th:name="pOption">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br/><br/>
+                                        <div class="col-sm-6 col-xs-12 mb-20">
+                                            <h7>옵션2<span class="required">*</span></h7>
+                                            <label><input type="text" id="option2" name="pOptionName2" th:placeholder="${opt2Name[0]}"></label>
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12 mb-20">
+                                            <h7>등록된 옵션<span class="required">*</span></h7>
+                                            <div th:each="opt2 : ${opt2List}">
+                                                <div style="float: left; width: 33%;">
+                                                    [[${opt2}]]
+                                                    <input type="radio" th:name="pOption2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <br/>
+                                            <div class="col-sm-6 col-xs-12 mb-20">
+                                                <div class="col-sm-6 col-xs-12 mb-20">
+                                                    <h7>등록된 색상<span class="required">*</span></h7>
+                                                    <div th:each="color : ${colorList}">
+                                                        <div style="float: left; width: 50%;">
+                                                            [[${color}]]
+                                                            <input type="radio" th:name="pColor">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br/>
+                                                <br/><br/><br/>
+                                            <div class="col-sm-6 col-xs-12 mb-20">
+                                                <h7>수량<span class="required">*</span></h7>
+                                                <br/>
+                                                <input type="text" id="amount" name="pAmount" />
+                                            </div>
+                                            <br/>
+                                            <br/>
+
+                                            <input type="submit" value="최종 등록">
+                                    </div>
+                                </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- END HEADER SECTION -->
-    <title>product/list</title>
-</head>
-<body>
-<!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
-
-<h2>상품수정</h2>
-<table>
-    <thead>
-        <th>상품번호</th>
-        <th>상품명</th>
-        <th>옵션명1</th>
-        <th>옵션1</th>
-        <th>옵션명2</th>
-        <th>옵션2</th>
-        <th>색상</th>
-        <th>재고</th>
-    </thead>
-    <tbody>
-        <td>
-            <input th:placeholder="${product.pno}">
-        </td>
-        <td>
-            <input th:placeholder="${product.pName}">
-        </td>
-        <td>
-            <input th:placeholder="${opt1Name[0]}">
-        </td>
-        <td>
-            <select>
-                <div th:each="opt1 : ${opt1List}">
-                    <option>[[${opt1}]]</option>
-                </div>
-            </select>
-            <input type="text">
-        </td>
-        <td>
-            <input th:placeholder="${opt2Name[0]}">
-        </td>
-        <td>
-            <select>
-                <div th:each="opt2 : ${opt2List}">
-                    <option>[[${opt2}]]</option>
-                </div>
-            </select>
-            <input type="text">
-        </td>
-        <td>
-            <select>
-                <div th:each="color : ${colorList}">
-                    <option>[[${color}]]</option>
-                </div>
-            </select>
-            <input type="text">
-        </td>
-        <td>재고</td>
-    </tbody>
-</table>
-
-
-
-
-
+</div>
+<!-- PAGE SECTION END -->
 
 </body>
-<!-- FOOTER TOP SECTION START -->
+<!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
-<!-- FOOTER BOTTOM SECTION END -->
+<script>
+    //옵션1 전체선택, 해제
+    function selectAll(selectAll)  {
+      const checkboxes
+         = document.querySelectorAll('input[class="opt1Class"]');
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+      })
+    }
+    //색상 전체선택, 해제
+    function selectAllColor(selectAll)  {
+      const checkboxes
+         = document.querySelectorAll('input[class="colorClass"]');
+
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked
+      })
+    }
+
+   $(document).on('click','button[id=btnRemoveOpt2]',function(){
+        var target = $(this).closest('li#addedOpt2');
+        target.remove();
+        console.log(target)
+    });
+
+ $(document).ready(function(){
+
+    $("#options1").one('click',function(){
+        // for (let i = 80; i <= 120; i+=5) {
+        // $("#optClothesNumCheckbox").append(
+        //   "<label><input type="+"checkbox "+"name="+"opt1 " + "value=" + i + ">" + i + "</label>"
+        // )}
+        // for (let i = 240; i <= 290; i+=5) {
+        // $("#optShoesCheckbox").append(
+        // "<label><input type="+"checkbox "+"name="+"opt1 " + "value=" + i + ">" + i + "</label>"
+        // )}
+        // $("#optClothesEngCheckbox").append(
+        //     "<label><input type="+"checkbox "+"name="+"opt1 " + "value=S>S</label>"
+        //     +"<label><input type="+"checkbox "+"name="+"opt1 " + "value=SM>SM</label>"
+        //     +"<label><input type="+"checkbox "+"name="+"opt1 " + "value=M>M</label>"
+        //     +"<label><input type="+"checkbox "+"name="+"opt1 " + "value=L>L</label>"
+        //     +"<label><input type="+"checkbox "+"name="+"opt1 " + "value=XL>XL</label>"
+        //     +"<label><input type="+"checkbox "+"name="+"opt1 " + "value=XXL>XXL</label>"
+        // )
+        // $("#optSelfInput").append(
+        //     "<label><input type="+"text "+"name="+"opt1" + "></label>"
+        // );
+    });
+
+    $("#options1").change(function(){
+         var option = $('#options1 option:selected').val();
+         console.log(option)
+
+         if(option === '직접입력'){
+            console.log('직접입력 opt: ', option)
+            $('#optSelfInput').attr('style', 'display:show');
+         }else{
+            $('#optSelfInput').attr('style', 'display:none');
+         }
+         
+        if(option === 'SIZE(90...)'){
+            console.log('SIZE(90...) opt: ', option)
+            $('#optClothesNumCheckbox').attr('style', 'display:show');
+         }else{
+            $('#optClothesNumCheckbox').attr('style', 'display:none');
+         }
+
+         if(option === 'SIZE(S...)'){
+            console.log('SIZE(S...) opt: ', option)
+            $('#optClothesEngCheckbox').attr('style', 'display:show');
+         }else{
+            $('#optClothesEngCheckbox').attr('style', 'display:none');
+         }
+
+         if(option === '신발'){
+            console.log('신발 opt: ', option)
+            $('#optShoesCheckbox').attr('style', 'display:show');
+         }else{
+            $('#optShoesCheckbox').attr('style', 'display:none');
+         }
+
+
+    })
+
+    $("#btnShoes").click(function(){
+      if(flag === false){
+      for (let i = 245; i <= 290; i+=5) {
+      $("#shoesOpt").append(
+        "<label><input type="+"checkbox "+"name="+"opt1 " + "value=" + i + ">" + i + "</label>"
+        )}
+        flag = true;
+      }
+    })
+
+    $("#btnAddOpt2").click(function(){
+      $("#insertOpt2").append(
+        "<li id='addedOpt2'><input type=" + "text " + "name=" + "opt2 " + "placeholder=" + "직접입력 " + "id='addedOpt23'"
+          + "/><button type=" + "button " + "id=" + "btnRemoveOpt2" + ">삭제</button></li>"
+        )
+    })
+    
+    function removeItem()  {
+
+  const ul = document
+    .getElementById('insertOpt2');
+
+  const items = ul.getElementsByTagName('li');
+
+  if(items.length > 0)  {
+    items[0].remove();
+  }
+
+}
+<!--    document.on('click', 'button[id='btnRemoveOpt2']' , function(){-->
+<!--        console.log('들어오나');-->
+<!--    });-->
+
+
+    let flag2 = false;
+    $("#option1").change(function(){
+        console.log("옵션1 작성완료")
+      flag2 = true;
+      $("#option2").removeAttr("readonly");
+    })
+
+    $(".opt2").click(function(){
+      if(flag2 === false){
+        console.log(flag2);
+        alert("옵션1부터 입력해주십시오.");
+      }
+    })
+
+    $("#btnNull").click(function(){
+      $(".opt2").attr("value", "없음");
+    })
+
+ })
+</script>
+
 </html>
