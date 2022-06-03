@@ -44,8 +44,8 @@ public class RestjhController {
     //리뷰 컨트롤러
     @GetMapping(value = "/getreviews",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReviewPageVO> getreviews(ItemPageCriteria cri){
-        log.info("getreviews 입장" );
-        log.info(" p_no " + cri);
+//        log.info("getreviews 입장" );
+//        log.info(" p_no " + cri);
         ResponseEntity<ReviewPageVO> responseEntity = null;
 //        List<ReviewMpVO>list =reviewMpService.readAllByPno(cri.getPno());
 //        System.out.println("list   "+list);
@@ -172,15 +172,15 @@ public class RestjhController {
     // 리뷰 좋아요 컨트롤러
     @PostMapping(value = "/commentLike")
     public int ReviewLike(int pno,int rno,int mno,int rmno){
-        System.out.println("ReviewLike");
+        System.out.println("commentLike         ");
         ReviewLikeVO reviewLikeVO = new ReviewLikeVO();
         reviewLikeVO.setPno(pno);
         reviewLikeVO.setMno(mno);
         reviewLikeVO.setRno(rno);
         reviewLikeVO.setRmno(rmno);
-
+        System.out.println("reviewLikeVO              "+reviewLikeVO);
             int checkLike  = reviewService.checkLike(reviewLikeVO);
-
+            System.out.println("checkLike              "+checkLike);
             if(checkLike ==0 ){
                 reviewService.insertLike(reviewLikeVO);
                 reviewService.updateLike(reviewLikeVO.getRno());
