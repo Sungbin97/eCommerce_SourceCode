@@ -25,9 +25,27 @@
                tbl_orderItem.iDisPrice, tbl_orderItem.iCount, tbl_orderItem.iSavePoint, tbl_orderItem.iTotalPrice
         from tbl_review
         left outer join tbl_orderItem on tbl_review.oINo = tbl_orderItem.oINo
-        where pno=#{pno}
-        order by pno
+        where tbl_review.pno=#{pno}
+        <include refid="reviewSort"></include>
+            limit #{startPage}, #{numPerPage}
     </select>
+    <sql id="reviewSort">
+        <if test="sort == ''">
+            order by rRegdate desc
+        </if>
+        <if test="sort == 'new'">
+            order by rRegdate desc
+        </if>
+        <if test="sort == 'best'">
+            order by likeHit desc
+        </if>
+        <if test="sort == 'ratingdesc'">
+            order by rRating desc
+        </if>
+        <if test="sort == 'ratingasc'">
+            order by rRating asc
+        </if>
+    </sql>
 
     <!-- tbl_review 데이터 전체 가져오기(mno 단위) -->
     <select id="getAllByMno" resultType="com.green.team4.vo.sw.ReviewMpVO">
@@ -41,6 +59,8 @@
         where mno=#{mno}
         order by mno
     </select>
+
+
 
     <!-- tbl_review 데이터 하나 가져오기(mno 단위) -->
     <select id="getOneByRno" resultType="com.green.team4.vo.sw.ReviewMpVO">

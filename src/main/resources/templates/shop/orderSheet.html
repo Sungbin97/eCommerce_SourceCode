@@ -565,9 +565,9 @@
 
         $(".product_price_td").each(function (index,ele){
             console.log("product_price_td",ele)
-            totalPrice = parseInt($(ele).find(".individual_totalPrice_input").val())
-            totalCount = parseInt($(ele).find(".individual_itemCount_input").val())
-            totalPoint = parseInt($(ele).find(".individual_totalPoint_input").val())
+            totalPrice += parseInt($(ele).find(".individual_totalPrice_input").val())
+            totalCount += parseInt($(ele).find(".individual_itemCount_input").val())
+            totalPoint += parseInt($(ele).find(".individual_totalPoint_input").val())
             totalKind = +1;
         })
         /* 배송비 결정 */

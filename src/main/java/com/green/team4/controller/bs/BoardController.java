@@ -1,6 +1,7 @@
 package com.green.team4.controller.bs;
 
 import com.green.team4.service.bs.BoardService;
+import com.green.team4.service.bs.ReplyService;
 import com.green.team4.vo.bs.BoardVO;
 import com.green.team4.vo.bs.Criteria;
 import com.green.team4.vo.bs.PageMaker;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/bs/board/*")
@@ -24,6 +28,7 @@ public class BoardController {
     public void list(Model model, Criteria criteria) {
         PageMaker pageMaker = new PageMaker(criteria, boardService.getTotal(criteria));
         log.info("list로 이동....");
+
         model.addAttribute("items", boardService.getPageList(criteria));
         model.addAttribute("pageMaker",pageMaker);
 
@@ -35,8 +40,9 @@ public class BoardController {
     }
 
     @PostMapping("/register")
-    public String register(BoardVO vo) {
-        boardService.insert(vo);
+    public String register(BoardVO vo,MultipartFile imgFile) throws IOException {
+        log.info(imgFile);
+        boardService.saveFile(vo,imgFile);
         log.info("게시글 등록 성공");
         return "redirect:list";
     }
@@ -45,6 +51,7 @@ public class BoardController {
     public void read(Model model, Long uNo, Criteria criteria) {
         log.info("read로 이동");
         model.addAttribute("item", boardService.getOne(uNo));
+        log.info("경로 : "+ boardService.getOne(uNo).getImgPath());
         model.addAttribute("cri",criteria);
     }
 
@@ -70,14 +77,10 @@ public class BoardController {
         return "redirect:list";
     }
 
-    @GetMapping("/index")
-    public void index(){
-        log.info("index 연결 완료");
+    @GetMapping("/insert")
+    public void insert(){
+        log.info("reply 댓글 등록");
     }
 
-    @GetMapping("/blog")
-    public void blog(){
-        log.info("blog");
-    }
 
 }

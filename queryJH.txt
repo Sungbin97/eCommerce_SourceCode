@@ -1,4 +1,24 @@
 0531일자 수정
+-- 장바구니 테이블(상품 세부정보는 tbl_product join하여 출력)
+create table tbl_cart(
+    mno int(30) not null, -- 회원번호
+    cno int(30) primary key auto_increment, -- 장바구니 번호
+    pno int(30) not null, -- 상품번호
+    cName varchar(50), -- 상품명
+    cOption varchar(50), -- 상품 옵션1
+    cOptionName varchar(50), -- 상품 옵션1 이름
+    cOption2 varchar(50), -- 상품 옵션1
+    cOptionName2 varchar(50), -- 상품 옵션1 이름
+    cColor varchar(50), -- 상품 색상명
+    cPrice int(50), -- 상품 가격(순수 상품가격)
+    cOptionPrice int(50) default 0, -- 옵션 추가가격
+    cDiscount int(30), -- 상품 할인률(%)
+    cDisPrice int(50), -- 할인된 상품 가격 (상품 가격에 할인률 적용한 가격)
+    cCount int(50), -- 상품 수량(주문한 상품 수량)
+    cTotalPrice int(50), -- 최종 결재금액
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (pno) references tbl_product (pno)
+);
 -- 상품 테이블
 create table tbl_product(
     pno int(30) primary key auto_increment, -- 상품 번호

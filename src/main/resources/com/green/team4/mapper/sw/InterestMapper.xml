@@ -25,4 +25,8 @@
         delete from tbl_interest where mno=#{mno} and pno=#{pno}
     </delete>
 
+    <select id="getOne" resultType="int">
+        select count(*) from tbl_interest where mno =#{mno} and pno = #{pno}
+    </select>
+
 </mapper>

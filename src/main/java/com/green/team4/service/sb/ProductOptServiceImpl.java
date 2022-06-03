@@ -1,6 +1,5 @@
 package com.green.team4.service.sb;
 
-import com.green.team4.mapper.sb.ProductMapper;
 import com.green.team4.mapper.sb.ProductOptMapper;
 import com.green.team4.vo.JH.Product_optVO;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Log4j2
 @Service
-public class ProductServiceOptImpl implements ProductOptService{
+public class ProductOptServiceImpl implements ProductOptService{
     private final ProductOptMapper productOptMapper;
 
     @Override
@@ -43,4 +42,12 @@ public class ProductServiceOptImpl implements ProductOptService{
         list.add(productOptMapper.getProductOption(pno));
         return list;
     }
+
+    @Override
+    public Product_optVO findAmount(Product_optVO vo) {
+        productOptMapper.findAmount(vo);
+       log.info("수량조회: " + vo.getPAmount());
+        return vo;
+    }
+
 }

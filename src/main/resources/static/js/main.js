@@ -176,13 +176,14 @@ $('.product-slider-4').slick({
         },
     ]
 });
+
  
 /*--
     Product Details Thumbnail Slider
 -----------------------------------*/
 $('.pro-thumb-img-slider').slick({
     speed: 700,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     prevArrow: '<button type="button" class="arrow-prev"><i class="fa fa-angle-left"></i></button>',
     nextArrow: '<button type="button" class="arrow-next"><i class="fa fa-angle-right"></i></button>',

@@ -11,6 +11,6 @@ public interface MemberInfoService {
     int modifyByMember(MemberInfoVO memberInfoVO);
     int modifyByAdmin(MemberInfoVO memberInfoVO);
     int remove(int mno,String delCategory, String delContent);
-    public MemberInfoVO getMemberInfo(String id); //주문페이지에 사용할 멤버 서비스
+    public MemberInfoVO getMemberInfo(int mno); //주문페이지에 사용할 멤버 서비스
 
 }

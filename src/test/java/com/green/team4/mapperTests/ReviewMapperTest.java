@@ -36,7 +36,7 @@ public class ReviewMapperTest {
         for (int i = 0; i < 1000; i++) {
             ReviewVO rvo = new ReviewVO();
             rvo.setMno(i);
-            rvo.setPno((int)(Math.random()*200));
+            rvo.setPno((int)(Math.random()*20));
             rvo.setRContent("참 잘샀어요!" + i);
             rvo.setRRating((int)(Math.random()*5));
             rvo.setRRegdate(new Date());

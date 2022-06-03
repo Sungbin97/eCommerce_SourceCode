@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <head>
     <!-- mypage head fragment -->
@@ -32,9 +33,6 @@
         </div>
     </div>
 </div>
-
-<!-- Body main wrapper start -->
-<div class="wrapper">
  
 <!-- PAGE SECTION START -->
 <div class="page-section section pt-120 pb-80">
@@ -76,7 +74,7 @@
                 <div class="checkout-form">
                     <div class="row">
                         <div class="col-lg-6 mb-40">
-                            <form action="#">
+                            <form class="forModify" method="post" action="/sb/product/uploadOpt" enctype="multipart/form-data">
                                 <h3>등록한 상품정보</h3>
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12 mb-20">
@@ -111,63 +109,68 @@
                                         <img th:src="|/display?fileName=${product.pInformation}|" style="width: 150px; height: 150px"/>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-6 col-12 mb-40">
-                            <div class="order-wrapper">
-                                <h3>상품 재고 관리</h3>
-                                <div class="order-table table-responsive mb-30">
 
-<!--                                    <div class="product-size section">-->
-<!--                                        <h5 class="pd-sub-title">Option1</h5>-->
-<!--                                        <div style="font-size:1.5em">[[${opt1Name[0]}]]</div>-->
-<!--                                    </div>-->
+                                <div class="col-lg-6 col-12 mb-40">
+                                    <div class="coupon-form mb-30">
+                                            <h3>상품 재고 관리</h3>
+                                            <div class="col-sm-6 col-xs-12 mb-20">
+                                                <h7>옵션1<span class="required">*</span></h7>
+                                                <label><input type="text" id="option1" name="pOptionName" th:value="${opt1Name[0]}"></label>
+                                            </div>
 
-                                    <div class="product-size section">
-                                        <h5 class="pd-sub-title">Select Option1</h5>
-                                        <div th:each="opt1 : ${opt1List}">
-                                            <div style="float: left; width: 15%;">
-                                                [[${opt1}]]
-                                                <input type="radio" th:name="pOption" th:value="${opt1}">
+                                            <div class="col-sm-6 col-xs-12 mb-20">
+                                                <h7>등록된 옵션<span class="required">*</span></h7>
+                                                <div th:each="opt1 : ${opt1List}">
+                                                    <div style="float: left; width: 33%;">
+                                                        [[${opt1}]]
+                                                        <input type="radio" th:name="pOption" th:value="${opt1}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br/><br/>
+                                        <div class="col-sm-6 col-xs-12 mb-20">
+                                            <h7>옵션2<span class="required">*</span></h7>
+                                            <label><input type="text" id="option2" name="pOptionName2" th:value="${opt2Name[0]}"></label>
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12 mb-20">
+                                            <h7>등록된 옵션<span class="required">*</span></h7>
+                                            <div th:each="opt2 : ${opt2List}">
+                                                <div style="float: left; width: 33%;">
+                                                    [[${opt2}]]
+                                                    <input type="radio" th:name="pOption2" th:value="${opt2}">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-<!--                                    <div class="product-size section">-->
-<!--                                        <h5 class="pd-sub-title">Option2</h5>-->
-<!--                                        <div style="font-size:1.5em">[[${opt2Name[0]}]]</div>-->
-<!--                                    </div>-->
-
-                                    <div class="product-size section">
-                                        <h5 class="pd-sub-title">Select Option2</h5>
-                                        <div th:each="opt2 : ${opt2List}">
-                                            <div style="float: left; width: 15%;">
-                                                [[${opt2}]]
-                                                <input type="radio" th:name="pOption2" th:value="${opt2}">
+                                            <br/>
+                                            <div class="col-sm-6 col-xs-12 mb-20">
+                                                <div class="col-sm-6 col-xs-12 mb-20">
+                                                    <h7>등록된 색상<span class="required">*</span></h7>
+                                                    <div th:each="color : ${colorList}">
+                                                        <div style="float: left; width: 50%;">
+                                                            [[${color}]]
+                                                            <input type="radio" th:name="pColor" th:value="${color}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br/>
+                                                <br/><br/>
+                                            <div class="col-sm-6 col-xs-12 mb-20">
+                                                <h7>수량<span class="required">*</span></h7>
+                                                <br/>
+                                                <input type="text" id="amount" />
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="product-size section">
-                                        <h5 class="pd-sub-title">Select Color</h5>
-                                        <div th:each="color : ${colorList}">
-                                            <div style="float: left; width: 25%;">
-                                                [[${color}]]
-                                                <input type="radio" th:name="pColor" th:value="${color}">
+                                            <br/>
+                                            <br/>
+                                            <div class="order_button">
+                                                <li><button type="button" onclick="getInputValue();">재고조회</li>
+                                                <li><button type="button" onclick="amountAjax();">재고조회2</li>
+                                                <br/>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6 col-xs-12 mb-20">
-                                        <h6>Amount</h6>
-                                            <input th:name="pAmount" th:type="text">
-                                    </div>
-
-                                    <div class="quantity-cart section">
-                                        <button class="add-to-cart" onclick="amountAjax();">재고조회</button>
+                                            <input type="submit" value="최종 등록">
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -180,7 +183,6 @@
 </body>
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
-
 <script>
 var opt1Name = "";
 var opt1 = "";
@@ -202,18 +204,21 @@ function getInputValue(){
                 console.log(color, typeof(color))
             }
 
-    function amountAjax(){
+// var optVO = {"pOptionName":opt1Name, "pOption":opt1, "pOptionName2":opt2Name, "pOption2":opt2, "pColor":color}
 
+
+    function amountAjax(){
+        
         var optVO = {
             poptionName:$('input[name=pOptionName]').val(),
-            poption:$('input[name=pOption]:checked').val(),
-            poptionName2:$('input[name=pOptionName2]').val(),
-            poption2:$('input[name=pOption2]:checked').val(),
+            poption:$('input[name=pOption]:checked').val(), 
+            poptionName2:$('input[name=pOptionName2]').val(), 
+            poption2:$('input[name=pOption2]:checked').val(), 
             pcolor:$("input[name='pColor']:checked").val(),
             pno:$("input[name=pno]").val()
         }
-        console.log('optVO출력: ',optVO)
 
+        console.log('optVO출력: ',optVO)
             $.ajax({
                     anyne:true,
                     type: 'POST',
@@ -222,15 +227,8 @@ function getInputValue(){
                     dataType: "json",
                     contentType: "application/json; charset=utf-8;",
                     success: function(data) {
-
                         console.log(data);
-                        console.log(data.pamount);
-
-                    $('input[name=pAmount]').empty();
-
-<!--                    $('input[name=pAmount]').attr("value", data.pamount);-->
-<!--                    console.log($('input[name=pAmount]').val());-->
-
+                        console.log(data.pamount)
                     },
                     error: function(jqXHR, textStatus, errorThrown){
                         alert("ERROR: " + textStatus + " : " + errorThrown)
@@ -239,6 +237,9 @@ function getInputValue(){
             }
 
     $(document).ready(function(){
+
+
+
 
     })
 </script>

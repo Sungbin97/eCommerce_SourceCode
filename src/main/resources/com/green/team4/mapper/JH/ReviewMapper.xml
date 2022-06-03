@@ -13,7 +13,7 @@
         values (#{pno},#{mno},#{rRating},#{likeHit},#{rImageURL},#{rContent},#{rRegdate},#{rUpdatedate})
     </insert>
 
-<!--리뷰 갯수 구하기-->
+
    <delete id="delete">
        delete from tbl_review where rv_no = #{rv_no}
    </delete>
