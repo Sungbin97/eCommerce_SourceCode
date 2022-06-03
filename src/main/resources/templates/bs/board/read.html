@@ -7,6 +7,7 @@
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="/js/bs/ajax-reply.js"></script>
 <body>
 <!-- header fragment -->
 <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
@@ -51,6 +52,7 @@
     <div class="blog-section section pb-80">
         <div class="container">
             <div class="row">
+                <div class="col-lg-8 col-12 mx-auto">
                 <!-- Home Blog Item -->
                 <div class="col-lg-6 col-12  mb-40">
                     <div class="home-blog-item">
@@ -60,6 +62,7 @@
                             <!-- UserName : userid/상세정보등 mypage-blog로 연결 -->
                             <h4 class="title" th:text="${item.userName}"><a href="#"></a></h4>
                             <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>                     </div>
+
                     </div>
                 </div>
                 <!-- Home Blog Item -->
@@ -74,21 +77,30 @@
 </form>
 
 <!-- reply section -->
+<div class="page-section section pt-120 pb-45">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div>
+                    <hr>
+                    <div>
+                        <!--        댓글 등록 -->
+                        <h4>Reply</h4>
+                        <form id="replyForm" method="post" action="read">
+                            <input type="text" name="replyer" id="replyer"><br>
+                            <textarea name="reply" id="reply"></textarea>
+                            <button class="btn" type="submit" id="submit">등록</button>
+                        </form>
+                    </div>
+                    <!--        댓글 목록-->
+                    <hr>
+                    <div id="comment">
+                    </div>
 
-<div>
-    <hr>
-    <div>
-<!--        댓글 등록 -->
-        <h3>댓글 등록</h3>
-        <form>
-            <input type="text" name="replyer" id="replyer">
-            <textarea name="reply" id="reply"></textarea>
-            <button type="submit" id="submit">등록</button>
-        </form>
+                </div>
+        </div>
     </div>
-    <!--        댓글 목록-->
-    <div id="comment">
-    </div>
+</div>
 </div>
 <!-- reply section End-->
 </body>
@@ -128,24 +140,25 @@
                     alert("등록에 실패했습니다.")
                 }
             })
+            getCommentList();
         })
         getCommentList();
 
     })
     function getCommentList(){
-        console.log("실행되나요?:")
+        console.log("GetCommentList입니당")
         console.log(uno);
         $.ajax({
             type: 'get',
-            data: {'uno':uno},
+            data: {'uNo':uno},
             url: 'getCommentList',
+            contentType: 'application/json',
             success: function (result){
-                console.log(result);
                 let str = "";
                 for (let i = 0; i < result.length; i++) {
                     str = "<div class=\"comment\">";
+                    str += result[i].replyer;
                     str += result[i].reply+"</div></hr>";
-                    console.log(result[i].reply)
                     $("#comment").append(str);
                 }
             },
@@ -155,8 +168,17 @@
         })
 
     }
-
-
-
+</script>
+<!--<script>-->
+<!--    console.log("===============================")-->
+<!--    console.log("ajax-reply Test")-->
+<!--    replyService.add(-->
+<!--        {reply:"JS Test", replyer:"tester", uNo: uno},-->
+<!--        function (result){-->
+<!--            alert("Result : " + result);-->
+<!--        }-->
+<!--    );-->
+<!--</script>-->
+<script>
 </script>
 </html>

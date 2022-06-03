@@ -45,6 +45,7 @@ body {
 .bs-div-btn{
     text-align: center;
 }
+#replyForm textara,
 .login-reg-form form textarea{
     border: 1px solid #ddd;
     display: block;
