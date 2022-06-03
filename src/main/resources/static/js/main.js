@@ -208,6 +208,7 @@ $('.modal').on('shown.bs.modal', function (e) {
     $('.modal-body').addClass('open');
 });
 
+
 /*--
     Checkout Form Collapse on Checkbox
 -----------------------------------*/

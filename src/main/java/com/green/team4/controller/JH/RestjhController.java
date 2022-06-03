@@ -73,7 +73,7 @@ public class RestjhController {
         return responseEntity;
     }
 
-    // 상품 상세 정보 불러오기 컨트롤러(상세정보 , 배송정보)
+    // 상품 상세 정보 불러오기 컨트롤러
     @GetMapping("/getinfo/{pno}")
     public ResponseEntity<List<ProductInfoImgVO>> getinfo(@PathVariable ("pno") int pno){
         log.info("getinfo 입장" );
@@ -87,7 +87,7 @@ public class RestjhController {
         }
         return responseEntity;
     }
-    // 상품 상세 정보 불러오기 컨트롤러( 배송정보)
+    // 상품 배송 정보 불러오기 컨트롤러
     @GetMapping("/getDeliInfo/")
     public ResponseEntity<List<ProductInfoImgVO>> getDeliInfo(){
         log.info("getDeliInfo 입장" );
@@ -172,13 +172,15 @@ public class RestjhController {
     // 리뷰 좋아요 컨트롤러
     @PostMapping(value = "/commentLike")
     public int ReviewLike(int pno,int rno,int mno,int rmno){
-        System.out.println("입장");
+        System.out.println("ReviewLike");
         ReviewLikeVO reviewLikeVO = new ReviewLikeVO();
         reviewLikeVO.setPno(pno);
         reviewLikeVO.setMno(mno);
         reviewLikeVO.setRno(rno);
         reviewLikeVO.setRmno(rmno);
+
             int checkLike  = reviewService.checkLike(reviewLikeVO);
+
             if(checkLike ==0 ){
                 reviewService.insertLike(reviewLikeVO);
                 reviewService.updateLike(reviewLikeVO.getRno());
@@ -187,6 +189,22 @@ public class RestjhController {
                 reviewService.deleteLike(reviewLikeVO);
                 reviewService.updateLikeCancel(reviewLikeVO.getRno());
             }
+
+        return 0;
+    }
+    @PostMapping(value = "/commentLikeCheck")
+    public int commentLikeCheck(@RequestBody ReviewLikeVO reviewLikeVO){
+        System.out.println("commentLikeCheck 입장");
+        System.out.println(reviewLikeVO);
+        int checkLike  = reviewService.checkLike(reviewLikeVO);
+        if(checkLike ==0 ){
+            reviewService.insertLike(reviewLikeVO);
+            reviewService.updateLike(reviewLikeVO.getRno());
+        }
+        else if(checkLike == 1){
+            reviewService.deleteLike(reviewLikeVO);
+            reviewService.updateLikeCancel(reviewLikeVO.getRno());
+        }
 
         return 0;
     }
