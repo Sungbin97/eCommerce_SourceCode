@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <title>title</title>
     <!-- head fragment -->
-    <th:block th:replace="bs/board/fragments/header.html :: head"></th:block>
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
 </head>
 <body>
 <!-- header fragment -->
 <div>
-    <th:block th:replace="bs/board/fragments/header.html :: headerFragment"></th:block>
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 </div>
 <!-- page section -->
 <div class="page-section section pt-120 pb-120">
@@ -65,7 +65,7 @@
 
 </body>
 <!-- footer fragment -->
-<th:block th:replace="bs/board/fragments/footer.html :: footerFragment"></th:block>
+<th:block th:replace="fragments/mypage/mypage_header.html :: footerFragment"></th:block>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
     $(document).ready(function (){
