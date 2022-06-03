@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Log4j2
-@RequestMapping("/dan*")
+@RequestMapping("/dan/*")
 public class SignupController {
 
     @Autowired

@@ -110,18 +110,18 @@
         <div class="row">
             <div class="col-lg-8 col-12 mx-auto">
                 <div class="login-reg-form">
-                    <form action="#">
+                    <form action="/dan/signup" method="post">
                         <div class="row">
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="id">Id <span class="required">*</span></label>
-                                <input id="id" type="text"/>
+                                <input id="id" name="id" type="text"/>
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
 
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="name">이름</label>
-                                <input id="name" type="text"/>
+                                <input id="name" name="name" type="text"/>
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
 
@@ -129,7 +129,7 @@
 
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="password">Password <span class="required">*</span></label>
-                                <input id="password" type="password"/>
+                                <input id="password" name="password" type="password"/>
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
 
@@ -145,21 +145,33 @@
 
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="nickname">닉네임 <span class="required">*</span></label>
-                                <input id="nickname" type="text"/>
+                                <input id="nickname" name="nickName" type="text"/>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label>성별 <span class="required">*</span></label>
+                                <label>남성
+                                    <input type="checkbox" name="gender" id="option1" th:value="'남성'">
+                                </label>
+                                <label>여성
+                                    <input type="checkbox" name="gender" id="option2" th:value="'여성'">
+                                </label>
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
 
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="sSNum">주민등록번호 <span class="required">*</span></label>
-                                <input id="sSNum" type="email"/>
+                                <input id="sSNum" name="sSNum" type="text"/>
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
 
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="email">이매일 <span class="required">*</span></label>
-                                <input id="email" type="email"/>
+                                <input id="email" name="email" type="email"/>
 
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
@@ -167,48 +179,48 @@
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="phonenum"> 자택전화 <span class="required">*</span></label>
-                                <input id="phonenum" type="text" />
+                                <input id="phonenum" name="phoneNum" type="text" />
                             </div>
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="mobilenum"> 휴대전화 <span class="required">*</span></label>
-                                <input id="mobilenum" type="text" />
+                                <input id="mobilenum" name="mobileNum" type="text" />
                             </div>
-                        <div class="col-xs-12 mb-20">
-                            <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <label>주소 <span class="required">*</span></label>
-                            <input type="text" name="postcode" placeholder="우편번호"/>
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <input type="text"  name="address" placeholder="기본주소"/>
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <input type="text"  name="detailAddress" placeholder="세부주소" />
-                        </div>
+                            <div class="col-xs-12 mb-20">
+                                <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label>주소 <span class="required">*</span></label>
+                                <input type="text" name="postcode" placeholder="우편번호"/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <input type="text"  name="address" placeholder="기본주소"/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <input type="text"  name="detailAddress" placeholder="세부주소" />
+                            </div>
 
-                        <div class="col-xs-12 mb-20">
-                                <label for="interrestSports">관심종목<span class="required">*</span></label>
-                            <input type="checkbox" name="interestSports" value="축구"/> 축구
-                            <input type="checkbox" name="interestSports" value="농구"/> 농구
-                            <input type="checkbox" name="interestSports" value="야구"/> 야구
-                            <input type="checkbox" name="interestSports" value="요가"/> 요가
-                            <input type="checkbox" name="interestSports" value="수영"/> 수영<br>
-                            <input type="checkbox" name="interestSports" value="등산"/> 등산
-                            <input type="checkbox" name="interestSports" value="골프"/> 골프
-                            <input type="checkbox" name="interestSports" value="웨이트"/> 웨이트
-                            <input type="checkbox" name="interestSports" value="사이클"/> 사이클
-                            <input type="checkbox" name="interestSports" value="테니스"/> 테니스<br>
-                            <input type="checkbox" name="interestSports" value="배드민턴"/> 베드민턴
-                            <input type="checkbox" name="interestSports" value="탁구"/> 탁구
-                            <input type="checkbox" name="interestSports" value="유도"/> 유도
-                            <input type="checkbox" name="interestSports" value="주짓수"/> 주짓수
-                            <input type="checkbox" name="interestSports" value="태권도"/> 태권도<br>
-                            <input type="checkbox" name="interestSports" value="복싱"/> 복싱
-                            <input type="checkbox" name="interestSports" value="크로스핏"/> 크로스핏
-                            <input type="checkbox" name="interestSports" value="스키"/> 스키
-                            <input type="checkbox" name="interestSports" value="농구"/> 농구<br>
+                            <div class="col-xs-12 mb-20">
+                                <label>관심종목<span class="required">*</span></label>
+                                <input type="checkbox" name="interestSports" value="축구"/> 축구
+                                <input type="checkbox" name="interestSports" value="농구"/> 농구
+                                <input type="checkbox" name="interestSports" value="야구"/> 야구
+                                <input type="checkbox" name="interestSports" value="요가"/> 요가
+                                <input type="checkbox" name="interestSports" value="수영"/> 수영<br>
+                                <input type="checkbox" name="interestSports" value="등산"/> 등산
+                                <input type="checkbox" name="interestSports" value="골프"/> 골프
+                                <input type="checkbox" name="interestSports" value="웨이트"/> 웨이트
+                                <input type="checkbox" name="interestSports" value="사이클"/> 사이클
+                                <input type="checkbox" name="interestSports" value="테니스"/> 테니스<br>
+                                <input type="checkbox" name="interestSports" value="배드민턴"/> 베드민턴
+                                <input type="checkbox" name="interestSports" value="탁구"/> 탁구
+                                <input type="checkbox" name="interestSports" value="유도"/> 유도
+                                <input type="checkbox" name="interestSports" value="주짓수"/> 주짓수
+                                <input type="checkbox" name="interestSports" value="태권도"/> 태권도<br>
+                                <input type="checkbox" name="interestSports" value="복싱"/> 복싱
+                                <input type="checkbox" name="interestSports" value="크로스핏"/> 크로스핏
+                                <input type="checkbox" name="interestSports" value="스키"/> 스키
+                                <input type="checkbox" name="interestSports" value="농구"/> 농구<br>
                             </div>
 
                             <div class="col-xs-12 mb-20">

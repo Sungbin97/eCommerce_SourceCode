@@ -61,11 +61,11 @@ create table tbl_product(
     pRating decimal(2,1), -- 상품 평점
     pReviewCnt int(20), -- 상품 리뷰 개수
     pDiscount int(10), -- 상품 할인률(%)
-    pCatecode varchar(30) -- 카테고리 코드 **신규 추가
+    pCatecode varchar(30) -- 카테고리 코드
 );
 
 -- 상품 카테고리 테이블
-create table tbl_product_cate( -- 신규 추가
+create table tbl_product_cate(
     tier int(1) not null, -- 카테고리 등급 ( 대분류 1 , 중분류 2 ,소분류 3)
     pCateName varchar(30) not null, -- 카테고리 이름
     pCatecode varchar(30) not null, -- 카테고리 코드
@@ -116,22 +116,22 @@ values (402,10,'M','사이즈','다람쥐','그림','blue',200);
 
 -- 주문 테이블(tbl_orderItem과 set)
 create table tbl_order(
-                          mno int(30) not null, -- 회원번호
-                          ono varchar(50) primary key , -- 주문번호
-                          orderDate DATETIME default now(), -- 주문일자
-                          receiverName varchar(30) , -- 받는 사람 성명
-                          receiverPhone varchar(50) , -- 밥는 사람 연락처
-                          postcode varchar(50), -- 우편번호
-                          address varchar(50), -- 기본주소
-                          detailAddress varchar(50) not null, -- 상세주소
-                          message varchar(50) , -- 배송 메세지
-                          tProductPrice int(30) , -- 총 상품가격(순수 상품가격)
-                          tShipFee int(30) , -- 배송비
-                          tUsePoint int(50), -- 총 사용한 포인트
-                          tTotalPrice int(30) , -- 최총 총 결제금액(최종 결제금액 = 상품가+배송비-사용한포인트)
-                          tPayStatus varchar(50) default '결제완료', -- 결제상태
-                          tSavePoint int(50), -- 총 적립된 포인트
-                          foreign key (mno) references tbl_memberInfo (mno)
+    mno int(30) not null, -- 회원번호
+    ono varchar(50) primary key , -- 주문번호
+    orderDate DATETIME default now(), -- 주문일자
+    receiverName varchar(30) , -- 받는 사람 성명
+    receiverPhone varchar(50) , -- 밥는 사람 연락처
+    postcode varchar(50), -- 우편번호
+    address varchar(50), -- 기본주소
+    detailAddress varchar(50) not null, -- 상세주소
+    message varchar(50) , -- 배송 메세지
+    tProductPrice int(30) , -- 총 상품가격(순수 상품가격)
+    tShipFee int(30) , -- 배송비
+    tUsePoint int(50), -- 총 사용한 포인트
+    tTotalPrice int(30) , -- 최총 총 결제금액(최종 결제금액 = 상품가+배송비-사용한포인트)
+    tPayStatus varchar(50) default '결제완료', -- 결제상태
+    tSavePoint int(50), -- 총 적립된 포인트
+    foreign key (mno) references tbl_memberInfo (mno)
 );
 
 insert into tbl_order (mno, ono, receiverName, receiverPhone,
@@ -158,26 +158,26 @@ values (2,'1234567890','받는이이름','받는이연락처','1212','기본주�
 
 -- 주문 상품 테이블
 create table tbl_orderItem( -- SW 수정 reviewStatus 추가 20220530
-                              ono varchar(50), -- 주문 번호
-                              oINo int(50) auto_increment primary key, -- 주문상품 번호
-                              pno int(50), -- 상품 번호
-                              iName varchar(50), -- 상품명
-                              iOption varchar(50), -- 상품 옵션1
-                              iOptionName varchar(50), -- 상품 옵션1 이름
-                              iOption2 varchar(50), -- 상품 옵션1
-                              iOptionName2 varchar(50), -- 상품 옵션1 이름
-                              iColor varchar(50), -- 상품 색상명
-                              iPrice int(50), -- 상품 가격(순수 상품가격)
-                              iDiscount int(30), -- 상품 할인률(%)
-                              iDisPrice int(50), -- 할인된 상품 가격 (상품 가격에 할인률 적용한 가격)
-                              iCount int(50), -- 상품 수량(주문한 상품 수량)
-                              iSavePoint int(50), -- 새로 추가(하나의 상품별 적립 포인트)!!!!!!!!!!!!!!
-                              iTotalPrice int(50), -- 최종 결재금액
-                              iDeliveryStatus varchar(30) default '배송전', -- 배송 상태
-                              iExStatus varchar(30) default '미신청', -- 교환반품취소 신청 상태
-                              iReviewStatus varchar(30) default '미등록', -- 리뷰 등록 여부
-                              FOREIGN KEY (ono) REFERENCES tbl_order(ono),
-                              FOREIGN KEY (pno) REFERENCES tbl_product(pno)
+    ono varchar(50), -- 주문 번호
+    oINo int(50) auto_increment primary key, -- 주문상품 번호
+    pno int(50), -- 상품 번호
+    iName varchar(50), -- 상품명
+    iOption varchar(50), -- 상품 옵션1
+    iOptionName varchar(50), -- 상품 옵션1 이름
+    iOption2 varchar(50), -- 상품 옵션1
+    iOptionName2 varchar(50), -- 상품 옵션1 이름
+    iColor varchar(50), -- 상품 색상명
+    iPrice int(50), -- 상품 가격(순수 상품가격)
+    iDiscount int(30), -- 상품 할인률(%)
+    iDisPrice int(50), -- 할인된 상품 가격 (상품 가격에 할인률 적용한 가격)
+    iCount int(50), -- 상품 수량(주문한 상품 수량)
+    iSavePoint int(50), -- 새로 추가(하나의 상품별 적립 포인트)!!!!!!!!!!!!!!
+    iTotalPrice int(50), -- 최종 결재금액
+    iDeliveryStatus varchar(30) default '배송전', -- 배송 상태
+    iExStatus varchar(30) default '미신청', -- 교환반품취소 신청 상태
+    iReviewStatus varchar(30) default '미등록', -- 리뷰 등록 여부
+    FOREIGN KEY (ono) REFERENCES tbl_order(ono),
+    FOREIGN KEY (pno) REFERENCES tbl_product(pno)
 );
 
 alter table tbl_orderitem add iReviewStatus varchar(30) default '미등록';
@@ -194,58 +194,60 @@ values ('1234567890',405,'테스트상품명3','115','사이즈','해','장식',
 delete from tbl_order where ono='123456789';
 -- 리뷰 테이블
 create table tbl_review( -- 수정 SW 20220530 (rImageURL 삭제 => 이미지 별도 테이블로 분리, oINo 추가)
-                           rno int(10) not null auto_increment primary key, -- 리뷰번호
-                           pno int(10) not null, -- 상품번호
-                           mno int(10), -- 회원번호
-                           oINo int(10), -- 주문상품번호
-                           rRating int(10), -- 평점
-                           rContent varchar(1000) not null, -- 리뷰내용
-                           LIKEHIT int default 0, -- 좋아요 개수
+    rno int(10) not null auto_increment primary key, -- 리뷰번호
+    pno int(10) not null, -- 상품번호
+    mno int(10), -- 회원번호
+    oINo int(10), -- 주문상품번호
+    rRating int(10), -- 평점
+    rContent varchar(1000) not null, -- 리뷰내용
+    LIKEHIT int default 0, -- 좋아요 개수
     -- rImageURL varchar(150), -- 리뷰 첨부 이미지
-                           rRegdate TIMESTAMP not null default now(), -- 리뷰 등록일
-                           rUpdatedate TIMESTAMP not null default now() -- 리뷰 수정일
+    rRegdate TIMESTAMP not null default now(), -- 리뷰 등록일
+    rUpdatedate TIMESTAMP not null default now() -- 리뷰 수정일
 );
+
+insert into tbl_review (pno, mno, oINo, rRating, rContent) value (5,2,2,2,'테스트');
+delete from tbl_review where pno=5;
 
 -- 리뷰 첨부파일 테이블 -- 신규 생성 SW 20220530
 create table tbl_reviewFiles(
-                                rno int(30) not null, -- 리뷰 번호
-                                rFNo int(30) primary key auto_increment, -- 파일번호
-                                img_name varchar(500) not null, -- 파일 이름
-                                path varchar(500) not null, -- 파일 경로
-                                uuid varchar(500) not null, -- 파일 UUID
-                                foreign key (rno) references tbl_review (rno)
+    rno int(30) not null, -- 리뷰 번호
+    rFNo int(30) primary key auto_increment, -- 파일번호
+    img_name varchar(500) not null, -- 파일 이름
+    path varchar(500) not null, -- 파일 경로
+    uuid varchar(500) not null, -- 파일 UUID
+    foreign key (rno) references tbl_review (rno)
 );
-
 
 
 -- 리뷰 추천 테이블
 create table tbl_review_LIKE(
-                                LIKENO int(10) NOT NULL PRIMARY KEY , -- 리뷰 좋아요 번호
-                                pno int(10), -- 상품 번호
-                                mno int(10) , -- 회원 번호
-                                rmno int(10) , --
-                                RNO int(10) -- 리뷰 번호
+    LIKENO int(10) NOT NULL PRIMARY KEY , -- 리뷰 좋아요 번호
+    pno int(10), -- 상품 번호
+    mno int(10) , -- 회원 번호
+    rmno int(10) , --
+    RNO int(10) -- 리뷰 번호
 );
 
 -- 회원 배송지 정보 테이블
 create table tbl_shipmentInfo(
-                                 mno int(30) not null, -- 회원번호
-                                 sno int(30) primary key auto_increment, -- 배송지주소번호
-                                 shipName varchar(50) not null, -- 배송지이름
-                                 postcode varchar(50) not null, -- 우편번호
-                                 address varchar(50) not null, -- 기본주소
-                                 detailAddress varchar(50) not null, -- 세부주소
-                                 foreign key (mno) references tbl_memberInfo (mno)
+    mno int(30) not null, -- 회원번호
+    sno int(30) primary key auto_increment, -- 배송지주소번호
+    shipName varchar(50) not null, -- 배송지이름
+    postcode varchar(50) not null, -- 우편번호
+    address varchar(50) not null, -- 기본주소
+    detailAddress varchar(50) not null, -- 세부주소
+    foreign key (mno) references tbl_memberInfo (mno)
 );
 
 -- 찜한 상품 테이블
 create table tbl_interest(
-                             mno int(30) not null, -- 회원 번호
-                             itrNo int(30) primary key auto_increment, -- 찜 번호
-                             pno int(30) not null, -- 상품 번호
-                             itrDate DATETIME default now(), -- 찜한 일자시간
-                             foreign key (mno) references tbl_memberInfo (mno),
-                             foreign key (pno) references tbl_product (pno)
+    mno int(30) not null, -- 회원 번호
+    itrNo int(30) primary key auto_increment, -- 찜 번호
+    pno int(30) not null, -- 상품 번호
+    itrDate DATETIME default now(), -- 찜한 일자시간
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (pno) references tbl_product (pno)
 );
 
 insert into tbl_interest(mno, pno) values (2,13);
@@ -255,55 +257,68 @@ insert into tbl_interest(mno, pno) values (2,31);
 
 -- 장바구니 테이블(상품 세부정보는 tbl_product join하여 출력)
 create table tbl_cart(
-                         mno int(30) not null, -- 회원번호
-                         cno int(30) primary key auto_increment, -- 장바구니 번호
-                         pno int(30) not null, -- 상품번호
-                         cName varchar(50), -- 상품명
-                         cOption varchar(50), -- 상품 옵션1
-                         cOptionName varchar(50), -- 상품 옵션1 이름
-                         cOption2 varchar(50), -- 상품 옵션1
-                         cOptionName2 varchar(50), -- 상품 옵션1 이름
-                         cColor varchar(50), -- 상품 색상명
-                         cPrice int(50), -- 상품 가격(순수 상품가격)
-                         cDiscount int(30), -- 상품 할인률(%)
-                         cDisPrice int(50), -- 할인된 상품 가격 (상품 가격에 할인률 적용한 가격)
-                         cCount int(50), -- 상품 수량(주문한 상품 수량)
-                         cTotalPrice int(50), -- 최종 결재금액
-                         foreign key (mno) references tbl_memberInfo (mno),
-                         foreign key (pno) references tbl_product (pno)
+    mno int(30) not null, -- 회원번호
+    cno int(30) primary key auto_increment, -- 장바구니 번호
+    pno int(30) not null, -- 상품번호
+    cName varchar(50), -- 상품명
+    cOption varchar(50), -- 상품 옵션1
+    cOptionName varchar(50), -- 상품 옵션1 이름
+    cOption2 varchar(50), -- 상품 옵션1
+    cOptionName2 varchar(50), -- 상품 옵션1 이름
+    cColor varchar(50), -- 상품 색상명
+    cPrice int(50), -- 상품 가격(순수 상품가격)
+    cOptionPrice int(50) default 0, -- 옵션 추가가격
+    cDiscount int(30), -- 상품 할인률(%)
+    cDisPrice int(50), -- 할인된 상품 가격 (상품 가격에 할인률 적용한 가격)
+    cCount int(50), -- 상품 수량(주문한 상품 수량)
+    cTotalPrice int(50), -- 최종 결재금액
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (pno) references tbl_product (pno)
 );
 
 insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
                       cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
 values (2,1,'상품명1','사이즈','100','장식','다람쥐','Blue',1000,0.5,500,2,1000);
 insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
-                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
+                       cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
 values (2,2,'상품명2','사이즈','100','장식','토끼','Red',1000,0,1000,2,2000);
 insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
-                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
+                       cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
 values (2,3,'상품명3','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
+insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
+                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
+values (2,4,'상품명4','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
+insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
+                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
+values (2,5,'상품명5','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
+insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
+                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
+values (2,6,'상품명6','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
+insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
+                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
+values (2,7,'상품명7','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
 
 
 -- 취소/반품/교환 테이블 *수정 SW 0528
 create table tbl_exchange(
-                             mno int(30) not null, -- 회원번호(tbl_memberInfo)
-                             ono varchar(50) not null, -- 주문번호(tbl_order)
-                             newOno varchar(50) default '-', -- 처리 후 신규발행한 주문서 번호
-                             pno int(30) not null,  -- 상품번호(tbl_product)
-                             eno int(30) primary key auto_increment, -- 취소/반품/교환 번호
-                             exCategory varchar(30) not null, -- 분류(취소/반품/교환 중 택1)
-                             exContent varchar(1000) not null, -- 사유 내용
-                             exStatus varchar(50) not null, -- 진행 상태(접수중, 접수완료, 처리완료)
-                             exDate DATETIME default now(), -- 신청일
-                             exEndDate DATETIME, -- 처리 완료일
-                             eOptionName varchar(50),
-                             eOption varchar(50),
-                             eOptionName2 varchar(50),
-                             eOption2 varchar(50),
-                             color varchar(50),
-                             foreign key (mno) references tbl_memberInfo (mno),
-                             foreign key (ono) references tbl_order (ono),
-                             foreign key (pno) references tbl_product (pno)
+    mno int(30) not null, -- 회원번호(tbl_memberInfo)
+    ono varchar(50) not null, -- 주문번호(tbl_order)
+    newOno varchar(50) default '-', -- 처리 후 신규발행한 주문서 번호
+    pno int(30) not null,  -- 상품번호(tbl_product)
+    eno int(30) primary key auto_increment, -- 취소/반품/교환 번호
+    exCategory varchar(30) not null, -- 분류(취소/반품/교환 중 택1)
+    exContent varchar(1000) not null, -- 사유 내용
+    exStatus varchar(50) not null, -- 진행 상태(접수중, 접수완료, 처리완료)
+    exDate DATETIME default now(), -- 신청일
+    exEndDate DATETIME, -- 처리 완료일
+    eOptionName varchar(50),
+    eOption varchar(50),
+    eOptionName2 varchar(50),
+    eOption2 varchar(50),
+    color varchar(50),
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (ono) references tbl_order (ono),
+    foreign key (pno) references tbl_product (pno)
 );
 
 alter table tbl_exchange add newOno varchar(50) default '-';
@@ -311,75 +326,131 @@ alter table tbl_exchange add newOno varchar(50) default '-';
 
 -- 취소/반품/교환 신청 첨부파일 테이블
 create table tbl_exchangeFiles(
-                                  eno int(30) not null, -- 취소/반품/교환 신청번호
-                                  ino int(30) primary key auto_increment, -- 파일번호
-                                  img_name varchar(500) not null, -- 파일 이름
-                                  path varchar(500) not null, -- 파일 경로
-                                  uuid varchar(500) not null, -- 파일 UUID
-                                  foreign key (eno) references tbl_exchange (eno)
+    eno int(30) not null, -- 취소/반품/교환 신청번호
+    ino int(30) primary key auto_increment, -- 파일번호
+    img_name varchar(500) not null, -- 파일 이름
+    path varchar(500) not null, -- 파일 경로
+    uuid varchar(500) not null, -- 파일 UUID
+    foreign key (eno) references tbl_exchange (eno)
 );
 
 -- 메일 테이블 -- SB
 create table tbl_mail(
-                         mno int,
-                         email varchar(50)  null,
-                         mailNo int auto_increment primary key,
-                         subject varchar(70),
-                         text varchar(700),
-                         sendDate DATETIME default now(),
-                         reception varchar(1000),
-                         foreign key (mno) references tbl_memberInfo (mno)
+    mno int,
+    email varchar(50)  null,
+    mailNo int auto_increment primary key,
+    subject varchar(70),
+    text varchar(700),
+    sendDate DATETIME default now(),
+    reception varchar(1000),
+    foreign key (mno) references tbl_memberInfo (mno)
 );
 
 -- 상품 이미지 테이블 -- SB
 create table tbl_product_img(
-                                ino int primary key auto_increment,
-                                pno int,
-                                pName varchar(50),
-                                pThumbnail varchar(500),
-                                pImage varchar(300), -- 파일명
-                                pImagePath varchar(500) -- 저장경로
+    ino int primary key auto_increment,
+    pno int,
+    pName varchar(50),
+    pThumbnail varchar(500),
+    pImage varchar(300), -- 파일명
+    pImagePath varchar(500) -- 저장경로
 );
 
 -- 상품 정보 이미지 테이블 -- SB
 create table tbl_product_infoImg(
-                                    infoNo int primary key auto_increment,
-                                    pno int,
-                                    pName varchar(50),
-                                    pInformation varchar(300),
-                                    pInfoPath varchar(500) -- 저장경로
+    infoNo int primary key auto_increment,
+    pno int,
+    pName varchar(50),
+    pInformation varchar(300),
+    pInfoPath varchar(500) -- 저장경로
 );
 
 -- 배송 현황 테이블 -- SW
 create table tbl_delivery(
-                             mno int(50) not null, -- 회원번호
-                             oINo int(50) not null, -- 주문상품 번호
-                             dno int primary key auto_increment, -- 배송 번호
-                             dCompanyName varchar(50) not null, -- 택배사 이름
-                             dCategory varchar(50) not null, -- 택배 종류(일반구매/반품/교환)
-                             dOption varchar(50) not null, -- 택배 옵션(일반/특급/퀵 등)
-                             dLocation varchar(50), -- 택배 현재 위치
-                             dStartDate DATETIME, -- 배송 시작일
-                             dEndDate DATETIME, -- 배송 종료일
-                             dStatus varchar(50) not null, -- 배송 상태(배송준비중 등)
-                             foreign key (mno) references tbl_memberInfo (mno),
-                             foreign key (oINo) references tbl_orderItem (oINo)
+    mno int(50) not null, -- 회원번호
+    oINo int(50) not null, -- 주문상품 번호
+    dno int primary key auto_increment, -- 배송 번호
+    dCompanyName varchar(50) not null, -- 택배사 이름
+    dCategory varchar(50) not null, -- 택배 종류(일반구매/반품/교환)
+    dOption varchar(50) not null, -- 택배 옵션(일반/특급/퀵 등)
+    dLocation varchar(50), -- 택배 현재 위치
+    dStartDate DATETIME, -- 배송 시작일
+    dEndDate DATETIME, -- 배송 종료일
+    dStatus varchar(50) not null, -- 배송 상태(배송준비중 등)
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (oINo) references tbl_orderItem (oINo)
 );
 
 create table user_tbl(
-                         uNo int auto_increment primary key,
-                         userId varchar(30),
-                         userName varchar(30) not null unique key,
-                         userPassword varchar(30),
-                         title varchar(100) not null,
-                         content varchar(1000) not null,
-                         regDate date,
-                         modDate date
+    uNo int auto_increment primary key,
+    userId varchar(30),
+    userName varchar(30) not null unique key,
+    userPassword varchar(30),
+    title varchar(100) not null,
+    content varchar(1000) not null,
+    regDate date,
+    modDate date
 );
 
-insert into user_tbl (userName,
-                      title, content)
-values ('테스트이름','어깨넓어지기','알아서 넓히세요');
+-- 고객센터_1:1문의 => tbl_personalQ SW신규추가 20220601
+create table tbl_personalQ(
+    pqNo int(30) primary key auto_increment, -- 1:1문의글번호
+    mno int(30) not null, -- 회원번호
+    pqCategory varchar(50) not null, -- 문의글 대분류(상품문의/일반문의)
+    ono varchar(50), -- 주문번호(주문상품문의 시 기재 요청)
+    pno int(30), -- 상품번호(주문상품 + 일반상품문의 시 기재 요청)
+    pqTitle varchar(50) not null, -- 문의글 제목
+    pqContent varchar(1000) not null, -- 문의글 본문
+    pqRegDate DATETIME default now(), -- 문의글 등록일
+    pqReplyTitle varchar(50), -- 답변글 제목 (답변 등록은 업데이트로)
+    pqReplyContent varchar(1000), -- 답변글 본문 (답변 등록은 업데이트로)
+    pqReplyDate DATETIME, -- 문의글 답변일 (답변 등록할때 별도 업데이트 필요)
+    pqStatus varchar(50) default '접수완료', -- 접수완료 -> 답변완료
+    foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (pno) references tbl_product (pno)
+);
 
+insert into tbl_personalQ (mno, pqCategory,
+                           pqTitle, pqContent, pqRegDate
+                           )
+values (2,'일반문의','제목제목테스트','안녕안녕',now());
+
+-- 고객센터_1:1문의 첨부파일 SW신규추가 20220601
+create table tbl_personalQFiles(
+    pqNo int(30) not null, -- 1:1문의글번호
+    pqfNo int(30) primary key auto_increment, -- 파일번호
+    img_name varchar(500) not null, -- 파일 이름
+    path varchar(500) not null, -- 파일 경로
+    uuid varchar(500) not null, -- 파일 UUID
+    foreign key (pqNo) references tbl_personalQ (pqNo)
+);
+
+-- BS board
+create table board_tbl(
+    uNo int auto_increment primary key,
+    userId varchar(50),
+    userName varchar(30) not null,
+    userPassword varchar(30),
+    title varchar(100) not null,
+    content varchar(1000) not null,
+    regDate date,
+    modDate date,
+    imgPath varchar(500)
+);
+
+-- BS reply
+create table reply_tbl(
+    rNo int auto_increment primary key,
+    uNo int not null ,
+    reply varchar(1000) not null,
+    replyer varchar(50) not null,
+    replyDate date,
+    modDate date,
+    foreign key (uNo) references board_tbl(uNo)
+);
 
 commit;
+
+
+
+

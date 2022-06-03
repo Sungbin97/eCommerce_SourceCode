@@ -124,7 +124,8 @@ public class PersonalQServiceImpl implements PersonalQService{
     @Override // 1:1문의글 삭제
     public int remove(int pqNo) {
         log.info("PersonalQService => remove 실행 => 받은 pqNo: "+pqNo);
-        int result = personalQMapper.delete(pqNo);
+        personalQFilesMapper.delete(pqNo); // 첨부파일 먼저 삭제
+        int result = personalQMapper.delete(pqNo); // 글 삭제
         log.info("PersonalQService => remove 실행 후 삭제된 데이터 개수: "+result);
         return result;
     }
