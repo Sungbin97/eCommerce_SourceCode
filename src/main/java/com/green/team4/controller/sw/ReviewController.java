@@ -6,20 +6,14 @@ import com.green.team4.service.sw.ExchangeService;
 import com.green.team4.service.sw.OrderService;
 import com.green.team4.service.sw.ReviewMpService;
 import com.green.team4.vo.JH.Product_optVO;
-import com.green.team4.vo.sw.ExchangeVO;
-import com.green.team4.vo.sw.OrderItemVO;
-import com.green.team4.vo.sw.OrderVO;
-import com.green.team4.vo.sw.ReviewMpVO;
+import com.green.team4.vo.sw.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,13 +29,19 @@ public class ReviewController {
     private final ReviewMpService reviewMpService;
 
     @GetMapping("/list") // 내가 쓴 리뷰 글 List 가져오기
-    public void reviewList(int mno, Model model){
+    public void reviewList(int mno,
+                           @ModelAttribute SearchVO searchVO,
+                           Model model){
         log.info("OrderController => reviewList(GET) 실행 => 받은 mno: "+mno);
-        List<ReviewMpVO> reviewList = reviewMpService.readAllByMno(mno); // 접속 회원이 작성한 리뷰 모두 가져오기
-        model.addAttribute("reviewList",reviewList);
+        log.info("OrderController => reviewList(GET) 실행 => 받은 searchVO: "+searchVO);
+        List<ReviewMpVO> reviewList = reviewMpService.readAllByMnoSearch(searchVO); // 접속 회원이 작성한 리뷰 모두 가져오기
         reviewList.forEach(i->{
             log.info(i);
         });
+
+        model.addAttribute("reviewList",reviewList);
+        model.addAttribute("mno",mno);
+        model.addAttribute("searchVO",searchVO);
     }
 
     @GetMapping("/read")

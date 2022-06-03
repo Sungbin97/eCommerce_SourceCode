@@ -30,6 +30,8 @@ public class MemberInfoServiceImpl implements MemberInfoService{
     private final ShipmentMapper shipmentMapper;
     private final MemberInfoMapper memberInfoMapper;
     private final DeleteMemMapper deleteMemMapper;
+    private final PersonalQMapper personalQMapper;
+    private final PersonalQFilesMapper personalQFilesMapper;
 
 
     // 회원정보 전체 가져오기
@@ -125,6 +127,13 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         reviewList.forEach(i->{
             reviewFilesMpMapper.delete(i.getRno()); // 첨부파일 삭제
             reviewMpMapper.delete(i.getRno()); // 글 삭제
+        });
+
+        // 문의글 삭제
+        List<PersonalQVO> pqList = personalQMapper.getAllByMno(mno);
+        pqList.forEach(i->{
+            personalQFilesMapper.delete(i.getPqNo());
+            personalQMapper.delete(i.getPqNo());
         });
 
         // 배송 데이터 삭제

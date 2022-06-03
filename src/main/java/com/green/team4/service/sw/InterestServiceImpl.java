@@ -3,6 +3,7 @@ package com.green.team4.service.sw;
 import com.github.pagehelper.PageHelper;
 import com.green.team4.mapper.sw.InterestMapper;
 import com.green.team4.vo.sw.InterestVO;
+import com.green.team4.vo.sw.SearchVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -36,8 +37,19 @@ public class InterestServiceImpl implements InterestService{
     public List<InterestVO> readAll(int mno, int pageNum) { // 찜목록 전체 가져오기(mno 단위)
         log.info("InterestService => readAll 실행 => 받은 mno: "+mno);
         log.info("InterestService => readAll 실행 => 받은 pageNum: "+pageNum);
-        PageHelper.startPage(pageNum,5); // 가져올 데이터 페이지 번호, 페이지 당 데이터 개수
         List<InterestVO> list = interestMapper.getAll(mno);
+        log.info("InterestService => readAll 실행 후 받은 list: "+list);
+        return list;
+    }
+
+    @Override
+    public List<InterestVO> readAllWithSearch(int mno, int pageNum,SearchVO searchVO) { // 찜목록 전체 가져오기(mno 단위)
+        log.info("InterestService => readAllWithSearch 실행 => 받은 mno: "+mno);
+        log.info("InterestService => readAllWithSearch 실행 => 받은 pageNum: "+pageNum);
+        log.info("InterestService => readAllWithSearch 실행 => 받은 searchVO: "+searchVO);
+        searchVO.setMno(mno); // 검색 vo에 mno set
+        PageHelper.startPage(pageNum,5); // 가져올 데이터 페이지 번호, 페이지 당 데이터 개수
+        List<InterestVO> list = interestMapper.getAllWithSearch(searchVO);
         log.info("InterestService => readAll 실행 후 받은 list: "+list);
         return list;
     }

@@ -23,4 +23,8 @@ public class InterestVO {
     private String pName;
     private int pPrice;
     private String pImage;
+
+    // 검색 기능
+    private String keyword;
+    private String search;
 }

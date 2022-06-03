@@ -6,6 +6,7 @@ import com.green.team4.mapper.sw.ReviewMpMapper;
 import com.green.team4.vo.sw.OrderItemVO;
 import com.green.team4.vo.sw.ReviewFilesMpVO;
 import com.green.team4.vo.sw.ReviewMpVO;
+import com.green.team4.vo.sw.SearchVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,7 @@ public class ReviewMpServiceImpl implements ReviewMpService{
         log.info("ReviewMpService => readAllByPno 실행 => 받은 pno: "+pno);
 
         // 리뷰 글 모두 가져오기
-        List<ReviewMpVO> reviewList = reviewMpMapper.getAllByMno(pno);
+        List<ReviewMpVO> reviewList = reviewMpMapper.getAllByPno(pno);
         log.info("ReviewMpService => readAllByPno 실행 후 받은 reviewList: "+reviewList);
 
         // 리뷰 첨부파일 모두 가져오기
@@ -73,6 +74,25 @@ public class ReviewMpServiceImpl implements ReviewMpService{
 
         // 리뷰 글 모두 가져오기
         List<ReviewMpVO> reviewList = reviewMpMapper.getAllByMno(mno);
+        log.info("ReviewMpService => readAllByMno 실행 후 받은 reviewList: "+reviewList);
+
+        // 리뷰 첨부파일 모두 가져오기
+        List<ReviewMpVO> resultList = new ArrayList<>();
+
+        reviewList.forEach(reviewMpVO -> {
+            List<ReviewFilesMpVO> fileList = reviewFilesMpMapper.getAll(reviewMpVO.getRno());
+            reviewMpVO.setReviewFilesList(fileList);
+            resultList.add(reviewMpVO);
+        });
+        return resultList;
+    }
+
+    @Override
+    public List<ReviewMpVO> readAllByMnoSearch(SearchVO searchVO) { // 리뷰 가져오기 (mno 단위)
+        log.info("ReviewMpService => readAllByMno 실행 => 받은 searchVO: "+searchVO);
+
+        // 리뷰 글 모두 가져오기
+        List<ReviewMpVO> reviewList = reviewMpMapper.getAllByMnoSearch(searchVO);
         log.info("ReviewMpService => readAllByMno 실행 후 받은 reviewList: "+reviewList);
 
         // 리뷰 첨부파일 모두 가져오기
