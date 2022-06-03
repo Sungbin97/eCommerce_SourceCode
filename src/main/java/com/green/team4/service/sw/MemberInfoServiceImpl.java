@@ -81,6 +81,8 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         // 탈퇴회원 데이터 입력(tbl_deleteMem) --------------------------------------------------------
         MemberInfoVO memberInfoVO = memberInfoMapper.getOne(mno);
 
+        log.info("들어오나1");
+
         // 기존 회원데이터 덮어쓰기
         DeleteMemVO deleteMemVO = new DeleteMemVO();
         deleteMemVO.setId(memberInfoVO.getId());
@@ -100,10 +102,14 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         deleteMemVO.setGrade(memberInfoVO.getGrade());
         deleteMemVO.setPoint(memberInfoVO.getPoint());
 
+        log.info("들어오나2");
+
         // 회원탈퇴 사유 가져와서 set
         deleteMemVO.setDMCategory(delCategory);
         deleteMemVO.setDMContent(delContent);
         deleteMemVO.setDMDate(LocalDateTime.now());
+
+        log.info("들어오나3");
 
         // DB 저장
         int delSaveCnt = deleteMemMapper.insert(deleteMemVO);
@@ -114,13 +120,16 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         // 찜목록 삭제
         List<InterestVO> interestList = interestMapper.getAll(mno);
         interestList.forEach(i->interestMapper.delete(mno,i.getPno()));
+        log.info("찜목록 삭제 완료");
 
         // 장바구니 삭제
         List<CartVO> cartList = cartMapper.getAll(mno);
         cartList.forEach(i->cartMapper.delete(i.getCno()));
+        log.info("장바구니 삭제 완료");
 
         // 메일 삭제
         mailMapper.delete(mno);
+        log.info("메일 삭제 완료");
 
         // 리뷰글 삭제
         List<ReviewMpVO> reviewList = reviewMpMapper.getAllByMno(mno);
@@ -128,6 +137,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
             reviewFilesMpMapper.delete(i.getRno()); // 첨부파일 삭제
             reviewMpMapper.deleteByRno(i.getRno()); // 글 삭제
         });
+        log.info("리뷰글 삭제 완료");
 
         // 문의글 삭제
         List<PersonalQVO> pqList = personalQMapper.getAllByMno(mno);
@@ -135,10 +145,12 @@ public class MemberInfoServiceImpl implements MemberInfoService{
             personalQFilesMapper.delete(i.getPqNo());
             personalQMapper.delete(i.getPqNo());
         });
+        log.info("문의글 삭제 완료");
 
         // 배송 데이터 삭제
         List<DeliveryVO> deliveryList = deliveryMapper.getAllByMno(mno);
         deliveryList.forEach(i->deliveryMapper.delete(i.getDno()));
+        log.info("배송데이터 삭제 완료");
 
         // 취소/반품/교환 데이터 삭제
         List<ExchangeVO> exList = exchangeMapper.getAll(mno);
@@ -146,6 +158,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
             exchangeFilesMapper.delete(e.getEno()); // 신청서 첨부파일 삭제
             exchangeMapper.delete(e.getEno()); // 신청서 삭제
         });
+        log.info("취소반품교환 삭제 완료");
 
         // 주문 내역 삭제
         List<OrderVO> orderList = orderMapper.getAll(mno);
@@ -153,14 +166,17 @@ public class MemberInfoServiceImpl implements MemberInfoService{
             orderItemMapper.delete(o.getOno()); // 주문 상품 삭제
             orderMapper.delete(o.getOno()); // 주문서 삭제
         });
+        log.info("주문내역 삭제 완료");
 
         // 개인 배송지 정보 삭제
         List<ShipmentVO> shipList = shipmentMapper.getAll(mno);
         shipList.forEach(ship->shipmentMapper.delete(ship.getSno())); // 배송지 삭제
+        log.info("개인배송지 삭제 완료");
 
         // 회원정보 삭제
         int delResult = memberInfoMapper.delete(mno);
         log.info("memberInfoMapper 호출 => remove 후 삭제된 개수: "+delResult);
+        log.info("회원 최종 삭제 완료");
 
         return delResult;
     }
