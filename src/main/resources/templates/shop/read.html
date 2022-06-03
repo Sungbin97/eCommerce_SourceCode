@@ -55,7 +55,8 @@
         margin-left: 3px;
     }
     .review_img{
-        width: 80px;
+        width: 180px;
+        margin: 10px;
     }
     .review-sortContainer{
         margin: 20px;
@@ -63,7 +64,39 @@
     .review-sortContainer a{
         margin: 10px;
     }
+    #overlay{
+        position: fixed;
+        top: 0; right: 0; left: 0; bottom: 0;
 
+        background-color: rgba(0, 0, 0, 0.8);
+
+        display: none;
+    }
+
+    #photo{
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+
+        max-width: 80%;
+        max-height: 80%;
+        border: 10px solid white;
+    }
+    .small_img{
+        width: 10px;
+        height: 150px;
+    }
+    .pro-thumb-img-slider{
+        width: 100px;
+    }
+   .review_detail_header{
+       float: left;
+       margin-bottom: 10px;
+   }
+    .modal-dialog{
+        width: 800px;
+        height: 100px;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
@@ -179,7 +212,6 @@
                         </div>
                         <div >
                         <button class="add-to-cart btn_buy first">구매하기</button>
-<!--                            data-bs-toggle="modal" data-bs-target="#exampleModal"-->
                         <button class="add-to-cart btn_cart btn btn-primary second " data-bs-toggle="modal" data-bs-target="#exampleModal"  >장바구니 담기</button>
 
                         </div>
@@ -200,10 +232,10 @@
                         <a href="#"><i class="fa fa-instagram"></i></a>
                         <a href="#"><i class="fa fa-pinterest"></i></a>
                     </div>
+
                 </div>
             </div>
         </div>
-
             <!-- PRODUCT SECTION START -->
             <div class="product-section section pb-120">
                 <br>
@@ -294,6 +326,7 @@
             </div>
         </div>
     </div>
+        <a href="#" data-bs-toggle="modal"  data-bs-target="#quickViewModal" title="Quick View"><i class="pe-7s-look"></i>Quick view</a>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -331,7 +364,95 @@
                 </div>
             </div>
         </div>
-</div>
+        <!-- QUICK VIEW MODAL START-->
+
+
+        <div class="modal fade" id="quickViewModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered" >
+
+
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <div class="row">-->
+<!--                            &lt;!&ndash; QuickView Product Images &ndash;&gt;-->
+<!--                            <div class="col-xl-5 col-md-6 col-12 mb-40">-->
+<!--                                &lt;!&ndash; Tab panes &ndash;&gt;-->
+<!--                                <div class="tab-content mb-10">-->
+<!--                                    <div class="pro-large-img tab-pane active" id="pro-large-img-1">-->
+<!--                                        <img src="/images/food0.jpg" alt="" />-->
+<!--                                    </div>-->
+<!--                                    <div class="pro-large-img tab-pane" id="pro-large-img-2">-->
+<!--                                        <img src="img/product/1.jpg" alt="" />-->
+<!--                                    </div>-->
+<!--                                    <div class="pro-large-img tab-pane" id="pro-large-img-3">-->
+<!--                                        <img src="img/product/3.jpg" alt="" />-->
+<!--                                    </div>-->
+<!--                                    <div class="pro-large-img tab-pane" id="pro-large-img-4">-->
+<!--                                        <img src="img/product/4.jpg" alt="" />-->
+<!--                                    </div>-->
+<!--                                    <div class="pro-large-img tab-pane" id="pro-large-img-5">-->
+<!--                                        <img src="img/product/5.jpg" alt="" />-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash; QuickView Product Thumbnail Slider &ndash;&gt;-->
+<!--                                <div class="pro-thumb-img-slider">-->
+<!--                                    <div><a href="#pro-large-img-1" data-toggle="tab"><<img src="/images/food0.jpg" alt="" /></a></div>-->
+<!--                                    <div><a href="#pro-large-img-2" data-toggle="tab"><img src="img/product/1.jpg" alt="" /></a></div>-->
+<!--                                    <div><a href="#pro-large-img-3" data-toggle="tab"><img src="img/product/3.jpg" alt="" /></a></div>-->
+<!--                                    <div><a href="#pro-large-img-4" data-toggle="tab"><img src="img/product/4.jpg" alt="" /></a></div>-->
+<!--                                    <div><a href="#pro-large-img-5" data-toggle="tab"><img src="img/product/5.jpg" alt="" /></a></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; QuickView Product Details &ndash;&gt;-->
+<!--                            <div class="col-xl-7 col-md-6 col-12 mb-40">-->
+<!--                                <div class="product-details section">-->
+<!--                                    &lt;!&ndash; Title &ndash;&gt;-->
+<!--                                    <h1 class="title">DSR Eiffel chair</h1>-->
+<!--                                    &lt;!&ndash; Price Ratting &ndash;&gt;-->
+<!--                                    <div class="price-ratting section d-flex flex-column flex-sm-row justify-content-between">-->
+<!--                                        &lt;!&ndash; Ratting &ndash;&gt;-->
+<!--                                        <span class="ratting">-->
+<!--                                <i class="fa fa-star active"></i>-->
+<!--                                <i class="fa fa-star active"></i>-->
+<!--                                <i class="fa fa-star active"></i>-->
+<!--                                <i class="fa fa-star active"></i>-->
+<!--                                <i class="fa fa-star active"></i>-->
+<!--                                <span> (01 Customer Review)</span>-->
+<!--                            </span>-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash; Short Description &ndash;&gt;-->
+<!--                                    <div class="short-desc section">-->
+<!--                                        <h5 class="pd-sub-title">Quick Overview</h5>-->
+<!--                                        <p>There are many variations of passages of Lorem Ipsum avaable, b majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. make an ami jani na.</p>-->
+<!--                                    </div>-->
+
+<!--                                    &lt;!&ndash; Usefull Link &ndash;&gt;-->
+<!--                                    <ul class="usefull-link section">-->
+<!--                                        <li><a href="#"><i class="pe-7s-mail"></i> Email to a Friend</a></li>-->
+<!--                                        <li><a href="#"><i class="pe-7s-like"></i> Wishlist</a></li>-->
+<!--                                        <li><a href="#"><i class="pe-7s-print"></i> print</a></li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+            </div>
+        </div>
+
+        <!-- QUICK VIEW MODAL END-->
+        <div class="row">
+            <div class="text-center col-xs-12 mt-30">
+                <a href="#" class="btn load-more-product">load more</a>
+            </div>
+        </div>
+
+    </div>
 
 
 
@@ -820,8 +941,8 @@
                 let str ="";
                 $(list).each(function (i,obj){
                     console.log("obj ",obj)
-                    // let nonactive = 5- obj.rrating
-                    str += '<div class="row" id="">';
+                    str += '<div class="row"  data-bs-toggle="modal" id="review_modal"  data-bs-target="#quickViewModal">';
+                    // str += '<div id="review_modal">'
                     //회원
                     str += '<p class="id_span" value="'+obj.mno+'">'+ obj.mno+'</p>';
                     str += '<span class="ratting float-end">'
@@ -833,6 +954,7 @@
                     //     str += '<i class="fa fa-star "></i>'
                     // }
                     str += '</span>'
+
                     // 상품 정보
                     str += '<div><span><small>상품 : '+ obj.iname+' </small></span>\t '
                     if(obj.icolor != null && obj.icolor != ''){
@@ -846,15 +968,18 @@
                     }
                     str += '<span><small>수량 : '+obj.icount+'</small></span>'
                     str +='</div>'
-                    str += '<div class="review_img_div">'
+                    str += '<div class="review_img_div" >'
                     for(let i=0;i<obj.reviewFilesList.length;i++){
-                       str += '<img class="review_img" src="/display?fileName=' +obj.reviewFilesList[i].imageURL+ '">'
+                        str += '<a class="reviewImg_a"  ><img class="review_img" src="/display?fileName=' +obj.reviewFilesList[i].imageURL+ '"></a>'
                     }
+                    str += '<div id="overlay">'
+                    str += '<img src="" alt="" id="photo">'
+                    str += '</div>'
                     str +='</div>'
                     str += '<div class="reply_bottom_txt">'+ obj.rcontent +'</div>';
                     str += '<br>'
                     str += '<br>'
-                    str += '<input type="hidden" name="review_rno_input" value="'+obj.rno +'">'
+                    str += '<input type="hidden" name="review_rno_input" class="rno_input" value="'+obj.rno +'">'
                     str += '<span class="thumbs" ><small>도움이 돼요!</small><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">\n' +
                         '  <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>\n' +
                         '</svg></span>'
@@ -864,10 +989,15 @@
                     str += '<span><small>추천수 : ' +obj.likeHit +'</small></span>'
                     str += '<div>'
                     str += '<span><small class="date_span">'+formatTime(obj.rregDate) +'</small></span>';
+                    str +='</div>'
                     str += '</div>';
                     str += '<hr>';
+
                 });
-                review_div.html(str)
+
+
+
+            review_div.html(str)
 
                 let review_pageMaker = '';
                 console.log(pageInfo)
@@ -941,6 +1071,109 @@
              commentLike(rno,rmno);
 
 
+
+        })
+        // // 이미지 확대하기
+        // $(".review_div").on("click",".reviewImg_a",function (e){
+        //
+        //
+        //     let photo = $("#photo");
+        //     let img_src=$(this).children("img").attr("src")
+        //     let overlay=$("#overlay")
+        //     photo.attr("src",img_src)
+        //     overlay.css("display","block")
+        // })
+
+
+
+
+
+        // 댓글 상세
+        $(".review_div").on("click","#review_modal",function (e){
+            let rno = $(this).children("input[name='review_rno_input']").val()
+            reviewdetail(rno)
+        })
+        // 함수
+        function reviewdetail(rno){
+            console.log(rno)
+
+            $.getJSON("/rest/getOneReview/" + rno,function (data){
+                let str2 ="";
+                console.log("review data",data)
+                $(data).each(function (index,obj){
+                    str2 += ' <div class="modal-content">'
+                        str2 +='<div class="modal-header" >'
+                            str2 +='<button type="button" class="btn-close" data-bs-dismiss ="modal" aria-label="Close"></button>'
+                         str2 +='</div>'
+                            str2 +='<div class="modal-body">'
+                                str2 +='<div class="row">'
+                                    // <!-- QuickView Product Images -->
+                                str2 +='<div class="col-xl-5 col-md-6 col-12 mb-40">'
+                                    str2 +='<div class="tab-content mb-10">'
+                                        str2 +='<div class="pro-large-img tab-pane active" id="pro-large-img-1">'
+                    // for(let i=0;i<data.reviewFilesList.length;i++){
+                    //     str +='<img src="/display?fileName=' +obj.reviewFilesList[i].imageURL+'">'
+                    // }
+                                        str2 +='<img src="/display?fileName=' +obj.reviewFilesList[0].imageURL+'">'
+                                        str2 +='</div>'
+                                        str2 +='</div>' //tab-content
+                                            // <!-- QuickView Product Thumbnail Slider -->
+                                        str2 +='<div class="pro-thumb-img-slider">'
+                                        str2 +='<div><a data-toggle="tab">'
+                                        str2 +='<img class="small_img" src="/display?fileName=' +obj.reviewFilesList[0].imageURL+'">'
+                                        str2 +='</a>'
+                                        str2 +='</div>'
+                                        str2 +='</div>' //pro-thumb-img-slider
+
+
+                                        str2 +="</div>" //imagebox
+                        // <!-- QuickView Product Details -->
+                    str2 +='<div class="col-xl-7 col-md-6 col-12 mb-40 product_box">'
+                    str2 +='<div class="product-details section">'
+                    // <!-- Title -->
+                    str2 +='<div class="review_detail_header">'
+                    str2 +='<span class="">'+obj.mno+'</span>'
+                    str2 +='</div>'
+                        // <!-- Price Ratting -->
+                    str2 +='<div class="price-ratting section d-flex flex-column flex-sm-row justify-content-between">'
+                    str2 +='<span class="ratting">'
+                         let nonactive = 5- obj.rrating
+                        for(let i=0;i<obj.rrating;i++){
+                            str2 += '<i class="fa fa-star active"></i>'
+                        }
+                        for(let i=0;i<nonactive;i++){
+                            str2 += '<i class="fa fa-star"></i>'
+                        }
+                    // str2 +='<i class="fa fa-star active"></i>'
+                    str2 +='</span>'
+                    str2 +='</div>'
+                    // str += '<span class="ratting float-end">'
+                    // //별점
+                    // for(let i=0;i<obj.rrating;i++){
+                    //     str += '<i class="fa fa-star active"></i>'
+                    // }
+                    // // for(let i=0;i<nonactive;i++){
+                    // //     str += '<i class="fa fa-star "></i>'
+                    // // }
+                    // str += '</span>'
+                        // <!-- Short Description -->
+                    str2+='<div class="short-desc section">'
+                        str2 +='<h5 class="pd-sub-title">Quick Overview</h5>'
+                        str2 +='<p>There are many variations of passages of Lorem Ipsum avaable, b majority have suffered\n' +
+                            '    //                             alteration in some form, by injected humour, or randomised words which don\'t look even\n' +
+                            '    //                             slightly believable. make an ami jani na.</p>'
+                    str2 +='</div>'
+                    str2 +='</div>'
+                    str2 +='</div></div></div>'
+                })
+                $(".modal-dialog-centered").html(str2)
+            })
+
+        }
+
+
+        $(".review_div").on("click","#overlay",function (e){
+            $(this).css("display","none");
 
         })
         function commentLike(rno,rmno){

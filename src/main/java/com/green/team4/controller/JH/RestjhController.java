@@ -57,6 +57,21 @@ public class RestjhController {
         }
         return responseEntity;
     }
+    //리뷰 상세정보 컨트롤러
+    @GetMapping(value = "/getOneReview/{rno}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ReviewMpVO> getOneReview(@PathVariable ("rno") int rno){
+        log.info("getOneReview 입장" );
+
+        ResponseEntity<ReviewMpVO> responseEntity = null;
+
+        try {
+            responseEntity = new ResponseEntity<>( reviewMpService.readOneByRno(rno),HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
+        }
+        return responseEntity;
+    }
 
     // 상품 상세 정보 불러오기 컨트롤러(상세정보 , 배송정보)
     @GetMapping("/getinfo/{pno}")

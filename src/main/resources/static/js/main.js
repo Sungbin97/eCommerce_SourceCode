@@ -176,6 +176,7 @@ $('.product-slider-4').slick({
         },
     ]
 });
+
  
 /*--
     Product Details Thumbnail Slider
