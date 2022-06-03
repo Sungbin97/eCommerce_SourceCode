@@ -68,12 +68,17 @@
         </div>
     </div>
 </body>
+
+<!-- mypage footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+
 <script>
-    $(document).ready(function (){
-        // 뒤로가기 버튼 클릭하면 동작
-        $("#goBack").click(function (){
-            history.back();
-        })
+    // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
+    $("#goBack").click(function (){
+        console.log("들어오나")
+        var mno = $("input[name=mno]").val();
+        console.log(mno)
+        window.location.href = '/sw/mypage/memberInfo/read?mno='+mno;
     })
 </script>
 </html>

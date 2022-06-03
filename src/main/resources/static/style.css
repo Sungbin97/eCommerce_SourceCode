@@ -42,33 +42,33 @@ body {
     line-height: 24px;
 }
 /* BS ADD */
-.bs-div-btn{
-    text-align: center;
-}
-.login-reg-form form textarea{
-    border: 1px solid #ddd;
-    display: block;
-    height: 400px;
-    padding: 7px 15px;
-    width: 100%;
-}
-.login-reg-form form button {
-    /*background-color: #282828;*/
-    /*border: medium none;*/
-    /*color: #fff;*/
-    /*height: 40px;*/
-    /*margin: 0 15px 0 0;*/
-    /*padding: 7px 50px;*/
-    /*text-transform: uppercase;*/
-    /*width: auto;*/
-    border: 1px solid #ddd;
-}
-.login-reg-form form button:hover {
-    background-color: #3f3f3f;
-}
-.bs-paging{
-    text-align: center;
-}
+/*.bs-div-btn{*/
+/*    text-align: center;*/
+/*}*/
+/*.login-reg-form form textarea{*/
+/*    border: 1px solid #ddd;*/
+/*    display: block;*/
+/*    height: 400px;*/
+/*    padding: 7px 15px;*/
+/*    width: 100%;*/
+/*}*/
+/*.login-reg-form form button {*/
+/*    !*background-color: #282828;*!*/
+/*    !*border: medium none;*!*/
+/*    !*color: #fff;*!*/
+/*    !*height: 40px;*!*/
+/*    !*margin: 0 15px 0 0;*!*/
+/*    !*padding: 7px 50px;*!*/
+/*    !*text-transform: uppercase;*!*/
+/*    !*width: auto;*!*/
+/*    border: 1px solid #ddd;*/
+/*}*/
+/*.login-reg-form form button:hover {*/
+/*    background-color: #3f3f3f;*/
+/*}*/
+/*.bs-paging{*/
+/*    text-align: center;*/
+/*}*/
 /* BS ADD END */
 img{
     max-width: 100%;
@@ -733,7 +733,7 @@ input:focus, textarea:focus {
 
 /*-- Page Banner Section --*/
 .page-banner-section {
-    background-image: url("../outside/img/bg/2.jpg");
+    background-image: url("/img/bg/bannerImg_test2.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -3351,7 +3351,7 @@ a.meanmenu-reveal i {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background: rgba(0, 0, 0, 0) url("../outside/img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
+    background: rgba(0, 0, 0, 0) url("/img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
     border: 1px solid #ddd;
     height: 40px;
     padding: 7px 15px;
