@@ -1,6 +1,7 @@
 package com.green.team4.controller.sb;
 
 import com.github.pagehelper.PageInfo;
+import com.green.team4.mapper.JH.OrderPageMapper;
 import com.green.team4.mapper.JH.ShopMapper;
 import com.green.team4.mapper.sb.ProductInfoImgMapper;
 import com.green.team4.mapper.sb.ProductImgMapper;
@@ -13,7 +14,9 @@ import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sb.ProductImgVO;
 import com.green.team4.vo.sb.ProductInfoImgVO;
 import com.green.team4.vo.sb.ProductVO;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -38,6 +41,8 @@ import java.util.stream.Collectors;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@Getter
+@Setter
 public class ProductController {
     @Value("${com.green.upload.path}") //application.properties 변수
     private String uploadPath;
@@ -48,6 +53,8 @@ public class ProductController {
     private final ProductInfoImgMapper productImgInfoMapper;
     private final PagingService pagingService;
     private final ShopMapper shopMapper;
+
+    private final OrderPageMapper orderPageMapper;
 
     private String makeFolder(){ // 파일 저장 폴더 만들기(탐색기)
         String str = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
@@ -190,25 +197,24 @@ public class ProductController {
     }
 
     @PostMapping("/modify")
-    public String modifyPost(ProductVO vo, Product_optVO optVO,ProductImgVO imgVO, ProductInfoImgVO infoVO, Model model){
-        log.info(vo.getPno()+"번 상품 수정");
-        model.addAttribute("product", vo);
-        productService.update(vo);
-        productOptMapper.update(optVO);
-        productImgMapper.update(imgVO);
-        productImgInfoMapper.update(infoVO);
-        return "redirect:/sb/product/modify?pno="+vo.getPno();
-    }
+    public String modifyPost(Product_optVO optVO){
+        System.out.println("productModify optVO: " + optVO);
 
-//    @ResponseBody
-//    @RequestMapping(value = "/getAmount", method = RequestMethod.POST)
-//    public Product_optVO amountAjax(@RequestBody Product_optVO optVO, Model model) throws Exception {
-//        System.out.println("ajax optVO: " + optVO);
-//        Product_optVO result = shopMapper.getOptionPrice(optVO);
-//        model.addAttribute("amount", result);
-//
-//        return result;
-//    }
+        Product_optVO product_optVO = new Product_optVO();
+        product_optVO.setPno(optVO.getPno());
+        product_optVO.setPColor(optVO.getPColor());
+        product_optVO.setPOption(optVO.getPOption());
+        product_optVO.setPOption2(optVO.getPOption2());
+        System.out.println("product_optVO: " + product_optVO);
+
+        Product_optVO optVO2 = shopMapper.getProductWithOpt(product_optVO);
+        System.out.println("optVO2: " + optVO2);
+        product_optVO.setPAmount(optVO.getPAmount());
+
+        orderPageMapper.deductStockWithOpt(product_optVO);
+
+        return "redirect:/sb/product/modify?pno="+optVO.getPno();
+    }
 
     @PostMapping("/getAmount")
     public ResponseEntity<Product_optVO> amountAjax(@RequestBody Product_optVO optVO){
@@ -218,8 +224,25 @@ public class ProductController {
         log.info("--------------------------------------");
 
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    @PostMapping("/modifyAmount")
+    public ResponseEntity<Product_optVO> amountModifyAjax(@RequestBody Product_optVO optVO){
 
+        Product_optVO product_optVO = new Product_optVO();
+        product_optVO.setPno(optVO.getPno());
+        product_optVO.setPColor(optVO.getPColor());
+        product_optVO.setPOption(optVO.getPOption());
+        product_optVO.setPOption2(optVO.getPOption2());
+        System.out.println("product_optVO: " + product_optVO);
 
+        Product_optVO optVO2 = shopMapper.getProductWithOpt(product_optVO);
+        System.out.println("optVO2: " + optVO2);
+        product_optVO.setPAmount(optVO.getPAmount());
+
+        orderPageMapper.deductStockWithOpt(product_optVO);
+        Product_optVO result = shopMapper.getProductWithOpt(product_optVO);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/remove")
