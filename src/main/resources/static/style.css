@@ -41,35 +41,6 @@ body {
     font-size: 14px;
     line-height: 24px;
 }
-/* BS ADD */
-/*.bs-div-btn{*/
-/*    text-align: center;*/
-/*}*/
-/*.login-reg-form form textarea{*/
-/*    border: 1px solid #ddd;*/
-/*    display: block;*/
-/*    height: 400px;*/
-/*    padding: 7px 15px;*/
-/*    width: 100%;*/
-/*}*/
-/*.login-reg-form form button {*/
-/*    !*background-color: #282828;*!*/
-/*    !*border: medium none;*!*/
-/*    !*color: #fff;*!*/
-/*    !*height: 40px;*!*/
-/*    !*margin: 0 15px 0 0;*!*/
-/*    !*padding: 7px 50px;*!*/
-/*    !*text-transform: uppercase;*!*/
-/*    !*width: auto;*!*/
-/*    border: 1px solid #ddd;*/
-/*}*/
-/*.login-reg-form form button:hover {*/
-/*    background-color: #3f3f3f;*/
-/*}*/
-/*.bs-paging{*/
-/*    text-align: center;*/
-/*}*/
-/* BS ADD END */
 img{
     max-width: 100%;
     -webkit-transition: all 0.3s ease-out 0s;
@@ -145,6 +116,38 @@ p {
     color: #999999;
     margin-bottom: 15px;
 }
+/* BS ADD */
+.bs-div-btn{
+    text-align: center;
+}
+.login-reg-form form textarea{
+    border: 1px solid #ddd;
+    display: block;
+    height: 400px;
+    padding: 7px 15px;
+    width: 100%;
+}
+.login-reg-form form button {
+    /*background-color: #282828;*/
+    /*border: medium none;*/
+    /*color: #fff;*/
+    /*height: 40px;*/
+    /*margin: 0 15px 0 0;*/
+    /*padding: 7px 50px;*/
+    /*text-transform: uppercase;*/
+    /*width: auto;*/
+    border: 1px solid #ddd;
+}
+.login-reg-form form button:hover {
+    background-color: #3f3f3f;
+}
+.bs-paging{
+    text-align: center;
+}
+/* BS ADD END */
+
+
+
 
 blockquote {
     background-color: #f7f7f7;
@@ -1961,9 +1964,29 @@ a.meanmenu-reveal i {
     margin-bottom: 27px;
     text-transform: capitalize;
 }
+/*JH추가*/
+.product-details2 {
+    padding-left: 40px;
+    padding-top: 5px;
+}
+.product-details2 .title {
+    color: #565656;
+    display: block;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 27px;
+    text-transform: capitalize;
+}
+.product-details2 .ratting i.active {
+    color: #ffc741;
+}
 /*-- Product Price & Ratting --*/
 .price-ratting {
     margin-bottom: 38px;
+}
+/*JH추가*/
+.price-ratting {
+    margin-bottom: 10px;
 }
 /*-- Price --*/
 .product-details .price {
@@ -2528,6 +2551,7 @@ a.meanmenu-reveal i {
   08. Blog Section
 --------------------------------------*/
 /*-- Home Blog Item Style --*/
+
 .home-blog-item .image {
     display: block;
     margin-right: 35px;
@@ -3202,7 +3226,7 @@ a.meanmenu-reveal i {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background: rgba(0, 0, 0, 0) url("../outside/img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
+    background: rgba(0, 0, 0, 0) url("img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
     border: 1px solid #ddd;
     height: 40px;
     padding: 7px 15px;
@@ -3346,12 +3370,11 @@ a.meanmenu-reveal i {
     padding: 7px 15px;
     width: 100%;
 }
-
 .login-reg-form form select {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background: rgba(0, 0, 0, 0) url("/img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
+    background: rgba(0, 0, 0, 0) url("img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
     border: 1px solid #ddd;
     height: 40px;
     padding: 7px 15px;
@@ -3366,22 +3389,11 @@ a.meanmenu-reveal i {
     margin-right: 10px;
     margin-top: 3px;
 }
-.login-reg-form form button[type="text"]{
+.login-reg-form form input[type="submit"]{
     background-color: #282828;
     border: medium none;
     color: #fff;
-    float: right;
-    height: 40px;
-    margin: 0 15px 0 0;
-    padding: 7px 50px;
-    text-transform: uppercase;
-    width: auto;
-}
-.login-reg-form form input[type="submit"] {
-    background-color: #282828;
-    border: medium none;
-    color: #fff;
-    float: right;
+    float: left;
     height: 40px;
     margin: 0 15px 0 0;
     padding: 7px 50px;
@@ -3390,9 +3402,6 @@ a.meanmenu-reveal i {
 }
 
 .login-reg-form form input[type="submit"]:hover {
-    background-color: #3f3f3f;
-}
-.login-reg-form form button[type="text"]:hover {
     background-color: #3f3f3f;
 }
 .login-reg-form form a {
