@@ -30,7 +30,14 @@
     <!-- review List -->
     <div class="page-section section pt-120 pb-120">
         <div class="container">
-
+            <div>
+                <form action="/sw/mypage/review/list" method="get">
+                    <label>상품명 검색</label>
+                    <input type="text" id="search" name="search">
+                    <input type="hidden" id="mno" name="mno" th:value="${mno}">
+                    <button style="background: #191c1f; color: white" type="submit" id="searchBtn">검색</button>
+                </form><br/>
+            </div>
             <div class="isotope-grid row">
                 <div class="isotope-item ptable col-xl-3 col-lg-4 col-md-6 col-12 mb-50" th:each="review : ${reviewList}">
                     <div class="product-item product-item-2 text-center">
@@ -39,12 +46,13 @@
                         <div class="product-img">
                             <!-- Image -->
                             <a class="image" th:href="@{/sw/mypage/review/read(rno=${review.rno})}"> <!-- 리뷰 세부조회 연결 -->
-                                <img th:src="|/display?fileName=${review.reviewFilesList[0].getThumbnailURL}|" alt=""> <!-- 첨부파일 중 맨 첫번째 사진만 show -->
+                                <img th:if="${review.reviewFilesList.size() >= 1}" th:src="|/display?fileName=${review.reviewFilesList[0].getThumbnailURL}|" alt=""> <!-- 첨부파일 중 맨 첫번째 사진만 show -->
+                                <img th:if="${review.reviewFilesList.size() == 0}" src="/images/clothes1.jpg" alt=""> <!-- 첨부파일 없으면 기본 사진 띄우기 -->
                             </a>
                             <!-- Action Button -->
-                            <div class="action-btn-2">
-                                <a th:href="@{/shop/read(pno=${review.pno},mno=${review.mno})}" data-bs-toggle="modal"  data-bs-target="#quickViewModal" title="상품보러가기"><i class="pe-7s-look"></i></a>
-                            </div>
+<!--                            <div class="action-btn-2">-->
+<!--                                <a th:href="@{/shop/read(pno=${review.pno},mno=${review.mno})}" data-bs-toggle="modal"  data-bs-target="#quickViewModal" title="상품보러가기"><i class="pe-7s-look"></i></a>-->
+<!--                            </div>-->
                         </div>
                         <!-- Portfolio Info -->
                         <div class="product-info">

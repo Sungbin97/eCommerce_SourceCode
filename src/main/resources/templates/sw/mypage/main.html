@@ -7,21 +7,6 @@
     <title>mypage-main</title>
 </head>
 
-<!-- 그래프용 style -->
-<style>
-    #chartdiv {
-        width: 100%;
-        height: 300px;
-    }
-
-    <!-- 버튼용 style -->
-    #mainBtn {
-        width: 300%;
-        height: 300px;
-    }
-</style>
-
-
 <body>
     <!-- mypage header fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
@@ -68,12 +53,8 @@
                     <div class="checkout-form">
                         <div class="row">
                             <div class="coupon-form mb-30">
-                                <h3>쇼핑 요약</h3>
+                                <h3>쇼핑</h3>
                                 <p>쇼핑 정보를 확인해보세요</p>
-                                <!-- Chart -->
-<!--                                <div>-->
-<!--                                    <div id="chartdiv"></div>-->
-<!--                                </div>-->
                                 <div>
                                     <button class="btn" type="button" name="interest">
                                         찜한상품 <span class="badge" name="itrCnt" th:text="${itrCnt}"></span>
@@ -96,11 +77,35 @@
                     <div class="checkout-form">
                         <div class="row">
                             <div class="coupon-form mb-30">
-                                <h3>내가 쓴 글 요약</h3>
+                                <h3>내가 쓴 글</h3>
                                 <p>작성한 글을 확인해보세요</p>
                                 <div>
                                     <button class="btn" type="button" name="review">
                                         상품 리뷰 <span class="badge" name="rCnt" th:text="${rCnt}"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 나의 문의내역 요약 -->
+                    <div class="checkout-form">
+                        <div class="row">
+                            <div class="coupon-form mb-30">
+                                <h3>나의 문의내역</h3>
+                                <p>문의내역을 확인해보세요</p>
+                                <br/>
+                                <label>
+                                    <span class="required">*</span>
+                                    <a style="font-size: medium; font-weight: bold; color: #191c1f"
+                                       th:href="@{/sw/mypage/personalQ/regQ(mno=${mno})}">
+                                        1:1문의 신규등록하기(클릭)
+                                    </a>
+                                </label>
+                                <br/>
+                                <div>
+                                    <button class="btn" type="button" name="personalQ">
+                                        1:1문의내역 <span class="badge" name="pqCnt" th:text="${pqCnt}"></span>
                                     </button>
                                 </div>
                             </div>
@@ -131,10 +136,6 @@
     </div>
     <!-- PAGE SECTION END -->
 
-
-
-
-
     <!-- 페이지 진입한 회원의 mno (hidden) -->
     <input type="hidden" th:name="mno" th:value="${mno}">
 
@@ -142,10 +143,6 @@
 
 <!-- 카카오지도 API & 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a47cc80dbbabed24ab87dc231f336fc&libraries=services,clusterer,drawing"></script>
-<!-- 그래프용 Resources -->
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
@@ -170,6 +167,7 @@
             else if(pageName === 'order') window.location.href = '/sw/mypage/order/list?mno='+mno;
             else if(pageName === 'exchange') window.location.href = '/sw/mypage/exchange/list?mno='+mno;
             else if(pageName === 'review') window.location.href = '/sw/mypage/review/list?mno='+mno;
+            else if(pageName === 'personalQ') window.location.href = '/sw/mypage/personalQ/list?mno='+mno;
         })
 
         // 카카오 지도 API ---------------------------------------------------------------------------------------
@@ -260,107 +258,6 @@
         $("button[name=curLocationBtn]").click(function (){
             getCurrentPosBtn();
         })
-
-
-        // Chart 컨트롤 ---------------------------------------------------------------------------------------
-
-        am5.ready(function() {
-
-            // Create root element
-            var root = am5.Root.new("chartdiv");
-
-            // Set themes
-            root.setThemes([
-                am5themes_Animated.new(root)
-            ]);
-
-            // Create chart
-            var chart = root.container.children.push(am5xy.XYChart.new(root, {
-                panX: true,
-                panY: true,
-                wheelX: "panX",
-                wheelY: "zoomX",
-                pinchZoomX:true
-            }));
-
-            // Add cursor
-            var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
-            cursor.lineY.set("visible", false);
-
-            // Create axes
-            var xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
-            xRenderer.labels.template.setAll({
-                rotation: -90,
-                centerY: am5.p50,
-                centerX: am5.p100,
-                paddingRight: 15
-            });
-            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
-                maxDeviation: 0.3,
-                categoryField: "name",
-                renderer: xRenderer,
-                tooltip: am5.Tooltip.new(root, {})
-            }));
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                maxDeviation: 0.3,
-                renderer: am5xy.AxisRendererY.new(root, {})
-            }));
-
-            // Create series
-            var series = chart.series.push(am5xy.ColumnSeries.new(root, {
-                name: "Series 1",
-                xAxis: xAxis,
-                yAxis: yAxis,
-                valueYField: "value",
-                sequencedInterpolation: true,
-                categoryXField: "name",
-                tooltip: am5.Tooltip.new(root, {
-                    labelText:"{valueY}"
-                })
-            }));
-
-            series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
-            series.columns.template.adapters.add("fill", function(fill, target) {
-                return chart.get("colors").getIndex(series.columns.indexOf(target));
-            });
-
-            series.columns.template.adapters.add("stroke", function(stroke, target) {
-                return chart.get("colors").getIndex(series.columns.indexOf(target));
-            });
-
-            // Set data
-            var data = [];
-            // for (let i = 0; i < 100; i++) {
-            //     data.push({
-            //         country: "5"+"/"+i,
-            //         value: i
-            //     })
-            // }
-            data.push({
-                    name:"찜한 상품",
-                    value:parseInt($("span[name=itrCnt]").text())
-                },{
-                    name:"장바구니",
-                    value:parseInt($("span[name=cartCnt]").text())
-                },{
-                    name:"주문개수",
-                    value:parseInt($("span[name=orderCnt]").text())
-                },{
-                    name:"취소/반품/교환",
-                    value:parseInt($("span[name=exCnt]").text())
-                }
-            )
-            console.log(data);
-
-            xAxis.data.setAll(data);
-            series.data.setAll(data);
-
-            // Make stuff animate on load
-            series.appear(1000);
-            chart.appear(1000, 100);
-
-        }); // end am5.ready()
-
 
     })
 

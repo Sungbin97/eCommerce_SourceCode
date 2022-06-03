@@ -62,6 +62,22 @@
 
 
 
+    <!-- tbl_review 데이터 전체 가져오기(mno 단위) -->
+    <select id="getAllByMnoSearch" resultType="com.green.team4.vo.sw.ReviewMpVO">
+        select tbl_review.rno, tbl_review.pno, tbl_review.mno, tbl_review.oINo, tbl_review.rRating,
+               tbl_review.rContent, tbl_review.LIKEHIT, tbl_review.rRegdate, tbl_review.rUpdatedate,
+               tbl_orderItem.iName, tbl_orderItem.iOption, tbl_orderItem.iOptionName, tbl_orderItem.iOption2,
+               tbl_orderItem.iOptionName2, tbl_orderItem.iColor, tbl_orderItem.iPrice, tbl_orderItem.iDiscount,
+               tbl_orderItem.iDisPrice, tbl_orderItem.iCount, tbl_orderItem.iSavePoint, tbl_orderItem.iTotalPrice
+        from tbl_review
+        left outer join tbl_orderItem on tbl_review.oINo = tbl_orderItem.oINo
+        where mno=#{mno}
+        <if test="search != null">
+            AND tbl_orderItem.iName LIKE CONCAT('%',#{search},'%')
+        </if>
+        order by mno
+    </select>
+
     <!-- tbl_review 데이터 하나 가져오기(mno 단위) -->
     <select id="getOneByRno" resultType="com.green.team4.vo.sw.ReviewMpVO">
         select tbl_review.rno, tbl_review.pno, tbl_review.mno, tbl_review.oINo, tbl_review.rRating,

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-memberInfo-memDelete</title>
+    <title>personalQ-regQ</title>
 </head>
 
 <body>
@@ -17,10 +16,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-banner-content">
-                        <h1 th:text="'리뷰등록'"></h1>
+                        <h1 th:text="'1:1문의글 등록'"></h1>
                         <ul class="breadcrumb">
-                            <li><a href="#" th:id="goBack">orderRead</a></li>
-                            <li class="active">regReview</li>
+                            <li><a href="#" th:id="goBack">list</a></li>
+                            <li class="active">regQ</li>
                         </ul>
                     </div>
                 </div>
@@ -33,47 +32,57 @@
             <div class="row">
                 <div class="col-lg-8 col-12 mx-auto">
                     <div class="login-reg-form">
-                        <form action="/sw/mypage/order/regReview" method="post">
+                        <form action="/sw/mypage/personalQ/regQ" method="post">
                             <div class="row">
-                                <h3>리뷰 등록</h3>
+                                <h3>1:1문의글 등록</h3>
                                 <p>구매하신 상품 후기를 적어주세요</p>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <!-- 구매상품 정보 -->
-                                <h4>상품 정보</h4>
-                                <div class="shipList col-xs-12 mb-20">
-                                    <ul>
-                                        <li>
-                                            <hr/>
-                                            <input type="hidden" name="mno" th:value="${mno}">
-                                            <input type="hidden" name="pno" th:value="${orderItemVO.pno}">
-                                            <input type="hidden" name="oINo" th:value="${orderItemVO.oINo}">
-                                            <div style="font-size: large" name="iName">상품명: [[${orderItemVO.iName}]]</div><br/>
-                                            <div name="iOption">구매일자: [[${orderDate}]]</div>
-                                            <div name="iOption">[[${orderItemVO.iOptionName}]]: [[${orderItemVO.iOption}]]</div>
-                                            <div name="iOption2">[[${orderItemVO.iOptionName2}]]: [[${orderItemVO.iOption2}]]</div>
-                                            <div name="iColor">색상: [[${orderItemVO.iColor}]]</div>
-                                            <div name="iCount">구매수량: [[${orderItemVO.iCount}]]</div><br/>
-                                            <div style="font-size: large" name="iTotalPrice">결제금액: [[${orderItemVO.iTotalPrice}]] 원</div>
-                                            <hr/>
-                                        </li>
-                                    </ul>
-                                </div><br/>
-
-                                <!-- 리뷰 작성 영역 -->
-                                <h4>리뷰 작성</h4>
-                                <p>구매하신 상품 후기를 작성해주세요</p>
-                                <br/>
-                                <br/>
                                 <div class="col-xs-12 mb-20">
-                                    <label>평점</label>
-                                    <div class="starrr"></div>
-                                    <input type="hidden" name="rRating">
+
                                 </div>
                                 <div class="col-xs-12 mb-20">
-                                    <label>리뷰</label>
-                                    <textarea name="rContent" class="form-control" cols="30" rows="10"></textarea>
+
+                                </div>
+                                <!-- 1:1문의글 작성 영역 -->
+                                <input type="hidden" name="mno" th:value="${mno}">
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>신청일자</label>
+                                    <input type="text" th:value="${#calendars.format(#calendars.createNow(),'yyyy-MM-dd HH:mm:ss')}">
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>카테고리 <span class="required">*</span></label>
+                                    <div>
+                                        <select name="pqCategory" size="1" required>
+                                            <option value="none">==카테고리를 선택하세요==</option>
+                                            <option value="주문문의">주문문의</option>
+                                            <option value="상품문의">상품문의</option>
+                                            <option value="일반문의">기타문의</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="ono" class="col-sm-6 col-xs-12 mb-20">
+                                    <label>주문번호 <span class="required">*</span></label>
+                                    <input type="text" name="ono" placeholder="주문번호 입력">
+                                </div>
+                                <div id="pno" class="col-sm-6 col-xs-12 mb-20">
+                                    <label>상품번호 <span class="required">*</span></label>
+                                    <input type="text" name="pno" placeholder="상품번호 입력">
+                                </div>
+                                <div class="col-xs-12 mb-20">
+
+                                </div>
+                                <div class="col-xs-12 mb-20">
+
+                                </div>
+                                <div class="col-xs-12 mb-20">
+                                    <label>제목 <span class="required">*</span></label>
+                                    <input type="text" name="pqTitle" placeholder="제목을 입력해주세요..">
+                                </div>
+                                <div class="col-xs-12 mb-20">
+                                    <label>본문 <span class="required">*</span></label>
+                                    <textarea name="pqContent" class="form-control" cols="30" rows="10" placeholder="문의 내용을 입력해주세요.."></textarea>
                                 </div>
 
                                 <!-- 첨부파일 등록 영역 -->
@@ -93,8 +102,9 @@
                                     </ul>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input value="신청 등록" name="regReview" type="submit">
+                                    <input value="문의 등록" name="regPersonalQ" type="submit">
                                 </div>
+
                             </div>
                         </form>
                     </div>
@@ -107,26 +117,32 @@
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
-<!-- Star -->
-<script th:src="@{/starrr.js}"></script>
-<link th:href="@{/starrr.css}" rel="stylesheet">
-
 <script>
     $(document).ready(function (){
 
-        // 별점
-        var grade = 0;
-        var mno = [[${mno}]]
-        $('.starrr').starrr({
-            rating:grade,
-            change:function (e,value){
-                if(value){
-                    console.log("value: ",value);
-                    grade = value;
-                    $("input[name=rRating]").val(grade);
-                }
+        // 교환 관련 옵션 태그 비활성화 이벤트
+
+        // (1) 페이지 로딩시 default 숨김
+        $("#ono").hide();
+        $("#pno").hide();
+
+        // (2) 상품문의 카테고리 선택 시 활성화
+        $("select[name=pqCategory]").change(function (){
+            if($("select[name=pqCategory]").val() === '주문문의'){
+                $("#ono").show();
+                $("#pno").hide();
+            }
+            else if ($("select[name=pqCategory]").val() === '상품문의'){
+                $("#ono").hide();
+                $("#pno").show();
+            }
+            else{
+                $("#ono").hide();
+                $("#pno").hide();
             }
         })
+
+
 
         // 파일 업로드 -------------------------------------------------------------------------------
 
@@ -219,27 +235,52 @@
         })
 
         // 등록 버튼 누르면~
-        $("input[name=regReview]").click(function (e){
+        $("input[name=regPersonalQ]").click(function (e){
 
             e.preventDefault();
             var str = "";
 
-            // 필수 정보 작성 확인
-            if($("input[name=rRating]").val()==="none"){
+            // 필수 정보 등록 여부 확인 --------------------------------------
+
+            // 카테고리 선택 여부 확인
+            if($("select[name=pqCategory]").val()==="none"){
                 alert("카테고리를 반드시 선택해주세요")
                 return
             }
-            if($("textarea[name=rContent]").val()===""){
-                alert("리뷰를 반드시 작성해주세요")
+            // 주문번호 입력 확인
+            if($("select[name=pqCategory]").val()==="주문문의"){
+                if($("input[name=ono]").val()===""){
+                    alert("주문번호를 반드시 입력해주세요")
+                    return
+                }
+            }
+            // 상품번호 입력 확인
+            if($("select[name=pqCategory]").val()==="상품문의"){
+                if($("input[name=pno]").val()===""){
+                    alert("상품번호를 반드시 입력해주세요")
+                    return
+                }
+            }
+            // 제목 입력 여부 확인
+            if($("input[name=pqTitle]").val()===""){
+                alert("제목을 반드시 선택해주세요")
+                return
+            }
+            // 본문 입력 여부 확인
+            if($("textarea[name=pqContent]").val()===""){
+                alert("본문을 반드시 작성해주세요")
                 return
             }
 
-            // 첨부 이미지 등록
+            // 비어있는 값 없음으로 set
+
+
+            // 첨부 이미지 등록 ----------------------------------------------
             $(".uploadResult li").each(function (i,obj){
                 var target = $(obj)
-                str += "<input type='hidden' name='reviewFilesList["+i+"].img_name' value='"+target.data('name') +"'>";
-                str += "<input type='hidden' name='reviewFilesList["+i+"].path' value='"+target.data('path')+"'>";
-                str += "<input type='hidden' name='reviewFilesList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+                str += "<input type='hidden' name='personalQFilesList["+i+"].img_name' value='"+target.data('name') +"'>";
+                str += "<input type='hidden' name='personalQFilesList["+i+"].path' value='"+target.data('path')+"'>";
+                str += "<input type='hidden' name='personalQFilesList["+i+"].uuid' value='"+target.data('uuid')+"'>";
                 // 태그들이 추가된 것을 확인한 후에 comment 제거
                 $(".box").html(str);
             })
@@ -251,7 +292,8 @@
 
         // 뒤로가기 버튼 클릭하면 동작
         $("#goBack").click(function (){
-            history.back();
+            var mno = $("input[name=mno]").val();
+            window.location.href = '/sw/mypage/personalQ/list?mno='+mno;
         })
     })
 </script>
