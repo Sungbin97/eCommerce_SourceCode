@@ -102,4 +102,9 @@
         delete from tbl_review where rno=#{rno}
     </delete>
 
+    <!-- tbl_review 데이터 삭제 -->
+    <delete id="deleteByRno">
+        delete from tbl_review where rno=#{rno}
+    </delete>
+
 </mapper>

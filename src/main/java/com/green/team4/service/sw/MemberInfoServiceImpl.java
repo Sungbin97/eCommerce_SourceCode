@@ -126,7 +126,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         List<ReviewMpVO> reviewList = reviewMpMapper.getAllByMno(mno);
         reviewList.forEach(i->{
             reviewFilesMpMapper.delete(i.getRno()); // 첨부파일 삭제
-            reviewMpMapper.delete(i.getRno()); // 글 삭제
+            reviewMpMapper.deleteByRno(i.getRno()); // 글 삭제
         });
 
         // 문의글 삭제
