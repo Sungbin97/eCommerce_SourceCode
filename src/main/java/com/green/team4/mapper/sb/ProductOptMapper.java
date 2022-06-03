@@ -19,4 +19,5 @@ public interface ProductOptMapper {
     void updateOption1();
     void updateOption2();
     void updateColor();
+    Product_optVO findAmount(Product_optVO vo);
 }

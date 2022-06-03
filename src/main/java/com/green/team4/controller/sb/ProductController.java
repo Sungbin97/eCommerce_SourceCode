@@ -1,6 +1,7 @@
 package com.green.team4.controller.sb;
 
 import com.github.pagehelper.PageInfo;
+import com.green.team4.mapper.JH.ShopMapper;
 import com.green.team4.mapper.sb.ProductInfoImgMapper;
 import com.green.team4.mapper.sb.ProductImgMapper;
 import com.green.team4.mapper.sb.ProductOptMapper;
@@ -15,6 +16,8 @@ import com.green.team4.vo.sb.ProductVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +47,7 @@ public class ProductController {
     private final ProductImgMapper productImgMapper;
     private final ProductInfoImgMapper productImgInfoMapper;
     private final PagingService pagingService;
+    private final ShopMapper shopMapper;
 
     private String makeFolder(){ // 파일 저장 폴더 만들기(탐색기)
         String str = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
@@ -102,12 +106,19 @@ public class ProductController {
         log.info("받아온 pOptionName: " + optVO.getPOptionName());
         log.info("받아온 pOptionName2: " + optVO.getPOptionName2());
 
+        for(String option1 : opt1){
+            System.out.println("option1: " + option1);
+        }
+
         //옵션 저장
         for (String o1 : opt1){
             optVO.setPOption(o1);
+            log.info("o1: " + o1);
             for (String o2 : opt2){
+                log.info("o2: " + o2);
                 optVO.setPOption2(o2);
                 for (String c : colors){
+                    log.info("color: " + c);
                     optVO.setPColor(c);
                     productOptMapper.insert(optVO);
                 }
@@ -189,10 +200,26 @@ public class ProductController {
         return "redirect:/sb/product/modify?pno="+vo.getPno();
     }
 
-    @RequestMapping(value="/getAmount", method=RequestMethod.POST)
-    public String memberModifyPOST(@RequestBody Product_optVO optVO) throws Exception {
-//        boardService.memberModifyPOST(memberVO);
-        return "memberModify";
+//    @ResponseBody
+//    @RequestMapping(value = "/getAmount", method = RequestMethod.POST)
+//    public Product_optVO amountAjax(@RequestBody Product_optVO optVO, Model model) throws Exception {
+//        System.out.println("ajax optVO: " + optVO);
+//        Product_optVO result = shopMapper.getOptionPrice(optVO);
+//        model.addAttribute("amount", result);
+//
+//        return result;
+//    }
+
+    @PostMapping("/getAmount")
+    public ResponseEntity<Product_optVO> amountAjax(@RequestBody Product_optVO optVO){
+        log.info("amoutAjax 실행 => 받은 optVO: "+optVO);
+        Product_optVO result = shopMapper.getOptionPrice(optVO);
+        log.info("amoutAjax 실행 => result: "+result);
+        log.info("--------------------------------------");
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
+
     }
 
     @PostMapping("/remove")
