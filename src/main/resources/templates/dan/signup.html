@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>mypage-memberInfo-read</title>
+</head>
+<body>
+<!-- mypage header fragment -->
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+<div class="page-banner-section section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1 th:text="'개인정보'"></h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#" th:id="goBack">mypage</a></li>
+                        <li class="active">memberInfo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<h1>회원가입</h1>
+
+
+<!--<form action="/dan/signup" method="post">-->
+<!--    <label for="id"> 아이디 </label>-->
+<!--    <input type="text" name="id"> <br>-->
+<!--    <label for="password">비밀번호 </label>-->
+<!--    <input type="password" name="password"> <br>-->
+<!--    <label for="name">이름 </label>-->
+<!--    <input type="text" name="name"> <br>-->
+<!--    <label for="nickname">닉네임 </label>-->
+<!--    <input type="text" name="nickName"> <br>-->
+
+<!--    <label for="gender">성별 </label>-->
+<!--    <input type="checkbox" name="gender" value="male"/> 남자-->
+<!--    <input type="checkbox" name="gender" value="female"/> 여자<br>-->
+<!--    <label for="sSNum">주민등록번호 </label>-->
+<!--    <input type="text" name="sSNum"> <br>-->
+<!--    <label for="email">이매일 </label>-->
+<!--    <input type="text" name="email"><br>-->
+<!--    <label for="phonenum">자택전화 </label>-->
+<!--    <input type="text" name="phoneNum"><br>-->
+<!--    <label for="mobilenum">휴대 전화번호 </label>-->
+<!--    <input type="text" name="mobileNum"><br>-->
+
+
+
+<!--    <div class="col-xs-12 mb-20">-->
+<!--        <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>-->
+<!--    </div>-->
+<!--    <div class="col-xs-12 mb-20">-->
+<!--        <label>주소 <span class="required">*</span></label>-->
+<!--        <input type="text" name="postcode" placeholder="우편번호"/>-->
+<!--    </div>-->
+<!--    <div class="col-xs-12 mb-20">-->
+<!--        <input type="text"  name="address" placeholder="기본주소"/>-->
+<!--    </div>-->
+<!--    <div class="col-xs-12 mb-20">-->
+<!--        <input type="text"  name="detailAddress" placeholder="세부주소" />-->
+<!--    </div>-->
+
+<!--    <label for="interestSports">관심종목 </label>-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 축구-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 농구-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 야구-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 요가-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 수영<br>-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 등산-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 골프-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 웨이트-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 사이클-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 테니스<br>-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 베드민턴-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 탁구-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 유도-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 주짓수-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 태권도<br>-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 복싱-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 크로스핏-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 스키-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 농구-->
+<!--    <input type="checkbox" name="interestSports" value="male"/> 농구<br>-->
+
+
+
+<!--    <input type="hidden" name="auth"> <br>-->
+<!--    <input type="hidden" name="grade"> <br>-->
+<!--    <input type="hidden" name="point"> <br>-->
+
+
+<!--    <br><br>-->
+<!--    <input type='submit' value='회원가입'>-->
+<!--</form>-->
+
+
+
+
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div class="login-reg-form">
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="id">Id <span class="required">*</span></label>
+                                <input id="id" type="text"/>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="name">이름</label>
+                                <input id="name" type="text"/>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+
+                            </div>
+
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="password">Password <span class="required">*</span></label>
+                                <input id="password" type="password"/>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="password_con">비밀번호 확인<span class="required">*</span></label>
+                                <input id="password_con" type="password">
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+
+                            </div>
+
+
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="nickname">닉네임 <span class="required">*</span></label>
+                                <input id="nickname" type="text"/>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="sSNum">주민등록번호 <span class="required">*</span></label>
+                                <input id="sSNum" type="email"/>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="email">이매일 <span class="required">*</span></label>
+                                <input id="email" type="email"/>
+
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="phonenum"> 자택전화 <span class="required">*</span></label>
+                                <input id="phonenum" type="text" />
+                            </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="mobilenum"> 휴대전화 <span class="required">*</span></label>
+                                <input id="mobilenum" type="text" />
+                            </div>
+                        <div class="col-xs-12 mb-20">
+                            <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>
+                        </div>
+                        <div class="col-xs-12 mb-20">
+                            <label>주소 <span class="required">*</span></label>
+                            <input type="text" name="postcode" placeholder="우편번호"/>
+                        </div>
+                        <div class="col-xs-12 mb-20">
+                            <input type="text"  name="address" placeholder="기본주소"/>
+                        </div>
+                        <div class="col-xs-12 mb-20">
+                            <input type="text"  name="detailAddress" placeholder="세부주소" />
+                        </div>
+
+                        <div class="col-xs-12 mb-20">
+                                <label for="interrestSports">관심종목<span class="required">*</span></label>
+                                <input id="r_password" type="password">
+                            <input type="checkbox" name="interestSports" value="축구"/> 축구
+                            <input type="checkbox" name="interestSports" value="농구"/> 농구
+                            <input type="checkbox" name="interestSports" value="야구"/> 야구
+                            <input type="checkbox" name="interestSports" value="요가"/> 요가
+                            <input type="checkbox" name="interestSports" value="수영"/> 수영<br>
+                            <input type="checkbox" name="interestSports" value="등산"/> 등산
+                            <input type="checkbox" name="interestSports" value="골프"/> 골프
+                            <input type="checkbox" name="interestSports" value="웨이트"/> 웨이트
+                            <input type="checkbox" name="interestSports" value="사이클"/> 사이클
+                            <input type="checkbox" name="interestSports" value="테니스"/> 테니스<br>
+                            <input type="checkbox" name="interestSports" value="배드민턴"/> 베드민턴
+                            <input type="checkbox" name="interestSports" value="탁구"/> 탁구
+                            <input type="checkbox" name="interestSports" value="유도"/> 유도
+                            <input type="checkbox" name="interestSports" value="주짓수"/> 주짓수
+                            <input type="checkbox" name="interestSports" value="태권도"/> 태권도<br>
+                            <input type="checkbox" name="interestSports" value="복싱"/> 복싱
+                            <input type="checkbox" name="interestSports" value="크로스핏"/> 크로스핏
+                            <input type="checkbox" name="interestSports" value="스키"/> 스키
+                            <input type="checkbox" name="interestSports" value="농구"/> 농구<br>
+                            </div>
+
+                            <div class="col-xs-12 mb-20">
+                                <input id="rememberme" type="checkbox">
+                                <label for="rememberme">I agree <a href="#">Terms &amp; Condition</a></label>
+                            </div>
+                            <div class="col-xs-12">
+                                <input value="register" type="submit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION END -->
+
+
+
+</body>
+
+
+
+
+<!-- daum postcode api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+
+
+<!-- mypage footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<script> $("#getPostCode").click(function (){
+daum.postcode.load(function(){
+new daum.Postcode({
+oncomplete: function(data) {
+// 우편번호 검색 후 주소 클릭하면 아래 실행
+$("input[name=postcode]").val(data.zonecode); // 우편번호 태그에 값 업데이트
+$("input[name=address]").val(data.roadAddress); // 주소 태그에 값 업데이트
+}
+}).open();
+});
+})
+</script>
+</html>
