@@ -25,7 +25,6 @@
     <select id="getProductOption" resultType="com.green.team4.vo.JH.Product_optVO">
         select distinct * from tbl_product_opt
         where pno=#{pno}
-
     </select>
 
     <select id="getOpt" resultType="com.green.team4.vo.JH.Product_optVO">
@@ -71,5 +70,32 @@
     <delete id="delete">
         delete from tbl_product_opt where pcno=#{pcno}
     </delete>
+
+
+    <select id="findAmount" resultType="com.green.team4.vo.JH.Product_optVO">
+        select * from tbl_product_opt ps where pno = #{pno} <include refid="option"></include>
+    </select>
+
+    <sql id="option">
+        <if test="(pColor == null and pColor =='') and (pOption ==null and pOption =='') and (pOption2 ==null and pOption2 =='') ">
+
+        </if>
+        <if test="(pColor != null and pColor !='') and (pOption ==null or pOption =='') and (pOption2 == null or pOption2 =='') ">
+            and ps.pColor = #{pColor} and ps.pOption is null and ps.pOption2  is null
+        </if>
+        <if test="(pColor == null or pColor =='' )and (pOption !=null and pOption !='') and (pOption2 == null or pOption2 =='') ">
+            and ps.pColor is null and ps.pOption = #{pOption} and  ps.pOption2  is null
+        </if>
+        <if test="(pColor != null and pColor !='') and (pOption !=null and pOption !='') and (pOption2 == null or pOption2 =='') ">
+            and ps.pColor = #{pColor} and ps.pOption = #{pOption} and ps.pOption2  is null
+        </if>
+        <if test="(pColor == null or pColor =='') and (pOption !=null and pOption !='') and (pOption2 !=null and pOption2 !='') ">
+            and ps.pColor is null and ps.pOption= #{pOption} and ps.pOption2 = #{pOption2}
+        </if>
+        <if test="(pColor != null and pColor !='') and (pOption !=null and pOption !='') and (pOption2 !=null and pOption2 !='') ">
+            and ps.pColor = #{pColor} and  ps.pOption = #{pOption} and ps.pOption2 = #{pOption2}
+        </if>
+
+    </sql>
 
 </mapper>
