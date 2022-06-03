@@ -21,31 +21,31 @@ public class ReplyController {
     ReplyService replyService;
 
 
-    @PostMapping(path="insert",
+    @PostMapping(path="read",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = {MediaType.TEXT_PLAIN_VALUE}
     )
     public void register(@RequestBody ReplyVO replyVO){
         log.info(replyVO);
         replyService.insert(replyVO);
+    }
 
-    }
-    @GetMapping(value = "pages/{uNo}/{page}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<List<ReplyVO>> list(
-            @PathVariable("page") Long page,
-            @PathVariable("uNo") Long uNo){
-        Criteria criteria = new Criteria(page, 10L);
+    @GetMapping(value = "getCommentList", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ReplyVO> getCommentList(Long uNo){
+        Criteria criteria = new Criteria();
+        log.info("getCommentList 입니당");
         log.info(uNo);
-        log.info(criteria);
         log.info(replyService.getPageList(criteria,uNo));
-        return new ResponseEntity<>(replyService.getPageList(criteria,uNo), HttpStatus.OK);
+        return replyService.getPageList(criteria,uNo);
     }
+
     @GetMapping(value = "/{rno}",
     produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno) {
         log.info("get: " + rno);
         return new ResponseEntity<>(replyService.getOne(rno),HttpStatus.OK);
     }
+
     @DeleteMapping(value = "/{rno}", produces = {MediaType.TEXT_PLAIN_VALUE})
     public ResponseEntity<String> delete(@PathVariable("rno") Long rno){
         return new ResponseEntity<>("success", HttpStatus.OK);
