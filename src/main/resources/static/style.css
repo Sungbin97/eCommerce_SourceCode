@@ -1980,9 +1980,29 @@ a.meanmenu-reveal i {
 .product-details2 .ratting i.active {
     color: #ffc741;
 }
+/*JH추가*/
+.product-details2 {
+    padding-left: 40px;
+    padding-top: 5px;
+}
+.product-details2 .title {
+    color: #565656;
+    display: block;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 27px;
+    text-transform: capitalize;
+}
+.product-details2 .ratting i.active {
+    color: #ffc741;
+}
 /*-- Product Price & Ratting --*/
 .price-ratting {
     margin-bottom: 38px;
+}
+/*JH추가*/
+.price-ratting {
+    margin-bottom: 10px;
 }
 /*JH추가*/
 .price-ratting {
