@@ -22,5 +22,5 @@ public interface ExchangeService {
 
     // 취소/반품/교환 -----------------------------------------------------------------
     void cancelAndReturn(String ono,int oINo, int pno, int eno); // 취소/반품 처리 진행
-    OrderVO change(String ono, int pno, int eno); // 교환 처리 진행
+    OrderVO change(String ono,int oINo, int pno, int eno); // 교환 처리 진행
 }

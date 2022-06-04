@@ -144,9 +144,13 @@ public class AdminOrderController {
         log.info("AdminOrderController => changeReg(POST) 실행 => 받은 ono: "+exchangeVO.getOno());
         log.info("AdminOrderController => changeReg(POST) 실행 => 받은 pno: "+exchangeVO.getPno());
         log.info("AdminOrderController => changeReg(POST) 실행 => 받은 eno: "+exchangeVO.getEno());
+        log.info("AdminOrderController => changeReg(POST) 실행 => 받은 oINo: "+exchangeVO.getOINo());
 
         // 교환 처리 후 새로발행한 주문서
-        OrderVO newOrderVO = exchangeService.change(exchangeVO.getOno(),exchangeVO.getPno(),exchangeVO.getEno());
+        OrderVO newOrderVO = exchangeService.change(exchangeVO.getOno(),
+                                                    exchangeVO.getOINo(),
+                                                    exchangeVO.getPno(),
+                                                    exchangeVO.getEno());
 
         return new ResponseEntity<>(newOrderVO.getOno(), HttpStatus.OK);
     }

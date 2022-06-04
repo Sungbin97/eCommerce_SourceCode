@@ -87,8 +87,9 @@
                                                 <input type="hidden" name="mno" th:value="${orderVO.mno}" readonly>
                                                 <input type="hidden" name="ono" th:value="${item.ono}" readonly>
                                                 <input type="hidden" name="oINo" th:value="${item.oINo}" readonly>
-                                                <input style="margin: auto" th:if="${item.iReviewStatus.equals('미등록')}" class="btn" type="submit" name="regReview" value="리뷰쓰러가기">
+                                                <input style="margin: auto" th:if="${item.iReviewStatus.equals('미등록') && orderVO.tPayStatus.equals('결제완료')}" class="btn" type="submit" name="regReview" value="리뷰쓰러가기">
                                                 <div th:if="${item.iReviewStatus != '미등록'}">등록완료</div>
+                                                <div th:if="${item.iReviewStatus.equals('미등록') && orderVO.tPayStatus != '결제완료'}">작성불가</div>
 
                                             </form>
                                         </td>
@@ -102,6 +103,7 @@
                                                 <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
                                                 <input style="margin: auto" th:if="${item.iExStatus.equals('미신청') && orderVO.tPayStatus.equals('결제완료')}" class="btn" type="submit" name="addExchange" value="신청하기">
                                                 <div th:if="${item.iExStatus != '미신청'}">신청완료</div>
+                                                <div th:if="${item.iExStatus.equals('미신청') && orderVO.tPayStatus != '결제완료'}">신청불가</div>
                                             </form>
                                         </td>
                                     </tr>
