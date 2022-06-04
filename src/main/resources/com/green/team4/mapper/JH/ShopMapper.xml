@@ -56,12 +56,12 @@
         <select id="getOptList" resultType="com.green.team4.vo.JH.Product_optVO">
             select * from tbl_product_opt
 
-            where pno = #{pno}   <include refid="option"></include>
+            where pno = #{pno}  and pAmount !=0   <include refid="option"></include>
         </select>
         <select id="getOptionPrice" resultType="com.green.team4.vo.JH.Product_optVO">
             select P.pPrice,pOptionPrice, ps.pAmount from tbl_product P
             inner join tbl_product_opt ps on p.pno = ps.pno
-            where p.pno = #{pno}  <include refid="price"></include>
+            where p.pno = #{pno} and ps.pAmount !=0 <include refid="price"></include>
         </select>
     <sql id="option">
         <if test="pColor == '' and pColor == '' and pOption =='' ">

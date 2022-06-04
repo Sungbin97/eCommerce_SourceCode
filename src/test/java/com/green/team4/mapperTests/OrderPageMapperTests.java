@@ -2,17 +2,35 @@ package com.green.team4.mapperTests;
 
 import com.green.team4.mapper.JH.OrderPageMapper;
 import com.green.team4.mapper.JH.ShopMapper;
+import com.green.team4.mapper.sw.PersonalQMapper;
 import com.green.team4.vo.JH.Product_optVO;
 
+import com.green.team4.vo.sw.PersonalQVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 public class OrderPageMapperTests {
     @Autowired
     private OrderPageMapper orderPageMapper;
     private ShopMapper shopMapper;
+    private PersonalQMapper personalQMapper;
+
+    @Test
+    public void insertQ(){
+        for (int i =0;i<10;i++){
+            PersonalQVO qvo = new PersonalQVO();
+            qvo.setPno(31);
+            qvo.setMno(2);
+            qvo.setPqCategory("상품문의");
+            qvo.setPqContent("네고 가능한가요?"+i);
+            qvo.setPqReplyContent("끄지세요");
+            qvo.setPqTitle("상품문의좀하겠습니다");
+            personalQMapper.insert(qvo);
+        }
+    }
     @Test
     public void getTest(){
         Product_optVO product_optVO = new Product_optVO();

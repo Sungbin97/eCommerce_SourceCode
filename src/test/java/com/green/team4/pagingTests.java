@@ -14,11 +14,11 @@ public class pagingTests {
     @Autowired
     private MemberInfoMapper memberInfoMapper;
 
-    @Test
-    public void getMemberListByPaging(){
-        PageHelper.startPage(1,5);
-        Page<MemberInfoVO> memPage = memberInfoMapper.selectAll();
-        memPage.forEach(i-> System.out.println(i));
-        System.out.println("memPage: "+memPage);
-    }
+//    @Test
+//    public void getMemberListByPaging(){
+//        PageHelper.startPage(1,5);
+//        Page<MemberInfoVO> memPage = memberInfoMapper.selectAll();
+//        memPage.forEach(i-> System.out.println(i));
+//        System.out.println("memPage: "+memPage);
+//    }
 }

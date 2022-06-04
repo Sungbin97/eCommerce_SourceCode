@@ -5,10 +5,12 @@ import com.green.team4.service.JH.CategoryService;
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
 
+import com.green.team4.service.sw.PersonalQService;
 import com.green.team4.service.sw.ReviewMpService;
 import com.green.team4.vo.JH.*;
 import com.green.team4.vo.sb.ProductInfoImgVO;
 import com.green.team4.vo.sb.ProductVO;
+import com.green.team4.vo.sw.PersonalQVO;
 import com.green.team4.vo.sw.ReviewMpVO;
 import lombok.extern.log4j.Log4j2;
 
@@ -40,7 +42,8 @@ public class RestjhController {
     private ProductInfoImgMapper infoImgMapper;
     @Autowired
     private ReviewMpService reviewMpService;
-
+    @Autowired
+    private PersonalQService personalQService;
     //리뷰 컨트롤러
     @GetMapping(value = "/getreviews",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReviewPageVO> getreviews(ItemPageCriteria cri){
@@ -207,6 +210,16 @@ public class RestjhController {
         }
 
         return 0;
+    }
+    @GetMapping("/getQList/{pno}")
+    public ResponseEntity<List<PersonalQVO>> getQList(@PathVariable("pno") int pno){
+        ResponseEntity<List<PersonalQVO>> responseEntity = null;
+        try {
+            responseEntity = new ResponseEntity<>(personalQService.readAllByPno(pno),HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
     }
     @GetMapping("/getCategoryList/")
     public ResponseEntity<List<CategoryVO>> getCateTier2(){
