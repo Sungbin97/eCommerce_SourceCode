@@ -38,20 +38,20 @@
                                 <tr>
                                     <th class="pro-stock-stauts">주문일자</th>
                                     <th class="pro-title">주문번호</th>
-                                    <th class="pro-title">주문세부</th>
                                     <th class="pro-title">결재상태</th>
                                     <th class="pro-price">결제금액</th>
+                                    <th class="pro-title">주문세부</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="order : ${orderList.getList()}">
                                     <td class="pro-stock-stauts" th:text="${order.orderDate}"></td>
                                     <td class="pro-title">[[${order.ono}]]</td>
+                                    <td class="pro-title" th:text="${order.tPayStatus}"></td>
+                                    <td class="pro-price" data-th-text="${#numbers.formatInteger(order.tTotalPrice, 3, 'COMMA') + ' 원'}"></td>
                                     <td class="pro-title">
                                         <a th:href="@{/sw/mypage/order/read(ono=${order.ono})}">[[조회]]</a>
                                     </td>
-                                    <td class="pro-title" th:text="${order.tPayStatus}"></td>
-                                    <td class="pro-price" th:text="${order.tTotalPrice}"></td>
                                 </tr>
                                 </tbody>
                             </table>

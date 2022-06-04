@@ -11,6 +11,7 @@ public interface ExchangeMapper {
     int getAllCnt(int mno); // 회원별 취소/반품/교환 데이터 개수 가져오기
     int insert(ExchangeVO exchangeVO); // 취소/반품/교환 데이터 입력
     List<ExchangeVO> getAll(int mno); // 데이터 전체 가져오기(mno 단위로)
+    List<ExchangeVO> getAllByOno(String ono); // 데이터 전체 가져오기(ono 단위로)
     List<ExchangeVO> getAllAdmin(); // 데이터 전체 가져오기
     ExchangeVO getOne(int eno); // 데이터 하나 가져오기(eno로 검색)
     int update(ExchangeVO exchangeVO); // 데이터 수정

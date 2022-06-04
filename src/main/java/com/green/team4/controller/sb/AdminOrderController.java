@@ -77,14 +77,21 @@ public class AdminOrderController {
     }
 
     @PostMapping("/cancelReg")
-    public String cancelReg(String ono, int pno, int eno){
+    public String cancelReg(String ono, int oINo, int pno, int eno){
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 ono: "+ono);
+        log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 oINo: "+oINo);
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 ono: "+pno);
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 eno: "+eno);
 
-        exchangeService.cancelAndReturn(ono,pno,eno);
+        exchangeService.cancelAndReturn(ono,oINo,pno,eno);
 
-        return "redirect:/sb/order/cancelList";
+        ExchangeVO exchangeVO = exchangeService.readOne(eno);
+        if(exchangeVO.getExCategory().equals("취소")){
+            return "redirect:/sb/order/cancelList";
+        }
+        else {
+            return "redirect:/sb/order/returnList";
+        }
     }
 
     // 반품 신청 관리 --------------------------------------------------------------------------------

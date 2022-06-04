@@ -46,7 +46,7 @@ public class DBOrderItemVO {
         this.tProductPrice = this.pPrice * this.iCount;
         this.iDisPrice =(int) (this.pPrice * (1-pDiscount));
         this.iTotalPrice = this.iDisPrice*this.iCount;
-        this.iSavePoint = (int) (Math.floor(this.pPrice*0.05));
-        this.totalSavePoint = this.iSavePoint*this.iCount;
+        this.iSavePoint = ((int) (Math.floor(this.pPrice*0.05)))*this.iCount; // SW 수정 0604_수량 곱하기 추가
+        this.totalSavePoint = this.iSavePoint; // SW수정 0604_수량 곱하기 삭제
     }
 }

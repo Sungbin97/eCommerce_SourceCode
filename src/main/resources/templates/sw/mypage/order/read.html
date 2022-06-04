@@ -51,8 +51,6 @@
                                         <th>옵션1</th>
                                         <th>옵션2</th>
                                         <th>색상</th>
-<!--                                        <th>가격</th>-->
-<!--                                        <th>할인률</th>-->
                                         <th>가격(할인 후)</th>
                                         <th>주문수량</th>
                                         <th>최종 결재금액</th>
@@ -70,16 +68,13 @@
                                         <td name="iOption">[[${item.iOption}]]<span style="font-size: x-small">([[${item.iOptionName}]])</span></td>
                                         <td name="iOption">[[${item.iOption2}]]<span style="font-size: x-small">([[${item.iOptionName2}]])</span></td>
                                         <td name="iColor" th:text="${item.iColor}"></td>
-<!--                                        <td name="iPrice" th:text="${item.iPrice}"></td>-->
-<!--                                        <td name="iDiscount" th:text="${item.iDiscount}+'%'"></td>-->
-                                        <td name="iDisPrice" th:text="${item.iDisPrice}"></td>
+                                        <td name="iDisPrice" data-th-text="${#numbers.formatInteger(item.iDisPrice, 3, 'COMMA') + ' 원'}"></td>
                                         <td name="iCount" th:text="${item.iCount}"></td>
-                                        <td name="iTotalPrice" th:text="${item.iTotalPrice}"></td>
-                                        <td name="isavePoint" th:text="${item.iSavePoint}"></td>
+                                        <td name="iTotalPrice" data-th-text="${#numbers.formatInteger(item.iTotalPrice, 3, 'COMMA') + ' 원'}"></td>
+                                        <td name="isavePoint" data-th-text="${#numbers.formatInteger(item.iSavePoint, 3, 'COMMA') + ' 원'}"></td>
                                         <td class="pro-title">
                                             <!-- 배송조회 controller 전송용 form -->
                                             <form th:action="@{/sw/mypage/delivery/read}" th:method="get">
-<!--                                                <input type="hidden" name="dCategory" th:value="'일반'" readonly>-->
                                                 <input type="hidden" name="oINo" th:value="${item.oINo}" readonly>
                                                 <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
                                                 <input class="btn" type="submit" th:if="${item.iDeliveryStatus != '배송전'}" name="getDelivery" value="배송조회">
@@ -94,6 +89,7 @@
                                                 <input type="hidden" name="oINo" th:value="${item.oINo}" readonly>
                                                 <input style="margin: auto" th:if="${item.iReviewStatus.equals('미등록')}" class="btn" type="submit" name="regReview" value="리뷰쓰러가기">
                                                 <div th:if="${item.iReviewStatus != '미등록'}">등록완료</div>
+
                                             </form>
                                         </td>
                                         <td class="pro-title">
@@ -102,6 +98,7 @@
                                                 <input type="hidden" name="mno" th:value="${orderVO.mno}" readonly>
                                                 <input type="hidden" name="ono" th:value="${item.ono}" readonly>
                                                 <input type="hidden" name="pno" th:value="${item.pno}" readonly>
+                                                <input type="hidden" name="oINo" th:value="${item.oINo}" readonly>
                                                 <!-- 취소/반품/교환 신청 여부 false이면 활성화 -->
                                                 <input style="margin: auto" th:if="${item.iExStatus.equals('미신청') && orderVO.tPayStatus.equals('결제완료')}" class="btn" type="submit" name="addExchange" value="신청하기">
                                                 <div th:if="${item.iExStatus != '미신청'}">신청완료</div>
@@ -189,29 +186,37 @@
                                             <tbody>
                                             <tr th:each="item : ${orderVO.orderItemList}">
                                                 <td class="product-name">
-                                                    [[${item.iName}]] <strong class="product-qty"> × [[${item.iCount}]]</strong>
+                                                    <strong class="product-qty">[[${item.iName}]]</strong> [ [[${item.iOption}]] / [[${item.iOption2}]] / [[${item.iColor}]] ]
+                                                     <strong class="product-qty"> × [[${item.iCount}]]</strong>
                                                 </td>
                                                 <td class="product-total">
-                                                    <span class="amount">[[${item.iTotalPrice}]]</span>
+<!--                                                    <div data-th-text="${#numbers.formatInteger(result.totalPrice, 3, 'COMMA') + '원'}"></div>-->
+                                                    <span class="amount" data-th-text="${#numbers.formatInteger(item.iTotalPrice, 3, 'COMMA') + ' 원'}"></span>
                                                 </td>
                                             </tr>
                                             </tbody>
                                             <tfoot>
                                             <tr>
                                                 <th>총 상품가격</th>
-                                                <td><strong>[[${orderVO.tProductPrice}]]</strong></td>
+                                                <td><strong data-th-text="${#numbers.formatInteger(orderVO.tProductPrice, 3, 'COMMA') + ' 원'}"></strong></td>
                                             </tr>
                                             <tr>
                                                 <th>배송비</th>
-                                                <td>[[${orderVO.tShipFee}]]</td>
+                                                <td>
+                                                    <div th:if="${orderVO.tShipFee > 0}" data-th-text="${#numbers.formatInteger(orderVO.tShipFee, 3, 'COMMA') + ' 원'}"></div>
+                                                    <div th:if="${orderVO.tShipFee == 0}"> - 원</div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>사용 포인트</th>
-                                                <td>[[${orderVO.tUsePoint}]]</td>
+                                                <td>
+                                                    <div th:if="${orderVO.tUsePoint > 0}" data-th-text="${#numbers.formatInteger(orderVO.tUsePoint, 3, 'COMMA') + ' 원'}"></div>
+                                                    <div th:if="${orderVO.tUsePoint == 0}"> - 원</div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>최종 결제금액</th>
-                                                <td><strong>[[${orderVO.tTotalPrice}]]</strong>
+                                                <td><strong data-th-text="${#numbers.formatInteger(orderVO.tTotalPrice, 3, 'COMMA') + ' 원'}"></strong>
                                                 </td>
                                             </tr>
                                             </tfoot>

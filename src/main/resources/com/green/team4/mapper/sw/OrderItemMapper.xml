@@ -42,7 +42,7 @@
     <update id="update">
         update tbl_orderItem
         set iDeliveryStatus=#{iDeliveryStatus}, iExStatus=#{iExStatus}, iReviewStatus=#{iReviewStatus}
-        where ono=#{ono} and pno=#{pno}
+        where oINo=#{oINo}
     </update>
 
     <!-- OrderItem 데이터 신규 등록(취소/반품/교환 새주문서 등록시 함께 등록) -->
@@ -50,9 +50,10 @@
         insert into tbl_orderItem (ono, pno, iName, iOption,
                                    iOptionName,iOption2,iOptionName2, iColor, iPrice,
                                    iDiscount, iDisPrice, iCount, iSavePoint,
-                                   iTotalPrice)
+                                   iTotalPrice,iDeliveryStatus,iExStatus,iReviewStatus)
         values (#{ono},#{pno},#{iName},#{iOption},#{iOptionName},#{iOption2},#{iOptionName2},
-                #{iColor},#{iPrice},#{iDiscount},#{iDisPrice},#{iCount},#{iSavePoint},#{iTotalPrice})
+                #{iColor},#{iPrice},#{iDiscount},#{iDisPrice},#{iCount},#{iSavePoint},#{iTotalPrice},
+                #{iDeliveryStatus},#{iExStatus},#{iReviewStatus})
     </insert>
 
     <!-- OrderItem 데이터 삭제 -->

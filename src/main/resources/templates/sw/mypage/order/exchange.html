@@ -76,7 +76,7 @@
                                         상품가격(기존) <strong class="product-qty"></strong>
                                     </td>
                                     <td class="product-total">
-                                        <span class="amount">[[${orderItem.iPrice}]]</span>
+                                        <span class="amount" data-th-text="${#numbers.formatInteger(orderItem.iPrice, 3, 'COMMA') + ' 원'}"></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -84,7 +84,7 @@
                                         할인률(%) <strong class="product-qty"></strong>
                                     </td>
                                     <td class="product-total">
-                                        <span class="amount">[[${orderItem.iDiscount}]]%</span>
+                                        <span class="amount" th:text="${orderItem.iDiscount * 100}+'%'"></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -92,7 +92,7 @@
                                         상품가격(할인 후) <strong class="product-qty"></strong>
                                     </td>
                                     <td class="product-total">
-                                        <span class="amount">[[${orderItem.iDisPrice}]]</span>
+                                        <span class="amount" data-th-text="${#numbers.formatInteger(orderItem.iDisPrice, 3, 'COMMA') + ' 원'}"></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -107,7 +107,7 @@
                                 <tfoot>
                                 <tr>
                                     <th>총 상품가격 [ 상품가(할인후) x 구매수량 ]</th>
-                                    <td><strong>[[${orderItem.iTotalPrice}]]</strong></td>
+                                    <td><strong data-th-text="${#numbers.formatInteger(orderItem.iTotalPrice, 3, 'COMMA') + ' 원'}"></strong></td>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -122,6 +122,7 @@
                                 <input type="hidden" th:name="mno" th:value="${mno}" readonly>
                                 <input type="hidden" th:name="ono" th:value="${orderItem.ono}" readonly>
                                 <input type="hidden" th:name="pno" th:value="${orderItem.pno}" readonly>
+                                <input type="hidden" th:name="oINo" th:value="${orderItem.oINo}" readonly>
                                 <!-- 표시 data -->
                                 <div class="col-sm-6 col-xs-12 mb-20">
                                     <label name="exCategory">카테고리 <span class="required">*</span></label>

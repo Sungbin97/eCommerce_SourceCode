@@ -150,11 +150,22 @@ public class ReviewMpServiceImpl implements ReviewMpService{
     @Override
     public int remove(ReviewMpVO reviewMpVO) { // 리뷰 삭제
         log.info("ReviewMpService => remove 실행 => 받은 rno: "+reviewMpVO.getRno());
+
+        // 리뷰 등록 상태 원상복구
+        OrderItemVO orderItemVO = orderItemMapper.getOne(reviewMpVO.getOINo());
+        orderItemVO.setIReviewStatus("미등록");
+        orderItemMapper.update(orderItemVO);
+
+        // 리뷰 첨부파일 삭제
+        reviewFilesMpMapper.delete(reviewMpVO.getRno());
+
+        // 리뷰 삭제
         int result = reviewMpMapper.delete(reviewMpVO);
         log.info("ReviewMpService => remove 실행 후 삭제된 데이터 개수: "+result);
 
         setReviewCnt(reviewMpVO.getPno());//(JH추가)
         setRating(reviewMpVO.getPno());//(JH추가)
+
         return result;
     }
     //상품테이블에 평점 업데이트(JH추가)
