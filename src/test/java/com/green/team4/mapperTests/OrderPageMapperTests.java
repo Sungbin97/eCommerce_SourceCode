@@ -2,17 +2,11 @@ package com.green.team4.mapperTests;
 
 import com.green.team4.mapper.JH.OrderPageMapper;
 import com.green.team4.mapper.JH.ShopMapper;
-import com.green.team4.vo.JH.DBOrderItemVO;
-import com.green.team4.vo.JH.DBOrderVO;
 import com.green.team4.vo.JH.Product_optVO;
 
-import com.green.team4.vo.sb.ProductVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootTest
 public class OrderPageMapperTests {

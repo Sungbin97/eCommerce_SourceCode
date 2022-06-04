@@ -26,7 +26,7 @@
     </update>
 
     <delete id="delete">
-        delete from tbl_product where mailNo=#{mailNo}
+        delete from tbl_mail where mno=#{mno}
     </delete>
 
 </mapper>

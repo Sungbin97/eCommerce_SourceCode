@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <!-- head fragment -->
-    <th:block th:replace="bs/board/fragments/header.html :: head"></th:block>
-    <title>Title</title>
-    <link href="fragments/header.html">
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>mypage-cart-list</title>
 </head>
 <body>
-<!-- header fragment -->
-<th:block th:replace="bs/board/fragments/header.html :: headerFragment"></th:block>
+<!-- mypage header fragment -->
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1 th:text="'게시글 등록'"></h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#" th:id="goBack">register</a></li>
+                        <li class="active">board</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="page-section section pt-120 pb-120">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-12 mx-auto">
                 <div class="login-reg-form">
-                    <form action="register" method="post">
+                    <form action="register" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-xs-12 mb-20">
                                 <label for="title">제목 <span class="required">*</span></label>
@@ -28,6 +45,10 @@
                             <div class="col-xs-12 mb-20">
                                 <label for="userName">작성자 <span class="required">*</span></label>
                                 <input id="userName" name="userName" type="text"/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label for="imgFile">파일</label>
+                                <input id="imgFile" name="imgFile" type="file"/>
                             </div>
 
                             <div class="col-xs-12">
@@ -44,6 +65,6 @@
 </div>
 </body>
 <!-- Body main wrapper end -->
-<!-- footer fragment -->
-<th:block th:replace="bs/board/fragments/footer.html :: footerFragment"></th:block>
+<!-- mypage footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 </html>

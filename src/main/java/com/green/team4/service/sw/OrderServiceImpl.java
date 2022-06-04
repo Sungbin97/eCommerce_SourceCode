@@ -1,5 +1,6 @@
 package com.green.team4.service.sw;
 
+import com.github.pagehelper.PageHelper;
 import com.green.team4.mapper.sw.OrderItemMapper;
 import com.green.team4.mapper.sw.OrderMapper;
 import com.green.team4.vo.sw.OrderItemVO;
@@ -21,10 +22,19 @@ public class OrderServiceImpl implements OrderService{
 
 
     @Override
-    public List<OrderVO> readAll(int mno) { // 주문목록 모두 가져오기(mno 단위)
+    public int readAllCnt(int mno) {
+        log.info("OrderService => readAllCnt 실행 => 받은 mno: "+mno);
+        int result = orderMapper.getAllCnt(mno);
+        return result;
+    }
+
+    @Override
+    public List<OrderVO> readAll(int mno, int pageNum) { // 주문목록 모두 가져오기(mno 단위)
 
         // 주문서 리스트 가져오기
         log.info("OrderService => readAll 실행 => 받은 mno: "+mno);
+        log.info("OrderService => readAll 실행 => 받은 pageNum: "+pageNum);
+        PageHelper.startPage(pageNum,5); // 가져올 데이터 페이지 번호, 페이지 당 데이터 개수
         List<OrderVO> orderList = orderMapper.getAll(mno);
         log.info("OrderService => readAll 실행 후 받은 orderList: "+orderList);
 

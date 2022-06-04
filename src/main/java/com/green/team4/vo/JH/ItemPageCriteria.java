@@ -17,7 +17,6 @@ public class ItemPageCriteria {
     private int tier;
     private String keyword;
     private String sort;
-
     private int pno;
     public ItemPageCriteria(){
         this.page=1;

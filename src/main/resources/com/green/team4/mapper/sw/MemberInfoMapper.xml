@@ -20,6 +20,11 @@
         select * from tbl_memberInfo
     </select>
 
+    <!-- MemberInfo 데이터 전체 가져오기(Page) -->
+    <select id="selectAll" resultType="com.green.team4.vo.sw.MemberInfoVO">
+        select * from tbl_memberInfo
+    </select>
+
     <!-- MemberInfo 데이터 하나 가져오기 -->
     <select id="getOne" resultType="com.green.team4.vo.sw.MemberInfoVO">
         select * from tbl_memberInfo where mno=#{mno}

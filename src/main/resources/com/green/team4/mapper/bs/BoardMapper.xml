@@ -9,17 +9,17 @@
 
 
     <insert id="insert" parameterType="com.green.team4.vo.bs.BoardVO">
-        insert into user_tbl values ( null, #{userId},#{userName},#{userPassword},#{title},#{content},now(),null)
+        insert into board_tbl values ( null, #{userId},#{userName},#{userPassword},#{title},#{content},now(),null,#{imgPath})
     </insert>
 
     <select id="readOne" parameterType="long" resultType="com.green.team4.vo.bs.BoardVO">
-        select uNo, userName, title, content, regDate, modDate
-        from user_tbl
+        select uNo, userName, title, content, regDate, modDate, imgPath
+        from board_tbl
         where uNo=#{uNo}
     </select>
 
     <update id="modify" parameterType="com.green.team4.vo.bs.BoardVO">
-        update user_tbl set
+        update board_tbl set
                             title = #{title},
                             content = #{content},
                             modDate = now()
@@ -27,16 +27,16 @@
     </update>
 
     <delete id="delete" parameterType="Long">
-        delete from user_tbl where uNo=#{uNo}
+        delete from board_tbl where uNo=#{uNo}
     </delete>
 
     <select id="readList" parameterType="com.green.team4.vo.bs.BoardVO" resultType="com.green.team4.vo.bs.BoardVO">
-        select uNo, title, content,username, regDate, modDate from user_tbl;
+        select uNo, title, content,username, regDate, modDate from board_tbl;
     </select>
     <!--    include : sql 조각을 사용할 수 있게 해준다. id로 연결-->
     <select id="getPageList" parameterType="com.green.team4.vo.bs.Criteria" resultType="com.green.team4.vo.bs.BoardVO">
         select uNo, title, content, userName, regDate, modDate
-        from user_tbl
+        from board_tbl
         <trim prefix="where">
             <if test="type=='title' and keyword != null and keyword !='' ">
                 title like concat('%',#{keyword},'%')
@@ -47,7 +47,7 @@
             <if test="type=='userName' and keyword != null and keyword !='' ">
                 userName like concat('%',#{keyword},'%')
             </if>
-            <if test="type=='' and keyword==''">
+            <if test="type=='' and keyword=='' and keyword !=''">
 
             </if>
         </trim>
@@ -56,18 +56,19 @@
         limit #{page}, #{pageNum}
     </select>
     <select id="getTotalCount" resultType="int">
-        select count(*) from user_tbl where uNo > 0
-        <choose>
-            <when test="type=='title' and keyword != null and keyword !=''">
+        select count(*) from board_tbl where uNo > 0
+            <if test="type=='title' and keyword != null and keyword !=''">
                 and title like concat('%',#{keyword},'%')
-            </when>
-            <when test="type=='content' and keyword != null and keyword !=''">
+            </if>
+            <if test="type=='content' and keyword != null and keyword !=''">
                 and content like concat('%',#{keyword},'%')
-            </when>
-            <when test="type=='userName' and keyword != null and keyword !=''">
+            </if>
+            <if test="type=='userName' and keyword != null and keyword !=''">
                 and userName like concat('%',#{keyword},'%')
-            </when>
-        </choose>
+            </if>
+            <if test="type=='null' and keyword == null and keyword == ''">
+
+            </if>
 
     </select>
 </mapper>

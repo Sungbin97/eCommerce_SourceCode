@@ -50,7 +50,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="exchange : ${exList}">
+                            <tr th:each="exchange : ${exList.getList()}">
                                 <td class="pro-stock-stauts" name="exDate" th:text="${exchange.exDate}"></td>
                                 <td class="pro-stock-stauts" name="exEndDate" th:text="${exchange.exEndDate}"></td>
                                 <td class="pro-title"><a th:href="@{/sw/mypage/exchange/read(eno=${exchange.eno})}" th:text="${exchange.eno}"></a></td>
@@ -75,7 +75,28 @@
                         </table>
                     </div>
                 </div>
-<!--            </form>-->
+            <!-- Paging custom -->
+            <div class="paginationC clearfix">
+                <!-- 이전 버튼 -->
+                <li th:if="${exList.getPrePage() != 0}">
+                    <a th:href="@{/sw/mypage/exchange/list(pageNum=${exList.getPrePage()}, mno=${mno})}">Previous</a>
+                </li>
+                <li th:if="${exList.getPrePage() == 0}">
+                    <a>Previous</a>
+                </li>
+                <!-- 페이지 번호-->
+                <li th:each="page: ${#numbers.sequence(exList.getNavigateFirstPage(), exList.getNavigateLastPage())}" th:classappend="${page == exList.getPageNum()} ? 'active'">
+                    <a th:text="${page}" th:href="@{/sw/mypage/exchange/list(pageNum=${page}, mno=${mno})}"></a>
+                </li>
+                <!-- 다음 버튼-->
+                <li th:if="${exList.getNextPage() != 0}">
+                    <a th:href="@{/sw/mypage/exchange/list(pageNum=${exList.getNextPage()}, mno=${mno})}">Next</a>
+                </li>
+                <li th:if="${exList.getNextPage() == 0}">
+                    <a>Next</a>
+                </li>
+                <p>현재페이지[[${pageNum}]]</p>
+            </div>
         </div>
     </div>
 </div>

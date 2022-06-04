@@ -15,4 +15,5 @@ public interface OrderItemMapper {
     OrderItemVO getOne(int oINo); // 데이터 하나 가져오기(orderItemNo 단위로)
     int update(OrderItemVO orderItemVO); // 주문 상품 중 하나 수정(취소/환불/교환,배송 상태만 업데이트 가능)
     int insert(OrderItemVO orderItemVO); // 주문 상품 신규 등록 (취소/반품/교환 새주문서 등록시 함께 등록)
+    int delete(String ono); // 주문 상품 삭제
 }

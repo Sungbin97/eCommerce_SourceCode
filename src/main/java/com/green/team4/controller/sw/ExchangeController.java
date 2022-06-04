@@ -1,5 +1,6 @@
 package com.green.team4.controller.sw;//package com.green.team4.controller.sw;
 
+import com.github.pagehelper.PageInfo;
 import com.green.team4.service.sw.ExchangeService;
 import com.green.team4.service.sw.OrderService;
 import com.green.team4.vo.sw.ExchangeVO;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -26,11 +28,17 @@ public class ExchangeController {
     private final OrderService orderService;
 
     @GetMapping("/list")
-    public void getExList(int mno, Model model){ // 취소/반품/교환 List가져오기
+    public void getExList(int mno,
+                          @RequestParam(required = false, defaultValue = "1") int pageNum,
+                          Model model){ // 취소/반품/교환 List가져오기
         log.info("OrderController => getExList(Get) 실행 => 받은 mno: "+mno);
-        List<ExchangeVO> exList = exchangeService.readAll(mno);
+        log.info("OrderController => getExList(Get) 실행 => 받은 pageNum: "+pageNum);
+
+        PageInfo<ExchangeVO> exListP = new PageInfo<>(exchangeService.readAll(mno,pageNum),10);
+        log.info("exListP: "+exListP);
         model.addAttribute("mno",mno);
-        model.addAttribute("exList",exList);
+        model.addAttribute("exList",exListP);
+        model.addAttribute("pageNum",pageNum);
     }
 
     @GetMapping("/read")

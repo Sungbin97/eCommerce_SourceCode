@@ -30,6 +30,7 @@ public class CartController {
         List<CartVO> cartList = cartService.readAll(mno);
         int cartTotalPrice = 0;
         for(CartVO cart : cartList) cartTotalPrice += cart.getCTotalPrice();
+        cartList.forEach(i->log.info(i));
 
         model.addAttribute("mno",mno);
         model.addAttribute("cartList",cartList); // 장바구니 List

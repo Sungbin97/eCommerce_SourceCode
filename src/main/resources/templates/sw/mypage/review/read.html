@@ -116,6 +116,9 @@
 <script>
     $(document).ready(function (){
 
+        // textarea data => input에 담아놓기 (페이지 로딩되자마자)
+        $("input[name=rContentIpt]").val($("textarea[name=rContent]").val());
+
         // 별점
         var grade = $("input[name=rRating]").val();
         var mno = [[${mno}]]
@@ -131,7 +134,6 @@
         })
         // 리뷰 본문 수정시 업데이트
         $("textarea[name=rContent]").change(function (){
-            console.log("들어오나")
             var newContent = $("textarea[name=rContent]").val();
             $("input[name=rContentIpt]").val(newContent);
             console.log($("textarea[name=rContent]").text());

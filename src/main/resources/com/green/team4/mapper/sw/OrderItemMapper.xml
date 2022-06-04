@@ -54,5 +54,10 @@
         values (#{ono},#{pno},#{iName},#{iOption},#{iOptionName},#{iOption2},#{iOptionName2},
                 #{iColor},#{iPrice},#{iDiscount},#{iDisPrice},#{iCount},#{iSavePoint},#{iTotalPrice})
     </insert>
-    
+
+    <!-- OrderItem 데이터 삭제 -->
+    <delete id="delete">
+        delete from tbl_orderItem where ono = #{ono}
+    </delete>
+
 </mapper>

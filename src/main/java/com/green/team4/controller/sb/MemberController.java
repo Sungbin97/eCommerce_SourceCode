@@ -1,7 +1,6 @@
 package com.green.team4.controller.sb;
 
 import com.green.team4.mapper.sb.MailMapper;
-import com.green.team4.service.sb.MailService;
 import com.green.team4.service.sw.MemberInfoService;
 import com.green.team4.vo.sb.MailVO;
 import com.green.team4.vo.sw.MemberInfoVO;

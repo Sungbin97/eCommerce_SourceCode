@@ -76,6 +76,7 @@
     <delete id="deleteLike">
         delete from tbl_review_Like where mno=#{mno} and rno = #{rno} and rmno=#{rmno}
     </delete>
+<!--    리뷰추천 갯수가져오기-->
     <select id="checkLike" resultType="int">
         select count(*) from tbl_review_LIKE where mno=#{mno} and rno = #{rno} and rmno=#{rmno}
     </select>

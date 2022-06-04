@@ -11,8 +11,9 @@ public interface ExchangeService {
 
     // CRUD -----------------------------------------------------------------
 
+    int readAllCnt(int mno); // 취소/반품/교환 개수 가져오기
     int register(ExchangeVO exchangeVO); // 취소/반품/교환 신청 등록
-    List<ExchangeVO> readAll(int mno); // 취소/반품/교환 전체 가져오기(mno 단위)
+    List<ExchangeVO> readAll(int mno, int pageNum); // 취소/반품/교환 전체 가져오기(mno 단위)
     List<ExchangeVO> readAllAdmin(); // 취소/반품/교환 전체 가져오기
     ExchangeVO readOne(int eno); // 취소/반품/교환 하나 가져오기
     int modify(ExchangeVO exchangeVO); // 취소/반품/교환 수정

@@ -1,5 +1,6 @@
 package com.green.team4.service.sw;
 
+import com.github.pagehelper.PageHelper;
 import com.green.team4.mapper.sb.ProductOptMapper;
 import com.green.team4.mapper.sw.ExchangeFilesMapper;
 import com.green.team4.mapper.sw.ExchangeMapper;
@@ -8,7 +9,6 @@ import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sw.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 @Log4j2
@@ -150,6 +149,13 @@ public class ExchangeServiceImpl implements ExchangeService{
     // Service -------------------------------------------------------------------------
 
     @Override
+    public int readAllCnt(int mno) {
+        log.info("ExchangeService => readAllCnt 실행 => 받은 mno: "+mno);
+        int result = exchangeMapper.getAllCnt(mno);
+        return result;
+    }
+
+    @Override
     public int register(ExchangeVO exchangeVO) { // 취소/반품/교환 신규 등록
         log.info("ExchangeService => register 실행 => 받은 exchangeVO: "+exchangeVO);
 
@@ -170,23 +176,22 @@ public class ExchangeServiceImpl implements ExchangeService{
     }
 
     @Override
-    public List<ExchangeVO> readAll(int mno) { // 취소/반품/교환 내역 모두 가져오기(mno단위)
+    public List<ExchangeVO> readAll(int mno, int pageNum) { // 취소/반품/교환 내역 모두 가져오기(mno단위)
         log.info("ExchangeService => readAll 실행 => 받은 mno: "+mno);
+        log.info("ExchangeService => readAll 실행 => 받은 pageNum: "+pageNum);
 
         // 신청서 모두 가져오기
+        PageHelper.startPage(pageNum,5); // 가져올 데이터 페이지 번호, 페이지 당 데이터 개수
         List<ExchangeVO> exchangeList = exchangeMapper.getAll(mno);
         log.info("ExchangeService => readAll 실행 후 받은 exchangeList: "+exchangeList);
 
         // 신청서 첨부파일 모두 가져오기
-        List<ExchangeVO> resultList = new ArrayList<>();
-
         exchangeList.forEach(exchangeVO -> {
             List<ExchangeFilesVO> fileList = exchangeFilesMapper.getAll(exchangeVO.getEno()); // 신청서 첨부파일 가져오기
             exchangeVO.setExchangeFilesList(fileList); // 신청서에 가져온 첨부파일 저장
-            resultList.add(exchangeVO); // 신청서List에 저장
         });
 
-        return resultList;
+        return exchangeList;
     }
 
     @Override
@@ -198,15 +203,12 @@ public class ExchangeServiceImpl implements ExchangeService{
         log.info("ExchangeService => readAllAdmin 실행 후 받은 exList: "+exchangeList);
 
         // 신청서 첨부파일 모두 가져오기
-        List<ExchangeVO> resultList = new ArrayList<>();
-
         exchangeList.forEach(exchangeVO -> {
             List<ExchangeFilesVO> fileList = exchangeFilesMapper.getAll(exchangeVO.getEno()); // 신청서 첨부파일 가져오기
             exchangeVO.setExchangeFilesList(fileList); // 신청서에 가져온 첨부파일 저장
-            resultList.add(exchangeVO); // 신청서List에 저장
         });
 
-        return resultList;
+        return exchangeList;
     }
 
     @Override
@@ -314,7 +316,7 @@ public class ExchangeServiceImpl implements ExchangeService{
     }
 
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public OrderVO change(String ono, int pno, int eno) { // 교환 처리 진행
         log.info("ExchangeService => change 실행 => 받은 ono: "+ono);
@@ -341,7 +343,6 @@ public class ExchangeServiceImpl implements ExchangeService{
                     && (String.valueOf(opt.getPOption2())).equals(String.valueOf(cItemList.get(0).getIOption2()))
                     && (String.valueOf(opt.getPColor())).equals(String.valueOf(cItemList.get(0).getIColor()))
         ).collect(Collectors.toList());
-        log.info("넘어오나아");
         log.info("trgOptList: "+trgOptList);
 
         int cancelCnt = cItemList.get(0).getICount(); // 원상복구해야할 수량(교환(기존) 수량)

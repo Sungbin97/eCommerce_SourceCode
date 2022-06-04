@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>mypage-memberInfo-read</title>
+</head>
+<body>
+<!-- mypage header fragment -->
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+<div class="page-banner-section section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1 th:text="'개인정보'"></h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#" th:id="goBack">mypage</a></li>
+                        <li class="active">memberInfo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--    <div>-->
+<!--        <label for="id"> 아이디 </label>-->
+<!--        <input type="text" name="id" id="id">-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="password">비밀번호</label>-->
+<!--        <input type="password" name="password" id="password"/>-->
+<!--    </div>-->
+<!--    <input type='submit' value='로그인' id="button">-->
+
+<div class="page-section section pt-120 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-10 col-12 mx-auto">
+                <div class="login-reg-form">
+                    <form>
+                        <div class="row">
+                            <div class="col-12 mb-20">
+                                <label for="id">Id <span class="required">*</span></label>
+                                <input name="id" id="id" type="text">
+                            </div>
+                            <div class="col-12 mb-20">
+                                <label for="password">Passwords <span class="required">*</span></label>
+                                <input name="password" id="password" type="password">
+                            </div>
+                            <div class="col-12 mb-20">
+
+                                <label class="inline" for="rememberme">
+                                    <input value="forever" id="rememberme" name="rememberme" type="checkbox"> 아이디 기억하기
+                                </label>
+                            </div>
+                            <div class="col-12">
+                                <a href="#">비밀번호 찾기</a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="order-button">
+                        <input value="Login" name="login" class="inline" type="submit" id="button">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+<!-- mypage footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<script>
+
+$("#button").click(function (e){
+    var data= {
+        id:$("#id").val(),
+        password:$("#password").val()
+    }
+    console.log("쿼리문에서 데이터가 잘 전달되나?",data)
+    $.ajax({
+        url:'/dan/login',
+        method:'post',
+        data:JSON.stringify(data),
+        contentType:'application/json; charset=utf-8',
+        dataType: 'text',
+        success:function (success){
+            console.log("html에서 success 값 확인",success)
+            if(success == "성공") {
+                window.location.href= '/dan/samplemain';
+            }
+            else {
+                alert("아이디 또는 비밀번호가 틀렸습니다.")
+            }
+            console.log("Ajax 통신 성공", result);
+            self.location.reload();
+        }
+
+    })
+})
+</script>
+</html>

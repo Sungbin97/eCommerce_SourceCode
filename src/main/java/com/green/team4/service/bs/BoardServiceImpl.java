@@ -5,8 +5,12 @@ import com.green.team4.vo.bs.BoardVO;
 import com.green.team4.vo.bs.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class BoardServiceImpl implements BoardService {
@@ -20,9 +24,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardVO getOne(Long sid) {
+    public BoardVO getOne(Long uNo) {
 
-        return mapper.readOne(sid);
+        return mapper.readOne(uNo);
     }
 
     @Override
@@ -48,7 +52,28 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int getTotal(Criteria cri) {
-        return mapper.getTotalCount(cri);
+    public int getTotal(Criteria criteria) {
+        return mapper.getTotalCount(criteria);
+    }
+
+    @Override
+    public void saveFile(BoardVO vo, MultipartFile imgFile) throws IOException {
+        String originFileName = imgFile.getOriginalFilename();
+        String fileName = "";
+
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/file";
+        System.out.println(projectPath);
+
+        UUID uuid = UUID.randomUUID();
+        fileName = uuid + "_" + originFileName;
+
+        File saveFile = new File(projectPath,fileName);
+        imgFile.transferTo(saveFile);
+
+        vo.setImgName(originFileName);
+        vo.setImgPath(fileName);
+        System.out.println("파일 이름 : " + fileName);
+        mapper.insert(vo);
+
     }
 }
