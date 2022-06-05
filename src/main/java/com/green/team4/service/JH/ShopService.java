@@ -26,6 +26,7 @@ public interface ShopService {
 
 
     public List<ProductVO> getListByFind(ItemPageCriteria cri);
+    public List<ProductVO> getListByFind4(ItemPageCriteria cri);
 
     public int getTotaldatabyFind(ItemPageCriteria cri);
 

@@ -129,6 +129,13 @@
         <include refid="sort"></include>
         limit #{startPage}, #{numPerPage}
     </select>
+    <select id="getListByFind4" resultType="com.green.team4.vo.sb.ProductVO">
+        select * from tbl_product P
+        left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
+        <include refid="criteria"></include>
+        <include refid="sort"></include>
+        limit 4
+    </select>
     <select id="getTotaldatabyFind" resultType="int">
         select count(pno) from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
@@ -147,11 +154,9 @@
         order by rand() limit 10
     </select>
     <sql id="keyword">
-
         <if test="keyword != null and keyword != '' "  >
             pName like concat('%',#{keyword},'%')
         </if>
-
     </sql>
     <sql id="criteria">
         <trim prefix="where (" suffix=")" prefixOverrides="and" >
@@ -167,70 +172,6 @@
             </trim>
         </trim>
     </sql>
-<!--    <sql id="mainCategory">-->
-
-<!--        <if test="main_category != null and main_category != ''">-->
-<!--            <if test="main_category == '의류'">-->
-<!--                pMainCategory ='의류'-->
-<!--            </if>-->
-<!--            <if test="main_category == '식품'">-->
-<!--                pMainCategory ='식품'-->
-<!--            </if>-->
-<!--            <if test="main_category == '운동용품'">-->
-<!--                pMainCategory ='운동용품'-->
-<!--            </if>-->
-<!--        </if>-->
-
-<!--    </sql>-->
-<!--    <sql id="subCategory">-->
-<!--        <if test="sub_category != null and sub_category != ''">-->
-<!--            <if test="sub_category == '비타민C'">-->
-<!--                and  pSubCategory = '비타민C'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '비타민D'">-->
-<!--                and  pSubCategory = '비타민D'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '종합 비타민'">-->
-<!--                and  pSubCategory = '종합 비타민'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '오메가3'">-->
-<!--                and  pSubCategory = '오메가3'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '아르기닌'">-->
-<!--                and  pSubCategory = '아르기닌'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '티셔츠'">-->
-<!--                and  pSubCategory = '티셔츠'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '셔츠'">-->
-<!--                and  pSubCategory ='셔츠'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '기능성티'">-->
-<!--                and  pSubCategory = '기능성티'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '런닝복'">-->
-<!--                and  pSubCategory ='런닝복'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '반팔티'">-->
-<!--                and  pSubCategory ='반팔티'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '벤치프레스'">-->
-<!--                and  pSubCategory = '벤치프레스'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '로잉머신'">-->
-<!--                and  pSubCategory = '로잉머신'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '철봉'">-->
-<!--                and  pSubCategory ='철봉'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '런닝머신'">-->
-<!--                and  pSubCategory = '런닝머신'-->
-<!--            </if>-->
-<!--            <if test="sub_category == '덤벨'">-->
-<!--                and  pSubCategory = '덤벨'-->
-<!--            </if>-->
-<!--        </if>-->
-<!--    </sql>-->
     <sql id="sort">
 
         <if test="sort == '' ">

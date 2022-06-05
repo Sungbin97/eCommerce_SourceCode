@@ -68,6 +68,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public List<ProductVO> getListByFind4(ItemPageCriteria cri) {
+        return shopMapper.getListByFind4(cri);
+    }
+
+    @Override
     public int getTotaldatabyFind(ItemPageCriteria cri) {
         return shopMapper.getTotaldatabyFind(cri);
     }
