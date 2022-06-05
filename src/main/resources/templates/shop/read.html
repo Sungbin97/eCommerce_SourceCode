@@ -203,9 +203,9 @@
 
                     <form th:action="@{/order/${member.mno}}"  method="get" class="order_form">
                         <input type="hidden" name="orders[0].pno" th:value="${pvo.pno}">
-                        <input type="text" name="orders[0].pColor" value="">
-                        <input type="text" name="orders[0].pOption" value="">
-                        <input type="text" name="orders[0].pOption2" value="">
+                        <input type="hidden" name="orders[0].pColor" value="">
+                        <input type="hidden" name="orders[0].pOption" value="">
+                        <input type="hidden" name="orders[0].pOption2" value="">
                         <input type="hidden" name="orders[0].pOptionPrice" value="0">
                         <input type="hidden" name="orders[0].itemCount" value="">
                     </form>

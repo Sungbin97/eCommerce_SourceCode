@@ -43,7 +43,7 @@ public class OrderPageItemVO {
 
         this.salePrice =(int)((this.pPrice+this.pOptionPrice) * (1-this.pDiscount));
         this.totalPrice = this.salePrice * this.itemCount;
-        this.point = (int)(Math.floor(this.salePrice*0.05));
+        this.point = (int)(Math.floor(this.salePrice*0.01));
         this.totalPoint = this.point*this.itemCount;
     }
 

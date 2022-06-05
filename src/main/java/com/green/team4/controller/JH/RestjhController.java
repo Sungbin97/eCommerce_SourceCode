@@ -2,6 +2,7 @@ package com.green.team4.controller.JH;
 
 import com.green.team4.mapper.sb.ProductInfoImgMapper;
 import com.green.team4.service.JH.CategoryService;
+import com.green.team4.service.JH.CouponService;
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
 
@@ -44,6 +45,8 @@ public class RestjhController {
     private ReviewMpService reviewMpService;
     @Autowired
     private PersonalQService personalQService;
+    @Autowired
+    private CouponService couponService;
     //리뷰 컨트롤러
     @GetMapping(value = "/getreviews",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReviewPageVO> getreviews(ItemPageCriteria cri){
@@ -233,10 +236,15 @@ public class RestjhController {
         return responseEntity;
     }
 
-    @GetMapping(value = "filter")
-    public ResponseEntity<List<ProductVO>> filter(){
-
-        return null;
+    @GetMapping("/getCoupons")
+    public ResponseEntity<List<MemberCouponVO>> getCoupons( MemberCouponVO memberCouponVO){
+        System.out.println("getCoupons 입장" + memberCouponVO);
+        ResponseEntity<List<MemberCouponVO>> responseEntity = null;
+        try {
+            responseEntity = new ResponseEntity<>(couponService.getCouponAvailable(memberCouponVO),HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
     }
-
 }
