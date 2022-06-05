@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- mypage head fragment -->
+    <!-- HEAD FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-memberInfo-memDelete</title>
+    <title>REVIEW REGISTER</title>
 </head>
 
 <body>
-    <!-- mypage header fragment -->
+    <!-- HEADER FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
@@ -19,8 +19,8 @@
                     <div class="page-banner-content">
                         <h1 th:text="'리뷰등록'"></h1>
                         <ul class="breadcrumb">
-                            <li><a href="#" th:id="goBack">orderRead</a></li>
-                            <li class="active">regReview</li>
+                            <li><a href="#" th:id="goBack">order Read</a></li>
+                            <li class="active">Review Register</li>
                         </ul>
                     </div>
                 </div>
@@ -49,13 +49,13 @@
                                             <input type="hidden" name="mno" th:value="${mno}">
                                             <input type="hidden" name="pno" th:value="${orderItemVO.pno}">
                                             <input type="hidden" name="oINo" th:value="${orderItemVO.oINo}">
-                                            <div style="font-size: large" name="iName">상품명: [[${orderItemVO.iName}]]</div><br/>
+                                            <div style="font-size: medium; color: #191c1f" name="iName">상품명: [[${orderItemVO.iName}]]</div>
+                                            <div style="font-size: medium; color: #191c1f" name="iTotalPrice" data-th-text="'결제금액: ' + ${#numbers.formatInteger(orderItemVO.iTotalPrice, 3, 'COMMA') + ' 원'}"></div><br/>
                                             <div name="iOption">구매일자: [[${orderDate}]]</div>
                                             <div name="iOption">[[${orderItemVO.iOptionName}]]: [[${orderItemVO.iOption}]]</div>
                                             <div name="iOption2">[[${orderItemVO.iOptionName2}]]: [[${orderItemVO.iOption2}]]</div>
                                             <div name="iColor">색상: [[${orderItemVO.iColor}]]</div>
-                                            <div name="iCount">구매수량: [[${orderItemVO.iCount}]]</div><br/>
-                                            <div style="font-size: large" name="iTotalPrice">결제금액: [[${orderItemVO.iTotalPrice}]] 원</div>
+                                            <div name="iCount">구매수량: [[${orderItemVO.iCount}]]</div>
                                             <hr/>
                                         </li>
                                     </ul>
@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="col-xs-12 mb-20">
                                     <label>리뷰</label>
-                                    <textarea name="rContent" class="form-control" cols="30" rows="10"></textarea>
+                                    <textarea name="rContent" class="form-control" cols="30" rows="10" placeholder="상품 후기를 입력해주세요"></textarea>
                                 </div>
 
                                 <!-- 첨부파일 등록 영역 -->
@@ -104,7 +104,7 @@
     </div>
 </body>
 
-<!-- mypage footer fragment -->
+<!-- FOOTER FRAGMENT -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <!-- Star -->

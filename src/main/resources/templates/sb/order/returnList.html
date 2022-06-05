@@ -73,6 +73,7 @@
                                             <input type="hidden" name="oINo" th:value="${return.oINo}" readonly>
                                             <input type="hidden" name="pno" th:value="${return.pno}" readonly>
                                             <input type="hidden" name="eno" th:value="${return.eno}" readonly>
+                                            <input type="hidden" name="category" value="'반품신청'" readonly>
                                             <button type="submit" th:if="${return.exStatus != '반품완료'}" class="btn">반품</button>
                                         </form>
                                     </td>

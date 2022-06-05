@@ -10,10 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -89,5 +86,17 @@ public class MemberInfoController {
         int delCnt = shipmentService.remove(shipmentVO.getSno());
         return new ResponseEntity<>(delCnt,HttpStatus.OK);
     }
+
+    @PostMapping("/shipOne")
+    public ResponseEntity<List<ShipmentVO>> shipGetOneAjax(@RequestBody ShipmentVO shipmentVO){
+        log.info("MemberInfoController => shipGetOneAjax(POST) 실행 => 받은 shipmentVO: "+shipmentVO);
+
+        // 개인 배송지 모두 가져오기
+        List<ShipmentVO> shipList = shipmentService.readAll(shipmentVO.getMno());
+        log.info("shipList: "+shipList);
+
+        return new ResponseEntity<>(shipList,HttpStatus.OK);
+    }
+
 
 }

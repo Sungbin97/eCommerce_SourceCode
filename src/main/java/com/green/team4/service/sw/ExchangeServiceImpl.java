@@ -393,16 +393,18 @@ public class ExchangeServiceImpl implements ExchangeService{
 
     @Transactional
     @Override
-    public void cancelAndReturn(String ono, int oINo, int pno, int eno) { // 취소/반품 처리 진행
+    public void cancelAndReturn(String ono, int oINo, int pno, int eno, String category) { // 취소/반품 처리 진행
         log.info("ExchangeService => cancelAndReturn 실행 => 받은 ono: "+ono);
         log.info("ExchangeService => cancelAndReturn 실행 => 받은 oINo: "+oINo);
         log.info("ExchangeService => cancelAndReturn 실행 => 받은 pno: "+pno);
         log.info("ExchangeService => cancelAndReturn 실행 => 받은 eno: "+eno);
+        log.info("ExchangeService => cancelAndReturn 실행 => 받은 category: "+category);
 
         // 해당 주문서 상태 변경 및 새로운 주문서 발행
-        // (1) 기존 주문서 취소처리
+        // (1) 기존 주문서 취소/반품 상태 처리
         OrderVO orderVO = orderService.readOne(ono); // 해당 주문서 가져오기
-        orderVO.setTPayStatus("주문취소완료");
+        if(category.contains("취소")) orderVO.setTPayStatus("주문취소완료");
+        else orderVO.setTPayStatus("주문반품완료");
         orderService.modifyStatus(orderVO);
 
         // (2) 해당 고객 기존 적립포인트 회수

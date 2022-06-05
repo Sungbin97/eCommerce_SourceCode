@@ -76,14 +76,15 @@ public class AdminOrderController {
         model.addAttribute("cancelList",cancelList);
     }
 
-    @PostMapping("/cancelReg")
-    public String cancelReg(String ono, int oINo, int pno, int eno){
+    @PostMapping("/cancelReg") // 취소/반품 진행 (같이 사용)
+    public String cancelReg(String ono, int oINo, int pno, int eno, String category){
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 ono: "+ono);
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 oINo: "+oINo);
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 ono: "+pno);
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 eno: "+eno);
+        log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 category: "+category);
 
-        exchangeService.cancelAndReturn(ono,oINo,pno,eno);
+        exchangeService.cancelAndReturn(ono,oINo,pno,eno,category);
 
         ExchangeVO exchangeVO = exchangeService.readOne(eno);
         if(exchangeVO.getExCategory().equals("취소")){

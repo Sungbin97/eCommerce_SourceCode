@@ -27,23 +27,6 @@
         <!-- 페이징 별도 css (SW추가) -->
         <link rel="stylesheet" href="/paginationCustom.css">
 
-
-
-
-
-<!--        &lt;!&ndash; Modernizr JS &ndash;&gt;-->
-<!--        <script src="/js/vendor/modernizr-2.8.3.min.js"></script>-->
-
-<!--        &lt;!&ndash; jQuery latest version &ndash;&gt;-->
-<!--        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>-->
-<!--        &lt;!&ndash; Bootstrap js &ndash;&gt;-->
-<!--        <script src="/js/bootstrap.bundle.min.js"></script>-->
-<!--        &lt;!&ndash; Plugins js &ndash;&gt;-->
-<!--        <script src="/js/plugins.js"></script>-->
-<!--        &lt;!&ndash; Ajax Mail js &ndash;&gt;-->
-<!--        <script src="/js/ajax-mail.js"></script>-->
-<!--        &lt;!&ndash; Main js &ndash;&gt;-->
-<!--        <script src="/js/main.js"></script>-->
     </head>
 </div>
 
@@ -141,16 +124,18 @@
                                 </div>
                             </div>
 
-                            <!-- header Account -->
+                            <!-- header Account SW 내용 수정 0605 -->
+                            <!-- 추후 mno 고정 해제 예정 -->
                             <div class="header-account">
                                 <ul>
                                     <li><a href="#" class="account-toggle"><i class="pe-7s-config"></i></a>
                                         <ul class="account-menu">
-                                            <li><a href="login.html">Log in</a></li>
-                                            <li><a href="register.html">Register</a></li>
-                                            <li><a href="#">My Account</a></li>
-                                            <li><a href="wishlist.html">Wish list</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
+                                            <li><a href="/dan/login">Log in</a></li>
+                                            <li><a href="/dan/*/signup">Register</a></li>
+                                            <li><a href="/sw/mypage/main?mno=2">My Account</a></li>
+                                            <li><a href="/sw/mypage/interest/list?mno=2">Wish list</a></li>
+                                            <li><a href="/sw/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
+<!--                                            <li><a href="">Checkout</a></li>--> <!-- 로그아웃 화면 연결 예정 -->
                                         </ul>
                                     </li>
                                 </ul>
@@ -158,51 +143,32 @@
                             <!-- Header Cart -->
                             <div class="header-cart">
                                 <!-- Cart Toggle -->
-                                <a class="cart-toggle" href="#">
+                                <a class="cart-toggle">
                                     <i class="pe-7s-cart"></i>
-                                    <span>2</span>
+                                    <span id="cartCntSpan"></span>
                                 </a>
                                 <!-- Mini Cart Brief -->
                                 <div class="mini-cart-brief text-left">
                                     <!-- Cart Products -->
-                                    <div class="all-cart-product clearfix">
-                                        <div class="single-cart clearfix">
-                                            <div class="cart-image">
-                                                <a href="product-details.html"><img src="/img/product/cart-1.jpg" alt=""></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h5><a href="product-details.html">Le Parc Minotti Chair</a></h5>
-                                                <p>1 x £9.00</p>
-                                                <a href="#" class="cart-delete" title="Remove this item"><i class="pe-7s-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="single-cart clearfix">
-                                            <div class="cart-image">
-                                                <a href="product-details.html"><img src="/img/product/cart-2.jpg" alt=""></a>
-                                            </div>
-                                            <div class="cart-info">
-                                                <h5><a href="product-details.html">DSR Eiffel chair</a></h5>
-                                                <p>1 x £9.00</p>
-                                                <a href="#" class="cart-delete" title="Remove this item"><i class="pe-7s-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Cart Total -->
-                                    <div class="cart-totals">
-                                        <h5>Total <span>£12.00</span></h5>
+                                    <h6>CART</h6>
+                                    <!-- 회원별 장바구니 데이터 들어오는 영역 -->
+                                    <div class="all-cart-product clearfix uploadCartResult">
+
                                     </div>
                                     <!-- Cart Button -->
                                     <div class="cart-bottom  clearfix">
-                                        <a href="checkout.html">Check out</a>
+                                        <a href="/sw/mypage/cart/list?mno=2">장바구니 전체 보기</a> <!-- mno 고정 풀어야함 -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="mobile-menu"></div>
+
                 </div>
             </div>
         </header>
         <!-- END HEADER SECTION -->
+
     </div>
 </html>

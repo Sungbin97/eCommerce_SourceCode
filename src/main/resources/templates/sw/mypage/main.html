@@ -28,113 +28,159 @@
         </div>
     </div>
 
-    <!-- PAGE SECTION START -->
-    <div class="page-section section pt-120 pb-45">
+    <!-- List -->
+    <div class="page-section section pt-120"> <!-- class: pb-120 지움 -->
         <div class="container">
-            <div class="row">
-                <div class="col-lg-9 mx-auto">
+            <div class="isotope-grid row">
 
-                    <!-- 개인정보 요약 -->
-                    <div class="checkout-form">
-                        <div class="row">
-                            <div class="coupon-form mb-30">
-                                <h3>회원정보</h3>
-                                <p>회원 정보를 확인해보세요</p>
-                                <div>
-                                    <button class="btn" name="memberInfo">
-                                        개인정보관리
-                                    </button>
-                                </div>
-                            </div>
+                <!-- 개인정보관리 -->
+                <div class="isotope-item ptable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Menu Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/sw/mypage/memberInfo/read(mno=${mno})}">
+                                <img src="/icons_bootstrap/person-circle.svg" height="80" alt="">
+                            </a>
+                        </div>
+                        <!-- Menu Info -->
+                        <div class="product-info">
+                            <h5 class="title">개인정보관리</h5>
+                            <p><br/></p>
                         </div>
                     </div>
-
-                    <!-- 쇼핑 요약 -->
-                    <div class="checkout-form">
-                        <div class="row">
-                            <div class="coupon-form mb-30">
-                                <h3>쇼핑</h3>
-                                <p>쇼핑 정보를 확인해보세요</p>
-                                <div>
-                                    <button class="btn" type="button" name="interest">
-                                        찜한상품 <span class="badge" name="itrCnt" th:text="${itrCnt}"></span>
-                                    </button>
-                                    <button class="btn" type="button" name="cart">
-                                        장바구니 <span class="badge" name="cartCnt" th:text="${cartCnt}"></span>
-                                    </button>
-                                    <button class="btn" type="button" name="order">
-                                        주문목록 <span class="badge" name="orderCnt" th:text="${orderCnt}"></span>
-                                    </button>
-                                    <button class="btn" type="button" name="exchange">
-                                        취소/반품/교환 <span class="badge" name="exCnt" th:text="${exCnt}"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 내가 쓴 글 요약 -->
-                    <div class="checkout-form">
-                        <div class="row">
-                            <div class="coupon-form mb-30">
-                                <h3>내가 쓴 글</h3>
-                                <p>작성한 글을 확인해보세요</p>
-                                <div>
-                                    <button class="btn" type="button" name="review">
-                                        상품 리뷰 <span class="badge" name="rCnt" th:text="${rCnt}"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 나의 문의내역 요약 -->
-                    <div class="checkout-form">
-                        <div class="row">
-                            <div class="coupon-form mb-30">
-                                <h3>나의 문의내역</h3>
-                                <p>문의내역을 확인해보세요</p>
-                                <br/>
-                                <label>
-                                    <span class="required">*</span>
-                                    <a style="font-size: medium; font-weight: bold; color: #191c1f"
-                                       th:href="@{/sw/mypage/personalQ/regQ(mno=${mno})}">
-                                        1:1문의 신규등록하기(클릭)
-                                    </a>
-                                </label>
-                                <br/>
-                                <div>
-                                    <button class="btn" type="button" name="personalQ">
-                                        1:1문의내역 <span class="badge" name="pqCnt" th:text="${pqCnt}"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 카카오 지도 -->
-                    <div class="checkout-form">
-                        <div class="row">
-                            <div class="coupon-form mb-30">
-                                <h3>스포츠 시설 검색</h3>
-                                <p>내 주변 스포츠 시설을 찾아보세요</p>
-                                <div>
-                                    <input name="kakaoMapSearch" style="width: 50%" type="text" placeholder="키워드를 입력하세요" />
-                                    <button type="button" name="searchBtn" class="btn btn-outline-secondary">검색</button>
-                                    <button type="button" name="curLocationBtn" class="btn btn-outline-secondary">나의 현재위치 찾기</button>
-                                    <br/>
-                                    <br/>
-                                    <div class="kakaoMap" id="map" ></div><br/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
+
+                <!-- 찜목록 -->
+                <div class="isotope-item ptable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Menu Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/sw/mypage/interest/list(mno=${mno})}">
+                                <img src="/icons_bootstrap/heart.svg" height="80" alt="">
+                            </a>
+                        </div>
+                        <!-- Menu Info -->
+                        <div class="product-info">
+                            <h5 class="title">찜목록</h5>
+                            <p>[[${itrCnt}]] 개</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 장바구니 -->
+                <div class="isotope-item pable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Menu Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/sw/mypage/cart/list(mno=${mno})}">
+                                <img src="/icons_bootstrap/cart3.svg" height="80" alt="">
+                            </a>
+                        </div>
+                        <!-- Menu Info -->
+                        <div class="product-info">
+                            <h5 class="title">장바구니</h5>
+                            <p>[[${cartCnt}]] 개</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 주문목록 -->
+                <div class="isotope-item pable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Menu Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/sw/mypage/order/list(mno=${mno})}">
+                                <img src="/icons_bootstrap/list-task.svg" height="80" alt="">
+                            </a>
+                        </div>
+                        <!-- Menu Info -->
+                        <div class="product-info">
+                            <h5 class="title">주문목록</h5>
+                            <p>[[${orderCnt}]] 개</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 취소/반품/교환 -->
+                <div class="isotope-item pable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Menu Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/sw/mypage/exchange/list(mno=${mno})}">
+                                <img src="/icons_bootstrap/arrow-left-right.svg" height="80" alt="">
+                            </a>
+                        </div>
+                        <!-- Menu Info -->
+                        <div class="product-info">
+                            <h5 class="title">취소/반품/교환</h5>
+                            <p>[[${exCnt}]] 개</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 리뷰 -->
+                <div class="isotope-item pable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Menu Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/sw/mypage/review/list(mno=${mno})}">
+                                <img src="/icons_bootstrap/pencil-square.svg" height="80" alt="">
+                            </a>
+                        </div>
+                        <!-- Menu Info -->
+                        <div class="product-info">
+                            <h5 class="title">내가 쓴 상품 리뷰</h5>
+                            <p>[[${rCnt}]] 개</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1:1문의 -->
+                <div class="isotope-item pable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Menu Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/sw/mypage/personalQ/list(mno=${mno})}">
+                                <img src="/icons_bootstrap/question.svg" height="80" alt="">
+                            </a>
+                        </div>
+                        <!-- Menu Info -->
+                        <div class="product-info">
+                            <h5 class="title">1:1문의내역</h5>
+                            <p>[[${pqCnt}]] 개</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 스포츠시설 찾기 -->
+                <div class="isotope-item pable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Menu Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/sw/mypage/map/mapRead(mno=${mno})}">
+                                <img src="/icons_bootstrap/man-running-in-gym-svgrepo-com.svg" height="80" alt="">
+                            </a>
+                        </div>
+                        <!-- Menu Info -->
+                        <div class="product-info">
+                            <h5 class="title">운동시설 찾기</h5>
+                            <p><br/></p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-    <!-- PAGE SECTION END -->
 
     <!-- 페이지 진입한 회원의 mno (hidden) -->
     <input type="hidden" th:name="mno" th:value="${mno}">
@@ -147,121 +193,4 @@
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
-<script>
-    $(document).ready(function (){
-
-        // 일반 메뉴 이벤트 ---------------------------------------------------------------------------------------
-
-        // 아무 버튼이 클릭되면
-        $("button").click(function (e){
-
-            // 필요한 데이터
-            var mno = $('input[name=mno]').val();
-            var pageName = e.target.name;
-            console.log("mno: ",mno)
-
-            // 해당하는 페이지로 이동 처리
-            if(pageName === 'memberInfo') window.location.href = '/sw/mypage/memberInfo/read?mno='+mno;
-            else if(pageName === 'interest') window.location.href = '/sw/mypage/interest/list?mno='+mno;
-            else if(pageName === 'cart') window.location.href = '/sw/mypage/cart/list?mno='+mno;
-            else if(pageName === 'order') window.location.href = '/sw/mypage/order/list?mno='+mno;
-            else if(pageName === 'exchange') window.location.href = '/sw/mypage/exchange/list?mno='+mno;
-            else if(pageName === 'review') window.location.href = '/sw/mypage/review/list?mno='+mno;
-            else if(pageName === 'personalQ') window.location.href = '/sw/mypage/personalQ/list?mno='+mno;
-        })
-
-        // 카카오 지도 API ---------------------------------------------------------------------------------------
-
-        // 지도 생성
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            mapOption = {
-                center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
-            };
-        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
-
-        // 지도 내 컨트롤러 생성
-        var mapTypeControl = new kakao.maps.MapTypeControl(); // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-        // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-        // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-        // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-        var zoomControl = new kakao.maps.ZoomControl();
-
-        // 지도 현재 위치로 좌표 변경하기
-        // 위치 정보 가져오기 성공시 동작
-        function locationLoadSuccess(pos){
-            var currentPos = new kakao.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
-            map.panTo(currentPos); // 지도 이동(기존 위치와 가깝다면 부드럽게 이동)
-            var marker = new kakao.maps.Marker({ // 마커 생성
-                position: currentPos
-            });
-            // // 기존에 마커가 있다면 제거
-            // marker.setMap(null);
-            // marker.setMap(map);
-        };
-        // 위치 정보 가져오기 실패시 동작
-        function locationLoadError(pos){
-            alert('위치 정보를 가져오는데 실패했습니다.');
-        };
-        // 현재 위치 정보 가져오기
-        function getCurrentPosBtn(){
-            navigator.geolocation.getCurrentPosition(locationLoadSuccess,locationLoadError);
-        };
-        // 현재 위치 가져오기 호출
-        getCurrentPosBtn();
-
-        // 키워드로 장소 검색 기능 생성
-        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-        // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-        // 장소 검색 객체를 생성합니다
-        var ps = new kakao.maps.services.Places();
-        // 키워드로 장소를 검색합니다(검색 버튼 누르면 동작)
-        $("button[name=searchBtn]").click(function (){
-            var searchKeyword = $("input[name=kakaoMapSearch]").val()
-            console.log("검색 키워드: ",searchKeyword);
-            ps.keywordSearch(searchKeyword, placesSearchCB);
-            // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-            function placesSearchCB (data, status, pagination) {
-                if (status === kakao.maps.services.Status.OK) {
-                    console.log("콜백 함수 접근")
-                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-                    // LatLngBounds 객체에 좌표를 추가합니다
-                    var bounds = new kakao.maps.LatLngBounds();
-                    for (var i=0; i<data.length; i++) {
-                        displayMarker(data[i]);
-                        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-                    }
-                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-                    map.setBounds(bounds);
-                }
-                else alert("키워드를 다시 입력해주세요")
-            }
-            // 지도에 마커를 표시하는 함수입니다
-            function displayMarker(place) {
-                // 마커를 생성하고 지도에 표시합니다
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: new kakao.maps.LatLng(place.y, place.x)
-                });
-                // 마커에 클릭이벤트를 등록합니다
-                kakao.maps.event.addListener(marker, 'click', function() {
-                    // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-                    infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-                    infowindow.open(map, marker);
-                });
-            }
-        })
-
-        // 현재 위치 받아오기 (현재위치 찾기 버튼 클릭하면 동작)
-        $("button[name=curLocationBtn]").click(function (){
-            getCurrentPosBtn();
-        })
-
-    })
-
-
-
-</script>
 </html>

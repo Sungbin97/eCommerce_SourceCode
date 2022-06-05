@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- mypage head fragment -->
+    <!-- HEAD FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>personalQ-list</title>
+    <title>Q LIST</title>
 </head>
 <body>
-    <!-- mypage header fragment -->
+    <!-- HEADER FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
@@ -18,7 +18,7 @@
                         <h1 th:text="'1:1문의글 목록'"></h1>
                         <ul class="breadcrumb">
                             <li><a href="#" th:id="goBack">mypage</a></li>
-                            <li class="active">list</li>
+                            <li class="active">Q list</li>
                         </ul>
                     </div>
                 </div>
@@ -30,26 +30,25 @@
     <div class="page-section section pt-120 pb-80">
         <div class="container">
             <div class="row">
-    <!--            <form action="#">-->
-                    <div class="col-xs-12">
-                        <div class="wishlist-table table-responsive mb-40">
-                            <table>
-                                <thead>
+                <div class="col-xs-12">
+                    <div class="wishlist-table table-responsive mb-40">
+                        <table>
+                            <thead>
                                 <tr>
                                     <th class="pro-stock-stauts">신청일</th>
                                     <th class="pro-stock-stauts">처리 완료일</th>
-                                    <th class="pro-title">접수번호</th>
+                                    <th class="pro-stock-stauts">접수번호</th>
                                     <th class="pro-title">카테고리</th>
                                     <th class="pro-title">제목</th>
                                     <th class="pro-title">진행상태</th>
-                                    <th class="pro-title">접수취소</th>
+                                    <th class="pro-title">접수 취소</th>
                                 </tr>
-                                </thead>
-                                <tbody>
+                            </thead>
+                            <tbody>
                                 <tr th:each="pq : ${pqList.getList()}">
-                                    <td class="pro-stock-stauts" name="pqRegDate" th:text="${pq.pqRegDate}"></td>
-                                    <td class="pro-stock-stauts" name="pqReplyDate" th:text="${pq.pqReplyDate}"></td>
-                                    <td class="pro-title"><a th:href="@{/sw/mypage/personalQ/read(pqNo=${pq.pqNo})}" th:text="${pq.pqNo}"></a></td>
+                                    <td class="pro-stock-stauts" name="pqRegDate" th:text="${#temporals.format(pq.pqRegDate, 'yyyy-MM-dd')}"></td>
+                                    <td class="pro-stock-stauts" name="pqReplyDate" th:text="${#temporals.format(pq.pqReplyDate, 'yyyy-MM-dd')}"></td>
+                                    <td class="pro-stock-stauts"><a th:href="@{/sw/mypage/personalQ/read(pqNo=${pq.pqNo})}" th:text="${pq.pqNo}"></a></td>
                                     <td class="pro-stock-stauts" name="pqCategory" th:text="${pq.pqCategory}"></td>
                                     <td class="pro-title" name="pqTitle" th:text="${pq.pqTitle}"></td>
                                     <td class="pro-title" th:text="${pq.pqStatus}"></td>
@@ -57,14 +56,16 @@
                                         <form th:action="@{/sw/mypage/personalQ/delete}" th:method="post">
                                             <input type="hidden" name="pqNo" th:value="${pq.pqNo}" readonly>
                                             <input type="hidden" name="mno" th:value="${mno}" readonly>
-                                            <input type="submit" th:if="${#strings.contains(pq.pqStatus,'접수완료')}" name="pqDeleteBtn" class="btn" value="취소하기">
+                                            <input style="border: white; background-color: white" type="button"
+                                                   th:if="${#strings.contains(pq.pqStatus,'접수완료')}"
+                                                   name="pqDeleteBtn" value="X">
                                         </form>
                                     </td>
                                 </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
+                </div>
                 <!-- Paging custom -->
                 <div class="paginationC clearfix">
                     <!-- 이전 버튼 -->
@@ -85,7 +86,7 @@
                     <li th:if="${pqList.getNextPage() == 0}">
                         <a>Next</a>
                     </li>
-                    <p>현재페이지[[${pageNum}]]</p>
+                    <div style="font-size: small;">[ page[[${pageNum}]] ]</div>
                 </div>
             </div>
         </div>
@@ -94,7 +95,7 @@
     <input type="hidden" th:name="mno" th:value="${mno}">
 </body>
 
-<!-- mypage footer fragment -->
+<!-- FOOTER FRAGMENT -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <script>
@@ -102,13 +103,13 @@
 
         // 신청목록 삭제 버튼 클릭하면 동작
         $("input[name=pqDeleteBtn]").click(function (e){
+            var target = $(this).closest('form');
             if(!confirm("정말 취소하시겠습니까?")){
                 alert("목록화면으로 돌아갑니다.")
                 return
             }
             else {
-                var target = $(this)
-                target.form().submit();
+                target.submit();
                 alert("삭제 완료하였습니다.")
             }
         })

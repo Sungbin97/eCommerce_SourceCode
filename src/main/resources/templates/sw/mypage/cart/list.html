@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <!-- mypage head fragment -->
+    <!-- HEAD FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-cart-list</title>
+    <title>CART</title>
 </head>
 
 <body>
-    <!-- mypage header fragment -->
+    <!-- HEADER FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
@@ -40,14 +41,14 @@
                                         <thead>
                                         <tr>
                                             <th class="pro-title all_check_input_div"><input type="checkbox" class="all_check_input input_size_20" checked><span class="all_chcek_span"></span></th>
-                                            <th class="pro-title">상품번호</th>
-                                            <th class="pro-thumbnail">이미지</th>
+                                            <th class="pro-title">이미지</th>
                                             <th class="pro-title">상품명</th>
+<!--                                            <th class="pro-title">상품번호</th>-->
                                             <th class="pro-title">옵션1</th>
                                             <th class="pro-title">옵션2</th>
                                             <th class="pro-title">색상</th>
-                                            <th class="pro-price">가격(개당,할인 후)</th>
-                                            <th class="pro-quantity">주문수량</th>
+                                            <th class="pro-price">가격(개당)</th>
+                                            <th class="pro-quantity">수량</th>
                                             <th class="pro-price">총 결제금액</th>
     <!--                                        <th class="pro-title">주문하기(개별)</th>-->
                                             <th class="pro-remove">삭제</th>
@@ -67,9 +68,9 @@
                                                     </div>
                                                 </td>
                                                 <input type="hidden" th:id="${cart.cno}"> <!-- 행 검색용(숨김) -->
-                                                <td class="pro-title"  th:text="${cart.pno}"></td>
-                                                <td class="pro-thumbnail"><img th:src="|/display?fileName=${cart.pImage}|" alt="" /></td>
+                                                <td class="pro-title"><img th:src="|/display?fileName=${cart.pImage}|" alt="" /></td>
                                                 <td class="pro-title"><a th:href="@{/shop/read(pno=${cart.pno},mno=${cart.mno})}" th:text="${cart.cName}"></a></td>
+<!--                                                <td class="pro-title"  th:text="${cart.pno}"></td>-->
                                                 <td class="pro-title">[[${cart.cOption}]]<span style="font-size: x-small"></span></td>
                                                 <td class="pro-title">[[${cart.cOption2}]]<span style="font-size: x-small"></span></td>
                                                 <td class="pro-title">[[${cart.cColor}]]<span style="font-size: x-small"></span></td>
@@ -78,11 +79,11 @@
                                                     <div class="product-quantity">
                                                         <input type="text"  name="qtyInput"  th:value="${cart.cCount}" />
                                                         <span class="dec qtybtn">
-                                                                    <i class="fa fa-angle-left"></i>
-                                                                </span>
+                                                            <i class="fa fa-angle-left"></i>
+                                                        </span>
                                                         <span class="inc qtybtn">
-                                                                    <i class="fa fa-angle-right"></i>
-                                                                </span>
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </span>
                                                     </div>
                                                 </td>
                                                 <td class="pro-price" name="cTotalPrice" th:text="${cart.cTotalPrice}"></td>
@@ -90,7 +91,7 @@
                                                     <form id="deleteForm" th:action="@{/sw/mypage/cart/delete}" th:method="post">
                                                         <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
                                                         <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
-                                                        <input type="button" name="cartDeleteBtn" class="btn" value="삭제">
+                                                        <input style="border: white; background-color: white" type="button" name="cartDeleteBtn" value="X">
                                                     </form>
                                                 </td>
                                             </tr>
@@ -143,7 +144,7 @@
     <input type="hidden" name="mno" th:value="${mno}" readonly>
 </body>
 
-<!-- mypage footer fragment -->
+<!-- FOOTER FRAGMENT -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <script>
@@ -256,11 +257,11 @@
         $(".fa-angle-left,.fa-angle-right").click(function (){
             console.log("-버튼 클릭")
 
-             // Target 태그 가져오기
-             var targetInput = $(this).closest("tr").find("input[name=qtyInput]"); // 대상 input
-             var originalVal = targetInput.val(); // 기존 수량
-             // +- 버튼에 따라 수량 업데이트 진행
-             console.log($(this).attr('class'))
+            // Target 태그 가져오기
+            var targetInput = $(this).closest("tr").find("input[name=qtyInput]"); // 대상 input
+            var originalVal = targetInput.val(); // 기존 수량
+            // +- 버튼에 따라 수량 업데이트 진행
+            console.log($(this).attr('class'))
             if($(this).hasClass('fa-angle-left')){
                 var updateVal = parseInt(originalVal) - 1; // 변경 수량
                 // targetInput.val(updateVal); // 변경 수량 업데이트
@@ -275,8 +276,8 @@
             // Ajax 통신용 데이터 가져오기
             var mno = $(this).closest("tr").find("input[name=mno]").val();
             var cno = $(this).closest("tr").find("input[name=cno]").val();
-             // console.log(mno)
-             // console.log(cno)
+            // console.log(mno)
+            // console.log(cno)
 
             // Ajax 통신 함수 호출
             updateCart(updateVal,mno,cno);
