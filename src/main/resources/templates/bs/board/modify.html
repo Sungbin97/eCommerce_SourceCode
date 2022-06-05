@@ -29,8 +29,10 @@
                                 <textarea id="content" name="content" th:text="${item.content}"></textarea>
                             </div>
                             <div class="col-xs-12 mb-20">
-                                <label for="userName">작성자</label>
-                                <input id="userName" name="userName" type="text" th:value="${item.userName}" readonly/>
+                                <label for="nonMemberId" th:if="${item.mno}==10000">작성자<span class="required">*</span></label>
+                                <input id="nonMemberId" name="nonMemberId" type="text" th:if="${item.mno}==10000" th:value="${item.nonMemberId}" readonly/>
+                                <label for="nickName" th:if="${item.mno}!=10000">작성자</span></label>
+                                <input id="nickName" name="nickName" type="text" th:value="${item.nickName}" th:if="${item.mno}!=10000" readonly/>
                             </div>
                             <div class="bs-div-btn">
                                 <button class="btn" id="modify">수정</button>
@@ -38,7 +40,7 @@
                                 <button class="btn" id="delete">삭제</button>
                             </div>
                             <div class="criteria">
-                                <input type="hidden" th:value="${item.uNo}" name="uNo" readonly />
+                                <input type="hidden" th:value="${item.bno}" name="bno" readonly />
                                 <input type="hidden" th:value="${cri.page}" name="page" />
                                 <input type="hidden" th:value="${cri.pageNum}" name="pageNum" />
                                 <input type="hidden" th:value="${#dates.format(item.regDate, 'yyyy-MM-dd')}" readonly />
@@ -55,7 +57,7 @@
 </div>
 <!-- page section end -->
 <!--<form id="modifyForm" action="modify" method="post">-->
-<!--    <input type="hidden" th:value="${item.uNo}" name="uNo">-->
+<!--    <input type="hidden" th:value="${item.bno}" name="bno">-->
 <!--    <input th:value="${item.title}" name="title"><br>-->
 <!--    <textarea th:text="${item.content}" name="content"></textarea><br>-->
 <!--    <input th:value="${item.userName}" readonly><br>-->
@@ -65,7 +67,7 @@
 
 </body>
 <!-- footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_header.html :: footerFragment"></th:block>
+<th:block th:replace="fragments/mypage/mypage_footer.html :: footerFragment"></th:block>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
     $(document).ready(function (){

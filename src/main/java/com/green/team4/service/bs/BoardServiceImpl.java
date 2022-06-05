@@ -24,9 +24,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardVO getOne(Long uNo) {
+    public BoardVO getOne(Long bno) {
 
-        return mapper.readOne(uNo);
+        return mapper.readOne(bno);
     }
 
     @Override
@@ -57,23 +57,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void saveFile(BoardVO vo, MultipartFile imgFile) throws IOException {
-        String originFileName = imgFile.getOriginalFilename();
-        String fileName = "";
-
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/file";
-        System.out.println(projectPath);
-
-        UUID uuid = UUID.randomUUID();
-        fileName = uuid + "_" + originFileName;
-
-        File saveFile = new File(projectPath,fileName);
-        imgFile.transferTo(saveFile);
-
-        vo.setImgName(originFileName);
-        vo.setImgPath(fileName);
-        System.out.println("파일 이름 : " + fileName);
-        mapper.insert(vo);
-
+    public BoardVO userInfo(Long mno) {
+        return mapper.userInfo(mno);
     }
 }

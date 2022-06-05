@@ -10,10 +10,11 @@ import java.util.List;
 public interface BoardMapper {
     public void insert(BoardVO vo);
     public void modify(BoardVO vo);
-    public BoardVO readOne(Long uNo);
+    public BoardVO readOne(Long bno);
     public List<BoardVO> readList();
     public void delete(Long uNo);
     public List<BoardVO> getPageList(Criteria criteria);
     public int getTotalCount(Criteria criteria);
     // 전체 게시글 수를 구하기 위한 메서드
+    public BoardVO userInfo(Long mno);
 }

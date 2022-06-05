@@ -25,17 +25,24 @@
                                 <textarea id="content" name="content"></textarea>
                             </div>
                             <div class="col-xs-12 mb-20">
-                                <label for="userName">작성자 <span class="required">*</span></label>
-                                <input id="userName" name="userName" type="text"/>
+                                <label for="nonMemberId" th:if="${item.mno}==10000">작성자<span class="required">*</span></label>
+                                <input id="nonMemberId" name="nonMemberId" type="text" th:if="${item.mno}==10000"/>
+                                <label for="nickName" th:if="${item.mno}!=10000">작성자</span></label>
+                                <input id="nickName" name="nickName" type="text" th:value="${item.nickName}" th:if="${item.mno}!=10000" readonly/>
                             </div>
                             <div class="col-xs-12 mb-20">
-                                <label for="imgFile">파일</label>
-                                <input id="imgFile" name="imgFile" type="file"/>
+                                <label for="nonMemberPassword" th:if="${item.mno}==10000">비밀번호<span class="required">*</span></label>
+                                <input id="nonMemberPassword" name="nonMemberPassword" type="text" th:if="${item.mno}==10000"/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label for="img">파일</label>
+                                <input id="img" name="img" type="file" multiple/>
                             </div>
 
                             <div class="col-xs-12">
                                 <a href="list"><button type="text">List</button></a>
                                 <input value="Register" type="submit">
+                                <input th:value="${item.mno}" type="hidden" name="mno">
 
                             </div>
                         </div>
