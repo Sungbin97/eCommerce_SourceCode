@@ -62,7 +62,9 @@
         limit #{page}, #{pageNum}
     </select>
     <select id="getTotalCount" resultType="int">
-        select count(*) from tbl_board,tbl_memberinfo where bno > 0
+        select count(*) from tbl_board
+        join tbl_memberinfo tm on tbl_board.mno = tm.mno
+        where bno > 0
             <if test="type=='title' and keyword != null and keyword !=''">
                 and title like concat('%',#{keyword},'%')
             </if>
