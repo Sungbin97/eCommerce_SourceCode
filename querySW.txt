@@ -1,3 +1,5 @@
+create database team4db;
+
 use team4db;
 
 -- 회원 기본정보 테이블
@@ -16,12 +18,10 @@ create table tbl_memberInfo(
     address varchar(50) not null, -- 기본주소
     detailAddress varchar(50) not null, -- 세부주소
     interestSports varchar(50) default '없음', -- 관심 운동
-    auth varchar(50) not null, -- 회원 권한
-    grade varchar(50) not null, -- 회원 등급
+    auth varchar(50), -- 회원 권한
+    grade varchar(50), -- 회원 등급
     point int(100) default 0 -- 회원 보유 포인트
 );
-
-update tbl_memberInfo set point = 750 where mno=2;
 
 -- 탈퇴 회원 테이블
 create table tbl_deleteMem(
@@ -86,34 +86,6 @@ create table tbl_product_opt(
     pOptionPrice int(11) default 0 -- 옵션 추가금액
 );
 
-select distinct pOption, pOptionName, pOption2, pOptionName2 from tbl_product_opt where pno=402;
-
-insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
-                             pOption2, pOptionName2, pColor, pOptionPrice)
-values (402,10,'S','사이즈','토끼','그림','red',200);
-insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
-                             pOption2, pOptionName2, pColor, pOptionPrice)
-values (402,10,'S','사이즈','토끼','그림','blue',200);
-insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
-                             pOption2, pOptionName2, pColor, pOptionPrice)
-values (402,10,'S','사이즈','다람쥐','그림','red',200);
-insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
-                             pOption2, pOptionName2, pColor, pOptionPrice)
-values (402,10,'S','사이즈','다람쥐','그림','blue',200);
-
-insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
-                             pOption2, pOptionName2, pColor, pOptionPrice)
-values (402,10,'M','사이즈','토끼','그림','red',200);
-insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
-                             pOption2, pOptionName2, pColor, pOptionPrice)
-values (402,10,'M','사이즈','토끼','그림','blue',200);
-insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
-                             pOption2, pOptionName2, pColor, pOptionPrice)
-values (402,10,'M','사이즈','다람쥐','그림','red',200);
-insert into tbl_product_opt (pno, pAmount, pOption, pOptionName,
-                             pOption2, pOptionName2, pColor, pOptionPrice)
-values (402,10,'M','사이즈','다람쥐','그림','blue',200);
-
 -- 주문 테이블(tbl_orderItem과 set)
 create table tbl_order(
     mno int(30) not null, -- 회원번호
@@ -133,27 +105,6 @@ create table tbl_order(
     tSavePoint int(50), -- 총 적립된 포인트
     foreign key (mno) references tbl_memberInfo (mno)
 );
-
-insert into tbl_order (mno, ono, receiverName, receiverPhone,
-                       postcode, address, detailAddress, message,
-                       tProductPrice, tShipFee, tUsePoint, tTotalPrice,
-                       tSavePoint)
-values (1,'12345678','받는이이름','받는이연락처','13455','기본주소','세부주소','감사합니다.'
-       ,5000,3000,4000,4000,100);
-
-insert into tbl_order (mno, ono, receiverName, receiverPhone,
-                       postcode, address, detailAddress, message,
-                       tProductPrice, tShipFee, tUsePoint, tTotalPrice,
-                       tSavePoint)
-values (2,'123456789','받는이이름','받는이연락처','13455','기본주소','세부주소','감사합니다.'
-       ,3000,3000,1000,5000,250);
-
-insert into tbl_order (mno, ono, receiverName, receiverPhone,
-                       postcode, address, detailAddress, message,
-                       tProductPrice, tShipFee, tUsePoint, tTotalPrice,
-                       tSavePoint)
-values (2,'1234567890','받는이이름','받는이연락처','1212','기본주소','세부주소','테스트입니다.'
-       ,15000,3000,1000,17000,750);
 
 
 -- 주문 상품 테이블
@@ -180,18 +131,7 @@ create table tbl_orderItem( -- SW 수정 reviewStatus 추가 20220530
     FOREIGN KEY (pno) REFERENCES tbl_product(pno)
 );
 
-alter table tbl_orderitem add iReviewStatus varchar(30) default '미등록';
 
-insert into tbl_orderItem (ono, pno, iName, iOption, iOptionName, iOption2, iOptionName2,
-                           iColor, iPrice, iDiscount, iDisPrice, iCount, iSavePoint,
-                           iTotalPrice)
-values ('1234567890',404,'테스트상품명2','95','사이즈','별','장식','BLACK',5000,0,5000,1,250,5000);
-insert into tbl_orderItem (ono, pno, iName, iOption, iOptionName, iOption2, iOptionName2,
-                           iColor, iPrice, iDiscount, iDisPrice, iCount, iSavePoint,
-                           iTotalPrice)
-values ('1234567890',405,'테스트상품명3','115','사이즈','해','장식','RED',10000,0,10000,1,500,10000);
-
-delete from tbl_order where ono='123456789';
 -- 리뷰 테이블
 create table tbl_review( -- 수정 SW 20220530 (rImageURL 삭제 => 이미지 별도 테이블로 분리, oINo 추가)
     rno int(10) not null auto_increment primary key, -- 리뷰번호
@@ -206,9 +146,6 @@ create table tbl_review( -- 수정 SW 20220530 (rImageURL 삭제 => 이미지 �
     rUpdatedate TIMESTAMP not null default now() -- 리뷰 수정일
 );
 
-insert into tbl_review (pno, mno, oINo, rRating, rContent) value (5,2,2,2,'테스트');
-delete from tbl_review where pno=5;
-
 -- 리뷰 첨부파일 테이블 -- 신규 생성 SW 20220530
 create table tbl_reviewFiles(
     rno int(30) not null, -- 리뷰 번호
@@ -218,7 +155,6 @@ create table tbl_reviewFiles(
     uuid varchar(500) not null, -- 파일 UUID
     foreign key (rno) references tbl_review (rno)
 );
-
 
 -- 리뷰 추천 테이블
 create table tbl_review_LIKE(
@@ -250,11 +186,6 @@ create table tbl_interest(
     foreign key (pno) references tbl_product (pno)
 );
 
-insert into tbl_interest(mno, pno) values (2,13);
-insert into tbl_interest(mno, pno) values (2,25);
-insert into tbl_interest(mno, pno) values (2,31);
-
-
 -- 장바구니 테이블(상품 세부정보는 tbl_product join하여 출력)
 create table tbl_cart(
     mno int(30) not null, -- 회원번호
@@ -276,32 +207,10 @@ create table tbl_cart(
     foreign key (pno) references tbl_product (pno)
 );
 
-insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
-                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
-values (2,1,'상품명1','사이즈','100','장식','다람쥐','Blue',1000,0.5,500,2,1000);
-insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
-                       cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
-values (2,2,'상품명2','사이즈','100','장식','토끼','Red',1000,0,1000,2,2000);
-insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
-                       cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
-values (2,3,'상품명3','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
-insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
-                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
-values (2,4,'상품명4','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
-insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
-                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
-values (2,5,'상품명5','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
-insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
-                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
-values (2,6,'상품명6','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
-insert into tbl_cart (mno, pno, cName, cOptionName, cOption, cOptionName2, cOption2,
-                      cColor, cPrice, cDiscount, cDisPrice, cCount, cTotalPrice)
-values (2,7,'상품명7','사이즈','100','장식','토끼','Red',1000,0,1000,4,2000);
-
-
--- 취소/반품/교환 테이블 *수정 SW 0528
+-- 취소/반품/교환 테이블 *수정 SW 0604
 create table tbl_exchange(
     mno int(30) not null, -- 회원번호(tbl_memberInfo)
+    oINo int(30) not null, -- 주문 상품 번호 -- 신규추가
     ono varchar(50) not null, -- 주문번호(tbl_order)
     newOno varchar(50) default '-', -- 처리 후 신규발행한 주문서 번호
     pno int(30) not null,  -- 상품번호(tbl_product)
@@ -317,11 +226,10 @@ create table tbl_exchange(
     eOption2 varchar(50),
     color varchar(50),
     foreign key (mno) references tbl_memberInfo (mno),
+    foreign key (oINo) references tbl_orderItem (oINo), -- 신규 추가
     foreign key (ono) references tbl_order (ono),
     foreign key (pno) references tbl_product (pno)
 );
-
-alter table tbl_exchange add newOno varchar(50) default '-';
 
 
 -- 취소/반품/교환 신청 첨부파일 테이블
@@ -381,17 +289,6 @@ create table tbl_delivery(
     foreign key (oINo) references tbl_orderItem (oINo)
 );
 
-create table user_tbl(
-    uNo int auto_increment primary key,
-    userId varchar(30),
-    userName varchar(30) not null unique key,
-    userPassword varchar(30),
-    title varchar(100) not null,
-    content varchar(1000) not null,
-    regDate date,
-    modDate date
-);
-
 -- 고객센터_1:1문의 => tbl_personalQ SW신규추가 20220601
 create table tbl_personalQ(
     pqNo int(30) primary key auto_increment, -- 1:1문의글번호
@@ -409,11 +306,6 @@ create table tbl_personalQ(
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (pno) references tbl_product (pno)
 );
-
-insert into tbl_personalQ (mno, pqCategory,
-                           pqTitle, pqContent, pqRegDate
-                           )
-values (2,'일반문의','제목제목테스트','안녕안녕',now());
 
 -- 고객센터_1:1문의 첨부파일 SW신규추가 20220601
 create table tbl_personalQFiles(
@@ -448,6 +340,214 @@ create table reply_tbl(
     modDate date,
     foreign key (uNo) references board_tbl(uNo)
 );
+
+
+-- 카테고리 데이터
+
+
+-- 카테고리 칼럼
+-- tier  (대분류 1 , 중분류 2 , 소분류 3)
+-- pCateName 카테고리 이름
+-- pCatecode 카테고리 코드
+-- cateParent 바로 위 부모 코드
+
+
+-- 카테고리 코드 규칙
+-- 숫자는 총 6자리(컬럼 타입은 varchar)
+-- 첫번째 자리는 대분류 (0~9)   ex)100000, 900000
+-- 2~3번째 자리는 중분류 (01~99)   ex) 101000 , 179000
+-- 4~마지막번째 자리는 소분류(001~999)  ex ) 101007, 202875
+
+
+-- MEN(남성용 제품)
+insert into tbl_product_cate(tier, pCateName, pCatecode) values (1, 'MEN', '100000');
+
+-- 남성의류
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '의류', '101000','100000');
+
+-- 남성의류 하위 카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '티셔츠', '101001','101000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '저지', '101002','101000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '후드', '101003','101000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '자켓', '101004','101000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '팬츠', '101005','101000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '숏팬츠', '101006','101000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '셋업', '101007','101000');
+
+-- 남성 신발
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '신발', '102000','100000');
+
+-- 남성 신발 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '라이프스타일', '102001','102000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '운동화', '102002','102000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '런닝화', '102003','102000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '아웃도어', '102004','102000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '트레이닝/짐', '102005','102000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '슬리퍼/샌들', '102006','102000');
+
+-- 남성 용품
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '용품', '103000','100000');
+
+-- 남성 용품 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '모자', '103001','103000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '장갑', '103002','103000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '가방', '103003','103000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '양말', '103004','103000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타', '103005','103000');
+
+-- 남성 스포츠
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '스포츠', '104000','100000');
+
+-- 남성 스포츠 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '축구', '104001','104000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '야구', '104002','104000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '농구', '104003','104000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '골프', '104004','104000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '테니스', '104005','104000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '모터스포츠', '104006','104000');
+
+--  WOMEN(여성용 제품)
+insert into tbl_product_cate(tier, pCateName, pCatecode) values (1, 'WOMEN', '200000');
+
+-- 여성의류
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '의류', '201000','200000');
+
+-- 여성의류 하위 카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '티셔츠', '201001','201000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '저지', '201002','201000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '후드', '201003','201000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '자켓', '201004','201000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '팬츠', '201005','201000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '숏팬츠', '201006','201000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '타이즈', '201007','201000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '스포츠브라', '201008','201000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '스커트', '201009','201000');
+
+-- 여성 신발
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '신발', '202000','200000');
+
+-- 여성 신발 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '라이프스타일', '202001','202000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '운동화', '202002','202000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '런닝화', '202003','202000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '아웃도어', '202004','202000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '트레이닝/짐', '202005','202000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '슬리퍼/샌들', '202006','202000');
+
+-- 여성 용품
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '용품', '203000','200000');
+
+-- 여성 용품 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '모자', '203001','203000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '장갑', '203002','203000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '가방', '203003','203000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '양말', '203004','203000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타', '203005','203000');
+
+-- 여성 스포츠
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '스포츠', '204000','200000');
+
+-- 여성 스포츠 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '축구', '204001','204000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '야구', '204002','204000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '농구', '204003','204000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '골프', '204004','204000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '테니스', '204005','204000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '모터스포츠', '204006','204000');
+
+
+-- Nutrition(영양제 식품)
+insert into tbl_product_cate(tier, pCateName, pCatecode) values (1, 'NUTRITION', '300000');
+
+-- 단백질 보충제
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '단백질 보충제', '301000','300000');
+
+-- 단백질 보충제 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '웨이프로틴', '301001','301000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '아이솔레이트', '301002','301000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '식물성 단백질', '301003','301000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '밀크&카제인', '301004','301000');
+
+-- 식품/간식
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '식품/간식', '302000','300000');
+
+-- 식품/간식 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '프로틴바', '302001','302000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '프로틴 간식', '302002','302000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '건강간식', '302003','302000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '식사대용', '302004','302000');
+
+-- 비타민/영양제
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '비타민/영양제', '303000','300000');
+
+-- 비타민/영양제 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '종합비타민', '303001','303000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '비타민', '303002','303000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '미네랄', '303003','303000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '오메가3', '303004','303000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타 영양제', '303005','303000');
+
+-- 다이어트
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '다이어트', '304000','300000');
+
+-- 다이어트 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '게이너', '304001','304000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '다이어트 보충제', '304002','304000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '다이어트 쉐이크', '304003','304000');
+
+
+-- accessories(운동기구 기타 등등)
+insert into tbl_product_cate(tier, pCateName, pCatecode) values (1, 'ACCESSORIES', '400000');
+
+-- 운동기구
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '운동기구', '401000','400000');
+
+-- 운동기구 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '치닝디핑/문틈철봉', '401001','401000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '푸쉬업바', '401002','401000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '케틀벨', '401003','401000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '덤벨', '401004','401000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '바벨', '401005','401000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타', '401006','401000');
+
+-- 헬스용품
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '헬스용품', '402000','400000');
+
+-- 헬스용품 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '글러브', '402001','402000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '파워벨트', '402002','402000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '요가매트', '402003','402000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '보호대', '402004','402000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타', '402005','402000');
+
+-- 머신
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '머신', '403000','400000');
+
+-- 머신 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '런닝머신', '403001','403000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '로잉머신', '403002','403000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '스미스머신', '403003','403000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '사이클', '403004','403000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타', '403005','403000');
+
+-- 스포츠 용품
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, '스포츠 용품', '404000','400000');
+
+-- 스포츠 용품 하위카테고리
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '축구 용품', '404001','404000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '농구 용품', '404002','404000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '싸이클 용품', '404003','404000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '테니스 용품', '404004','404000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타', '404005','404000');
+
+
+insert into tbl_memberInfo (mno, id, password, name, nickName, gender, sSNum, email,
+                            phoneNum, mobileNum, postcode, address, detailAddress,
+                            interestSports, auth, grade, point)
+values (0,'test1234','1234','홍길동','닉네이임','남성','016065-0460','swchung0521@gmail.com',
+        '031-1546-1546','0506-0646-05','12345','판교역로123','101동101호','축구','일반회원','준회원',1000);
+
+
 
 commit;
 
