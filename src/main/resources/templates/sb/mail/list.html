@@ -3,56 +3,84 @@
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-main</title>
+    <title>Mail-List</title>
 </head>
 
 <body>
 <!-- mypage header fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
-
-    <!-- PAGE BANNER SECTION -->
-    <div class="page-banner-section section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-banner-content">
-                        <h1 th:text="${memName}+'님'"></h1>
-                        <ul class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li class="active">myPage</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 배송지 정보 -->
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-12 mx-auto">
-                <div class="login-reg-form">
-                    <div class="row">
-                        <h5>메일 발송 목록</h5>
-                        <input type="hidden" name="mno"/>
-                        <div class="shipList col-xs-12 mb-20"  th:each="list : ${list}">
-                            <ul>
-                                <table>
-                                    <ul>
-                                        <li th:text="'회원번호: '+${list.mno}"/>
-                                        <li th:text="'주소: '+${list.email}"/>
-                                        <li th:text="'제목: '+${list.subject}"/>
-                                        <li th:text="'내용: '+${list.text}"/>
-                                        <li th:text="'발송일: '+${list.sendDate}"/>
-                                    </ul>
-                                </table>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1 th:text="ADMIN"></h1>
+                    <ul class="breadcrumb">
+                        <li><a href="/mainPage">Home</a></li>
+                        <li class="active">MailList</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+<!-- PAGE SECTION START -->
+    <div class="page-section section pt-120 pb-80">
+    <div class="container">
+        <div class="row">
+            <form action="#">
+                <div class="col-xs-12">
+                    <div class="wishlist-table table-responsive mb-40">
+                        <h3>메일 리스트</h3>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="pro-remove">메일주소</th>
+                                <th class="pro-remove">제목</th>
+                                <th class="pro-thumbnail">내용</th>
+                                <th class="pro-price">발송일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="mail:${list}">
+                                <td class="pro-remove" th:text="${mail.email}"></td>
+                                <td class="pro-price"><span class="amount" th:text="${mail.subject}"/></td>
+                                <td class="pro-price"><span class="in-stock" th:text="${mail.text}"/></td>
+                                <td class="pro-remove" th:text="${mail.sendDate}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+<!--                        &lt;!&ndash; Paging custom &ndash;&gt;-->
+<!--                        <div class="paginationC clearfix">-->
+<!--                            &lt;!&ndash; 이전 버튼 &ndash;&gt;-->
+<!--                            <li th:if="${list.getPrePage() != 0}">-->
+<!--                                <a th:href="@{/sb/member/member(pageNum=${list.getPrePage()})}">Previous</a>-->
+<!--                            </li>-->
+<!--                            <li th:if="${list.getPrePage() == 0}">-->
+<!--                                <a>Previous</a>-->
+<!--                            </li>-->
+<!--                            &lt;!&ndash; 페이지 번호&ndash;&gt;-->
+<!--                            <li th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">-->
+<!--                                <a th:text="${page}" th:href="@{/sb/member/member(pageNum=${page})}"></a>-->
+<!--                            </li>-->
+<!--                            &lt;!&ndash; 다음 버튼&ndash;&gt;-->
+<!--                            <li th:if="${list.getNextPage() != 0}">-->
+<!--                                <a th:href="@{/sb/member/member(pageNum=${list.getNextPage()})}">Next</a>-->
+<!--                            </li>-->
+<!--                            <li th:if="${list.getNextPage() == 0}">-->
+<!--                                <a>Next</a>-->
+<!--                            </li>-->
+<!--                            <p>현재페이지[[${pageNum}]]</p>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION END -->
 </body>
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>

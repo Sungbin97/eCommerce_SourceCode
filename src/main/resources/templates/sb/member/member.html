@@ -3,7 +3,7 @@
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-main</title>
+    <title>Admin-memberList</title>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
                     <h1 th:text="${memName}+'님'"></h1>
                     <ul class="breadcrumb">
                         <li><a href="#">Home</a></li>
-                        <li class="active">myPage</li>
+                        <li class="active">memberList</li>
                     </ul>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="dto:${list}">
+                            <tr th:each="dto:${list.getList()}">
                                 <td class="pro-remove"><a th:href="@{/sb/member/modify(mno=${dto.mno})}" th:text="${dto.mno}"/></td>
                                 <td class="pro-remove" th:text="${dto.name}"></td>
                                 <td class="pro-thumbnail" th:text="${dto.address}"></td>
@@ -58,6 +58,28 @@
                             </tr>
                             </tbody>
                         </table>
+                        <!-- Paging custom -->
+                        <div class="paginationC clearfix">
+                            <!-- 이전 버튼 -->
+                            <li th:if="${list.getPrePage() != 0}">
+                                <a th:href="@{/sb/member/member(pageNum=${list.getPrePage()})}">Previous</a>
+                            </li>
+                            <li th:if="${list.getPrePage() == 0}">
+                                <a>Previous</a>
+                            </li>
+                            <!-- 페이지 번호-->
+                            <li th:each="page: ${#numbers.sequence(list.getNavigateFirstPage(), list.getNavigateLastPage())}" th:classappend="${page == list.getPageNum()} ? 'active'">
+                                <a th:text="${page}" th:href="@{/sb/member/member(pageNum=${page})}"></a>
+                            </li>
+                            <!-- 다음 버튼-->
+                            <li th:if="${list.getNextPage() != 0}">
+                                <a th:href="@{/sb/member/member(pageNum=${list.getNextPage()})}">Next</a>
+                            </li>
+                            <li th:if="${list.getNextPage() == 0}">
+                                <a>Next</a>
+                            </li>
+                            <p>현재페이지[[${pageNum}]]</p>
+                        </div>
                     </div>
                 </div>
             </form>

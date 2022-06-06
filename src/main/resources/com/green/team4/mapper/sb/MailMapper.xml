@@ -11,7 +11,7 @@
     </insert>
 
     <select id="getAll" resultType="com.green.team4.vo.sb.MailVO">
-        select * from tbl_mail
+        select * from tbl_mail order by sendDate desc
     </select>
 
     <select id="getOne" resultType="com.green.team4.vo.sb.MailVO">

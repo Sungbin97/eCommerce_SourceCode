@@ -1,5 +1,6 @@
 package com.green.team4.service.sw;
 
+import com.github.pagehelper.PageHelper;
 import com.green.team4.mapper.sb.MailMapper;
 import com.green.team4.mapper.sw.*;
 import com.green.team4.vo.sb.MailVO;
@@ -36,8 +37,9 @@ public class MemberInfoServiceImpl implements MemberInfoService{
 
     // 회원정보 전체 가져오기
     @Override
-    public List<MemberInfoVO> readAll() {
+    public List<MemberInfoVO> readAll(int pageNum) {
         log.info("MemberInfoService => readAll 실행");
+        PageHelper.startPage(pageNum,10);
         List<MemberInfoVO> memList = memberInfoMapper.getAll();
         memList.forEach(System.out::println);
         return memList;
