@@ -226,15 +226,7 @@
                             </form>
                         </div>
                         <div class="col-lg-6 col-12 mb-40">
-<!--                            쿠폰-->
-<!--                            <div class="coupon-form mb-30">-->
-<!--                                <h3>coupon code</h3>-->
-<!--                                <p>Enter your coupon code if you have one</p>-->
-<!--                                <form action="#">-->
-<!--                                    <input type="text" placeholder="Coupon code" />-->
-<!--                                    <input type="submit" value="Apply" />-->
-<!--                                </form>-->
-<!--                            </div>-->
+
 
 <!--                            [[${orderlist}]]-->
                             <div class="order-wrapper">
@@ -299,9 +291,20 @@
                                 </div>
                                 <hr>
                                 <div class="point_div">
-                                    <div class="point_div_subject"><strong>포인트 사용</strong></div>
+                                    <div class="point_div_subject"><strong>쿠폰/포인트 사용</strong></div>
                                     <table class="point_table">
-
+                                        <tr>
+                                            <div class="coupon-form ">
+                                                <p>쿠폰</p>
+<!--                                                <p>Enter your coupon code if you have one</p>-->
+                                                <form class="coupon_form">
+                                                    <select  class="coupon_select">
+                                                        <option disabled></option>
+                                                    </select>
+                                                    <input id="couponBtn" type="submit" value="쿠폰 보기" />
+                                                </form>
+                                            </div>
+                                        </tr>
                                         <tr>
                                             <td>
                                                 사용가능 포인트 : [[${memberInfo.point}]] &nbsp;&nbsp;&nbsp; 포인트 입력 : <input class="order_point_input" th:value="0" style="width:80px;font-size:10px;">P
@@ -329,7 +332,15 @@
                                                 <strong>+</strong><span class="delivery_price_span"></span>원
                                             </li>
                                             <li>
-                                                <span class="price_span_label">할인금액</span>
+                                                <span class="price_span_label">쿠폰 할인금액</span>
+                                                <strong class="strong_blue">-
+                                                    <span class="coupon_span">
+
+                                                </span>원
+                                                </strong>
+                                            </li>
+                                            <li>
+                                                <span class="price_span_label">포인트 할인금액</span>
                                                 <strong class="strong_blue">-
                                                 <span class="usePoint_span">
 
@@ -371,7 +382,12 @@
                                         <input name="detailAddress" type="hidden">
                                         <!-- 사용 포인트 -->
                                         <input name="tUsePoint" type="hidden">
+                                        <!-- 배송 메세지 정보-->
                                         <input type="hidden"  name="message" >
+                                        <!-- 쿠폰 금액-->
+                                        <input type="hidden"  name="tCouponPrice" >
+                                        <!--  사용한 쿠폰 번호-->
+                                        <input type="hidden" name="tCpno" value="0"  >
                                     </form>
                             </div>
                             <div>
@@ -404,6 +420,8 @@
         });
         // 포인트 값 넣기
         $("input[name='tUsePoint']").val($(".order_point_input").val())
+        // 쿠폰으로 할인받은 금액 넣기
+        $("input[name='tCouponPrice']").val($(".coupon_span").text())
         //기타 값 넣기
         $("input[name='ono']").val(new Date().getTime());
         $("input[name='message']").val($(".message_input").val())
@@ -561,6 +579,8 @@
         let totalPoint = 0;		// 총 포인트
         let deliveryPrice = 0;	// 배송비
         let usePoint = 0;		// 사용 포인트(할인가격)
+        let couponVal = 0;
+        let disPriceBycoupon = 0;
         let finalTotalPrice = 0; // 최종 가격(총 가격 + 배송비)
 
         $(".product_price_td").each(function (index,ele){
@@ -570,6 +590,12 @@
             totalPoint += parseInt($(ele).find(".individual_totalPoint_input").val())
             totalKind = +1;
         })
+        //쿠폰 할인값
+        couponVal = $(".coupon_select").val()/100
+        console.log('couponVal',couponVal)
+        disPriceBycoupon = Math.floor(totalPrice * couponVal); // 할인될 값
+        // totalPrice =Math.floor(totalPrice * (1 - couponVal)); // 할인 적용된 값
+
         /* 배송비 결정 */
         if(totalPrice >= 30000){
             deliveryPrice = 0;
@@ -580,9 +606,7 @@
         }
         //고객이 사용하는 포인트
         usePoint = $(".order_point_input").val()
-
-        finalTotalPrice = totalPrice - usePoint + deliveryPrice;
-
+        finalTotalPrice = totalPrice - disPriceBycoupon - usePoint  + deliveryPrice;
         /* 값 삽입 */
         // 총 가격
         $(".totalPrice_span").text(totalPrice.toLocaleString());
@@ -598,14 +622,51 @@
         $(".finalTotalPrice_span").text(finalTotalPrice);
         // 할인가(사용 포인트)
         $(".usePoint_span").text(usePoint.toLocaleString());
+        // 쿠폰으로 할인된 금액
+        $(".coupon_span").text(disPriceBycoupon)
     }
+    $("#couponBtn").click(function (e){
+        e.preventDefault();
+        let mno = [[${memberInfo.mno}]]
+        let cpConditionVal =$(".finalTotalPrice_span").text();
+        data = {
+            mno:mno,
+            cpConditionVal:cpConditionVal
+        }
+        $.ajax({
+            type: "get",
+            url: "/rest/getCoupons",
+            data: data,
+            contentType: "application/json;charset=UTF-8",
+            success: (result) => {
+                console.log(result)
+                var str=""
+                if(result.length==0){
+                    str+="<option id='0' value=\"0\" disabled >사용가능한 쿠폰이 없습니다.</option>"
+                } else {
+                    str+='<option id="0" value="0" >쿠폰을 선택해주세요</option>'
+                    $(result).each(function(){
+                        str+='<option id="'+this.cpNo+'" class="coupon_option"  value="'+this.cpValue+'">'+this.cpName+'('+this.cpConditionVal+'원이상 구매시)</option>'
+                    })
 
+                }
+                $(".coupon_select").html(str)
+            },
+        });
+    })
+
+
+    $(".coupon-form").on("change",".coupon_select",function (){
+        let cpNo=$(".coupon_select option:selected").attr("id")
+        $("input[name='tCpno']").val(cpNo)
+        setTotalInfo();
+    })
 
     //회원이 들어올때 기본적인 셋팅할것들
     $(document).ready(function (){
 
-
         setTotalInfo();
+
     })
 </script>
 </body>

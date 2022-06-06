@@ -12,21 +12,7 @@ import java.util.List;
 @Setter
 @ToString
 public class DBOrderVO {
-    //    mno int(30) not null, -- 회원번호
-//    ono varchar(50) primary key , -- 주문번호
-//    orderDate DATETIME default now(), -- 주문일자
-//    receiverName varchar(30) , -- 받는 사람 성명
-//    receiverPhone varchar(50) , -- 밥는 사람 연락처
-//    postcode varchar(50), -- 우편번호
-//    address varchar(50), -- 기본주소
-//    detailAddress varchar(50) not null, -- 상세주소
-//    message varchar(50) , -- 배송 메세지
-//    tProductPrice int(30) , -- 총 상품가격(순수 상품가격)
-//    tShipFee int(30) , -- 배송비
-//    tUsePoint int(50), -- 총 사용한 포인트
-//    tTotalPrice int(30) , -- 최총 총 결제금액(최종 결제금액 = 상품가+배송비-사용한포인트)
-//    tPayStatus varchar(50) default '결제완료', -- 결제상태
-//    tSavePoint int(50), -- 총 적립된 포인트
+
     private String ono; //주문번호
     private int mno;
     private int pno;
@@ -56,7 +42,8 @@ public class DBOrderVO {
 
     private int tUsePoint; //사용포인트
 
-   
+    private int tCouponPrice; // 쿠폰으로 할인 받은 금액
+    private int tCpno; // 사용한 쿠폰번호
     private LocalDateTime orderDate; // 주문 날짜
 
     /* view에서 받아올 DB에 존재 하지 않는 데이터 */
@@ -82,6 +69,6 @@ public class DBOrderVO {
             tShipFee=3000;
         }
         // 최종비용
-        tTotalPrice = orderSalePrice + tShipFee - tUsePoint;
+        tTotalPrice = orderSalePrice + tShipFee - tUsePoint -tCouponPrice;
     }
 }

@@ -66,12 +66,13 @@
                                     <span class="amount">[[${order.ono}]]</span>
                                 </td>
                             </tr>
-                            <tr th:each="product : ${order.orders}">
-                                <td class="product-name">
+
+                            <tr >
+                                <td class="product-name" >
                                     <strong>주문</strong>
                                 </td>
-                                <td class="product-total">
-                                    [[${product.pName}]]  외&nbsp;&nbsp;<strong>[[${order.orders.size()-1}]]</strong>건
+                                <td class="product-total" >
+                                    [[${order.orders.get(0).pName}]]  외&nbsp;&nbsp;<strong>[[${order.orders.size()-1}]]</strong>건
                                 </td>
                             </tr>
                             <tr>

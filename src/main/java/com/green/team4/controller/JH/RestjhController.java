@@ -2,13 +2,16 @@ package com.green.team4.controller.JH;
 
 import com.green.team4.mapper.sb.ProductInfoImgMapper;
 import com.green.team4.service.JH.CategoryService;
+import com.green.team4.service.JH.CouponService;
 import com.green.team4.service.JH.ReviewService;
 import com.green.team4.service.JH.ShopService;
 
+import com.green.team4.service.sw.PersonalQService;
 import com.green.team4.service.sw.ReviewMpService;
 import com.green.team4.vo.JH.*;
 import com.green.team4.vo.sb.ProductInfoImgVO;
 import com.green.team4.vo.sb.ProductVO;
+import com.green.team4.vo.sw.PersonalQVO;
 import com.green.team4.vo.sw.ReviewMpVO;
 import lombok.extern.log4j.Log4j2;
 
@@ -40,12 +43,15 @@ public class RestjhController {
     private ProductInfoImgMapper infoImgMapper;
     @Autowired
     private ReviewMpService reviewMpService;
-
+    @Autowired
+    private PersonalQService personalQService;
+    @Autowired
+    private CouponService couponService;
     //리뷰 컨트롤러
     @GetMapping(value = "/getreviews",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReviewPageVO> getreviews(ItemPageCriteria cri){
-        log.info("getreviews 입장" );
-        log.info(" p_no " + cri);
+//        log.info("getreviews 입장" );
+//        log.info(" p_no " + cri);
         ResponseEntity<ReviewPageVO> responseEntity = null;
 //        List<ReviewMpVO>list =reviewMpService.readAllByPno(cri.getPno());
 //        System.out.println("list   "+list);
@@ -172,15 +178,15 @@ public class RestjhController {
     // 리뷰 좋아요 컨트롤러
     @PostMapping(value = "/commentLike")
     public int ReviewLike(int pno,int rno,int mno,int rmno){
-        System.out.println("ReviewLike");
+        System.out.println("commentLike         ");
         ReviewLikeVO reviewLikeVO = new ReviewLikeVO();
         reviewLikeVO.setPno(pno);
         reviewLikeVO.setMno(mno);
         reviewLikeVO.setRno(rno);
         reviewLikeVO.setRmno(rmno);
-
+        System.out.println("reviewLikeVO              "+reviewLikeVO);
             int checkLike  = reviewService.checkLike(reviewLikeVO);
-
+            System.out.println("checkLike              "+checkLike);
             if(checkLike ==0 ){
                 reviewService.insertLike(reviewLikeVO);
                 reviewService.updateLike(reviewLikeVO.getRno());
@@ -208,6 +214,16 @@ public class RestjhController {
 
         return 0;
     }
+    @GetMapping("/getQList/{pno}")
+    public ResponseEntity<List<PersonalQVO>> getQList(@PathVariable("pno") int pno){
+        ResponseEntity<List<PersonalQVO>> responseEntity = null;
+        try {
+            responseEntity = new ResponseEntity<>(personalQService.readAllByPno(pno),HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
     @GetMapping("/getCategoryList/")
     public ResponseEntity<List<CategoryVO>> getCateTier2(){
         ResponseEntity<List<CategoryVO>> responseEntity = null;
@@ -220,10 +236,15 @@ public class RestjhController {
         return responseEntity;
     }
 
-    @GetMapping(value = "filter")
-    public ResponseEntity<List<ProductVO>> filter(){
-
-        return null;
+    @GetMapping("/getCoupons")
+    public ResponseEntity<List<MemberCouponVO>> getCoupons( MemberCouponVO memberCouponVO){
+        System.out.println("getCoupons 입장" + memberCouponVO);
+        ResponseEntity<List<MemberCouponVO>> responseEntity = null;
+        try {
+            responseEntity = new ResponseEntity<>(couponService.getCouponAvailable(memberCouponVO),HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
     }
-
 }

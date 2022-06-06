@@ -145,12 +145,6 @@
                 <!-- Single Product Thumbnail Slider -->
                 <div class="pro-thumb-img-slider">
                     <div th:each="imgs : ${pImgs}"><a data-toggle="tab"><img class="small" th:src="|/display?fileName=${imgs.pImagePath}|" alt=""></a></div>
-
-<!--                    <div><a data-toggle="tab"><img class="small" th:src="|/display?fileName=${pvo.pImage}|" alt=""></a></div>-->
-<!--                    <div><a data-toggle="tab"><img class="small" src="/images/food0.jpg" alt="" /></a></div>-->
-<!--                    <div><a data-toggle="tab"><img class="small" src="/images/clothes0.jpg" alt="" /></a></div>-->
-<!--                    <div><a data-toggle="tab"><img class="small" th:src="|/display?fileName=${pvo.pImage}|" alt=""></a></div>-->
-<!--                    <div><a data-toggle="tab"><img class="small" src="/images/food1.jpg" alt="" /></a></div>-->
                 </div>
             </div>
 
@@ -249,7 +243,7 @@
             </div>
         </div>
             <!-- PRODUCT SECTION START -->
-            <div class="product-section section pb-120">
+            <div class="product-section section pb-120" >
                 <br>
                 <br>
                 <br>
@@ -303,9 +297,10 @@
             <!-- Nav tabs -->
             <div class="col-xs-12">
                 <ul class="pro-info-tab-list section">
-                    <li><a  id="detailBtn" data-toggle="tab">Detail info</a></li>
-                    <li><a  id="reviewBtn" data-toggle="tab">Reviews([[${pvo.pReviewCnt}]])</a></li>
-                    <li><a  id="deliInfoBtn" data-toggle="tab">Delivery Info</a></li>
+                    <li><a  id="detailBtn" data-toggle="tab">상품 상세정보</a></li>
+                    <li><a  id="reviewBtn" data-toggle="tab">상품평([[${pvo.pReviewCnt}]])</a></li>
+                    <li><a  id="deliInfoBtn" data-toggle="tab">배송정보</a></li>
+                    <li><a  id="qBtn" data-toggle="tab">상품문의</a></li>
                 </ul>
             </div>
             <!-- Tab panes -->
@@ -336,47 +331,19 @@
 
                 </div>
             </div>
+            <div class="tab-content col-xs-12">
+                <div class="product-QList">
+
+                </div>
+            </div>
         </div>
     </div>
 
-        <!-- Modal -->
+        <!--  장바구니 안내 모달 -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">안내</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        장바구니에 등록 되었습니다.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>
-                        <a th:href="@{/sw/mypage/cart/list(mno=${member.mno})}"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>
-                    </div>
-                </div>
+            <div class="modal-dialog modal-dialog-centered modal-sm modalbody">
             </div>
         </div>
-
-        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel2">안내</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="text-align: center">
-                        이미 등록한 상품입니다.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>
-                        <a th:href="@{/sw/mypage/cart/list(mno=${member.mno})}"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- QUICK VIEW MODAL START-->
-        <!--        <a href="#" data-bs-toggle="modal"  data-bs-target="#quickViewModal" title="Quick View"><i class="pe-7s-look"></i>Quick view</a>-->
 
 
 
@@ -389,6 +356,7 @@
         </div>
 
     </div>
+<!--    상세 리뷰 모달-->
     <div class="modal fade" id="quickViewModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered reviewDetail_Modal" >
 
@@ -402,6 +370,44 @@
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <script th:inline="javascript">
+    function loadCartModal(){
+        let mno = [[${member.mno}]]
+        str ='';
+        str +='  <div class="modal-content">\n' +
+            '                    <div class="modal-header">\n' +
+            '                        <h5 class="modal-title" id="exampleModalLabel">안내</h5>\n' +
+            '                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
+            '                    </div>\n' +
+            '                    <div class="modal-body">\n' +
+            '                        장바구니에 등록 되었습니다.\n' +
+            '                    </div>\n' +
+            '                    <div class="modal-footer">\n' +
+            '                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
+            '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>\n' +
+            '                    </div>\n' +
+            '                </div>'
+
+            $(".modalbody").html(str)
+    }
+    function loadCartModal2(){
+        let mno = [[${member.mno}]]
+        str ='';
+        str +='   <div class="modal-content">\n' +
+            '                    <div class="modal-header">\n' +
+            '                        <h5 class="modal-title" id="exampleModalLabel2">안내</h5>\n' +
+            '                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
+            '                    </div>\n' +
+            '                    <div class="modal-body" style="text-align: center">\n' +
+            '                        이미 등록한 상품입니다.\n' +
+            '                    </div>\n' +
+            '                    <div class="modal-footer">\n' +
+            '                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
+            '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>\n' +
+            '                    </div>\n' +
+            '                </div>'
+
+        $(".modalbody").html(str)
+    }
     $(".wishlist").click(function (){
 
         let pno =[[${pvo.pno}]]
@@ -424,6 +430,7 @@
         })
 
     })
+    //장바구니 등록하기
     $(".btn_cart").click(function (e){
 
         e.preventDefault()
@@ -443,7 +450,6 @@
         let cOption2 = $("input[name='orders[0].pOption2']").val()
         let cOptionName2 = "옵션2"
         let cColor = $("input[name='orders[0].pColor']").val()
-        console.log(cCount)
         data = {
             mno : cartMno,
             pno: cartPno,
@@ -461,32 +467,74 @@
             pimage:pImage,
             ccount:cCount
         }
+        let itemCount = $("#amountBox").val();
+        $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
+        let inputs= $(".order_form").find("input")
+        console.log(inputs)
+        let val = "";
+        let cnt="";
 
-        $.ajax({
-            type: "post",
-            url: "/sw/mypage/cart/register",
-            data: JSON.stringify(data),
-            contentType: "application/json;charset=UTF-8",
-            success: (result) => {
-                console.log(result)
-                if(result === "이미 장바구니에 추가되어있습니다."){
-                   let modalID = $(this).data("bs-target")
-                     $(this).attr("data-bs-target","#exampleModal2")
-                }
-                else{
-                    $(this).attr("data-bs-target","#exampleModal1")
-                }
-                // self.location.reload();
-            },
-        });
+        for(let i=0;i<inputs.length;i++){
+            val =inputs[i].value
+            console.log("val : ", val)
+            if(val==""){
+                cnt++
+            }
+        }
+        console.log(cnt)
+        if(cnt>0){
+            alert("옵션을 선택해주세요!")
+        }
+        else{
+            $.ajax({
+                type: "post",
+                url: "/sw/mypage/cart/register",
+                data: JSON.stringify(data),
+                contentType: "application/json;charset=UTF-8",
+                success: (result) => {
+                    console.log(result)
+                    if(result === "이미 장바구니에 추가되어있습니다."){
+                        // let modalID = $(this).data("bs-target")
+                        //$(this).attr("data-bs-target","exampleModal2")
+                        loadCartModal2()
+                    }
+                    else{
+                        //$(this).attr("data-bs-target","exampleModal")
+                        loadCartModal()
+                    }
+                    // self.location.reload();
+                },
+            });
+        }
+
+
     })
-
+    // 사진 위치 변경
     $(".small").click(function (){
         let newPic = $(this).attr("src");
         $("#bigPic").attr("src",newPic)
     })
 
     $(document).ready(function (){
+        // //리뷰 좋아요 데이터 가져오기
+        //
+        //     $.ajax({
+        //         type:"post",
+        //         contentType: "application/json;charset=UTF-8",
+        //         url :"/rest/commentLikeCheck",
+        //         data:JSON.stringify({rno: rno, mno:mno,rmno:rmno}),
+        //         success:function (result){
+        //             console.log("result      ",result)
+        //             if(result==0){
+        //                 $(".thumbs").css("color","black")
+        //             }
+        //             else{
+        //                 $(".thumbs").css("color","red")
+        //             }
+        //         }
+        //     })
+
+
 
         let rating =Math.round([[${pvo.pRating}]])
         let nonactive = 5-rating
@@ -541,11 +589,24 @@
             let colorList =result[0]
             let optionList =result[1]
             let optionList2 =result[2]
-            if(colorList.length ==0 && optionList.length ==0 && optionList2.length ==0){
-                $(".color_p").html("")
-                $(".option_p").html("")
-                $(".option2_p").html("")
+
+            //form 태그 만들기
+            let str ="";
+            let pno = [[${pvo.pno}]]
+            //컬러가 있을 때
+            if(colorList.length !=1 && colorList[0] != null){
+                str +='<input type="hidden" name="orders[0].pColor" value="">'
+            }// 옵션이 있을때
+            if(optionList.length !=1 && optionList[0] != null){
+                str +='<input type="hidden" name="orders[0].pOption" value="">'
+            }// 옵션2 있을때
+            if(optionList2.length !=1 && optionList2[0] != null){
+                str +='<input type="hidden" name="orders[0].pOption2" value="">'
             }
+            str +='<input type="hidden"  name="orders[0].pno" value="' + pno+'">'
+            str += ' <input type="hidden" name="orders[0].pOptionPrice" value="0">'
+            str +=   '<input type="hidden" name="orders[0].itemCount" value="">'
+            $(".order_form").html(str)
             $(colorList).each(function (index,obj){
                 console.log("showColors",obj)
                 if(obj ===null){
@@ -553,7 +614,6 @@
                     $(".color_name").html("")
                 }
                 else{
-
                     colorStr += "<button  style='background-color:"+ obj +"' class='colorBtn' value=" +obj +"><i class='fa fa-check'></i></button>"
                 }
 
@@ -762,6 +822,7 @@
             });
         }
         function showOptions(result){
+
             let str = "";
             let list =result[1]
             $(list).each(function (index,obj){
@@ -784,6 +845,7 @@
             $("#option_select").html(str)
         }
         function showOptions2(result){
+
             let str = "";
             let list =result[2]
             $(list).each(function (index,obj){
@@ -821,12 +883,26 @@
 
         /* 바로구매 버튼 */
         $(".btn_buy").on("click", function(){
-            let itemCount = $("#amountBox").val();
             let mno = [[${member.mno}]]
+            let itemCount = $("#amountBox").val();
             $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
-            //$(".order_form").find("input[name='orders[0].pOptionPrice']").val(optionPrice);
-            $(".order_form").attr("action","/order/"+mno)
-            $(".order_form").submit();
+            let inputs= $(".order_form").find("input")
+            let val = "";
+            let cnt="";
+            for(let i=0;i<inputs.length;i++){
+                val =inputs[i].value
+               if(val==""){
+                 cnt++
+               }
+
+            }
+            if(cnt>0){
+                alert("옵션을 선택해주세요!")
+            }
+            else{
+                $(".order_form").attr("action","/order/"+mno)
+                $(".order_form").submit();
+            }
 
         });
 
@@ -834,6 +910,7 @@
         let deleveryInfo = $(".product-deleveryInfo")
         let review_div = $(".review_div")
         let pagingdiv = $(".review_pageInfo_div")
+        let qlistInfo = $(".product-QList")
         let review_not_div = $(".review_not_div")
         let pageMaker = $(".pageMaker")
         let pno = [[${pvo.pno}]]
@@ -868,6 +945,7 @@
 
                 review_not_div.html('<span>리뷰가 없습니다.</span>');
                 reviewHeader.html('')
+                qlistInfo.html('')
                 review_div.html('');
                 detailInfo.html('')
                 deleveryInfo.html('');
@@ -875,6 +953,7 @@
             }
             else {
                 review_not_div.html('');
+                qlistInfo.html('')
                 detailInfo.html('')
                 deleveryInfo.html('');
                 const list = data.list;
@@ -910,9 +989,9 @@
                     }
                     str += '<span><small>수량 : '+obj.icount+'</small></span>'
                     str +='</div>'
-                    str += '<div class="review_img_div" >'
+                    str += '<div class="review_img_div"  >'
                     for(let i=0;i<obj.reviewFilesList.length;i++){
-                        str += '<a class="reviewImg_a"  ><img class="review_img" src="/display?fileName=' +obj.reviewFilesList[i].imageURL+ '"></a>'
+                        str += '<a class="reviewImg_a"  ><img class="review_img" style="width: 140px; height: 180px" src="/display?fileName=' +obj.reviewFilesList[i].imageURL+ '"></a>'
                     }
                     str += '<div id="overlay">'
                     str += '<img src="" alt="" id="photo">'
@@ -922,12 +1001,12 @@
                     str += '<br>'
                     str += '<br>'
                     str += '<input type="hidden" name="review_rno_input" class="rno_input" value="'+obj.rno +'">'
-                    str += '<span class="thumbs" ><small>도움이 돼요!</small><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">\n' +
-                        '  <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>\n' +
-                        '</svg></span>'
-                    str +='<span class="hello"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">\n' +
-                        '  <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>\n' +
-                        '</svg></span>'
+                    // str += '<span class="thumbs" ><small>도움이 돼요!</small><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">\n' +
+                    //     '  <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>\n' +
+                    //     '</svg></span>'
+                    // str +='<span class="hello"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">\n' +
+                    //     '  <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>\n' +
+                    //     '</svg></span>'
                     str += '<span><small>추천수 : ' +obj.likeHit +'</small></span>'
                     str += '<div>'
                     str += '<span><small class="date_span">'+formatTime(obj.rregDate) +'</small></span>';
@@ -999,6 +1078,7 @@
             cri.sort = sort;
             reviewListInit(cri)
         })
+        // 날짜 구하기
         function formatTime(str){
             var date = new Date();
             return date.getFullYear()+'/'+(date.getMonth()+1)+'/'+date.getDate()+' '+date.getHours()+':'+date.getMinutes();
@@ -1032,9 +1112,9 @@
         $(".review_div").on("click","#review_modal",function (e){
             let rno = $(this).children("input[name='review_rno_input']").val()
             reviewdetail(rno)
-            reviewlikeCheck(rno,2,2)
+            // reviewlikeCheck(rno,2,2)
         })
-        // 함수
+        // 댓글 상세 메서드
         function reviewdetail(rno){
             console.log(rno)
 
@@ -1052,7 +1132,15 @@
                                 str2 +='<div class="col-xl-5 col-md-6 col-12 mb-40 img_box">'
                                     str2 +='<div class="tab-content mb-10">'
                                         str2 +='<div class="pro-large-img tab-pane active big_img_box" id="pro-large-img-1">'
-                                        str2 +='<img class="big_img" src="/display?fileName=' +obj.reviewFilesList[0].imageURL+'">'
+                                        if(data.reviewFilesList.length ==0) {
+                                            str2 +='<br>'
+                                            str2 +='<br>'
+                                            str2 +='<br>'
+                                            str2 += '<p>이미지가 없습니다</p>'
+                                        }
+                                        else {
+                                            str2 += '<img class="big_img" src="/display?fileName=' + obj.reviewFilesList[0].imageURL + '">'
+                                        }
                                         str2 +='</div>'
                                         str2 +='</div>' //tab-content
                                         // <!-- QuickView Product Thumbnail Slider -->
@@ -1092,11 +1180,13 @@
                          }
                      str2 += '<span style="font-size: 8px"><small>수량 : '+obj.icount+'</small></span></span>'
                     str2 +='<div class="pro-thumb-img-slider small_img_box">'
-                    for(let i=0;i<data.reviewFilesList.length;i++){
-                        str2 +='<div class="abcdef"><a class="abcde" data-toggle="tab">'
-                        str2 +='<img class="small_img" src="/display?fileName=' +obj.reviewFilesList[i].imageURL+'">'
-                        str2 +='</a>'
-                        str2 +='</div>'
+                    if(data.reviewFilesList.length !=0) {
+                        for (let i = 0; i < data.reviewFilesList.length; i++) {
+                            str2 += '<div class="abcdef"><a class="abcde" data-toggle="tab">'
+                            str2 += '<img class="small_img" src="/display?fileName=' + obj.reviewFilesList[i].imageURL + '">'
+                            str2 += '</a>'
+                            str2 += '</div>'
+                        }
                     }
                     str2 +='</div>' //img_box
                     str2 +='<br>'
@@ -1135,24 +1225,7 @@
             $(this).css("color","red")
             commentLike(rno,rmno);
         })
-        // //리뷰 좋아요 데이터 가져오기
-        // function reviewlikeCheck(pno,mno,rmno){
-        //     $.ajax({
-        //         type:"post",
-        //         contentType: "application/json;charset=UTF-8",
-        //         url :"/rest/commentLikeCheck",
-        //         data:JSON.stringify({pno: pno, mno:mno,rmno,rmno}),
-        //         success:function (result){
-        //             console.log(result)
-        //             if(result==0){
-        //                 $(".bi-suit-heart-fill").css("color","black")
-        //             }
-        //             else{
-        //                 $(".bi-suit-heart-fill").css("color","red")
-        //             }
-        //         }
-        //     })
-        // }
+
 
         $(".review_div").on("click","#overlay",function (e){
             $(this).css("display","none");
@@ -1217,6 +1290,7 @@
                     str += "<br><div><img src='/display?fileName="+this.pinfoPath+"'><img></div>"
                 })
                 detailInfo.html(str)
+                qlistInfo.html('')
                 reviewHeader.html('')
                 review_not_div.html('');
                 review_div.html('');
@@ -1281,6 +1355,7 @@
 
 
                 deleveryInfo.html(str);
+                qlistInfo.html('')
                 reviewHeader.html('')
                 detailInfo.html('')
                 review_not_div.html('');
@@ -1288,22 +1363,89 @@
                 pageMaker.html('');
 
         }
+        function loadQList(){
 
+            $.getJSON("/rest/getQList/" + pno,function (data){
+                console.log(data)
+                let str = '<div>';
+                str +='<ul>'
+                str +='<li style="margin: 5px;list-style-type: disc;"><strong>구매한 상품의 취소/반품은 마이페이지에서 신청 가능합니다.</strong></li>'
+                str +='<li style="margin: 5px;list-style-type: disc;"><strong>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</strong></li>'
+                str +='<li style="margin: 5px;list-style-type: disc;"><strong>가격, 판매자, 교환/환불 및 배송 등 해당 상품 자체와 관련 없는 문의는 고객센터 내 1:1 문의하기를 이용해주세요.</strong></li>'
+                str +='<li style="margin: 5px;list-style-type: disc;"><strong>"해당 상품 자체"와 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 이동, 노출제한, 삭제 등의 조치가 취해질 수 있습니다.</strong></li>'
+                str +='<li style="margin: 5px;list-style-type: disc;"><strong>공개 게시판이므로 전화번호, 메일 주소 등 고객님의 소중한 개인정보는 절대 남기지 말아주세요.</strong></li>'
+                str +='</ul>'
+                str +='</div>'
+                str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
+                str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+mno+'">상품 문의</a></div>'
+                $(data).each(function (){
+                    str+='<div class="pro-info-tab tab-pane" id="data-sheet">'
+                    str +='<table class="table-data-sheet" style="height: 100px;">'
+                    str +='<tbody>'
+                    str +='<tr style="border-left: none" class="odd" id="nonactive" data-target="createp_account">'
+                    str +='<td style="border-left: none" ><span style="margin-right: 150px">'+this.pqNo
+                        +'</span><span style="margin-right: 350px">'+this.pqStatus+'</span><span style="margin: 0">'
+                        +this.pqTitle+'</span><span style="float: right">'+formatTime(this.pqRegDate)+'</span></td>'
+                    str +='</tr>'
+                    str +='<tr class="even collapse mt-20" data-collapse="createp_account">'
+                    str +='<td style="height: 150px"><span style="font-size: 50px;margin-right: 25px">'+'Q'+'</span><span>'+this.pqContent+'</span></td>'
+                    str +='</tr>'
+                    str +='<tr class="even collapse mt-20" data-collapse="createp_account">'
+                    if(this.pqReplyContent !=null){
+                           str += '<td style="height: 150px"><span style="font-size: 50px;margin-right: 25px">'+'A'+'</span>'+this.pqReplyContent+'</td>'
+                    }
+                    str +='</tr>'
+                    str +='</tbody>'
+                    str += '</table>'
+
+                    str +='</div>'
+
+                })
+                qlistInfo.html(str)
+                deleveryInfo.html('');
+                reviewHeader.html('')
+                detailInfo.html('')
+                review_not_div.html('');
+                review_div.html('');
+                pageMaker.html('');
+            })
+
+        }
+        $(".product-QList").on("click",".odd",function (){
+
+            var $collapse = $(this).data('target');
+            if( $(this).attr("id") == "nonactive" ){
+                $(this).siblings().slideDown();
+                $(this).attr("id","active")
+            }else {
+                $(this).siblings().slideUp();
+                $(this).attr("id","nonactive")
+            }
+        })
+        $("#qBtn").click(function (){
+            $("#detailBtn").parent().removeClass("active")
+            $("#deliInfoBtn").parent().removeClass("active")
+            $("#reviewBtn").parent().removeClass("active")
+            $("#qBtn").parent().addClass("active")
+            loadQList()
+        })
         $("#reviewBtn").click(function (e){
             e.preventDefault()
+            $("#qBtn").parent().removeClass("active")
             $("#detailBtn").parent().removeClass("active")
             $("#deliInfoBtn").parent().removeClass("active")
             $("#reviewBtn").parent().addClass("active")
-            console.log($("#detailBtn").parent())
             loadReviews();
         })
         $("#detailBtn").click(function (){
+            $("#qBtn").parent().removeClass("active")
             $("#reviewBtn").parent().removeClass("active")
             $("#deliInfoBtn").parent().removeClass("active")
             $("#detailBtn").parent().addClass("active")
             loadProductDetailed();
         })
         $("#deliInfoBtn").click(function (){
+            $("#qBtn").parent().removeClass("active")
             $("#reviewBtn").parent().removeClass("active")
             $("#detailBtn").parent().removeClass("active")
             $("#deliInfoBtn").parent().addClass("active")

@@ -1,12 +1,10 @@
 package com.green.team4.service.JH;
 
+import com.green.team4.mapper.JH.CouponMapper;
 import com.green.team4.mapper.JH.OrderPageMapper;
 import com.green.team4.mapper.JH.ShopMapper;
 import com.green.team4.mapper.sw.MemberInfoMapper;
-import com.green.team4.vo.JH.DBOrderItemVO;
-import com.green.team4.vo.JH.DBOrderVO;
-import com.green.team4.vo.JH.OrderPageItemVO;
-import com.green.team4.vo.JH.Product_optVO;
+import com.green.team4.vo.JH.*;
 import com.green.team4.vo.sw.MemberInfoVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,8 @@ public class OrderPageServiceImpl implements OrderPageService {
     private MemberInfoMapper memberInfoMapper;
     @Autowired
     private ShopMapper shopMapper;
-    //장바구니 매퍼도 나중에 추가
+    @Autowired
+    private CouponMapper couponMapper;
 
     @Override
     public List<OrderPageItemVO> getProductListInfo(List<OrderPageItemVO> orders) {
@@ -114,13 +113,10 @@ public class OrderPageServiceImpl implements OrderPageService {
 
 
         }
-//        // 장바구니제거
-//        for(DBOrderItemVO order : vo.getOrders()) {
-//            CartDTO dto = new CartDTO();
-//            dto.setMemberId(ord.getMemberId());
-//            dto.setBookId(oit.getBookId());
-//
-//            cartMapper.deleteOrderCart(dto);
-//        }
+        //쿠폰 상태 수정
+        MemberCouponVO memberCouponVO = new MemberCouponVO();
+        memberCouponVO.setCpNo(vo.getTCpno());
+        memberCouponVO.setMno(member.getMno());
+        couponMapper.updateStatus(memberCouponVO);
     }
 }
