@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <!-- head fragment -->
 <div th:fragment="head">
@@ -139,7 +140,11 @@
                                 <ul>
                                     <li><a href="#" class="account-toggle"><i class="pe-7s-config"></i></a>
                                         <ul class="account-menu">
-                                            <li><a href="/dan/login">Log in</a></li>
+                                            <form form-method="post" th:action="@{/logout}">
+                                                <li><a sec:authorize="isAuthenticated()" type="submit">Logout</a></li>
+                                                <li><a sec:authorize="isAnonymous()" th:href="@{/dan/login}" type="submit">Login</a></li>
+
+                                            </form>
                                             <li><a href="/dan/*/signup">Register</a></li>
                                             <li><a href="/sw/mypage/main?mno=2">My Account</a></li>
                                             <li><a href="/sw/mypage/interest/list?mno=2">Wish list</a></li>

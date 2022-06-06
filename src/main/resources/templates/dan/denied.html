@@ -3,7 +3,7 @@
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-memberInfo-read</title>
+    <title>Login</title>
 </head>
 <body>
 <!-- mypage header fragment -->
@@ -16,8 +16,8 @@
                 <div class="page-banner-content">
                     <h1 th:text="'개인정보'"></h1>
                     <ul class="breadcrumb">
-                        <li><a href="#" th:id="goBack">mypage</a></li>
-                        <li class="active">memberInfo</li>
+                        <li><a href="#" th:id="goBack">Login</a></li>
+                        <li class="active">Login</li>
                     </ul>
                 </div>
             </div>
@@ -31,6 +31,7 @@
             <div class="col-lg-6 col-md-10 col-12 mx-auto">
                 <div class="login-reg-form">
                     <form action="/loginProc" method="post">
+                        <h6>접근할 수 없는 권한입니다. 다른 계정으로 로그인해주세요.</h6>
                         <div class="row">
                             <div class="col-12 mb-20">
                                 <label for="id">Id <span class="required">*</span></label>
@@ -67,31 +68,5 @@
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 <script>
 
-<!--$("#button").click(function (e){-->
-<!--    var data= {-->
-<!--        id:$("#id").val(),-->
-<!--        password:$("#password").val()-->
-<!--    }-->
-<!--    console.log("쿼리문에서 데이터가 잘 전달되나?",data)-->
-<!--    $.ajax({-->
-<!--        url:'/dan/login',-->
-<!--        method:'post',-->
-<!--        data:JSON.stringify(data),-->
-<!--        contentType:'application/json; charset=utf-8',-->
-<!--        dataType: 'text',-->
-<!--        success:function (success){-->
-<!--            console.log("html에서 success 값 확인",success)-->
-<!--            if(success == "성공") {-->
-<!--                window.location.href= '/dan/samplemain';-->
-<!--            }-->
-<!--            else {-->
-<!--                alert("아이디 또는 비밀번호가 틀렸습니다.")-->
-<!--            }-->
-<!--            console.log("Ajax 통신 성공", result);-->
-<!--            self.location.reload();-->
-<!--        }-->
-
-<!--    })-->
-<!--})-->
 </script>
 </html>

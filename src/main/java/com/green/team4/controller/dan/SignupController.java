@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,12 +36,16 @@ public class SignupController {
     public void Signup(SignupVO vo) {
         System.out.println();
     }
-
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     @PostMapping("/signup")
     public String SignupUpload(SignupVO signupVO){
         System.out.println("Signup PostMapping 작동"+ signupVO);
+        String rawPassword = signupVO.getPassword();
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+        log.info("encodePassword: "+encPassword);
+        signupVO.setPassword(encPassword);
         signupService.insert(signupVO);
-        return "redirect:/dan/samplemain";
+        return "redirect:/dan/login";
     }
 
     @GetMapping("/idCheck")
@@ -50,34 +55,17 @@ public class SignupController {
         log.info("조회된 아이디: " + result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+    int mailAuth = generateAuthNumber();
     @PostMapping("/emailCheck")
     public ResponseEntity<Integer> mailCheck(@RequestParam String email){
         log.info("받아온 이메일: "+email);
-        log.info("발급된 인증번호: "+generateAuthNumber());
+        log.info("발급된 인증번호: "+mailAuth);
         MailVO mail = new MailVO();
         mail.setEmail(email);
         mail.setSubject("고객님의 인증번호가 발급되었습니다.");
-        mail.setText("발급된 인증번호는 " + generateAuthNumber()+" 입니다.");
+        mail.setText("발급된 인증번호는 " + mailAuth+" 입니다.");
         mailService.sendMail(mail);
-        int result = generateAuthNumber();
-        return new ResponseEntity<Integer>(result, HttpStatus.OK);
+        return new ResponseEntity<Integer>(mailAuth, HttpStatus.OK);
     }
 
-
-
-//    @PostMapping("/signup")
-//    public ResponseEntity<String> SignupPost(@RequestBody SignupVO vo){
-//        System.out.println("로그인 Post Mapping 작동하나 "  +vo);
-//        SignupVO signup = SignupService.insert(vo) ;
-////                = loginService.login(vo);
-//        String success = "";
-////        String fail = "";
-//        if (login != null) success ="성공";
-//        else success ="실패";
-////        fail= "아이디 또는 비밀번호가 맞지 않습니다.";
-//        System.out.println("컨트롤러에서 success 값 확인"+ success);
-//
-//        return new ResponseEntity<>(success, HttpStatus.OK);
-//    }
 }

@@ -60,5 +60,10 @@
         select * from tbl_memberInfo
         where mno=#{mno}
     </select>
+    <!-- id로 회원조회(security) -->
+    <select id="findByUsername" resultType="com.green.team4.vo.sw.MemberInfoVO">
+        select * from tbl_memberInfo
+        where id=#{id}
+    </select>
 
 </mapper>

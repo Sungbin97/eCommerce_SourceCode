@@ -188,4 +188,10 @@ public class MemberInfoServiceImpl implements MemberInfoService{
     public MemberInfoVO getMemberInfo(int mno) {
         return memberInfoMapper.getMemberInfo(mno);
     }
+
+    @Override
+    public MemberInfoVO findById(String id) {
+        log.info("security id 조회 service: " + id);
+        return memberInfoMapper.findByUsername(id);
+    }
 }
