@@ -219,7 +219,7 @@
                                 <label>동의 <a href="#">회원가입 약관(클릭)</a></label>
                             </div>
                             <div class="col-xs-12">
-                                <input id="signupBtn" value="회원가입" type="submit">
+                                <input name="signupBtn" value="회원가입" type="submit">
                             </div>
                             <br>
                             <br>
@@ -387,6 +387,35 @@
             alert('ERROR: 인증번호가 일치하지 않습니다.')
         }
     }
+
+    // 등록버튼 클릭하면 데이터 입력유무 확인
+    $("input[name=signupBtn]").click(function (e){
+        e.preventDefault();
+        console.log("들어오나")
+        var id = $("input[name=id]");
+        var password = $("input[name=password]");
+        var name = $("input[name=name]");
+        var nickName = $("input[name=nickName]");
+        var gender = $("input[name=gender]");
+        var sSNum = $("input[name=sSNum]");
+        var phoneNum = $("input[name=phoneNum]");
+        var mobileNum = $("input[name=mobileNum]");
+        var postcode = $("input[name=postcode]");
+        var address = $("input[name=address]");
+        var detailAddress = $("input[name=detailAddress]");
+        console.log(id)
+
+        const arr = [id,password,name,nickName,gender,sSNum,phoneNum,mobileNum,postcode,address,detailAddress];
+        $(arr).each(function (index,item){
+            console.log("item",item)
+            if(item.val() === "") {
+                alert(item.attr("name")+" 작성해주세요");
+                return false;
+            }
+        })
+
+    })
+
 
     // 로그인 화면으로 돌아가기
     $("#goBack").click(function (){
