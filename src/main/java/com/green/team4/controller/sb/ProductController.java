@@ -160,6 +160,7 @@ public class ProductController {
         //페이징
         PageInfo<PagingEntity> products = new PageInfo<>(pagingService.getProductList(pageNum, search), 10);
         model.addAttribute("products", products);
+        model.addAttribute("pageNum", pageNum);
         model.addAttribute("search", search);
 //        model.addAttribute("getOpt", productOptMapper.getOpt(pno));
     }

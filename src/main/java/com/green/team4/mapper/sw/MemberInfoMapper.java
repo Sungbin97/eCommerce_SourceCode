@@ -16,4 +16,5 @@ public interface MemberInfoMapper {
     int updateByAdmin(MemberInfoVO memberInfoVO); // 회원정보 수정 (관리자용 - 전부 수정가능)
     int delete(int mno); // 회원정보 삭제 (탈퇴 회원 정보 삭제(tbl_memberInfo에서 삭제))
     MemberInfoVO getMemberInfo(int mno); //주문 페이지에서 사용 할 id 통한 회원구하기
+    MemberInfoVO findByUsername(String id);
 }

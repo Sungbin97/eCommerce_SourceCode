@@ -4,7 +4,7 @@
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>product/uploadOpt</title>
+    <title>product-modify</title>
 </head>
 <style>
     .required{
@@ -39,8 +39,8 @@
                 <div class="page-banner-content">
                     <h1 th:text="'상품옵션등록'"></h1>
                     <ul class="breadcrumb">
-                        <li><a th:href="@{/sb/product/upload}">upload</a></li>
-                        <li class="active">uploadOpt</li>
+                        <li><a th:href="@{/sb/product/list(pno=1)}">List</a></li>
+                        <li class="active">Modify</li>
                     </ul>
                 </div>
             </div>

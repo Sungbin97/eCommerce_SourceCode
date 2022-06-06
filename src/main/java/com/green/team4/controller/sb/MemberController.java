@@ -1,9 +1,11 @@
 package com.green.team4.controller.sb;
 
+import com.github.pagehelper.PageInfo;
 import com.green.team4.mapper.sb.MailMapper;
 import com.green.team4.service.sw.MemberInfoService;
 import com.green.team4.vo.sb.MailVO;
 import com.green.team4.vo.sw.MemberInfoVO;
+import com.green.team4.vo.sw.PersonalQVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,12 @@ public class MemberController {
     private final MailMapper mailMapper;
 
     @GetMapping("/member")
-    public void memberManage(Model model, int mno){
-        model.addAttribute("getOne", memberInfoService.readOne(mno));
-        model.addAttribute("list",memberInfoService.readAll());
+    public void memberManage(Model model,
+                             @RequestParam(required = false, defaultValue = "1") int pageNum){
+        PageInfo<MemberInfoVO> memberList = new PageInfo<>(memberInfoService.readAll(pageNum),10);
+//        model.addAttribute("getOne", memberInfoService.readOne(mno));
+        model.addAttribute("list", memberList);
+        model.addAttribute("pageNum",pageNum);
     }
 
     @GetMapping("/modify")
