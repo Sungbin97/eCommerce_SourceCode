@@ -25,15 +25,20 @@ public class SignupController {
     @Autowired
     private MailService mailService;
 
-    public static int generateAuthNumber() {
+    public static int generateAuthNumber() { // 권한 관련 Number 생성
         java.util.Random generator = new java.util.Random();
         generator.setSeed(System.currentTimeMillis());
         return generator.nextInt(1000000) % 1000000;
     }
 
-    @GetMapping("/signup")
-    public void Signup(SignupVO vo) {
-        System.out.println();
+    @GetMapping("/signupCategory") // 회원가입 종류 화면 가져오기
+    public void signUpCategory() {
+        log.info("SignupController => signUpCategory 실행");
+    }
+
+    @GetMapping("/signup") // 회원가입 화면 가져오기
+    public void signUp() {
+        log.info("SignupController => signUp 실행");
     }
 
     @PostMapping("/signup")
@@ -54,13 +59,14 @@ public class SignupController {
     @PostMapping("/emailCheck")
     public ResponseEntity<Integer> mailCheck(@RequestParam String email){
         log.info("받아온 이메일: "+email);
-        log.info("발급된 인증번호: "+generateAuthNumber());
+        int authNum = generateAuthNumber(); // 인증번호 발급 (한번만 사용)
+        log.info("발급된 인증번호: "+authNum);
         MailVO mail = new MailVO();
         mail.setEmail(email);
         mail.setSubject("고객님의 인증번호가 발급되었습니다.");
-        mail.setText("발급된 인증번호는 " + generateAuthNumber()+" 입니다.");
+        mail.setText("발급된 인증번호는 " + authNum+" 입니다.");
         mailService.sendMail(mail);
-        int result = generateAuthNumber();
+        int result = authNum;
         return new ResponseEntity<Integer>(result, HttpStatus.OK);
     }
 

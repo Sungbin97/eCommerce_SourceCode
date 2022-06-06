@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>LOGIN</title>
+</head>
+<body>
+    <!-- mypage header fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'회원가입 종류'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a th:id="goBack">login</a></li>
+                            <li class="active">signup category</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE SECTION START -->
+    <div class="page-section section pt-120 pb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-10 col-12 mx-auto">
+                    <div class="login-reg-form">
+                        <form>
+                            <div class="row">
+                                <div class="coupon-form">
+                                    <a href="/dan/signup"><h3>일반 회원가입</h3></a>
+                                    <br/>
+                                    <p>일반회원으로 가입을 원하시면 여기를 클릭하세요</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="login-reg-form">
+                        <form>
+                            <div class="row">
+                                <div class="coupon-form">
+                                    <a href=""><h3>관리자 회원가입</h3></a>
+                                    <br/>
+                                    <p>관리자로 가입을 원하시면 아래에 인증코드를 입력하세요</p>
+                                    <input style="width: 300px" type="text" name="inputCode" placeholder="인증코드를 입력하세요" />
+                                    <input type="submit" id="checkVCode" value="인증하기"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE SECTION END -->
+
+</body>
+
+<!-- mypage footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<script>
+
+    // 관리자 회원가입 코드 인증 절차
+    $("input#checkVCode").click(function (e){
+
+        e.preventDefault(); // form 태그 submit 방지
+
+        var vCode = 'IAMADMIN1234'; // 관리자 가입 인증 코드 (해당 사용자에게 별도로 제공한 것으로 가정)
+        var inputCode = $("input[name=inputCode]").val(); // 사용자가 입력한 코드
+
+        if(inputCode === vCode) {
+            alert("인증 완료. 가입화면으로 이동합니다.")
+            window.location.href = '/sw/mypage/memberInfo/read?mno=2';
+        }
+        else alert("인증 실패. 인증 코드를 확인해주세요")
+    })
+
+    // 메인화면으로 돌아가기 버튼 클릭하면 동작
+    $("#goBack").click(function (){
+        window.location.href = '/dan/login';
+    })
+
+</script>
+</html>

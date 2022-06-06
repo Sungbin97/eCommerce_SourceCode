@@ -6,259 +6,242 @@
     <title>mypage-memberInfo-read</title>
 </head>
 <body>
-<!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+    <!-- mypage header fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
-<div class="page-banner-section section">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="page-banner-content">
-                    <h1 th:text="'개인정보'"></h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#" th:id="goBack">mypage</a></li>
-                        <li class="active">memberInfo</li>
-                    </ul>
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'개인정보'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a href="#" th:id="goBack">mypage</a></li>
+                            <li class="active">memberInfo</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-
-
-<h1>회원가입</h1>
-
-
-<!--<form action="/dan/signup" method="post">-->
-<!--    <label for="id"> 아이디 </label>-->
-<!--    <input type="text" name="id"> <br>-->
-<!--    <label for="password">비밀번호 </label>-->
-<!--    <input type="password" name="password"> <br>-->
-<!--    <label for="name">이름 </label>-->
-<!--    <input type="text" name="name"> <br>-->
-<!--    <label for="nickname">닉네임 </label>-->
-<!--    <input type="text" name="nickName"> <br>-->
-
-<!--    <label for="gender">성별 </label>-->
-<!--    <input type="checkbox" name="gender" value="male"/> 남자-->
-<!--    <input type="checkbox" name="gender" value="female"/> 여자<br>-->
-<!--    <label for="sSNum">주민등록번호 </label>-->
-<!--    <input type="text" name="sSNum"> <br>-->
-<!--    <label for="email">이매일 </label>-->
-<!--    <input type="text" name="email"><br>-->
-<!--    <label for="phonenum">자택전화 </label>-->
-<!--    <input type="text" name="phoneNum"><br>-->
-<!--    <label for="mobilenum">휴대 전화번호 </label>-->
-<!--    <input type="text" name="mobileNum"><br>-->
-
-
-
-<!--    <div class="col-xs-12 mb-20">-->
-<!--        <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>-->
-<!--    </div>-->
-<!--    <div class="col-xs-12 mb-20">-->
-<!--        <label>주소 <span class="required">*</span></label>-->
-<!--        <input type="text" name="postcode" placeholder="우편번호"/>-->
-<!--    </div>-->
-<!--    <div class="col-xs-12 mb-20">-->
-<!--        <input type="text"  name="address" placeholder="기본주소"/>-->
-<!--    </div>-->
-<!--    <div class="col-xs-12 mb-20">-->
-<!--        <input type="text"  name="detailAddress" placeholder="세부주소" />-->
-<!--    </div>-->
-
-<!--    <label for="interestSports">관심종목 </label>-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 축구-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 농구-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 야구-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 요가-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 수영<br>-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 등산-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 골프-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 웨이트-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 사이클-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 테니스<br>-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 베드민턴-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 탁구-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 유도-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 주짓수-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 태권도<br>-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 복싱-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 크로스핏-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 스키-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 농구-->
-<!--    <input type="checkbox" name="interestSports" value="male"/> 농구<br>-->
-
-
-
-<!--    <input type="hidden" name="auth"> <br>-->
-<!--    <input type="hidden" name="grade"> <br>-->
-<!--    <input type="hidden" name="point"> <br>-->
-
-
-<!--    <br><br>-->
-<!--    <input type='submit' value='회원가입'>-->
-<!--</form>-->
-
-
-
-
-<!-- PAGE SECTION START -->
-<div class="page-section section pt-120 pb-120">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-12 mx-auto">
-                <div class="login-reg-form">
-                    <form action="/dan/signup" method="post">
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="id">Id <span class="required">*</span></label>
-                                <input id="id" name="id" type="text"/>
-                                <button type="button" onclick="idCheck()">중복확인</button>
-                                <div id="idCheckResult"></div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="name">이름</label>
-                                <input id="name" name="name" type="text"/>
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-
-                            </div>
-
-                            <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="password">Password <span class="required">*</span></label>
-                                <input id="password" name="password" type="password"/>
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="password_con">비밀번호 확인<span class="required">*</span></label>
-                                <input id="password_con" type="password">
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-
-                            </div>
-
-
-                            <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="nickname">닉네임 <span class="required">*</span></label>
-                                <input id="nickname" name="nickName" type="text"/>
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-                                <label>성별 <span class="required">*</span></label>
-                                <label>남성
-                                    <input type="checkbox" name="gender" id="option1" th:value="'남성'">
-                                </label>
-                                <label>여성
-                                    <input type="checkbox" name="gender" id="option2" th:value="'여성'">
-                                </label>
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="sSNum">주민등록번호 <span class="required">*</span></label>
-                                <input id="sSNum" name="sSNum" type="text"/>
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="email">이메일 <span class="required">*</span></label>
-                                <div style="display: inline-block">
-                                    <input id="email" name="email" type="email"/>
+    <!-- PAGE SECTION START -->
+    <div class="page-section section pt-120 pb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 mx-auto">
+                    <div class="login-reg-form">
+                        <form id="signup" action="/dan/signup" method="post">
+                            <div class="row">
+                                <h3>회원가입</h3>
+                                <p>아래 양식을 작성하여 제출해주세요</p>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label for="id">아이디 <span class="required">*</span></label>
+                                    <input id="id" name="id" type="text" required/>
+                                    <button style="color: #191c1f" type="button" onclick="idCheck()">중복확인</button>
+                                    <div style="font-weight: bold" id="idCheckResult"></div>
                                 </div>
-                                <div style="display: inline-block">
-                                    <button type="button" onclick="mailCheck()">인증번호발급</button>
-                                </div>
-                                <br/><br/>
-                                <div style="display: inline-block">
-                                    <input id="insertAuthNum" type="text" placeholder="인증번호를 입력해 주세요"/>
-                                </div>
-                                <div style="display: inline-block">
-                                    <button type="button" id="checkAuthNum" onclick="authNumCheck()">인증번호입력</button>
-                                </div>
-                                <input id="authNum" type="hidden">
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <div class="col-sm-6 col-xs-12 mb-20">
 
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label for="password">비밀번호 <span class="required">*</span></label>
+                                    <input id="password" name="password" type="password" required/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label for="password_con">비밀번호 확인 <span class="required">*</span></label>
+                                    <input id="password_con" type="password" required>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label for="name">이름</label>
+                                    <input id="name" name="name" type="text" required/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label for="nickname">닉네임 <span class="required">*</span></label>
+                                    <input id="nickname" name="nickName" type="text"/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label>성별 <span class="required">*</span></label>
+                                    <label style="display: inline-block">남성
+                                        <input type="checkbox" name="gender" id="option1" th:value="'남성'">
+                                    </label>
+                                    <label style="display: inline-block">
+
+                                    </label>
+                                    <label style="display: inline-block">여성
+                                        <input type="checkbox" name="gender" id="option2" th:value="'여성'">
+                                    </label>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+                                    <label for="sSNum">주민등록번호 <span class="required">*</span></label>
+                                    <input id="sSNum" name="sSNum" type="text" required/>
+                                </div>
+                                <div class="col-sm-6 col-xs-12 mb-20">
+
+                                </div>
+                                <div class="col-xs-6 mb-20">
+                                    <label>이메일 <span class="required">*</span></label>
+                                    <div style="display: inline-block">
+                                        <input id="email1" type="text"/>
+                                    </div>
+                                    <div style="display: inline-block">
+                                        @
+                                    </div>
+                                    <div style="display: inline-block">
+                                        <input id="email2" type="text"/>
+                                    </div>
+                                    <div style="display: inline-block">
+                                        <select style="width: 150px" id="email3">
+                                            <option value="none">==선택==</option>
+                                            <option value="naver.com">naver.com</option>
+                                            <option value="gmail.com">gmail.com</option>
+                                            <option value="daum.net">daum.net</option>
+                                            <option value="0">직접입력</option>
+                                        </select>
+                                    </div>
+                                    <input name="email" type="hidden" required/><!-- 완성된 email이 들어갈 input -->
+                                    <div style="display: inline-block">
+                                        <button style="height: 40px" type="button" onclick="mailCheck()">인증번호발급</button>
+                                    </div>
+                                    <br/><br/>
+                                    <div style="display: inline-block">
+                                        <input id="insertAuthNum" type="text" placeholder="인증번호를 입력해 주세요" required/>
+                                    </div>
+                                    <div style="display: inline-block">
+                                        <button style="height: 40px" type="button" id="checkAuthNum" onclick="authNumCheck()">인증번호입력</button>
+                                    </div>
+                                    <input id="authNum" type="hidden">
+                                </div>
                             </div>
+                            <br/>
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="phonenum"> 자택전화 <span class="required">*</span></label>
                                 <input id="phonenum" name="phoneNum" type="text" />
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 mb-20">
-                            <label for="mobilenum"> 휴대전화 <span class="required">*</span></label>
-                            <input id="mobilenum" name="mobileNum" type="text" />
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <label>주소 <span class="required">*</span></label>
-                            <input type="text" name="postcode" placeholder="우편번호"/>
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <input type="text"  name="address" placeholder="기본주소"/>
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <input type="text"  name="detailAddress" placeholder="세부주소" />
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <div>권한</div>
-                            <label><input type="radio" name="auth" value="USER">USER</label>
-                            <label><input type="radio" name="auth" value="ADMIN">ADMIN</label>
-                        </div>
-
-                        <div class="col-xs-12 mb-20">
-                            <label>관심종목<span class="required">*</span></label>
-                            <input type="checkbox" name="interestSports" value="축구"/> 축구
-                            <input type="checkbox" name="interestSports" value="농구"/> 농구
-                            <input type="checkbox" name="interestSports" value="야구"/> 야구
-                            <input type="checkbox" name="interestSports" value="요가"/> 요가
-                            <input type="checkbox" name="interestSports" value="수영"/> 수영<br>
-                            <input type="checkbox" name="interestSports" value="등산"/> 등산
-                            <input type="checkbox" name="interestSports" value="골프"/> 골프
-                            <input type="checkbox" name="interestSports" value="웨이트"/> 웨이트
-                            <input type="checkbox" name="interestSports" value="사이클"/> 사이클
-                            <input type="checkbox" name="interestSports" value="테니스"/> 테니스<br>
-                            <input type="checkbox" name="interestSports" value="배드민턴"/> 베드민턴
-                            <input type="checkbox" name="interestSports" value="탁구"/> 탁구
-                            <input type="checkbox" name="interestSports" value="유도"/> 유도
-                            <input type="checkbox" name="interestSports" value="주짓수"/> 주짓수
-                            <input type="checkbox" name="interestSports" value="태권도"/> 태권도<br>
-                            <input type="checkbox" name="interestSports" value="복싱"/> 복싱
-                            <input type="checkbox" name="interestSports" value="크로스핏"/> 크로스핏
-                            <input type="checkbox" name="interestSports" value="스키"/> 스키
-                            <input type="checkbox" name="interestSports" value="농구"/> 농구<br>
-                        </div>
-
-                        <div class="col-xs-12 mb-20">
-                            <input id="rememberme" type="checkbox">
-                            <label for="rememberme">I agree <a href="#">Terms &amp; Condition</a></label>
-                        </div>
-                        <div class="col-xs-12">
-                            <input value="register" type="submit">
-                        </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="mobilenum"> 휴대전화 <span class="required">*</span></label>
+                                <input id="mobilenum" name="mobileNum" type="text" required/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>
+                            </div>
+                            <div class="col-sm-2 col-xs-12 mb-20">
+                                <label>주소 <span class="required">*</span></label>
+                                <input type="text" name="postcode" placeholder="우편번호" readonly/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <input type="text"  name="address" placeholder="기본주소" readonly/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <input type="text"  name="detailAddress" placeholder="세부주소" />
+                            </div>
+                            <br/>
+                            <div class="col-xs-12 mb-20">
+                                <label>권한(고정)</label>
+                                <div style="display: inline-block">
+                                    <label><input type="radio" name="auth" value="USER" checked disabled>USER</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="radio" name="auth" value="ADMIN" disabled>ADMIN</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label>관심종목(택1) <span class="required">*</span></label>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="축구"/> 축구</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="농구"/> 농구</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="야구"/> 야구</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="요가"/> 요가</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="수영"/> 수영</label>
+                                </div>
+                                <br>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="등산"/> 등산</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="골프"/> 골프</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="웨이트"/> 웨이트</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="사이클"/> 사이클</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="테니스"/> 테니스</label>
+                                </div>
+                                <br>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="배드민턴"/> 배드민턴</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="탁구"/> 탁구</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="유도"/> 유도</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="주짓수"/> 주짓수</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="태권도"/> 태권도</label>
+                                </div>
+                                <br>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="복싱"/> 복싱</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="크로스핏"/> 크로스핏</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="스키"/> 스키</label>
+                                </div>
+                                <div style="display: inline-block">
+                                    <label><input type="checkbox" name="interestSports" value="농구"/> 농구</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <input id="agree" type="checkbox">
+                                <label>동의 <a href="#">회원가입 약관(클릭)</a></label>
+                            </div>
+                            <div class="col-xs-12">
+                                <input id="signupBtn" value="회원가입" type="submit">
+                            </div>
+                            <br>
+                            <br>
+                        </form>
+                    </div>
                 </div>
-                </form>
             </div>
         </div>
     </div>
-</div>
-</div>
-<!-- PAGE SECTION END -->
-
-
+    <!-- PAGE SECTION END -->
 
 </body>
 
@@ -269,91 +252,137 @@
 
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
-<script>
-$("#getPostCode").click(function (){
-daum.postcode.load(function(){
-new daum.Postcode({
-oncomplete: function(data) {
-// 우편번호 검색 후 주소 클릭하면 아래 실행
-$("input[name=postcode]").val(data.zonecode); // 우편번호 태그에 값 업데이트
-$("input[name=address]").val(data.roadAddress); // 주소 태그에 값 업데이트
-}
-}).open();
-});
-})
 
-function idCheck(){
-        var id = $('input[name=id]').val();
-        console.log('id 출력: ',id)
-            $.ajax({
-                    anyne:true,
-                    type: 'GET',
-                    data: {'id':id},
-                    url: "/dan/idCheck",
-                    dataType: "text",
-                    success: function(data) {
-                        console.log(data);
-                        if(data === ""){
-                            $('#idCheckResult').text('사용가능한 아이디 입니다.')
-                        }else{
-                            $('#idCheckResult').text('이미 사용중인 아이디 입니다.')
-                        }
-                    },
-            error: function(jqXHR, textStatus, errorThrown){
-                $('#idCheckResult').text('사용가능한 아이디 입니다.')
+<script>
+    // 비밀번호 확인 체크(등록 클릭하면)
+    $("#signupBtn").click(function (){
+        var password_con = $("#password_con").val();
+        var password = $("#password").val();
+
+        if(password !== password_con){
+            alert("비밀번호 확인이 맞지 않습니다.")
+            return;
+        }
+        else $("#signup").submit();
+    })
+
+
+    // 체크박스 하나만 선택되도록 set
+    $('input[type="checkbox"][name="interestSports"]').click(function(){
+        if($(this).prop('checked')){
+            $('input[type="checkbox"][name="interestSports"]').prop('checked',false);
+            $(this).prop('checked',true);
         }
     })
-}
-var time = 300;
-var min = "";
-var sec = "";
 
-function mailCheck(){
+    // 우편번호 가져오기
+    $("#getPostCode").click(function (){
+        daum.postcode.load(function(){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 우편번호 검색 후 주소 클릭하면 아래 실행
+                    $("input[name=postcode]").val(data.zonecode); // 우편번호 태그에 값 업데이트
+                    $("input[name=address]").val(data.roadAddress); // 주소 태그에 값 업데이트
+                }
+            }).open();
+        });
+    })
+
+    // 아이디 중복 체크
+    function idCheck(){
+
+        var id = $('input[name=id]').val();
+        console.log('id 출력: ',id);
+
+        $.ajax({
+            anyne:true,
+            type: 'GET',
+            data: {'id':id},
+            url: "/dan/idCheck",
+            dataType: "text",
+            success: function(data) {
+                console.log(data);
+                if(data === "") $('#idCheckResult').text('사용가능한 아이디 입니다.')
+                else $('#idCheckResult').text('이미 사용중인 아이디 입니다.')
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                $('#idCheckResult').text('사용가능한 아이디 입니다.')
+            }
+        })
+    }
+    var time = 300;
+    var min = "";
+    var sec = "";
+
+    // 이메일 인증코드 절차
+    function mailCheck(){
+
+        // (1) 이메일주소 값 만들기
+        var email = $("input[name=email]");
+        var emailId = $("input[id=email1]").val();
+        var emailAd = $("input[id=email2]").val();
+        var selectedEmail = $("select[id=email3]").val();
+
+        console.log(email)
+        console.log(emailId)
+        console.log(emailAd)
+        console.log(selectedEmail)
+
+        var str = "";
+        if(selectedEmail !== null){
+            str += emailId;
+            str += '@';
+            str += selectedEmail;
+            console.log("emailAddress: ",str);
+            email.val(str);
+        }
         var email = $('input[name=email]').val();
         console.log('email 출력: ',email)
 
-            $.ajax({
-                    anyne:true,
-                    type: 'POST',
-                    data: {'email':email},
-                    url: "/dan/emailCheck",
-                    dataType: "text",
-                    success: function(data) {
-                        console.log(data);
-                        alert('인증번호가 발급되었습니다.')
-                        $('#authNum').val(data);
+        // (2) 해당 이메일에 인증코드 보내기
+        $.ajax({
+            anyne:true,
+            type: 'POST',
+            data: {'email':email},
+            url: "/dan/emailCheck",
+            dataType: "text",
+            success: function(data) {
+                console.log(data);
+                alert('인증번호가 발급되었습니다.')
+                $('#authNum').val(data);
 
-                        var x = setInterval(function(){
-                            min = parseInt(time/60);
-                            sec = time%60;
-                            $("#insertAuthNum").attr('placeholder', min + '분 ' + sec + '초');
-                            time--;
-                            if(time < 0){
-                                clearInterval(x);
-                                alert('제한시간이 초과되었습니다. 인증번호를 다시 발급받아 주세요.');
-                                $("#insertAuthNum").attr('placeholder', '제한시간초과');
-                            }
-                        }, 1000);
-
-                    },
+                var x = setInterval(function(){
+                    min = parseInt(time/60);
+                    sec = time%60;
+                    $("#insertAuthNum").attr('placeholder', min + '분 ' + sec + '초');
+                    time--;
+                    if(time < 0){
+                        clearInterval(x);
+                        alert('제한시간이 초과되었습니다. 인증번호를 다시 발급받아 주세요.');
+                        $("#insertAuthNum").attr('placeholder', '제한시간초과');
+                    }
+                }, 1000);
+            },
             error: function(jqXHR, textStatus, errorThrown){
                 alert('jqXHR: '+jqXHR+' textStatus: '+textStatus+' errorThrown: '+errorThrown);
-        }
-    })
-}
-function authNumCheck(){
-    let insertAuthNum = $('#insertAuthNum').val();
-    let authNum = $('#authNum').val();
-
-    $("#insertAuthNum").removeAttr("placeholder");
-    if(insertAuthNum === authNum){
-        $("#insertAuthNum").removeAttr("placeholder");
-        alert('인증이 완료되었습니다.')
-    }else{
-        $("#insertAuthNum").removeAttr("placeholder");
-        alert('ERROR: 인증번호가 일치하지 않습니다.')
+            }
+        })
     }
-}
+
+    // 인증번호 검증
+    function authNumCheck(){
+        let insertAuthNum = $('#insertAuthNum').val();
+        let authNum = $('#authNum').val();
+
+        $("#insertAuthNum").removeAttr("placeholder");
+        if(insertAuthNum === authNum){
+            $("#insertAuthNum").removeAttr("placeholder");
+            alert('인증이 완료되었습니다.')
+        }else{
+            $("#insertAuthNum").removeAttr("placeholder");
+            alert('ERROR: 인증번호가 일치하지 않습니다.')
+        }
+    }
 
 </script>
 </html>

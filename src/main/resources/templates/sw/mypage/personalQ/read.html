@@ -35,38 +35,40 @@
                     <div class="checkout-form">
                         <div class="row">
                             <div class="col-lg-6 mb-40">
-                                <form action="#">
-                                    <h3>문의 내용</h3>
-                                    <!-- 숨김 데이터 -->
-                                    <input type="hidden" name="mno" th:value="${pqVO.mno}" readonly>
-                                    <input type="hidden" name="pqNo" th:value="${pqVO.pqNo}" readonly>
-                                    <!-- 표시 데이터 -->
-                                    <div class="row">
-                                        <div class="col-sm-6 col-xs-12 mb-30">
-                                            <label th:for="pqRegDate">문의일자</label>
-                                            <input type="text" name="pqRegDate" th:value="${pqVO.pqRegDate}" readonly>
-                                        </div>
-                                        <div class="col-sm-6 col-xs-12 mb-30">
-                                            <label th:for="name">제목</label>
-                                            <input type="text" name="name" th:value="${pqVO.pqTitle}" readonly>
-                                        </div>
-                                        <div class="order-notes">
-                                            <label th:for="message">본문</label>
-                                            <textarea id="pqContent" name="pqContent" th:text="${pqVO.pqContent}" readonly></textarea>
-                                        </div>
-                                        <div class="col-sm-6 col-xs-12 mb-30">
-                                            <span class="input-group-addon">첨부이미지</span>
-                                            <div th:each="personalQFile : ${pqVO.personalQFilesList}" th:data-file="${personalQFile.getThumbnailURL()}">
-                                                <img th:src="|/display?fileName=${personalQFile.getThumbnailURL()}|">
+                                <div class="order-wrapper">
+                                    <form>
+                                        <h3><span style="font-size: 45px;margin-right: 20px">Q</span>문의 내용</h3>
+                                        <!-- 숨김 데이터 -->
+                                        <input type="hidden" name="mno" th:value="${pqVO.mno}" readonly>
+                                        <input type="hidden" name="pqNo" th:value="${pqVO.pqNo}" readonly>
+                                        <!-- 표시 데이터 -->
+                                        <div class="row">
+                                            <div class="col-sm-6 col-xs-12 mb-30">
+                                                <label th:for="pqRegDate">문의일자</label>
+                                                <input type="text" name="pqRegDate" th:value="${pqVO.pqRegDate}" readonly>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12 mb-30">
+                                                <label th:for="name">제목</label>
+                                                <input type="text" name="name" th:value="${pqVO.pqTitle}" readonly>
+                                            </div>
+                                            <div class="order-notes">
+                                                <label th:for="message">본문</label>
+                                                <textarea id="pqContent" name="pqContent" th:text="${pqVO.pqContent}" readonly></textarea>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12 mb-30">
+                                                <span class="input-group-addon">첨부이미지</span>
+                                                <div th:each="personalQFile : ${pqVO.personalQFilesList}" th:data-file="${personalQFile.getThumbnailURL()}">
+                                                    <img th:src="|/display?fileName=${personalQFile.getThumbnailURL()}|">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                             <!-- 답변 내역 -->
                             <div class="col-lg-6 col-12 mb-40">
                                 <div class="order-wrapper">
-                                    <h3>답변 내용</h3>
+                                    <h3><span style="font-size: 45px;margin-right: 20px">A</span>답변 내용</h3>
 
                                     <!-- 답변 완료시 보여줄 태그 -->
                                     <div id="ifReply">

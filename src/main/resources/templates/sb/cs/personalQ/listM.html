@@ -3,7 +3,7 @@
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>cs-personalQ-list(Admin)</title>
+    <title>PERSONALQ LIST</title>
 </head>
 <body>
     <!-- mypage header fragment -->
@@ -15,9 +15,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-banner-content">
-                        <h1 th:text="'1:1문의글 목록(관리자)'"></h1>
+                        <h1 th:text="'1:1문의글관리'"></h1>
                         <ul class="breadcrumb">
-                            <li><a href="#" th:id="goBack">csMain</a></li>
+                            <li><a href="#" th:id="goBack">adpage</a></li>
                             <li class="active">list</li>
                         </ul>
                     </div>
@@ -108,7 +108,7 @@
         // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
         $("#goBack").click(function (){
             var mno = $("input[name=mno]").val();
-            window.location.href = '/sw/mypage/main?mno='+mno;
+            window.location.href = '/sb/adpage';
         })
     })
 </script>

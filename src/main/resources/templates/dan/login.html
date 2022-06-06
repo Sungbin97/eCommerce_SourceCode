@@ -3,79 +3,70 @@
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-memberInfo-read</title>
+    <title>LOGIN</title>
 </head>
 <body>
-<!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+    <!-- mypage header fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
-<div class="page-banner-section section">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="page-banner-content">
-                    <h1 th:text="'개인정보'"></h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#" th:id="goBack">mypage</a></li>
-                        <li class="active">memberInfo</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!--    <div>-->
-<!--        <label for="id"> 아이디 </label>-->
-<!--        <input type="text" name="id" id="id">-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <label for="password">비밀번호</label>-->
-<!--        <input type="password" name="password" id="password"/>-->
-<!--    </div>-->
-<!--    <input type='submit' value='로그인' id="button">-->
-
-<div class="page-section section pt-120 pb-120">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-10 col-12 mx-auto">
-                <div class="login-reg-form">
-                    <form>
-                        <div class="row">
-                            <div class="col-12 mb-20">
-                                <label for="id">Id <span class="required">*</span></label>
-                                <input name="id" id="id" type="text">
-                            </div>
-                            <div class="col-12 mb-20">
-                                <label for="password">Passwords <span class="required">*</span></label>
-                                <input name="password" id="password" type="password">
-                            </div>
-                            <div class="col-12 mb-20">
-
-                                <label class="inline" for="rememberme">
-                                    <input value="forever" id="rememberme" name="rememberme" type="checkbox"> 아이디 기억하기
-                                </label>
-                            </div>
-                            <div class="col-12">
-                                <a href="#">비밀번호 찾기</a>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div class="order-button">
-                        <input value="Login" name="login" class="inline" type="submit" id="button">
+    <div class="page-banner-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-banner-content">
+                        <h1 th:text="'로그인'"></h1>
+                        <ul class="breadcrumb">
+                            <li><a th:id="goBack">home</a></li>
+                            <li class="active">login</li>
+                        </ul>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-</div>
+
+    <!-- PAGE SECTION START -->
+    <div class="page-section section pt-120 pb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-10 col-12 mx-auto">
+                    <div class="login-reg-form">
+                        <form>
+                            <div class="row">
+                                <h3>로그인</h3>
+                                <p>아이디와 비밀번호를 입력해주세요</p>
+                                <div class="col-12 mb-20">
+
+                                </div>
+                                <div class="col-12 mb-20">
+                                    <label>ID <span class="required">*</span></label>
+                                    <input name="id" type="text">
+                                </div>
+                                <div class="col-12 mb-20">
+                                    <label>PASSWORD <span class="required">*</span></label>
+                                    <input name="password" type="password">
+                                </div>
+                                <div class="col-12 mb-20">
+
+                                </div>
+                                <div class="col-12 mb-20">
+                                    <input value="Login" name="login" class="inline" type="submit">
+                                    <label class="inline">
+                                        <a href="#">비밀번호 찾기</a>
+                                        <span> | </span>
+                                        <a style="font-weight: bold" href="/dan/signupCategory">회원가입</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE SECTION END -->
 
 </body>
-
 
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>

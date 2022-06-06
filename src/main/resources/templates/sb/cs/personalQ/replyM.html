@@ -35,37 +35,40 @@
                     <div class="checkout-form">
                         <div class="row">
                             <div class="col-lg-6 mb-40">
-                                <form>
-                                    <h3>문의 내용</h3>
-                                    <!-- 표시 데이터 -->
-                                    <div class="row">
-                                        <div class="col-sm-6 col-xs-12 mb-30">
-                                            <label>문의일자</label>
-                                            <input type="text" th:value="${pqVO.pqRegDate}" readonly>
-                                        </div>
-                                        <div class="col-sm-6 col-xs-12 mb-30">
-                                            <label>제목</label>
-                                            <input type="text" name="name" th:value="${pqVO.pqTitle}" readonly>
-                                        </div>
-                                        <div class="order-notes">
-                                            <label>본문</label>
-                                            <textarea id="pqContent" name="pqContent" th:text="${pqVO.pqContent}" readonly></textarea>
-                                        </div>
-                                        <div class="col-sm-6 col-xs-12 mb-30">
-                                            <span class="input-group-addon">첨부이미지</span>
-                                            <div th:each="personalQFile : ${pqVO.personalQFilesList}" th:data-file="${personalQFile.getThumbnailURL()}">
-                                                <img th:src="|/display?fileName=${personalQFile.getThumbnailURL()}|">
+                                <div class="order-wrapper">
+                                    <form>
+                                        <h3><span style="font-size: 45px;margin-right: 20px">Q</span>문의 내용</h3>
+                                        <!-- 표시 데이터 -->
+                                        <div class="row">
+                                            <div class="col-sm-6 col-xs-12 mb-30">
+                                                <label>문의일자</label>
+                                                <input type="text" th:value="${pqVO.pqRegDate}" readonly>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12 mb-30">
+                                                <label>제목</label>
+                                                <input type="text" name="name" th:value="${pqVO.pqTitle}" readonly>
+                                            </div>
+                                            <div class="order-notes">
+                                                <label>본문</label>
+                                                <textarea id="pqContent" name="pqContent" th:text="${pqVO.pqContent}" readonly></textarea>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12 mb-30">
+                                                <span class="input-group-addon">첨부이미지</span>
+                                                <div th:each="personalQFile : ${pqVO.personalQFilesList}" th:data-file="${personalQFile.getThumbnailURL()}">
+                                                    <img th:src="|/display?fileName=${personalQFile.getThumbnailURL()}|">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                             <!-- 답변 내역 -->
                             <div class="col-lg-6 col-12 mb-40">
                                 <div class="order-wrapper">
                                     <form action="/sb/cs/personalQ/replyM" method="post">
-                                        <h3>답변 내용</h3>
+                                        <h3><span style="font-size: 45px;margin-right: 20px">A</span> 답변 내용</h3>
                                         <p>고객 문의 내용에 대한 답변을 작성해주세요</p>
+                                        <br/>
                                         <input type="hidden" name="pqNo" th:value="${pqVO.pqNo}" readonly>
                                         <input type="hidden" name="mno" th:value="${pqVO.mno}" readonly>
                                         <div class="col-sm-6 col-xs-12 mb-30">
