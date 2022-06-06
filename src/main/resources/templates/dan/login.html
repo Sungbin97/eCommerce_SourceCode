@@ -16,7 +16,7 @@
                     <div class="page-banner-content">
                         <h1 th:text="'로그인'"></h1>
                         <ul class="breadcrumb">
-                            <li><a th:id="goBack">home</a></li>
+                            <li><a th:id="goBack">mainpage</a></li>
                             <li class="active">login</li>
                         </ul>
                     </div>
@@ -54,7 +54,7 @@
                                     <label class="inline">
                                         <a href="#">비밀번호 찾기</a>
                                         <span> | </span>
-                                        <a style="font-weight: bold" href="/dan/signupCategory">회원가입</a>
+                                        <a style="font-weight: bold" href="/dan/signup">회원가입</a>
                                     </label>
                                 </div>
                             </div>
@@ -72,31 +72,37 @@
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 <script>
 
-$("#button").click(function (e){
-    var data= {
-        id:$("#id").val(),
-        password:$("#password").val()
-    }
-    console.log("쿼리문에서 데이터가 잘 전달되나?",data)
-    $.ajax({
-        url:'/dan/login',
-        method:'post',
-        data:JSON.stringify(data),
-        contentType:'application/json; charset=utf-8',
-        dataType: 'text',
-        success:function (success){
-            console.log("html에서 success 값 확인",success)
-            if(success == "성공") {
-                window.location.href= '/dan/samplemain';
-            }
-            else {
-                alert("아이디 또는 비밀번호가 틀렸습니다.")
-            }
-            console.log("Ajax 통신 성공", result);
-            self.location.reload();
+    $("input[name=login]").click(function (e){
+        e.preventDefault();
+        var data= {
+            id:$("input[name=id]").val(),
+            password:$("input[name=password]").val()
         }
-
+        console.log("쿼리문에서 데이터가 잘 전달되나?",data)
+        $.ajax({
+            url:'/dan/login',
+            method:'post',
+            data:JSON.stringify(data),
+            contentType:'application/json; charset=utf-8',
+            dataType: 'text',
+            success:function (success){
+                console.log("html에서 success 값 확인",success)
+                if(success == "성공") {
+                    window.location.href= '/dan/samplemain';
+                }
+                else {
+                    alert("아이디 또는 비밀번호가 틀렸습니다.")
+                    self.location.reload();
+                }
+            }
+        })
     })
-})
+
+    // 메인 화면으로 돌아가기
+    $("#goBack").click(function (){
+        var mno = $("input[name=mno]").val();
+        window.location.href = '/mainPage';
+    })
+
 </script>
 </html>
