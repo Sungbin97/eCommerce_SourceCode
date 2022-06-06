@@ -15,6 +15,7 @@ public class ExchangeVO {
     // tbl_exchange 에서 가져올 data
     private int mno; // 회원번호(tbl_memberInfo)
     private String ono; // 주문번호(tbl_order)
+    private int oINo; // 주문상품번호(tbl_orderItem)
     private String newOno; // 처리 후 신규 발행한 주문서 번호
     private int pno; // 상품번호(tbl_product)
     private int eno; // 취소/반품/교환 번호
@@ -37,6 +38,9 @@ public class ExchangeVO {
     private int iDisPrice; // 상품가(할인 후)
     private int iCount; // 상품 개수
     private int iTotalPrice; // 상품 총 금액
+    private String iOption; // 옵션1
+    private String iOption2; // 옵션2
+    private String iColor; // 색상
 
     // 이미지 리스트
     private List<ExchangeFilesVO> exchangeFilesList;

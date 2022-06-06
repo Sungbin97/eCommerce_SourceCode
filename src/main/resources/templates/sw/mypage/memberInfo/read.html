@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- mypage head fragment -->
+    <!-- HEAD FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-memberInfo-read</title>
+    <title>MEMBER INFO</title>
 </head>
 
 <body>
-    <!-- mypage header fragment -->
+    <!-- HEADER FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
@@ -17,10 +17,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-banner-content">
-                        <h1 th:text="'개인정보'"></h1>
+                        <h1 th:text="'개인정보관리'"></h1>
                         <ul class="breadcrumb">
                             <li><a href="#" th:id="goBack">mypage</a></li>
-                            <li class="active">memberInfo</li>
+                            <li class="active">Member Info</li>
                         </ul>
                     </div>
                 </div>
@@ -39,7 +39,10 @@
                         <form class="forModify" th:action="@{/sw/mypage/memberInfo/memModify}" th:method="post">
                             <div class="row">
                                 <h3>개인정보</h3>
-                                <p>수정할 내용을 입력하시고 수정 등록을 눌러주세요</p>
+                                <p>수정할 내용을 입력하시고 등록을 눌러주세요</p>
+                                <br/>
+                                <br/>
+                                <br/>
                                 <!-- 숨김 data -->
                                 <input type="hidden" name="mno" th:value="${memberInfo.mno}"/>
                                 <!-- 표시 data -->
@@ -52,7 +55,7 @@
                                     <input type="text" name="nickName" th:value="${memberInfo.nickName}"/>
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
-                                    <label>아이디 <span class="required">*</span></label>
+                                    <label>아이디 </label>
                                     <input type="text" name="id" readonly th:value="${memberInfo.id}"/>
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
@@ -60,7 +63,7 @@
                                     <input type="password" name="password" th:value="${memberInfo.password}"/>
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
-                                    <label>주민등록번호 <span class="required">*</span></label>
+                                    <label>주민등록번호 </label>
                                     <input type="text" name="sSNum" readonly th:value="${memberInfo.sSNum}"/>
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
@@ -74,7 +77,7 @@
                                     <input type="hidden" id="getGender" th:value="${memberInfo.gender}">
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
-                                    <label>전화번호 </label>
+                                    <label>전화번호 <span class="required">*</span></label>
                                     <input type="text" name="phoneNum" th:value="${memberInfo.phoneNum}"/>
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
@@ -91,20 +94,20 @@
                                 <div class="col-xs-12 mb-20">
                                     <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>
                                 </div>
-                                <div class="col-xs-12 mb-20">
+                                <div class="col-sm-2 col-xs-12 mb-20">
                                     <label>주소 <span class="required">*</span></label>
                                     <input type="text" name="postcode" placeholder="우편번호" th:value="${memberInfo.postcode}" readonly/>
                                 </div>
-                                <div class="col-xs-12 mb-20">
+                                <div class="col-xs-6 mb-20">
                                     <input type="text"  name="address" placeholder="기본주소" th:value="${memberInfo.address}" readonly/>
                                 </div>
-                                <div class="col-xs-12 mb-20">
+                                <div class="col-xs-6 mb-20">
                                     <input type="text"  name="detailAddress" placeholder="세부주소" th:value="${memberInfo.detailAddress}"/>
                                 </div>
                                 <div class="col-xs-12 mb-20">
                                     <label>관심 스포츠 <span class="required">*</span></label>
                                     <select name="interestSports">
-                                        <option value="none">==카테고리를 선택하세요==</option>
+                                        <option value="none">==관심스포츠를 선택하세요==</option>
                                         <option value="없음">없음</option>
                                         <option value="농구">농구</option>
                                         <option value="축구">축구</option>
@@ -112,18 +115,16 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
-                                    <label>등급 <span class="required">*</span></label>
+                                    <label>등급</label>
                                     <input type="text" name="grade" th:value="${memberInfo.grade}" readonly/>
                                 </div>
                                 <div class="col-sm-6 col-xs-12 mb-20">
-                                    <label>보유 포인트 <span class="required">*</span></label>
+                                    <label>보유 포인트</label>
                                     <input type="text" name="point" th:value="${memberInfo.point}" readonly/>
                                 </div>
-
                                 <div class="col-xs-12">
                                     <input id="memModifyBtn" value="개인정보 수정등록" type="submit">
                                 </div>
-
                             </div>
                         </form>
                     </div>
@@ -139,20 +140,26 @@
                 <div class="login-reg-form">
                     <div class="row">
                         <h3>배송지 정보</h3>
-                        <p>여러개의 배송지를 관리해보세요</p>
+                        <p>자주 사용하는 배송지를 등록하고 사용해보세요</p>
+                        <br/>
+                        <br/>
+                        <br/>
                         <!-- 숨김 data -->
                         <input type="hidden" name="mno" th:value="${memberInfo.mno}"/>
                         <!-- 표시 data -->
                         <div class="col-xs-12 mb-20">
                             <button class="btn addShipBtn">배송지 신규등록</button>
                         </div>
+                        <br/>
+                        <br/>
+                        <br/>
                         <div class="shipList col-xs-12 mb-20" th:each="shipment : ${shipmentList}">
                             <ul>
                                 <li>
                                     <hr/>
                                     <input type="hidden" th:id="mno" th:value="${shipment.mno}">
                                     <input type="hidden" th:id="sno" th:value="${shipment.sno}">
-                                    <div style="font-size: large" th:id="shipShipName" th:text="${shipment.shipName}"></div>
+                                    <div style="font-size: large; color: #191c1f" th:id="shipShipName" th:text="${shipment.shipName}"></div>
                                     <div th:id="shipPostcode" th:text="${shipment.postcode}"></div>
                                     <div th:id="shipAddress" th:text="${shipment.address}"></div>
                                     <div th:id="shipDetailAddress" th:text="${shipment.detailAddress}"></div>
@@ -179,9 +186,6 @@
         </div>
     </div><br/>
 
-    <!-- hidden data -->
-    <input type="hidden" id="interestSports" th:value="${memberInfo.interestSports}">
-
     <!-- Modal 모음(아래) --------------------------------------------------------------------------------------------- -->
     <!-- ship modal -->
     <div class="shipModal modal fade container" tabindex="-1" role="dialog">
@@ -204,11 +208,12 @@
                                         <label>배송지 이름 <span class="required">*</span></label>
                                         <input type="text" name="shipNameModal" placeholder="배송지이름"/>
                                     </div>
+                                    <br/>
+                                    <label>주소 <span class="required">*</span></label>
                                     <div class="col-xs-12 mb-20">
                                         <button type="button" class="btn" id="getPostCodeModal">우편번호 찾기</button>
                                     </div>
                                     <div class="col-xs-12 mb-20">
-                                        <label>주소 <span class="required">*</span></label>
                                         <input type="text" name="postcodeModal" placeholder="우편번호" readonly/>
                                     </div>
                                     <div class="col-xs-12 mb-20">
@@ -220,8 +225,8 @@
                                     <div class="col-xs-12 mb-20">
                                         <button type="button" class="btn shipCloseBtn">닫기</button>
                                         <button type="button" class="btn shipSaveBtn">저장</button>
-                                        <button type="button" class="btn shipModifyBtn">수정</button>
-                                        <button type="button" class="btn shipDeleteBtn">삭제</button>
+                                        <button type="button" class="btn shipModifyBtn">수정등록</button>
+                                        <button style="color: white" type="button" class="btn btn-danger shipDeleteBtn">삭제</button>
                                     </div>
                                 </div>
                             </form>
@@ -233,16 +238,20 @@
     </div>
 </body>
 
+<!-- hidden data -->
+<input type="hidden" id="interestSports" th:value="${memberInfo.interestSports}">
+
 <!-- daum postcode api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 
-<!-- mypage footer fragment -->
+<!-- FOOTER FRAGMENT -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <script>
     $(document).ready(function (){
 
-        // 일반 이벤트
+        // 일반 이벤트 --------------------------------------------------------------------
+
         // 관심스포츠 데이터 입력
         var interestSports = $("input[id=interestSports]").val();
         $("select[name=interestSports]").val(interestSports).prop("selected",true);
@@ -265,14 +274,14 @@
         })
 
 
-        // 배송지 Modal
+        // 배송지 Modal ----------------------------------------------------------------------------
 
         // 0. Modal 닫기 버튼
         $(".shipCloseBtn").click(function (){
             $(".shipModal").modal('hide');
         })
 
-        // 1. 배송지 신규 등록 ----------------------------------------------------------------------------------
+        // 1. 배송지 신규 등록 -----------------------------------------------------------------------
         // 배송지 신규등록 버튼 Click => modal 팝업
         $(".addShipBtn").click(function (e){
             // 기존에 입력된 value 초기화
@@ -318,6 +327,7 @@
                 dataType:'json',
                 success:function (result){
                     console.log("주소 저장 => Ajax통신 성공 후 받은 result: ",result);
+                    alert("등록 완료되었습니다.")
                     self.location.reload();
                 }
             })
@@ -339,7 +349,7 @@
             $(".shipModifyBtn").show();
             $(".shipDeleteBtn").show();
             // 모달 제목 변경
-            $(".ship-modal-title").text('배송지 수정')
+            $(".ship-modal-title").text('배송지 조회/수정')
             // 모달 보여주기
             $(".shipModal").modal('show');
         })
@@ -362,6 +372,7 @@
                 dataType:'json',
                 success:function (result){
                     console.log("주소 저장 => Ajax통신 성공 후 받은 result: ",result);
+                    alert("수정 완료되었습니다.")
                     self.location.reload();
                 }
             })
@@ -386,6 +397,7 @@
                 dataType:'json',
                 success:function (result){
                     console.log("주소 저장 => Ajax통신 성공 후 받은 result: ",result);
+                    alert("삭제 완료되었습니다.")
                     self.location.reload();
                 }
             })

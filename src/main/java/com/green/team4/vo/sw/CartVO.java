@@ -30,4 +30,7 @@ public class CartVO {
     private String pMainCategory; // 메인 카테고리
     private String pSubCategory; // 서브 카테고리
     private String pImage; // 상품 대표 이미지
+
+    // 카트 sub 메뉴 데이터 담을때 사용
+    private int cartCnt;
 }

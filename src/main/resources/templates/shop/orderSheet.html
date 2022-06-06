@@ -156,6 +156,7 @@
                                             <a class="addressBtn addressBtn_1" onclick="showAddress('1')" >등록된 주소</a>
                                             <a class="addressBtn addressBtn_2" onclick="showAddress('2')">직접 입력</a>
                                         </div>
+                                        <br/> <!-- SW 추가 br만 -->
                                 <div class="addressInfo_input_div addressInfo_input_div_1" style="display: block">
                                     <div class="row">
                                         <div class="col-sm-6 col-xs-12 mb-30">
@@ -191,6 +192,16 @@
 
                                 <div class="addressInfo_input_div addressInfo_input_div_2">
                                     <div class="row">
+
+                                        <!-- SW추가 0605 개인 배송지 가져오기 Btn 시작 -->
+                                        <div class="col-sm-6 col-xs-12 mb-30">
+                                            <a class="btn" th:onclick="getShipmentInfo([[${memberInfo.mno}]])">개인 배송지 가져오기</a>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 mb-30">
+
+                                        </div>
+                                        <!-- SW추가 0605 개인 배송지 가져오기 Btn 끝 -->
+
                                         <div class="col-sm-6 col-xs-12 mb-30">
                                             <label for="b_f_name">이름</label>
                                             <input id="b_f_name" type="text" class="receiverName_input" name="receiverName"/>
@@ -400,6 +411,39 @@
         </div>
     </div>
 </div>
+
+<!-- ship modal SW 추가 0605, 시작 -->
+<div class="shipModal modal fade container" tabindex="-1" role="dialog">
+    <div class="row modal-dialog" role="document">
+        <div class="col-lg-8 col-12 mx-auto">
+            <div class="login-reg-form modal-content">
+                <div class="row">
+                    <div class="modal-header">
+                        <h4 class="ship-modal-title" th:text="'개인 배송지 목록'"></h4>
+                    </div>
+                    <div class="row">
+                        <form>
+                            <!-- ajax로 가져온 배송지들 display 영역 -->
+                            <div class="shipList col-xs-12 mb-20">
+                                <ul>
+
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <button type="button" class="btn shipCloseBtn">닫기</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ship modal SW 추가 0605, 끝 -->
+
+
+
+
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 <script>
@@ -523,10 +567,74 @@
                 $(".address1_input").val(data.zonecode);
                 $(".address2_input").val(addr);
                 $(".address3_input").attr("readonly",false)
+                $(".address3_input").val(""); // SW 추가 0605(개별배송지 입력하다가 직접입력으로 바꿀때 기존 데이터 지우기 위해 추가)
                 $(".address3_input").focus();
             }
         }).open();
     }
+
+    // 개인 배송지 가져오기 SW 추가 0605 시작 -------------------------------------------------
+
+    // (공통) Modal 숨길때마다 Modal 데이터 초기화
+    $('.shipModal').on('hidden.bs.modal', function () {
+        console.log("Modal hide 들어오나")
+        $(".shipList ul").empty(); // Modal 다시 띄울때 중복 방지
+    })
+    // 회원 개별 배송지 정보 List 가져오기
+    function getShipmentInfo (mno){
+        var data ={mno:mno}
+        console.log("getShipmentInfo => 입력받은 data: ",data)
+        $.ajax({
+            url:'/sw/mypage/memberInfo/shipOne',
+            method:'post',
+            data:JSON.stringify(data),
+            contentType:'application/json; charset=utf-8',
+            dataType:'json',
+            success:function (shipmentList){
+                console.log("getShipmentInfo Ajax통신 성공 후 받은 result: ",shipmentList);
+                var shipListUL = $(".shipList ul")
+                var str = "";
+                $(shipmentList).each(function (){
+                    console.log(this)
+                    str+="<hr/>";
+                    str+="<li>";
+                    str+="<h6 th:id=\"shipName\">"+this.shipName+"</h6>"
+                    str+="<div th:id=\"shipPostcode\">"+this.postcode+"</div>"
+                    str+="<div th:id=\"shipAddress\">"+this.address+"</div>"
+                    str+="<div th:id=\"shipDetailAddress\">"+this.detailAddress+"</div>"
+                    str+="<button type='button' id='selectShipBtn' class='btn'>선택</button>"
+                    str+="</li>"
+                    str+="<hr/>";
+                })
+                shipListUL.append(str);
+                $(".shipModal").modal('show');
+            }
+        })
+    }
+    // 배송지 선택 버튼 클릭
+    $(document).on("click", "#selectShipBtn",function (){
+        // 선택한 배송지 정보 가져오기
+        var postcode = $(this).parent().children("div").eq(0).text();
+        var address = $(this).parent().children("div").eq(1).text();
+        var detailAddress = $(this).parent().children("div").eq(2).text();
+
+        // 선택한 배송지 정보로 상품 배송지 업데이트
+        var inputDiv = $(".addressInfo_input_div_2");
+        inputDiv.find("input.address1_input").val(postcode);
+        inputDiv.find("input.address2_input").val(address);
+        inputDiv.find("input.address3_input").val(detailAddress);
+
+        // Modal 닫기
+        alert("배송지가 선택되었습니다.")
+        $(".shipModal").modal('hide');
+    })
+    // 배송지 Modal 닫기
+    $(".shipCloseBtn").click(function (){
+        $(".shipModal").modal('hide');
+    })
+
+    // 개인 배송지 가져오기 SW 추가 0605 끝 -------------------------------------------------
+
     // 포인트 사용1
     $(".order_point_input").on("propertychange change keyup paste input",function (){
         let finalTotalPrice = parseInt($(".finalTotalPrice_span").text());

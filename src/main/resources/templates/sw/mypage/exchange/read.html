@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-lg-6 mb-40">
                                 <form action="#">
-                                    <h3>주문자 정보</h3>
+                                    <h3>신청 정보</h3>
                                     <!-- 숨김 데이터 -->
                                     <input type="hidden" name="mno" th:value="${exchangeVO.mno}" readonly>
                                     <input type="hidden" name="ono" th:value="${exchangeVO.ono}" readonly>
@@ -63,7 +63,6 @@
                                             <label>신청사유 </label>
                                             <textarea name="exContent" cols="100" rows="10" th:text="${exchangeVO.exContent}" readonly></textarea>
                                         </div>
-
                                     </div>
                                 </form>
                             </div>
@@ -76,23 +75,23 @@
                                             <thead>
                                             <tr>
                                                 <th class="product-name">구분</th>
-                                                <th class="product-total">금액(단위: 원)</th>
+                                                <th class="product-total">금액</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td class="product-name">
-                                                    [[${exchangeVO.pName}]] <strong class="product-qty"> × [[${exchangeVO.iCount}]]</strong>
+                                                    [[${exchangeVO.pName}]] [ [[${exchangeVO.iOption} ]] / [[ ${exchangeVO.iOption2} ]] / [[ ${exchangeVO.iColor}]] ] <strong class="product-qty"> × [[${exchangeVO.iCount}]]</strong>
                                                 </td>
                                                 <td class="product-total">
-                                                    <span class="amount">[[${exchangeVO.iDisPrice}]](개당)</span>
+                                                    <span class="amount" data-th-text="${#numbers.formatInteger(exchangeVO.iDisPrice, 3, 'COMMA') + ' 원(개당)'}"></span>
                                                 </td>
                                             </tr>
                                             </tbody>
                                             <tfoot>
                                             <tr>
                                                 <th>총 상품가격</th>
-                                                <td><strong>[[${exchangeVO.iTotalPrice}]]</strong></td>
+                                                <td><strong data-th-text="${#numbers.formatInteger(exchangeVO.iTotalPrice, 3, 'COMMA') + ' 원'}"></strong></td>
                                             </tr>
                                             </tfoot>
                                         </table>

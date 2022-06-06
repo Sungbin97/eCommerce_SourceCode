@@ -63,7 +63,11 @@ public class MyPageController {
         // 상품 리뷰 작성 건 수 가져오기
         int pqCnt = personalQService.readAllCnt(mno);
         model.addAttribute("pqCnt",pqCnt);
+    }
 
-
+    @GetMapping("/map/mapRead") // 운동시설 찾기 페이지
+    public void mapRead(int mno, Model model){
+        log.info("MemberInfoController => mapRead(GET) 실행 => 받은 mno: "+mno);
+        model.addAttribute("mno",mno);
     }
 }

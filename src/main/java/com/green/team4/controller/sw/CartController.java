@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Log4j2
@@ -35,6 +38,46 @@ public class CartController {
         model.addAttribute("mno",mno);
         model.addAttribute("cartList",cartList); // 장바구니 List
         model.addAttribute("cartTotalPrice",cartTotalPrice); // 장바구니 물건 총 금액
+    }
+
+    @PostMapping("/listCnt") // 모든 페이지 상단 카트 아이콘 업데이트용
+    public ResponseEntity<Integer> getCartCnt(@RequestBody CartVO cartVO){
+        log.info("CartController => getCartCnt(POST) 실행 => 받은 mno: "+cartVO.getMno());
+        List<CartVO> cartList = cartService.readAll(cartVO.getMno());
+        Integer cartCnt = cartList.size();
+        return new ResponseEntity<>(cartCnt,HttpStatus.OK);
+    }
+
+    @PostMapping("/listMain") // 카트 상단 메뉴 클릭하면 데이터 가져오기
+    public ResponseEntity<List<List<CartVO>>> cartListForMain(@RequestBody CartVO cartVO){
+        log.info("CartController => cartListForMain(POST) 실행 => 받은 mno: "+cartVO.getMno());
+        // CartList
+        List<List<CartVO>> cartListWithCnt = new ArrayList<>();
+
+        // 해당 회원 장바구니 모두 가져오기
+        List<CartVO> cartList = cartService.readAll(cartVO.getMno());
+
+        // 최근 장바구니에 담은 물건 2개만 가져오기
+        List<CartVO> recentCartList = new ArrayList<>();
+        if(cartList != null){
+            recentCartList.add(cartList.get(0));
+            recentCartList.add(cartList.get(1));
+        }
+
+        // 장바구니 상품 개수 가져오기
+        int cartCnt = cartList.size();
+
+        // 장바구니 상품 개수 담긴 CartVO List
+        List<CartVO> cartCntList = new ArrayList<>();
+        CartVO cart = new CartVO();
+        cart.setCartCnt(cartCnt);
+        cartCntList.add(cart);
+
+        // List set
+        cartListWithCnt.add(recentCartList);
+        cartListWithCnt.add(cartCntList);
+
+        return new ResponseEntity<>(cartListWithCnt,HttpStatus.OK);
     }
 
     @PostMapping("/modify") // 장바구니 업데이트 하기

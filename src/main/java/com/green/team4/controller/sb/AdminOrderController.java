@@ -76,15 +76,23 @@ public class AdminOrderController {
         model.addAttribute("cancelList",cancelList);
     }
 
-    @PostMapping("/cancelReg")
-    public String cancelReg(String ono, int pno, int eno){
+    @PostMapping("/cancelReg") // 취소/반품 진행 (같이 사용)
+    public String cancelReg(String ono, int oINo, int pno, int eno, String category){
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 ono: "+ono);
+        log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 oINo: "+oINo);
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 ono: "+pno);
         log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 eno: "+eno);
+        log.info("AdminOrderController => cancelReg(POST) 실행 => 받은 category: "+category);
 
-        exchangeService.cancelAndReturn(ono,pno,eno);
+        exchangeService.cancelAndReturn(ono,oINo,pno,eno,category);
 
-        return "redirect:/sb/order/cancelList";
+        ExchangeVO exchangeVO = exchangeService.readOne(eno);
+        if(exchangeVO.getExCategory().equals("취소")){
+            return "redirect:/sb/order/cancelList";
+        }
+        else {
+            return "redirect:/sb/order/returnList";
+        }
     }
 
     // 반품 신청 관리 --------------------------------------------------------------------------------
@@ -137,9 +145,13 @@ public class AdminOrderController {
         log.info("AdminOrderController => changeReg(POST) 실행 => 받은 ono: "+exchangeVO.getOno());
         log.info("AdminOrderController => changeReg(POST) 실행 => 받은 pno: "+exchangeVO.getPno());
         log.info("AdminOrderController => changeReg(POST) 실행 => 받은 eno: "+exchangeVO.getEno());
+        log.info("AdminOrderController => changeReg(POST) 실행 => 받은 oINo: "+exchangeVO.getOINo());
 
         // 교환 처리 후 새로발행한 주문서
-        OrderVO newOrderVO = exchangeService.change(exchangeVO.getOno(),exchangeVO.getPno(),exchangeVO.getEno());
+        OrderVO newOrderVO = exchangeService.change(exchangeVO.getOno(),
+                                                    exchangeVO.getOINo(),
+                                                    exchangeVO.getPno(),
+                                                    exchangeVO.getEno());
 
         return new ResponseEntity<>(newOrderVO.getOno(), HttpStatus.OK);
     }

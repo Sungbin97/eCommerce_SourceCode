@@ -37,31 +37,31 @@
                             <table>
                                 <thead>
                                 <tr>
-                                    <th class="pro-title">주문번호(처리전)</th>
-                                    <th class="pro-title">주문번호(처리후)</th>
-                                    <th class="pro-title">상품번호</th>
-                                    <th class="pro-title">구분</th>
-                                    <th class="pro-title">교환사유</th>
-                                    <th class="pro-title">진행상태</th>
                                     <th class="pro-title">신청일</th>
                                     <th class="pro-title">처리완료일</th>
-                                    <th class="pro-title">옵션1</th>
-                                    <th class="pro-title">옵션2</th>
-                                    <th class="pro-title">색상</th>
+                                    <th class="pro-title">구분</th>
+                                    <th class="pro-title">주문번호(기존)</th>
+                                    <th class="pro-title">신청서</th>
+                                    <th class="pro-title">진행상태</th>
+                                    <th class="pro-title">옵션1(교환)</th>
+                                    <th class="pro-title">옵션2(교환)</th>
+                                    <th class="pro-title">색상(교환)</th>
                                     <th class="pro-add-to-cart">교환처리</th>
                                     <th class="pro-add-to-cart">배송등록</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="change : ${changeList}">
-                                    <td class="pro-title" th:text="${change.ono}"></td>
-                                    <td class="pro-title" th:text="${change.newOno}"></td>
-                                    <td class="pro-title" th:text="${change.pno}"></td>
-                                    <td class="pro-title" th:text="${change.exCategory}"></td>
-                                    <td class="pro-title" th:text="${change.exContent}"></td>
-                                    <td class="pro-title" th:text="${change.exStatus}"></td>
                                     <td class="pro-title" th:text="${change.exDate}"></td>
                                     <td class="pro-title" th:text="${change.exEndDate}"></td>
+                                    <td class="pro-title" th:text="${change.exCategory}"></td>
+                                    <td class="pro-title" th:text="${change.ono}"></td>
+                                    <td class="pro-title">
+                                        <button type="button" class="btn" id="getExchangeRead">
+                                            <a style="font-size: small" th:href="@{/sw/mypage/exchange/read(eno=${change.eno})}">조회</a>
+                                        </button>
+                                    </td>
+                                    <td class="pro-title" th:text="${change.exStatus}"></td>
                                     <td class="pro-title" th:text="${change.eOption}"></td>
                                     <td class="pro-title" th:text="${change.eOption2}"></td>
                                     <td class="pro-title" th:text="${change.color}"></td>
@@ -71,6 +71,7 @@
                                             <input type="hidden" name="ono" th:value="${change.ono}" readonly>
                                             <input type="hidden" name="pno" th:value="${change.pno}" readonly>
                                             <input type="hidden" name="eno" th:value="${change.eno}" readonly>
+                                            <input type="hidden" name="oINo" th:value="${change.oINo}" readonly>
                                             <button type="button" id="initChange" th:if="${change.exStatus != '교환완료'}" class="btn">교환</button>
                                         </form>
                                     </td>
@@ -110,7 +111,8 @@
             var data = {
                 ono: $(this).form().find("input[name=ono]").val(),
                 pno: parseInt($(this).form().find("input[name=pno]").val()),
-                eno: parseInt($(this).form().find("input[name=eno]").val())
+                eno: parseInt($(this).form().find("input[name=eno]").val()),
+                oino: parseInt($(this).form().find("input[name=oINo]").val())
             }
             console.log("입력받은 data: ", data)
             $.ajax({

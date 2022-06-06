@@ -2,15 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- mypage head fragment -->
+    <!-- HEAD FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-interest-list</title>
+    <title>WISHLIST</title>
 </head>
 
-<body>
-    <!-- mypage header fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+<!-- 검색창 전용 style -->
+<style>
+    #searchForm select, option, input{
+        height: 30px;
+    }
+</style>
 
+<body>
+    <!-- HEADER FRAGMENT -->
+    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
     <div class="page-banner-section section">
@@ -18,10 +24,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-banner-content">
-                        <h1 th:text="'찜목록'"></h1>
+                        <h1 th:text="'찜한상품'"></h1>
                         <ul class="breadcrumb">
                             <li><a href="#" th:id="goBack">mypage</a></li>
-                            <li class="active">interest</li>
+                            <li class="active">wishList</li>
                         </ul>
                     </div>
                 </div>
@@ -32,46 +38,55 @@
     <!-- Interest List -->
     <div class="page-section section pt-120 pb-80">
         <div class="container">
-            <div class="row">
-                <form action="#">
-                    <div class="col-xs-12">
-                        <div class="wishlist-table table-responsive mb-40">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th class="pro-stock-stauts">찜한 날짜</th>
-                                    <th class="pro-title">상품번호</th>
-                                    <th class="pro-thumbnail">이미지</th>
-                                    <th class="pro-title">상품명</th>
-                                    <th class="pro-price">가격</th>
-                                    <th class="pro-add-to-cart">상품보러가기</th>
-                                    <th class="pro-remove">삭제</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="itr : ${itrList.getList()}">
-                                    <td class="pro-stock-stauts" name="itrDate" th:text="${itr.itrDate}"></td>
-                                    <td class="pro-title"  th:text="${itr.pno}"></td>
-                                    <td class="pro-thumbnail" id="pImage"><img th:src="|/display?fileName=${itr.pImage}|" alt="" /></td>
-                                    <td class="pro-title" id="pName">[[${itr.pName}]]</td>
-                                    <td class="pro-price" id="pPrice" th:text="${itr.pPrice}"></td>
-                                    <td class="pro-title">
-                                        <a th:href="@{/shop/read(pno=${itr.pno},mno=${itr.mno})}" th:text="'클릭'"></a>
-                                    </td>
-                                    <td class="pro-remove">
-                                        <form id="itrDeleteForm" th:action="@{/sw/mypage/interest/delete}" th:method="post">
-                                            <input type="hidden" name="mno" th:value="${itr.mno}" readonly>
-                                            <input type="hidden" name="pno" th:value="${itr.pno}" readonly>
-                                            <input type="hidden" name="itrNo" th:value="${itr.itrNo}" readonly>
-                                            <input type="button" name="itrDeleteBtn" class="btn" value="삭제">
-                                        </form>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <div>
+                <!-- 키워드 검색 -->
+                <form id="searchForm" action="/sw/mypage/interest/list" method="get">
+                    <select name="keyword" id="keyword">
+                        <option value="pName">상품명</option>
+                        <option value="pno">상품번호</option>
+                    </select>
+                    <input type="text" id="search" name="search">
+                    <input type="hidden" id="mno" name="mno" th:value="${mno}">
+                    <button style="background: #191c1f; color: white" type="submit" id="searchBtn">검색</button>
                 </form>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="wishlist-table table-responsive mb-40">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="pro-stock-stauts">찜한 날짜</th>
+                                <th class="pro-title">이미지</th>
+                                <th class="pro-title">상품명</th>
+                                <th class="pro-title">가격</th>
+                                <th class="pro-title">상품보러가기</th>
+                                <th class="pro-remove">삭제</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="itr : ${itrList.getList()}">
+                                <td class="pro-stock-stauts" name="itrDate" th:text="${#temporals.format(itr.itrDate, 'yyyy-MM-dd')}"></td>
+                                <td class="pro-title" id="pImage"><img th:src="|/display?fileName=${itr.pImage}|" alt="" /></td>
+                                <td class="pro-title" id="pName">[[${itr.pName}]]</td>
+                                <td class="pro-title" id="pPrice" data-th-text="${#numbers.formatInteger(itr.pPrice, 3, 'COMMA') + ' 원'}"></td>
+                                <td class="pro-title">
+                                    <a th:href="@{/shop/read(pno=${itr.pno},mno=${itr.mno})}" th:text="'클릭'"></a>
+                                </td>
+                                <td class="pro-remove">
+                                    <form id="itrDeleteForm" th:action="@{/sw/mypage/interest/delete}" th:method="post">
+                                        <input type="hidden" name="mno" th:value="${itr.mno}" readonly>
+                                        <input type="hidden" name="pno" th:value="${itr.pno}" readonly>
+                                        <input type="hidden" name="itrNo" th:value="${itr.itrNo}" readonly>
+                                        <input style="border: white; background-color: white" type="button" name="itrDeleteBtn" value="X">
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <!-- Paging custom -->
                 <div class="paginationC clearfix">
                     <!-- 이전 버튼 -->
@@ -92,16 +107,7 @@
                     <li th:if="${itrList.getNextPage() == 0}">
                         <a>Next</a>
                     </li>
-                        <form action="/sw/mypage/interest/list" method="get">
-                            <select name="keyword" id="keyword">
-                                <option value="pName">상품명</option>
-                                <option value="pno">상품번호</option>
-                            </select>
-                            <input type="text" id="search" name="search">
-                            <input type="hidden" id="mno" name="mno" th:value="${mno}">
-                            <button style="background: #191c1f; color: white" type="submit" id="searchBtn">검색</button>
-                        </form>
-                        <p>현재페이지[[${pageNum}]]</p>
+                    <div style="font-size: small;">[ page[[${pageNum}]] ]</div>
                 </div>
             </div>
         </div>
@@ -111,7 +117,7 @@
     <input type="hidden" th:name="mno" th:value="${mno}">
 </body>
 
-<!-- mypage footer fragment -->
+<!-- FOOTER FRAGMENT -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <script>
@@ -119,13 +125,13 @@
 
         // 찜목록 삭제 버튼 클릭하면 동작
         $("input[name=itrDeleteBtn]").click(function (e){
+            var target = $(this).closest('form')
             if(!confirm("정말 삭제하시겠습니까?")){
                 alert("삭제를 취소합니다.")
                 return
             }
             else {
-                var target = $(this)
-                target.form().submit();
+                target.submit();
                 alert("삭제 완료하였습니다.")
             }
         })

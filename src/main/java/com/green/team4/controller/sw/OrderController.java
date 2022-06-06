@@ -98,17 +98,20 @@ public class OrderController {
     // Exchange -----------------------------------------------------------------------------------------
 
     @GetMapping("/exchange")
-    public void exRegister(int mno, String ono, int pno, Model model){ // 취소/반품/교환 등록 페이지 가져오기
+    public void exRegister(int mno, String ono, int pno, int oINo, Model model){ // 취소/반품/교환 등록 페이지 가져오기
         log.info("OrderController => exRegister(GET) 실행 => 받은 mno: "+mno);
         log.info("OrderController => exRegister(GET) 실행 => 받은 ono: "+ono);
         log.info("OrderController => exRegister(GET) 실행 => 받은 pno: "+pno);
+        log.info("OrderController => exRegister(GET) 실행 => 받은 oINo: "+oINo);
 
-        // (1) 기존 주문 정보 가져오기
-        OrderVO orderVO = orderService.readOne(ono); // 주문서 가져오기
-        List<OrderItemVO> itemList = orderVO.getOrderItemList(); // 주문 상품 List 가져오기
-        itemList.forEach(i->{ // 신청 대상 아이템 model 등록
-            if(i.getPno()==pno) model.addAttribute("orderItem",i);
-        });
+        // (1) 기존 주문상품 정보 가져오기
+//        OrderVO orderVO = orderService.readOne(ono); // 주문서 가져오기
+//        List<OrderItemVO> itemList = orderVO.getOrderItemList(); // 주문 상품 List 가져오기
+//        itemList.forEach(i->{ // 신청 대상 아이템 model 등록
+//            if(i.getPno()==pno) model.addAttribute("orderItem",i);
+//        });
+        OrderItemVO orderItemVO = orderItemMapper.getOne(oINo); // 신청 대상 주문상품 정보 가져오기
+        model.addAttribute("orderItem",orderItemVO);
         model.addAttribute("mno",mno);
 
         // (2) 변경 주문 옵션 display용 데이터 가져오기
@@ -146,18 +149,14 @@ public class OrderController {
     public String exRegister(ExchangeVO exchangeVO){
         log.info("OrderController => exRegister(POST) 실행 => 받은 exchangeVO: "+exchangeVO);
 
-//        // 주문 상품 테이블 내 취소/반품/교환 신청 여부 내역 수정
-        OrderVO orderVO = orderService.readOne(exchangeVO.getOno()); // 주문서 가져오기
-        List<OrderItemVO> itemList = orderVO.getOrderItemList(); // 주문서 내 주문 상품 List 가져오기
-        itemList.forEach(i->{
-            if(i.getPno()==exchangeVO.getPno()){ // 취소/반품/교환 신청 대상 item 찾아서
-                i.setIExStatus("신청완료"); // 신청 완료 상태로 업데이트
-                orderService.modifyItem(i); // 주문서 내 주문상품 수정
-            }
-        });
+        // 주문 상품 취소/반품/교환 신청 여부 내역 수정
+        OrderItemVO orderItemVO = orderItemMapper.getOne(exchangeVO.getOINo()); // 해당 주문상품 가져오기
+        orderItemVO.setIExStatus("신청완료"); // 신청완료 상태로 업데이트
+        orderService.modifyItem(orderItemVO); // 주문서 내 주문상품 수정
+
         // 취소/반품/교환 신청 데이터 신규추가
-        exchangeVO.setExDate(LocalDateTime.now());
-        exchangeService.register(exchangeVO);
+        exchangeVO.setExDate(LocalDateTime.now()); // 신청날짜 업데이트
+        exchangeService.register(exchangeVO); // DB저장
 
         return "redirect:/sw/mypage/order/read?ono="+exchangeVO.getOno();
     }

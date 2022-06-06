@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- mypage head fragment -->
+    <!-- HEAD FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-review-read</title>
+    <title>REVIEW READ</title>
 </head>
 
 <body>
-    <!-- mypage header fragment -->
+    <!-- HEADER FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
@@ -16,10 +16,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-banner-content">
-                        <h1 th:text="'리뷰'"></h1>
+                        <h1 th:text="'리뷰 조회'"></h1>
                         <ul class="breadcrumb">
-                            <li><a href="#" th:id="goBack">list</a></li>
-                            <li class="active">review-read</li>
+                            <li><a href="#" th:id="goBack">review list</a></li>
+                            <li class="active">REVIEW READ</li>
                         </ul>
                     </div>
                 </div>
@@ -44,22 +44,17 @@
                                 <input type="hidden" name="mno" th:value="${review.mno}"/>
                                 <input type="hidden" name="oINo" th:value="${review.oINo}"/>
                                 <!-- 표시 data -->
-<!--                                <div class="col-sm-6 col-xs-12 mb-20">-->
-<!--                                    <label>상품명</label>-->
-<!--                                    <input type="text" name="iName" th:value="${review.iName}" readonly/>-->
-<!--                                </div>-->
                                 <div class="col-sm-6 col-xs-12 mb-20">
                                     <hr/>
-                                    <div style="font-size: large">상품명: [[${review.iName}]]</div><br/>
+                                    <div style="font-size: medium; color: #191c1f">상품명: [[${review.iName}]]</div><br/>
                                     <div>[[${review.iOptionName}]]: [[${review.iOption}]]</div>
                                     <div>[[${review.iOptionName2}]]: [[${review.iOption2}]]</div>
                                     <div>색상: [[${review.iColor}]]</div>
                                     <br/>
-                                    <div>상품가격(할인 후): [[${review.iDisPrice}]]</div>
+                                    <div data-th-text="'상품가격: ' + ${#numbers.formatInteger(review.iDisPrice, 3, 'COMMA') + ' 원'}"></div>
                                     <div>구매수량: [[${review.iCount}]]</div>
-                                    <div>결제금액(상품가 x 수량): [[${review.iTotalPrice}]]</div>
+                                    <div data-th-text="'결제금액(상품가 x 수량): ' + ${#numbers.formatInteger(review.iTotalPrice, 3, 'COMMA') + ' 원'}"></div>
                                     <hr/>
-<!--                                    <input type="text" name="iOption" th:value="${review.iOption}" readonly/>-->
                                 </div>
 
                                 <h3>리뷰 정보</h3>
@@ -106,7 +101,7 @@
 
 </body>
 
-<!-- mypage footer fragment -->
+<!-- FOOTER FRAGMENT -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <!-- Star -->

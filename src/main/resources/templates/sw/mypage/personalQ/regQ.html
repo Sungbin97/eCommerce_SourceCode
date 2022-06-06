@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- mypage head fragment -->
+    <!-- HEAD FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>personalQ-regQ</title>
+    <title>Q REGISTER</title>
 </head>
 
 <body>
-    <!-- mypage header fragment -->
+    <!-- HEADER FRAGMENT -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
@@ -16,10 +16,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-banner-content">
-                        <h1 th:text="'1:1문의글 등록'"></h1>
+                        <h1 th:text="'1:1문의글 작성'"></h1>
                         <ul class="breadcrumb">
-                            <li><a href="#" th:id="goBack">list</a></li>
-                            <li class="active">regQ</li>
+                            <li><a href="#" th:id="goBack">Q list</a></li>
+                            <li class="active">Q Register</li>
                         </ul>
                     </div>
                 </div>
@@ -34,11 +34,10 @@
                     <div class="login-reg-form">
                         <form action="/sw/mypage/personalQ/regQ" method="post">
                             <div class="row">
-                                <h3>1:1문의글 등록</h3>
-                                <p>구매하신 상품 후기를 적어주세요</p>
-                                <div class="col-xs-12 mb-20">
-
-                                </div>
+                                <h3>1:1문의글 작성</h3>
+                                <p>궁금하신 내용을 작성해주세요</p>
+                                <br/>
+                                <br/>
                                 <div class="col-xs-12 mb-20">
 
                                 </div>
@@ -78,11 +77,11 @@
                                 </div>
                                 <div class="col-xs-12 mb-20">
                                     <label>제목 <span class="required">*</span></label>
-                                    <input type="text" name="pqTitle" placeholder="제목을 입력해주세요..">
+                                    <input type="text" name="pqTitle" placeholder="제목을 입력해주세요">
                                 </div>
                                 <div class="col-xs-12 mb-20">
                                     <label>본문 <span class="required">*</span></label>
-                                    <textarea name="pqContent" class="form-control" cols="30" rows="10" placeholder="문의 내용을 입력해주세요.."></textarea>
+                                    <textarea name="pqContent" class="form-control" cols="30" rows="10" placeholder="문의 내용을 입력해주세요"></textarea>
                                 </div>
 
                                 <!-- 첨부파일 등록 영역 -->
@@ -102,7 +101,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input value="문의 등록" name="regPersonalQ" type="submit">
+                                    <input value="문의글 등록" name="regPersonalQ" type="submit">
                                 </div>
 
                             </div>
@@ -114,7 +113,7 @@
     </div>
 </body>
 
-<!-- mypage footer fragment -->
+<!-- FOOTER FRAGMENT -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 
 <script>
