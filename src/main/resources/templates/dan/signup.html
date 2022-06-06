@@ -115,6 +115,8 @@
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="id">Id <span class="required">*</span></label>
                                 <input id="id" name="id" type="text"/>
+                                <button type="button" onclick="idCheck()">중복확인</button>
+                                <div id="idCheckResult"></div>
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
 
@@ -170,9 +172,21 @@
 
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="email">이매일 <span class="required">*</span></label>
-                                <input id="email" name="email" type="email"/>
-
+                                <label for="email">이메일 <span class="required">*</span></label>
+                                <div style="display: inline-block">
+                                    <input id="email" name="email" type="email"/>
+                                </div>
+                                <div style="display: inline-block">
+                                    <button type="button" onclick="mailCheck()">인증번호발급</button>
+                                </div>
+                                <br/><br/>
+                                <div style="display: inline-block">
+                                    <input id="insertAuthNum" type="text" placeholder="인증번호를 입력해 주세요"/>
+                                </div>
+                                <div style="display: inline-block">
+                                    <button type="button" id="checkAuthNum" onclick="authNumCheck()">인증번호입력</button>
+                                </div>
+                                <input id="authNum" type="hidden">
                             </div>
                             <div class="col-sm-6 col-xs-12 mb-20">
 
@@ -181,61 +195,66 @@
                                 <label for="phonenum"> 자택전화 <span class="required">*</span></label>
                                 <input id="phonenum" name="phoneNum" type="text" />
                             </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="mobilenum"> 휴대전화 <span class="required">*</span></label>
-                                <input id="mobilenum" name="mobileNum" type="text" />
-                            </div>
-                            <div class="col-xs-12 mb-20">
-                                <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>
-                            </div>
-                            <div class="col-xs-12 mb-20">
-                                <label>주소 <span class="required">*</span></label>
-                                <input type="text" name="postcode" placeholder="우편번호"/>
-                            </div>
-                            <div class="col-xs-12 mb-20">
-                                <input type="text"  name="address" placeholder="기본주소"/>
-                            </div>
-                            <div class="col-xs-12 mb-20">
-                                <input type="text"  name="detailAddress" placeholder="세부주소" />
-                            </div>
-
-                            <div class="col-xs-12 mb-20">
-                                <label>관심종목<span class="required">*</span></label>
-                                <input type="checkbox" name="interestSports" value="축구"/> 축구
-                                <input type="checkbox" name="interestSports" value="농구"/> 농구
-                                <input type="checkbox" name="interestSports" value="야구"/> 야구
-                                <input type="checkbox" name="interestSports" value="요가"/> 요가
-                                <input type="checkbox" name="interestSports" value="수영"/> 수영<br>
-                                <input type="checkbox" name="interestSports" value="등산"/> 등산
-                                <input type="checkbox" name="interestSports" value="골프"/> 골프
-                                <input type="checkbox" name="interestSports" value="웨이트"/> 웨이트
-                                <input type="checkbox" name="interestSports" value="사이클"/> 사이클
-                                <input type="checkbox" name="interestSports" value="테니스"/> 테니스<br>
-                                <input type="checkbox" name="interestSports" value="배드민턴"/> 베드민턴
-                                <input type="checkbox" name="interestSports" value="탁구"/> 탁구
-                                <input type="checkbox" name="interestSports" value="유도"/> 유도
-                                <input type="checkbox" name="interestSports" value="주짓수"/> 주짓수
-                                <input type="checkbox" name="interestSports" value="태권도"/> 태권도<br>
-                                <input type="checkbox" name="interestSports" value="복싱"/> 복싱
-                                <input type="checkbox" name="interestSports" value="크로스핏"/> 크로스핏
-                                <input type="checkbox" name="interestSports" value="스키"/> 스키
-                                <input type="checkbox" name="interestSports" value="농구"/> 농구<br>
-                            </div>
-
-                            <div class="col-xs-12 mb-20">
-                                <input id="rememberme" type="checkbox">
-                                <label for="rememberme">I agree <a href="#">Terms &amp; Condition</a></label>
-                            </div>
-                            <div class="col-xs-12">
-                                <input value="register" type="submit">
-                            </div>
                         </div>
-                    </form>
+                        <div class="col-sm-6 col-xs-12 mb-20">
+                            <label for="mobilenum"> 휴대전화 <span class="required">*</span></label>
+                            <input id="mobilenum" name="mobileNum" type="text" />
+                        </div>
+                        <div class="col-xs-12 mb-20">
+                            <button type="button" class="btn" id="getPostCode">우편번호 찾기</button>
+                        </div>
+                        <div class="col-xs-12 mb-20">
+                            <label>주소 <span class="required">*</span></label>
+                            <input type="text" name="postcode" placeholder="우편번호"/>
+                        </div>
+                        <div class="col-xs-12 mb-20">
+                            <input type="text"  name="address" placeholder="기본주소"/>
+                        </div>
+                        <div class="col-xs-12 mb-20">
+                            <input type="text"  name="detailAddress" placeholder="세부주소" />
+                        </div>
+                        <div class="col-xs-12 mb-20">
+                            <div>권한</div>
+                            <label><input type="radio" name="auth" value="USER">USER</label>
+                            <label><input type="radio" name="auth" value="ADMIN">ADMIN</label>
+                        </div>
+
+                        <div class="col-xs-12 mb-20">
+                            <label>관심종목<span class="required">*</span></label>
+                            <input type="checkbox" name="interestSports" value="축구"/> 축구
+                            <input type="checkbox" name="interestSports" value="농구"/> 농구
+                            <input type="checkbox" name="interestSports" value="야구"/> 야구
+                            <input type="checkbox" name="interestSports" value="요가"/> 요가
+                            <input type="checkbox" name="interestSports" value="수영"/> 수영<br>
+                            <input type="checkbox" name="interestSports" value="등산"/> 등산
+                            <input type="checkbox" name="interestSports" value="골프"/> 골프
+                            <input type="checkbox" name="interestSports" value="웨이트"/> 웨이트
+                            <input type="checkbox" name="interestSports" value="사이클"/> 사이클
+                            <input type="checkbox" name="interestSports" value="테니스"/> 테니스<br>
+                            <input type="checkbox" name="interestSports" value="배드민턴"/> 베드민턴
+                            <input type="checkbox" name="interestSports" value="탁구"/> 탁구
+                            <input type="checkbox" name="interestSports" value="유도"/> 유도
+                            <input type="checkbox" name="interestSports" value="주짓수"/> 주짓수
+                            <input type="checkbox" name="interestSports" value="태권도"/> 태권도<br>
+                            <input type="checkbox" name="interestSports" value="복싱"/> 복싱
+                            <input type="checkbox" name="interestSports" value="크로스핏"/> 크로스핏
+                            <input type="checkbox" name="interestSports" value="스키"/> 스키
+                            <input type="checkbox" name="interestSports" value="농구"/> 농구<br>
+                        </div>
+
+                        <div class="col-xs-12 mb-20">
+                            <input id="rememberme" type="checkbox">
+                            <label for="rememberme">I agree <a href="#">Terms &amp; Condition</a></label>
+                        </div>
+                        <div class="col-xs-12">
+                            <input value="register" type="submit">
+                        </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- PAGE SECTION END -->
 
@@ -244,15 +263,14 @@
 </body>
 
 
-
-
 <!-- daum postcode api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 
 
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
-<script> $("#getPostCode").click(function (){
+<script>
+$("#getPostCode").click(function (){
 daum.postcode.load(function(){
 new daum.Postcode({
 oncomplete: function(data) {
@@ -263,5 +281,79 @@ $("input[name=address]").val(data.roadAddress); // 주소 태그에 값 업데�
 }).open();
 });
 })
+
+function idCheck(){
+        var id = $('input[name=id]').val();
+        console.log('id 출력: ',id)
+            $.ajax({
+                    anyne:true,
+                    type: 'GET',
+                    data: {'id':id},
+                    url: "/dan/idCheck",
+                    dataType: "text",
+                    success: function(data) {
+                        console.log(data);
+                        if(data === ""){
+                            $('#idCheckResult').text('사용가능한 아이디 입니다.')
+                        }else{
+                            $('#idCheckResult').text('이미 사용중인 아이디 입니다.')
+                        }
+                    },
+            error: function(jqXHR, textStatus, errorThrown){
+                $('#idCheckResult').text('사용가능한 아이디 입니다.')
+        }
+    })
+}
+var time = 300;
+var min = "";
+var sec = "";
+
+function mailCheck(){
+        var email = $('input[name=email]').val();
+        console.log('email 출력: ',email)
+
+            $.ajax({
+                    anyne:true,
+                    type: 'POST',
+                    data: {'email':email},
+                    url: "/dan/emailCheck",
+                    dataType: "text",
+                    success: function(data) {
+                        console.log(data);
+                        alert('인증번호가 발급되었습니다.')
+                        $('#authNum').val(data);
+
+                        var x = setInterval(function(){
+                            min = parseInt(time/60);
+                            sec = time%60;
+                            $("#insertAuthNum").attr('placeholder', min + '분 ' + sec + '초');
+                            time--;
+                            if(time < 0){
+                                clearInterval(x);
+                                alert('제한시간이 초과되었습니다. 인증번호를 다시 발급받아 주세요.');
+                                $("#insertAuthNum").attr('placeholder', '제한시간초과');
+                            }
+                        }, 1000);
+
+                    },
+            error: function(jqXHR, textStatus, errorThrown){
+                alert('jqXHR: '+jqXHR+' textStatus: '+textStatus+' errorThrown: '+errorThrown);
+        }
+    })
+}
+function authNumCheck(){
+    let insertAuthNum = $('#insertAuthNum').val();
+    let authNum = $('#authNum').val();
+
+    $("#insertAuthNum").removeAttr("placeholder");
+    if(insertAuthNum === authNum){
+        $("#insertAuthNum").removeAttr("placeholder");
+        alert('인증이 완료되었습니다.')
+    }else{
+        $("#insertAuthNum").removeAttr("placeholder");
+        alert('ERROR: 인증번호가 일치하지 않습니다.')
+    }
+}
+
 </script>
 </html>

@@ -1,17 +1,17 @@
 package com.green.team4.controller.dan;
 
+import com.green.team4.mapper.dan.SignupMapper;
 import com.green.team4.service.dan.SignupService;
+import com.green.team4.service.sb.MailService;
 import com.green.team4.vo.dan.LoginVO;
 import com.green.team4.vo.dan.SignupVO;
+import com.green.team4.vo.sb.MailVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Log4j2
@@ -20,6 +20,16 @@ public class SignupController {
 
     @Autowired
     private SignupService signupService;
+    @Autowired
+    private SignupMapper signupMapper;
+    @Autowired
+    private MailService mailService;
+
+    public static int generateAuthNumber() {
+        java.util.Random generator = new java.util.Random();
+        generator.setSeed(System.currentTimeMillis());
+        return generator.nextInt(1000000) % 1000000;
+    }
 
     @GetMapping("/signup")
     public void Signup(SignupVO vo) {
@@ -32,6 +42,29 @@ public class SignupController {
         signupService.insert(signupVO);
         return "redirect:/dan/samplemain";
     }
+
+    @GetMapping("/idCheck")
+    public ResponseEntity<String> idCheck(@RequestParam String id){
+        log.info("받아온 아이디 중복확인: "+id);
+        String result = signupMapper.idCheck(id);
+        log.info("조회된 아이디: " + result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/emailCheck")
+    public ResponseEntity<Integer> mailCheck(@RequestParam String email){
+        log.info("받아온 이메일: "+email);
+        log.info("발급된 인증번호: "+generateAuthNumber());
+        MailVO mail = new MailVO();
+        mail.setEmail(email);
+        mail.setSubject("고객님의 인증번호가 발급되었습니다.");
+        mail.setText("발급된 인증번호는 " + generateAuthNumber()+" 입니다.");
+        mailService.sendMail(mail);
+        int result = generateAuthNumber();
+        return new ResponseEntity<Integer>(result, HttpStatus.OK);
+    }
+
+
 
 //    @PostMapping("/signup")
 //    public ResponseEntity<String> SignupPost(@RequestBody SignupVO vo){

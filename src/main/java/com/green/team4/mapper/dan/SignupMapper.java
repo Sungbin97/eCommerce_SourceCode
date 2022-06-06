@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SignupMapper {
     public int insert(SignupVO vo);
+    String idCheck(String id);
 }

@@ -11,4 +11,7 @@
                 #{interestSports}, #{auth}, #{grade}, #{point})
     </insert>
 
+    <select id="idCheck" resultType="string">
+        select id from tbl_memberinfo where id=#{id}
+    </select>
 </mapper>
