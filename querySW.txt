@@ -18,10 +18,14 @@ create table tbl_memberInfo(
     address varchar(50) not null, -- 기본주소
     detailAddress varchar(50) not null, -- 세부주소
     interestSports varchar(50) default '없음', -- 관심 운동
-    auth varchar(50) default 'ROLE MEMBER', -- 회원 권한
+    auth varchar(50) default 'ROLE_MEMBER', -- 회원 권한
     grade varchar(50) default '일반회원', -- 회원 등급
     point int(100) default 0 -- 회원 보유 포인트
 );
+alter table tbl_memberInfo modify auth varchar(50) default 'ROLE_MEMBER';
+update tbl_memberInfo set auth = 'ROLE_MEMBER' where mno =12;
+
+commit;
 
 alter table tbl_memberInfo modify auth varchar(50) default 'ROLE_MEMBER';
 alter table tbl_memberInfo modify password varchar(100) not null ;
