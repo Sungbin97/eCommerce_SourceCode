@@ -152,6 +152,7 @@
 <script>
     // 변수
     let bno= $("input[name=bno]").val();
+    let mno= $("input[name=mno]").val();
     $(document).ready(function (){
 
         let openForm = $("#openForm")
@@ -168,8 +169,13 @@
 
             $.ajax({
                 type: 'post',
-                url: "/bs/board/read",
-                data: JSON.stringify({'reply' : reply, 'replyer' : replyer, 'bno' : bno}),
+                url: "/bs/board/register",
+                data: JSON.stringify({
+                    'reply' : reply,
+                    'replyer' : replyer,
+                    'bno' : bno,
+                    'mno' : mno
+                }),
                 contentType: "application/json; charset=utf-8",
                 success: function (){
                     alert("등록에 성공했습니다.")
@@ -190,7 +196,7 @@
             type: 'get',
             data: {'bno':bno},
             url: 'getCommentList',
-            contentType: 'application/json',
+            contentType: 'application/json; charset=utf-8',
             success: function (result){
                 let str = "";
                 for (let i = 0; i < result.length; i++) {
@@ -199,9 +205,6 @@
                     str += result[i].reply+"</div></hr>";
                     $("#comment").append(str);
                 }
-            },
-            error: function (){
-                alert("불러오기에 실패했습니다.")
             }
         })
 
