@@ -1,0 +1,34 @@
+create table board_tbl(
+     uNo int auto_increment primary key,
+     userId varchar(50),
+     userName varchar(30) not null,
+     userPassword varchar(30),
+     title varchar(100) not null,
+     content varchar(1000) not null,
+     regDate date,
+     modDate date,
+     imgPath varchar(500)
+);
+create table reply_tbl(
+    rNo int auto_increment primary key,
+    uNo int not null ,
+    reply varchar(1000) not null,
+    replyer varchar(50) not null,
+    replyDate date,
+    modDate date,
+    foreign key (uNo) references board_tbl(uNo)
+);
+======================================== 수정 : 테이블 이름 수정, mno, 비회원 정보, community 추가 ===========================================
+create table tbl_board(
+       bno int auto_increment primary key,
+       mno int,
+       title varchar(200),
+       content varchar(1000),
+       bImg varchar(200),
+       regDate date,
+       modDate date,
+       community varchar(50),
+       nonMemberId varchar(50),
+       nonMemberPassword varchar(50),
+       foreign key (mno) references tbl_memberinfo(mno)
+);

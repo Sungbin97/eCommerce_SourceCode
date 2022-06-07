@@ -1,32 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-cart-list</title>
+    <meta charset="UTF-8">
+    <!-- head fragment -->
+    <th:block th:replace="/fragments/mypage/mypage_header :: head"></th:block>
+    <title>Title</title>
 </head>
 <body>
-<!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
-
-<!-- PAGE BANNER SECTION -->
-<div class="page-banner-section section">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="page-banner-content">
-                    <h1 th:text="'게시글 등록'"></h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#" th:id="goBack">register</a></li>
-                        <li class="active">board</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+<!-- header fragment -->
+<th:block th:replace="/fragments/mypage/mypage_header.html :: headerFragment"></th:block>
 <div class="page-section section pt-120 pb-120">
     <div class="container">
         <div class="row">
@@ -43,17 +25,24 @@
                                 <textarea id="content" name="content"></textarea>
                             </div>
                             <div class="col-xs-12 mb-20">
-                                <label for="userName">작성자 <span class="required">*</span></label>
-                                <input id="userName" name="userName" type="text"/>
+                                <label for="nonMemberId" th:if="${item.mno}==10000">작성자<span class="required">*</span></label>
+                                <input id="nonMemberId" name="nonMemberId" type="text" th:if="${item.mno}==10000"/>
+                                <label for="nickName" th:if="${item.mno}!=10000">작성자</span></label>
+                                <input id="nickName" name="nickName" type="text" th:value="${item.nickName}" th:if="${item.mno}!=10000" readonly/>
                             </div>
                             <div class="col-xs-12 mb-20">
-                                <label for="imgFile">파일</label>
-                                <input id="imgFile" name="imgFile" type="file"/>
+                                <label for="nonMemberPassword" th:if="${item.mno}==10000">비밀번호<span class="required">*</span></label>
+                                <input id="nonMemberPassword" name="nonMemberPassword" type="text" th:if="${item.mno}==10000"/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label for="img">파일</label>
+                                <input id="img" name="img" type="file" multiple/>
                             </div>
 
                             <div class="col-xs-12">
                                 <a href="list"><button type="text">List</button></a>
                                 <input value="Register" type="submit">
+                                <input th:value="${item.mno}" type="hidden" name="mno">
 
                             </div>
                         </div>
@@ -65,6 +54,6 @@
 </div>
 </body>
 <!-- Body main wrapper end -->
-<!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<!-- footer fragment -->
+<th:block th:replace="fragments/mypage/mypage_footer.html :: footerFragment"></th:block>
 </html>

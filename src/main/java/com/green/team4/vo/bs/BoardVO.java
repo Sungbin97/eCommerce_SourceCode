@@ -10,16 +10,16 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardVO {
-    private Long uNo;
-    private String userId;
-    private String userName;
-    private String userPassword;
+    private Long bno;
+    private Long mno;
     private String title;
     private String content;
     private Date regDate;
     private Date modDate;
-    private boolean delete_state;
     private Long totalCount; // count(*)
-    private String imgName;
-    private String imgPath;
+    private String bImg;
+    private String nickName;
+    private String nonMemberId;
+    private String nonMemberPassword;
+    private String community;
 }

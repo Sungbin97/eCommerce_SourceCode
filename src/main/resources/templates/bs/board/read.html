@@ -5,8 +5,24 @@
     <title th:text="${item.title}"></title>
     <!-- head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <style>
+        .modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: none;
+
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+    </style>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="/js/bs/ajax-reply.js"></script>
+
 <body>
 <!-- header fragment -->
 <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
@@ -30,7 +46,7 @@
                         </span>
                         <!-- Title -->
                         <h4 class="title" th:text="${item.title}"></h4>
-                        <img th:src="${item.imgPath}" alt="첨부이미지" th:if="${item.imgPath != null}" />
+                        <img th:src="|/display?fileName=${item.bImg}|" alt="첨부이미지" th:if="${item.bImg != null}" />
                         <p th:text="${item.content}"></p>
                         <div class="row mt-50 mb-20">
                             <div class="col-md-6 col-12 mb-30"><img src="img/blog/4.jpg" alt=""></div>
@@ -38,9 +54,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="nonMember-certification">
+                    <input type="password" id="nonMemberPassword">
+                </div>
                 <div class="bs-div-btn">
                 <button class="btn" id="modify">수정</button>
                 <button class="btn" id="list">목록</button>
+                </div>
+                <div class="modal">
+                    <div class="modal_body">Modal</div>
                 </div>
             </div>
         </div>
@@ -51,6 +73,7 @@
     <div class="blog-section section pb-80">
         <div class="container">
             <div class="row">
+                <div class="col-lg-8 col-12 mx-auto">
                 <!-- Home Blog Item -->
                 <div class="col-lg-6 col-12  mb-40">
                     <div class="home-blog-item">
@@ -58,8 +81,9 @@
                         <a href="blog-details.html" class="image float-start"><img src="img/blog/1.jpg" alt=""></a>
                         <!-- Content -->
                             <!-- UserName : userid/상세정보등 mypage-blog로 연결 -->
-                            <h4 class="title" th:text="${item.userName}"><a href="#"></a></h4>
+                            <h4 class="title" th:text="${item.nickName}"><a href="#"></a></h4>
                             <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>                     </div>
+
                     </div>
                 </div>
                 <!-- Home Blog Item -->
@@ -70,25 +94,34 @@
 <form id="openForm" action="modify" method="get">
     <input type="hidden" name="page" th:value="${cri.page}">
     <input type="hidden" name="pageNum" th:value="${cri.pageNum}">
-    <input type="hidden" name="uNo" th:value="${item.uNo}">
+    <input type="hidden" name="bno" th:value="${item.bno}">
 </form>
 
 <!-- reply section -->
+<div class="page-section section pt-120 pb-45">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div>
+                    <hr>
+                    <div>
+                        <!--        댓글 등록 -->
+                        <h4>Reply</h4>
+                        <form id="replyForm" method="post" action="read">
+                            <input type="text" name="replyer" id="replyer"><br>
+                            <textarea name="reply" id="reply"></textarea>
+                            <button class="btn" type="submit" id="submit">등록</button>
+                        </form>
+                    </div>
+                    <!--        댓글 목록-->
+                    <hr>
+                    <div id="comment">
+                    </div>
 
-<div>
-    <hr>
-    <div>
-<!--        댓글 등록 -->
-        <h3>댓글 등록</h3>
-        <form>
-            <input type="text" name="replyer" id="replyer">
-            <textarea name="reply" id="reply"></textarea>
-            <button type="submit" id="submit">등록</button>
-        </form>
+                </div>
+        </div>
     </div>
-    <!--        댓글 목록-->
-    <div id="comment">
-    </div>
+</div>
 </div>
 <!-- reply section End-->
 </body>
@@ -96,14 +129,31 @@
 
 <!-- footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer.html :: footerFragment"></th:block>
-<script>
-    // 변수
-    let uno= $("input[name=uNo]").val();
+<script th:inline="javascript">
+    // let hi = {hi:'hi'}
+    /*<![CDATA[*/
+    let boardVO = [[${item}]];
+    /*]]>*/
     $(document).ready(function (){
         $("#modify").on("click",function (e){
             e.preventDefault();
-            $('#openForm').submit();
+            if($('#nonMemberPassword').val()===boardVO.nonMemberPassword){
+                $('#openForm').submit();
+            }
+            else{
+                alert("비밀번호를 잘못 입력하셨습니다.")
+            }
+
+
         })
+    })
+
+</script>
+<script>
+    // 변수
+    let bno= $("input[name=bno]").val();
+    $(document).ready(function (){
+
         let openForm = $("#openForm")
         $("#list").on("click",function (e){
             e.preventDefault();
@@ -119,7 +169,7 @@
             $.ajax({
                 type: 'post',
                 url: "/bs/board/read",
-                data: JSON.stringify({'reply' : reply, 'replyer' : replyer, 'uno' : uno}),
+                data: JSON.stringify({'reply' : reply, 'replyer' : replyer, 'bno' : bno}),
                 contentType: "application/json; charset=utf-8",
                 success: function (){
                     alert("등록에 성공했습니다.")
@@ -128,24 +178,25 @@
                     alert("등록에 실패했습니다.")
                 }
             })
+            getCommentList();
         })
         getCommentList();
 
     })
     function getCommentList(){
-        console.log("실행되나요?:")
-        console.log(uno);
+        console.log("GetCommentList입니당")
+        console.log(bno);
         $.ajax({
             type: 'get',
-            data: {'uno':uno},
+            data: {'bno':bno},
             url: 'getCommentList',
+            contentType: 'application/json',
             success: function (result){
-                console.log(result);
                 let str = "";
                 for (let i = 0; i < result.length; i++) {
                     str = "<div class=\"comment\">";
+                    str += result[i].replyer;
                     str += result[i].reply+"</div></hr>";
-                    console.log(result[i].reply)
                     $("#comment").append(str);
                 }
             },
@@ -155,8 +206,17 @@
         })
 
     }
-
-
-
+</script>
+<!--<script>-->
+<!--    console.log("===============================")-->
+<!--    console.log("ajax-reply Test")-->
+<!--    replyService.add(-->
+<!--        {reply:"JS Test", replyer:"tester", bno: bno},-->
+<!--        function (result){-->
+<!--            alert("Result : " + result);-->
+<!--        }-->
+<!--    );-->
+<!--</script>-->
+<script>
 </script>
 </html>

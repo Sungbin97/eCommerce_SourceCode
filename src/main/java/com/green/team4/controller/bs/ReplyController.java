@@ -39,6 +39,22 @@ public class ReplyController {
         return replyService.getPageList(criteria,uNo);
     }
 
+    @GetMapping(value = "/pages/{bno}/{page}",
+        produces = {
+            MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE
+        }
+    )
+    public ResponseEntity<List<ReplyVO>> getList(
+            @PathVariable("page") Long page,
+            @PathVariable("bno") Long uNo){
+        log.info("getList..............");
+        Criteria criteria= new Criteria(page,10L);
+        log.info(criteria);
+
+    return new ResponseEntity<>(replyService.getPageList(criteria,uNo),HttpStatus.OK);
+    }
+
+
     @GetMapping(value = "/{rno}",
     produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno) {

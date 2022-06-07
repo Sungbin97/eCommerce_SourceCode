@@ -9,40 +9,40 @@
 
 
     <insert id="insert" parameterType="com.green.team4.vo.bs.ReplyVO">
-        insert into reply_tbl values ( null, #{uNo},#{reply},#{replyer},now(),null)
+        insert into tbl_reply values ( null, #{bno},#{reply},#{replyer},now(),null)
     </insert>
 
 <!--    @ 필요 없을 것 같음 -->
     <select id="readOne" parameterType="long" resultType="com.green.team4.vo.bs.ReplyVO">
-        select rNo, uNo, reply, replyer, replyDate, modDate
-        from reply_tbl
+        select rNo, bno, reply, replyer, replyDate, modDate
+        from tbl_reply
         where rNo=#{rNo}
     </select>
 
     <update id="modify" parameterType="com.green.team4.vo.bs.ReplyVO">
-        update reply_tbl set
+        update tbl_reply set
                             reply = #{reply},
                             modDate = now()
         where rNo= #{rNo}
     </update>
 
     <delete id="delete" parameterType="Long">
-        delete from reply_tbl where rNo=#{rNo}
+        delete from tbl_reply where rNo=#{rNo}
     </delete>
 
     <select id="replyList" parameterType="com.green.team4.vo.bs.ReplyVO" resultType="com.green.team4.vo.bs.ReplyVO">
-        select rNo, uNo, reply, replyer, replyDate, modDate from reply_tbl;
+        select rNo, bno, reply, replyer, replyDate, modDate from tbl_reply;
     </select>
     <!--    include : sql 조각을 사용할 수 있게 해준다. id로 연결-->
     <select id="getPageList" parameterType="com.green.team4.vo.bs.Criteria" resultType="com.green.team4.vo.bs.ReplyVO">
-        select rNo, uNo, reply, replyer, replyDate, modDate
-        from reply_tbl
-        where uNo = #{uNo}
+        select rNo, bno, reply, replyer, replyDate, modDate
+        from tbl_reply
+        where bno = #{bno}
         order by rno desc, replyDate desc
         limit #{criteria.page}, #{criteria.pageNum}
     </select>
 
     <select id="getTotalCount" resultType="int">
-        select count(*) from board_tbl where uNo > 0
+        select count(*) from tbl_board where bno > 0
     </select>
 </mapper>
