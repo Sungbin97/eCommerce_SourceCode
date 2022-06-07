@@ -1,11 +1,13 @@
 package com.green.team4.controller.bs;
 
+import com.green.team4.security.PrincipalDetails;
 import com.green.team4.service.bs.BoardService;
 import com.green.team4.service.bs.ReplyService;
 import com.green.team4.vo.bs.BoardVO;
 import com.green.team4.vo.bs.Criteria;
 import com.green.team4.vo.bs.PageMaker;
 import com.green.team4.vo.bs.ReplyVO;
+import com.green.team4.vo.sw.MemberInfoVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,12 +32,13 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+    PrincipalDetails principalDetails = new PrincipalDetails(new MemberInfoVO());
+
     // Board List
     @GetMapping("/list")
     public void list(Model model, Criteria criteria) {
         PageMaker pageMaker = new PageMaker(criteria, boardService.getTotal(criteria));
         log.info("list로 이동....");
-
         model.addAttribute("items", boardService.getPageList(criteria));
         model.addAttribute("pageMaker",pageMaker);
 
