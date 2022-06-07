@@ -2,19 +2,22 @@ package com.green.team4.controller.bs;
 
 import com.green.team4.service.bs.ReplyService;
 import com.green.team4.vo.bs.Criteria;
+import com.green.team4.vo.bs.PageMaker;
 import com.green.team4.vo.bs.ReplyVO;
 import lombok.extern.log4j.Log4j2;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bs/board/*")
+@RequestMapping("/reply/*")
 @Log4j2
 public class ReplyController {
     @Autowired
@@ -25,45 +28,65 @@ public class ReplyController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = {MediaType.TEXT_PLAIN_VALUE}
     )
-    public void register(@RequestBody ReplyVO replyVO){
-        log.info(replyVO);
-        replyService.insert(replyVO);
+    public ResponseEntity<String> register(@RequestBody ReplyVO replyVO){
+        log.info("@@@replyRegister.replyVO: "+replyVO);
+        try {
+            replyService.insert(replyVO);
+            //제대로 등록되었으면 "ReplyRegisterOK" 문자열과 HTTP 상태 정상
+            return new ResponseEntity<>("ReplyRegisterOK", HttpStatus.OK);
+        } catch(Exception e) {
+            //제대로 등록 안 되었으면 예외메시지와 HTTP 상태 400
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @GetMapping(value = "getCommentList", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ReplyVO> getCommentList(Long uNo){
-        Criteria criteria = new Criteria();
-        log.info("getCommentList 입니당");
-        log.info(uNo);
-        log.info(replyService.getPageList(criteria,uNo));
-        return replyService.getPageList(criteria,uNo);
+    @GetMapping(value = "getList/{bno}/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReplyVO>> getCommentList(Model model,
+            @PathVariable("bno") Long bno, @PathVariable("page") Long page){
+        Criteria criteria = new Criteria(page*10-9,10L);
+        PageMaker pageMaker = new PageMaker(criteria, replyService.getTotal(criteria));
+        model.addAttribute("pageMaker",pageMaker);
+        try {
+            log.info(replyService.getPageList(criteria,bno));
+            return new ResponseEntity<>(replyService.getPageList(criteria,bno),HttpStatus.OK);
+        } catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);
+        }
     }
 
-    @GetMapping(value = "/pages/{bno}/{page}",
+    @GetMapping(value = "getOne", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ReplyVO> getOne(@RequestParam("rno") Long rno){
+        try {
+            log.info(replyService.getOne(rno));
+            return new ResponseEntity<>(replyService.getOne(rno),HttpStatus.OK);
+        } catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(value = "update/{rno}",
         produces = {
             MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE
         }
     )
-    public ResponseEntity<List<ReplyVO>> getList(
-            @PathVariable("page") Long page,
-            @PathVariable("bno") Long uNo){
-        log.info("getList..............");
-        Criteria criteria= new Criteria(page,10L);
-        log.info(criteria);
+    public ResponseEntity<String> getList(
+            @RequestBody ReplyVO replyVO,
+            @PathVariable("rno") Long rno){
+        replyVO.setRno(rno);
+        replyService.modify(replyVO);
 
-    return new ResponseEntity<>(replyService.getPageList(criteria,uNo),HttpStatus.OK);
+    return new ResponseEntity<>("update success"+ replyVO.getReply(),HttpStatus.OK);
     }
 
 
-    @GetMapping(value = "/{rno}",
+    @DeleteMapping(value = "/delete/{rno}",
     produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno) {
-        log.info("get: " + rno);
-        return new ResponseEntity<>(replyService.getOne(rno),HttpStatus.OK);
+    public ResponseEntity<String> get(@PathVariable("rno") Long rno) {
+        replyService.delete(rno);
+        return new ResponseEntity<>("success",HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{rno}", produces = {MediaType.TEXT_PLAIN_VALUE})
-    public ResponseEntity<String> delete(@PathVariable("rno") Long rno){
-        return new ResponseEntity<>("success", HttpStatus.OK);
-    }
+
 }

@@ -47,8 +47,6 @@ public class BoardController {
     @GetMapping("/register")
     public void register(Model model,Long mno) {
         log.info("register로 이동....");
-        log.info("@mno : " + mno);
-        log.info("객체 : " + boardService.userInfo(mno));
         model.addAttribute("item",boardService.userInfo(mno));
     }
     // Create
@@ -99,11 +97,15 @@ public class BoardController {
     }
 
     // Test
+    @GetMapping("test")
+    public void test(){
+
+    }
 
 
     @GetMapping("/insert")
     public void insert(){
-        log.info("reply 댓글 등록");
+        log.info("BoardController reply 댓글 등록");
     }
 
     // variable & method

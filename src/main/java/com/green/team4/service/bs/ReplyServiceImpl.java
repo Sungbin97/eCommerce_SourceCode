@@ -24,18 +24,18 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
-    public ReplyVO getOne(Long rNo) {
-        return replyMapper.readOne(rNo);
+    public ReplyVO getOne(Long rno) {
+        return replyMapper.readOne(rno);
     }
 
     @Override
-    public List<ReplyVO> getPageList(Criteria criteria,Long uNo) {
-        return replyMapper.getPageList(criteria,uNo);
+    public List<ReplyVO> getPageList(Criteria criteria,Long bno) {
+        return replyMapper.getPageList(criteria,bno);
     }
 
     @Override
-    public void delete(Long rNo) {
-        replyMapper.delete(rNo);
+    public void delete(Long rno) {
+        replyMapper.delete(rno);
     }
 
     @Override

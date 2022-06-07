@@ -10,8 +10,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReplyVO {
-    private Long rNo;
-    private Long uNo;
+    private Long rno;
+    private Long bno;
+    private Long mno;
+    private String replyPassword;
     private String reply;
     private String replyer;
     private Date replyDate;

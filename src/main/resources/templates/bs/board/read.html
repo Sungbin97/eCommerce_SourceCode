@@ -21,8 +21,6 @@
     </style>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="/js/bs/ajax-reply.js"></script>
-
 <body>
 <!-- header fragment -->
 <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
@@ -108,15 +106,27 @@
                         <!--        댓글 등록 -->
                         <h4>Reply</h4>
                         <form id="replyForm" method="post" action="read">
-                            <input type="text" name="replyer" id="replyer"><br>
+                            <input type="text" name="replyer" id="replyer">
+                            <input type="password" name="replyPassword" id="replyPassword"><br>
                             <textarea name="reply" id="reply"></textarea>
-                            <button class="btn" type="submit" id="submit">등록</button>
+                            <button class="btn" type="button" id="submit">등록</button>
                         </form>
                     </div>
                     <!--        댓글 목록-->
                     <hr>
-                    <div id="comment">
+                    <div id="replyList">
+
                     </div>
+
+                    <!--        댓글 페이징 -->
+                    <div id="pagination">
+                        <a th:href="${pageMaker.startPage - 1}" id="prev"><button class="btn" th:if="${pageMaker.prev}" >이전</button></a>
+                        <span class="paginate_button" th:each="num: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
+                        <a th:href="${num}" th:text="${num}"></a>
+                        </span>
+                        <a th:href="${pageMaker.endPage + 1}" id="next"><button class="btn" th:if="${pageMaker.next}" >다음</button></a>
+                    </div>
+
 
                 </div>
         </div>
@@ -134,6 +144,8 @@
     /*<![CDATA[*/
     let boardVO = [[${item}]];
     /*]]>*/
+
+    // 본문수정
     $(document).ready(function (){
         $("#modify").on("click",function (e){
             e.preventDefault();
@@ -143,83 +155,141 @@
             else{
                 alert("비밀번호를 잘못 입력하셨습니다.")
             }
-
-
         })
+        getList();
     })
 
 </script>
 <script>
     // 변수
     let bno= $("input[name=bno]").val();
-    let mno= $("input[name=mno]").val();
-    $(document).ready(function (){
+    let mno= $("input[name=mnoSec]").val();
+    let rno= $("span[name=rno]").val();
+    let page = 0;
+    let reply= $("#reply").val();
+    let replyer= $("#replyer").val();
+    let replyPassword = $("#replyPassword").val();
 
+
+    $(document).ready(function () {
         let openForm = $("#openForm")
-        $("#list").on("click",function (e){
+
+        // 목록
+        $("#list").on("click", function (e) {
             e.preventDefault();
-            openForm.attr('action','list');
+            openForm.attr('action', 'list');
             openForm.submit();
         })
-        $("#submit").click(function(e) {
+
+        // reply 등록
+        $("#submit").click(function (e) {
             e.preventDefault();
             // json 형식으로 데이터 set
-            let reply= $("#reply").val();
-            let replyer= $("#replyer").val();
-
             $.ajax({
                 type: 'post',
-                url: "/bs/board/register",
+                url: "/reply/register",
                 data: JSON.stringify({
-                    'reply' : reply,
-                    'replyer' : replyer,
-                    'bno' : bno,
-                    'mno' : mno
+                    'reply': reply,
+                    'replyer': replyer,
+                    'replyPassword': replyPassword,
+                    'bno': bno,
+                    'mno': mno
                 }),
                 contentType: "application/json; charset=utf-8",
-                success: function (){
+                success: function () {
                     alert("등록에 성공했습니다.")
                 },
-                error: function (){
+                error: function () {
                     alert("등록에 실패했습니다.")
                 }
             })
-            getCommentList();
+            appendReply();
         })
-        getCommentList();
 
+        // reply 수정
+        $('.replyModify').on('click', function (e) {
+            e.preventDefault();
+            console.log("work?")
+            update();
+        })
+
+        // reply 삭제
+        $('.replyDelete').on('click', function (e) {
+            e.preventDefault();
+            console.log("work?")
+            deleteReply();
+        })
+
+        $('#pagination a').click(function (e){
+            e.preventDefault();
+            page = this.attr('href').val();
+            console.log(page);
+            getList();
+        })
     })
-    function getCommentList(){
-        console.log("GetCommentList입니당")
-        console.log(bno);
+
+    // 함수
+    function update(){
+        $.ajax({
+            type : 'put',
+            url : '/reply/'+rno,
+            data : JSON.stringify({
+                'reply' : reply
+            }),
+            success : function (){
+                console.log("complete")
+            },
+            error(e){
+                console.log(e);
+            }
+        })
+    }
+
+    function getList(){
+            $.ajax({
+                type: 'get',
+                url: '/reply/getList/'+bno+"/"+page,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result){
+                    let str = "";
+                    for (let i = 0; i < result.length; i++) {
+                        str = "<div class='comment'>";
+                        str += "<span name='rno'>"+result[i].rno+"</span>"
+                        str += "<span>"+result[i].replyer+"</span>"
+                        str += "<span>"+result[i].reply+"</span>"
+                        str += "<button type='button' class='replyModify'>수정</button>"+"<button type='button' class='replyDelete'>삭제</button></div>"
+                        str += "</hr>";
+                        $("#replyList").append(str);
+                    }
+                }
+            })
+    }
+
+    function appendReply(){
+        console.log("댓글 하나 추가")
         $.ajax({
             type: 'get',
-            data: {'bno':bno},
-            url: 'getCommentList',
+            data: {'rno' : rno},
+            url: '/reply/getOne',
             contentType: 'application/json; charset=utf-8',
             success: function (result){
                 let str = "";
-                for (let i = 0; i < result.length; i++) {
-                    str = "<div class=\"comment\">";
-                    str += result[i].replyer;
-                    str += result[i].reply+"</div></hr>";
-                    $("#comment").append(str);
-                }
+                str = "<div class='comment'>";
+                str += result.replyer;
+                str += " "+ result.reply+"</div></hr>";
+                $("#replyList").append(str);
             }
         })
-
     }
-</script>
-<!--<script>-->
-<!--    console.log("===============================")-->
-<!--    console.log("ajax-reply Test")-->
-<!--    replyService.add(-->
-<!--        {reply:"JS Test", replyer:"tester", bno: bno},-->
-<!--        function (result){-->
-<!--            alert("Result : " + result);-->
-<!--        }-->
-<!--    );-->
-<!--</script>-->
-<script>
+
+    function deleteReply(){
+        $.ajax({
+            type : 'delete',
+            url : '/reply/'+rno,
+            success : function(){
+                alert("삭제되었습니다.")
+            }
+        })
+    }
 </script>
 </html>
