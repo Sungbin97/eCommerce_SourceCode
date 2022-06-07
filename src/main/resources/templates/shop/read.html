@@ -896,31 +896,35 @@
             if($("input[name=mnoSec]").val() === ""){
                 console.log("장바구니 담기 검증 들어오나")
                 alert("로그인 후 이용해주세요");
-                window.location.href = '/dan/login'
-            }
-
-            let mno = $("input[name=mnoSec]").val(); // SW수정 0607
-            let itemCount = $("#amountBox").val();
-            $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
-            let inputs= $(".order_form").find("input")
-            let val = "";
-            let cnt="";
-            for(let i=0;i<inputs.length;i++){
-                val =inputs[i].value
-               if(val==""){
-                 cnt++
-               }
-
-            }
-            if(cnt>0){
-                alert("옵션을 선택해주세요!")
+                window.location.replace('/dan/login')
+                return false;
             }
             else{
-                $(".order_form").attr("action","/order/"+$("input[name=mnoSec]").val())
-                console.log($(".order_form").attr("action"))
-                $(".order_form").submit();
-            }
+                // --------------------------------------------- SW수정 0607 (else 안에 코드 원래 else 밖에 있었음)
+                let mno = $("input[name=mnoSec]").val(); // SW수정 0607
+                let itemCount = $("#amountBox").val();
+                $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
+                let inputs= $(".order_form").find("input")
+                let val = "";
+                let cnt="";
+                for(let i=0;i<inputs.length;i++){
+                    val =inputs[i].value
+                    if(val==""){
+                        cnt++
+                    }
 
+                }
+                if(cnt>0){
+                    alert("옵션을 선택해주세요!")
+                }
+                else{
+                    $(".order_form").attr("action","/order/"+$("input[name=mnoSec]").val())
+                    console.log($(".order_form").attr("action"))
+                    $(".order_form").submit();
+                }
+                // ---------------------------------------------
+            }
+            // ---------------------------------------------
         });
 
         let detailInfo = $(".product-detailInfo")

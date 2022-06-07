@@ -104,85 +104,102 @@
             //     })
             // }
         })
+        // 사용자 로그인하면 MyPage 접근 url 변경 --------------------------------------------------------
 
-        // 카트 상단 버튼 누르면
+        $(".uploadCartResult").empty(); // 데이터 중복 방지
 
-            $(".uploadCartResult").empty(); // 데이터 중복 방지
+        // id 가져오기
+        var id = $("input[name=idSec]").val();
+        console.log("idSec: "+id);
 
-            // id 가져오기
-            var id = $("input[name=id]").val();
+        // 비회원일때
+        if(id === 'anonymousUser'){
+            var str2 = "";
+            str2 += "<p>"+"로그인 후 이용해주세요:)"+"</p>";
+            $(".uploadCartResult").append(str2);
+            // return;
+        }
+        else {
+            // 회원일때
+            var data ={id:id}
 
-            // 비회원일때
-            if(id === 'anonymousUser'){
-                var str2 = "";
-                str2 += "<p>"+"로그인 후 이용해주세요:)"+"</p>";
-                $(".uploadCartResult").append(str2);
-                // return;
-            }
-            else {
-                // 회원일때
-                var data ={id:id}
+            console.log("입력받은 data: ",data)
+            $.ajax({
+                url:'/sw/mypage/cart/listMain',
+                method:'post',
+                data:JSON.stringify(data),
+                contentType:'application/json; charset=utf-8',
+                dataType:'json',
+                success:function (cartList){
+                    // 받아온 데이터
+                    console.log("Ajax통신 성공 후 받은 cartList: ",cartList);
+                    console.log(cartList[0]) // 장바구니 상품 2개 담긴 배열
+                    console.log(cartList[1][0].cartCnt) // 장바구니 상품 전체 개수
+                    console.log(cartList[1][0].mno) // 접속한 회원 mno
 
-                console.log("입력받은 data: ",data)
-                $.ajax({
-                    url:'/sw/mypage/cart/listMain',
-                    method:'post',
-                    data:JSON.stringify(data),
-                    contentType:'application/json; charset=utf-8',
-                    dataType:'json',
-                    success:function (cartList){
-                        // 받아온 데이터
-                        console.log("Ajax통신 성공 후 받은 cartList: ",cartList);
-                        console.log(cartList[0]) // 장바구니 상품 2개 담긴 배열
-                        console.log(cartList[1][0].cartCnt) // 장바구니 상품 전체 개수
-                        console.log(cartList[1][0].mno) // 접속한 회원 mno
+                    var recentCartList = cartList[0];
+                    var cartTotalCnt = cartList[1][0].cartCnt;
+                    var mnoSec = cartList[1][0].mno;
 
-                        var recentCartList = cartList[0];
-                        var cartTotalCnt = cartList[1][0].cartCnt;
-                        var mnoSec = cartList[1][0].mno;
+                    // 장바구니 상품 개수 업데이트
+                    $("#cartCntSpan").text(cartTotalCnt);
 
-                        // 장바구니 상품 개수 업데이트
-                        $("#cartCntSpan").text(cartTotalCnt);
+                    // mno 업데이트
+                    console.log("mno from ajax: ",mnoSec)
+                    $("input[name=mnoSec]").val(mnoSec);
+                    console.log("mnoSec after update: ",$("input[name=mnoSec]").val());
 
-                        // mno 업데이트
-                        $("input[name=mnoSec]").val(mnoSec);
+                    // 장바구니 최근 2개 상품 업데이트
+                    var cartListDiv = $(".uploadCartResult"); // 태그 추가할 영역
+                    var str = "";
 
-                        // 장바구니 최근 2개 상품 업데이트
-                        var cartListDiv = $(".uploadCartResult"); // 태그 추가할 영역
-                        var str = "";
-
-                        if(cartList[0][0].status !== '없음'){ // 장바구니 상품이 1개 이상이면
-                            $(recentCartList).each(function (){
-                                console.log("들어오나")
-                                str+="<div class=\"single-cart clearfix\">"
-                                str+="<div class=\"cart-image\">";
-                                str+="<a href=\'/shop/read?pno="+this.pno+"&mno="+this.mno+"\'>"
-                                str+="<img height='70' src=\'/display?fileName="+this.pimage+"\'>"
-                                str+="</a>"
-                                str+="</div>"
-                                str+="<div class=\"cart-info\">";
-                                str+="<h5><a>"+this.cname+"</a></h5>";
-                                str+="<p style='font-size: small'>"+"["+this.coption+" / "+this.coption2+" / "+this.ccolor+"]"+"</p>";
-                                str+="<p>"+this.ccount+"개"+"</p>";
-                                str+="</div>"
-                                str+="</div>"
-                            })
-                            cartListDiv.append(str);
-                        }
-                        else { // 장바구니가 비어있으면
-                            console.log("들어오나2")
-                            str += "<p>"+"장바구니가 비어있습니다"+"</p>";
-                            cartListDiv.append(str);
-                        }
+                    if(cartList[0][0].status !== '없음'){ // 장바구니 상품이 1개 이상이면
+                        $(recentCartList).each(function (){
+                            console.log("들어오나")
+                            str+="<div class=\"single-cart clearfix\">"
+                            str+="<div class=\"cart-image\">";
+                            str+="<a href=\'/shop/read?pno="+this.pno+"&mno="+this.mno+"\'>"
+                            str+="<img height='70' src=\'/display?fileName="+this.pimage+"\'>"
+                            str+="</a>"
+                            str+="</div>"
+                            str+="<div class=\"cart-info\">";
+                            str+="<h5><a>"+this.cname+"</a></h5>";
+                            str+="<p style='font-size: small'>"+"["+this.coption+" / "+this.coption2+" / "+this.ccolor+"]"+"</p>";
+                            str+="<p>"+this.ccount+"개"+"</p>";
+                            str+="</div>"
+                            str+="</div>"
+                        })
+                        cartListDiv.append(str);
                     }
-                })
-            }
+                    else { // 장바구니가 비어있으면
+                        console.log("들어오나2")
+                        str += "<p>"+"장바구니가 비어있습니다"+"</p>";
+                        cartListDiv.append(str);
+                    }
 
+                    // 메뉴 href 변경
+                    var getMno = $("input[name=mnoSec]").val();
+                    console.log("mnoSec: "+getMno)
+                    $("#mypageMain").attr("href","/sw/mypage/main?mno="+getMno);
+                    $("#mypageInterest").attr("href","/sw/mypage/interest?mno="+getMno);
+                    $("#mypageRegQ").attr("href","/sw/mypage/personalQ/regQ?mno="+getMno);
+                }
+            })
+        }
+
+        // 카트 관련 -----------------------------------------------------------------------
+
+        // 메뉴 버튼 클릭시 검증
+        $("#mypageMain").click(function (){
+            if(getMno === ""){
+                alert("로그인 후 사용해주세요")
+                window.location.replace('/dan/login')
+            }
+        })
 
     </script>
 
     </div>
     <!-- Body main wrapper end -->
-
 
 </html>

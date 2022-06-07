@@ -67,14 +67,13 @@ public class CartController {
         List<CartVO> recentCartList = new ArrayList<>();
         if(cartList.size()>=1){ // cart가 있으면
             log.info("cartList 있는 경우 접근");
-            if(cartList.size()>2){
+            if(cartList.size()>=2){
                 IntStream.rangeClosed(0,1).forEach(i->{
                     recentCartList.add(cartList.get(i));
                 });
             }
             else {
                 recentCartList.add(cartList.get(0));
-                recentCartList.add(cartList.get(1));
             }
         }
         else { // cart가 없으면
