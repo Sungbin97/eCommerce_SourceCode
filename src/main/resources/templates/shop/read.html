@@ -382,7 +382,7 @@
             '                        장바구니에 등록 되었습니다.\n' +
             '                    </div>\n' +
             '                    <div class="modal-footer">\n' +
-            '                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
+            '                        <button type="button" class="btn add-to-cart" id="keepShoppingBtn1" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
             '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>\n' +
             '                    </div>\n' +
             '                </div>'
@@ -401,7 +401,7 @@
             '                        이미 등록한 상품입니다.\n' +
             '                    </div>\n' +
             '                    <div class="modal-footer">\n' +
-            '                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
+            '                        <button type="button" class="btn add-to-cart" id="keepShoppingBtn2" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
             '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>\n' +
             '                    </div>\n' +
             '                </div>'
@@ -514,9 +514,8 @@
                 },
             });
         }
-
-
     })
+
     // 사진 위치 변경
     $(".small").click(function (){
         let newPic = $(this).attr("src");

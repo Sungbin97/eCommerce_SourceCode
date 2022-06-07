@@ -151,14 +151,9 @@
                                                 <li><a th:href="@{/admin/mail/write}">mail write</a></li>
                                                 <li><a th:href="@{/admin/mail/list}">mail list</a></li>
                                             </li>
-                                            <li><a href="/dan/*/signup">Register</a></li>
-
                                             <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/sw/mypage/main?mno=2">My Account</a></li>
                                             <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/dan/login">My Account</a></li>
-
-                                            <li><a id="mypageInterest" href="/sw/mypage/interest/list?mno=2">Wish list</a></li>
                                             <li><a id="mypageRegQ" href="/sw/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
-<!--                                            <li><a href="">Checkout</a></li>--> <!-- 로그아웃 화면 연결 예정 -->
                                         </ul>
                                     </li>
                                 </ul>
@@ -184,7 +179,7 @@
                                     </div>
                                     <!-- Cart Button -->
                                     <div class="cart-bottom  clearfix">
-                                        <a href="/sw/mypage/cart/list?mno=2">장바구니 전체 보기</a> <!-- mno 고정 풀어야함 -->
+                                        <a id="getCartListM" href="/sw/mypage/cart/list?mno=2">장바구니 전체 보기</a>
                                     </div>
 
                                 </div>
