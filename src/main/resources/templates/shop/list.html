@@ -135,7 +135,7 @@
                     <!-- Product Image -->
                     <div class="product-img">
                         <!-- Image -->
-                        <a class="image"  th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|"  alt=""></a>
+                        <a class="image"  th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|"  alt="" style="width: 442px; height: 350px"></a>
                         <!-- Action Button -->
                         <div class="action-btn-2">
                             <a href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
@@ -352,7 +352,7 @@
                 // str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a>';
                 // str +=   '<p style="font-size:7px">'+this.pprice+'원</p></td>';
                 str += '<div class="search_result_div">'
-                str +=	'<a href="/shop/read?pno='+this.pno+'"><img class="search_img" src=/display?fileName='+this.pimage+'></a><br>';
+                str +=	'<a href="/shop/read?pno='+this.pno+'"><img class="search_img" src=/display?fileName='+this.pimage+' style="width: 200px; height:200"></a><br>';
                 str +=	'<br><a class="search_Name"  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a>';
                 str +=   '<div style="font-size:7px">'+this.pprice+'원</div>';
                 str += '</div>'
