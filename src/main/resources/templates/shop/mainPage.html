@@ -28,6 +28,7 @@
         font-size:12px;
         margin-left: 3px;
     }
+
 </style>
 <body>
 <!-- mypage header fragment -->
@@ -47,14 +48,14 @@
                 </div>
                 <div class="home-slick-content">
                     <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">여성 스포츠 할인</h1>
-                    <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">여성 스포츠 제품을 합리적인 가격에 만나보세요</p>
+                    <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">여성 스포츠 제품 최대 50% 할인</p>
                     <a href="#" class="btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">SHOP NOW</a>
                 </div>
                 <!-- Home Text Content -->
                 <div class="home-slick-content">
-                    <h1>WORK IT OUT</h1>
-                    <p>여러분의 지식과 노하우를 공유해보세요</p>
-                    <a href="#" class="btn">커뮤니티 들어가기</a>
+                    <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">WORK IT OUT</h1>
+                    <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">여러분의 지식과 노하우를 공유해보세요</p>
+                    <a th:href="@{/bs/board/list}" class="btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">커뮤니티 들어가기</a>
                 </div>
             </div>
             <!-- Home Slick Image Slider -->
@@ -68,21 +69,35 @@
     </div>
 </div>
 <!-- END SLIDER SECTION -->
+<h1>Sample01 : 내일까지</h1>
+<h2 id="sample01"></h2>
+<br/>
+<h1>Sample02 : 2024년 4월 1일까지 </h1>
+<h2 id="sample02"></h2>
+<h2 id="sample03"></h2>
+<br/>
+<h1>Sample03 : 종료 케이스 </h1>
+<h2 id="sample04"></h2>
 
-
-<div class="product-section section pt-120 pb-120" style="margin-top: 100px">
+<!--BEST-->
+<div class="product-section section pt-120 pb-120" style="margin-top: 150px">
     <div class="container">
 
         <div class="row">
             <div class="section-title text-center col-xs-12 mb-60">
-                <h2>BEST SELLERS</h2>
+                <h2 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">BEST SELLERS</h2>
+                <br>
+                <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">BUNDANG의 베스트 셀러</p>
+                <div style="width: 150px;height: 30px;float: right" class="cart-bottom  clearfix wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                    <a style="color: white">더 알아보기</a>
+                </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="product-slider product-slider-4">
+        <div  class="row wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" >
+            <div class="product-slider product-slider-4" >
                 <!-- Product Item Start -->
-                <div class="col-xs-12" th:each="dto : ${list}">
+                <div class="col-xs-12" th:each="dto : ${bestList}">
                     <div class="product-item text-center" >
                         <div class="product-img">
                             <a class="image" th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|" alt=""/></a>
@@ -125,22 +140,24 @@
         </div>
     </div>
 </div>
-<!-- 1번끝 -->
+<!-- BEST 끝 -->
 
-<!-- 2번 -->
-<div class="product-section section pb-120" style="margin-top: 50px">
+<!-- MD -->
+<div class="product-section section pb-120" id="timeDeal" style="margin-top: 50px" >
     <div class="container">
 
         <div class="row">
             <div class="section-title text-center col-xs-12 mb-60">
-                <h2>MD's PICK</h2>
+                <h2 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">MD's PICK</h2>
+                <br>
+                <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">오늘의 MD 탑픽!</p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" >
             <div class="product-slider product-slider-4">
                 <!-- Product Item Start -->
-                <div class="col-xs-12" th:each="dto : ${list}">
+                <div class="col-xs-12" th:each="dto : ${MDList}">
                     <div class="product-item text-center" >
                         <div class="product-img">
                             <a class="image" th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|" alt=""/></a>
@@ -185,55 +202,47 @@
         </div>
     </div>
 </div>
-<!-- 2번끝 -->
+<!-- MD끝 -->
 
 <!-- BLOG SECTION START -->
 <div class="blog-section section pb-80" style="margin-top: 50px">
     <div class="container">
+
+
         <div class="row">
             <div class="section-title text-center col-xs-12 mb-60">
-                <h2>WORK IT OUT 베스트 글</h2>
+                <h2 class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s">WORK IT OUT</h2>
+                <br>
+                <p class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s">여러분의 지식과 노하우를 공유해보세요!</p>
+                <div  style="width: 150px;height: 30px;float: right" class="cart-bottom  clearfix">'
+                    <a class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" th:href="@{/bs/board/list}" style="color: white">커뮤니티 들어가기</a>
+                </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row community-slider-4 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" style="margin-top: 50px">
             <!-- Home Blog Item -->
-            <div class="col-lg-6 col-12  mb-40">
+            <div class="col-lg-6 col-12  mb-40 " th:each="board : ${boardList}">
                 <div class="home-blog-item">
                     <!-- Image -->
-                    <a href="blog-details.html" class="image float-start"><img src="img/blog/1.jpg" alt=""></a>
+                    <a th:href="@{/bs/board/read(uNo=${board.uNo})}" class="image float-start"><img src="mainPageImg/community2.png" alt="mainPageImg/community2.png"></a>
                     <!-- Content -->
                     <div class="content fix">
                         <!-- Date -->
-                        <span class="date">
-                            <span class="day">12</span>
-                            <span class="month">/ feb</span>
+                        <span class="date" th:text="${board.userName}">
+<!--                            <span class="day">12</span>-->
+                            <!--                            <span class="month"></span>-->
                         </span>
                         <!-- Title -->
-                        <h4 class="title"><a href="blog-details.html">If you are going to use a pass.</a></h4>
-                        <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>
-                        <a href="blog-details.html" class="read-more">READ MORE</a>
+                        <h4 class="title" th:text="${board.title}"><a th:href="@{/bs/board/read(uNo=${board.uNo})}"></a></h4>
+                        <p >여기에는 어떤 내용을 넣을까나</p>
+                        <a th:href="@{/bs/board/read(uNo=${board.uNo})}"   class="read-more">READ MORE</a>
                     </div>
                 </div>
             </div>
-            <!-- Home Blog Item -->
-            <div class="col-lg-6 col-12  mb-40">
-                <div class="home-blog-item">
-                    <!-- Image -->
-                    <a href="blog-details.html" class="image float-start"><img src="img/blog/2.jpg" alt=""></a>
-                    <!-- Content -->
-                    <div class="content fix">
-                        <!-- Date -->
-                        <span class="date">
-                            <span class="day">14</span>
-                            <span class="month">/ feb</span>
-                        </span>
-                        <!-- Title -->
-                        <h4 class="title"><a href="blog-details.html">The Extremes of Good and Evil</a></h4>
-                        <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>
-                        <a href="blog-details.html" class="read-more">READ MORE</a>
-                    </div>
-                </div>
-            </div>
+
+            <!--            커뮤니티 글 끝-->
+
+
         </div>
     </div>
 </div>
@@ -244,6 +253,48 @@
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 </body>
 <script>
+    const countDownTimer = function (id, date) {
+        var _vDate = new Date(date); // 전달 받은 일자
+        var _second = 1000;
+        var _minute = _second * 60;
+        var _hour = _minute * 60;
+        var _day = _hour * 24;
+        var timer;
+
+        function showRemaining() {
+            var now = new Date();
+            var distDt = _vDate - now;
+
+            if (distDt < 0) {
+                clearInterval(timer);
+                document.getElementById(id).textContent = '해당 이벤트가 종료 되었습니다!';
+                $("#timeDeal").html("")
+                return;
+            }
+
+            var days = Math.floor(distDt / _day);
+            var hours = Math.floor((distDt % _day) / _hour);
+            var minutes = Math.floor((distDt % _hour) / _minute);
+            var seconds = Math.floor((distDt % _minute) / _second);
+
+            //document.getElementById(id).textContent = date.toLocaleString() + "까지 : ";
+            document.getElementById(id).textContent = days + '일 ';
+            document.getElementById(id).textContent += hours + '시간 ';
+            document.getElementById(id).textContent += minutes + '분 ';
+            document.getElementById(id).textContent += seconds + '초';
+        }
+
+        timer = setInterval(showRemaining, 1000);
+    }
+
+    var dateObj = new Date();
+    dateObj.setDate(dateObj.getDate() + 1);
+
+    countDownTimer('sample01', dateObj); // 내일까지
+    countDownTimer('sample02', '04/01/2024 00:00 AM'); // 2024년 4월 1일까지, 시간을 표시하려면 01:00 AM과 같은 형식을 사용한다.
+    countDownTimer('sample03', '04/01/2024'); // 2024년 4월 1일까지
+    countDownTimer('sample04', '04/01/2019'); // 2024년 4월 1일까지
+    countDownTimer('timeDeal', '04/01/2019'); // 2024년 4월 1일까지
 
 </script>
 </html>

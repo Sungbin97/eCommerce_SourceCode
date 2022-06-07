@@ -43,30 +43,16 @@
                     <div class="col-auto">
                         <!-- logo -->
                         <div class="header-logo">
-                            <a href="index.html"><img src="/img/logo.png" alt="main logo"></a>
+                            <a th:href="@{/mainPage}"><img src="/img/logo.png" alt="main logo"></a>
                         </div>
                     </div>
                     <div class="col-auto d-flex">
                         <!-- header-search & total-cart -->
                         <nav class="main-menu">
                             <ul>
-                                <li><a href="index.html">Home</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.html">Home one</a></li>
-                                        <li><a href="index-2.html">Home two</a></li>
-                                        <li><a href="index-3.html">Home three</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="shop.html">New Brand</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="shop.html">shop</a></li>
-                                        <li><a href="product-details.html">product details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="shop.html">Best Sellers</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="shop.html">shop</a></li>
-                                        <li><a href="product-details.html">product details</a></li>
+                                <li><a th:href="@{/shop/list(pCateCode='500000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">Best Sellers</a>
+                                    <ul class="sub-menu shopCategory bestSellerCategory">
+
                                     </ul>
                                 </li>
                                 <li><a th:href="@{/shop/list(pCateCode='100000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">MEN</a>

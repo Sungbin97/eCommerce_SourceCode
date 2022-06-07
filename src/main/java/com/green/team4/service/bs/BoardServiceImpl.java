@@ -76,4 +76,9 @@ public class BoardServiceImpl implements BoardService {
         mapper.insert(vo);
 
     }
+
+    @Override
+    public List<BoardVO> readListForMain() {
+        return mapper.readListForMain();
+    }
 }

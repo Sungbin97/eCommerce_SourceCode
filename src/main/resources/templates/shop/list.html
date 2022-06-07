@@ -135,7 +135,7 @@
                     <!-- Product Image -->
                     <div class="product-img">
                         <!-- Image -->
-                        <a class="image"  th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|"  alt="" style="width: 442px; height: 350px"></a>
+                        <a class="image"  th:href="@{/shop/read(pno=${dto?.pno})}"><img th:src="|/display?fileName=${dto.pImage}|"  alt="" style="width: 442px; height: 350px"></a>
                         <!-- Action Button -->
                         <div class="action-btn-2">
                             <a href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
@@ -146,7 +146,7 @@
                     <!-- Portfolio Info -->
                     <div class="product-info">
                         <!-- Title -->
-                        <h5 class="title"><a th:href="@{/shop/read(pno=${dto?.pno},mno=2)}">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
+                        <h5 class="title"><a th:href="@{/shop/read(pno=${dto?.pno})}">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
                         <!-- Price -->
                         <div class="price-ratting fix">
                             <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
@@ -310,28 +310,7 @@
         </div>
 
 
-<!--        &lt;!&ndash; Paging custom &ndash;&gt;-->
-<!--        <div class="paginationC clearfix">-->
-<!--            &lt;!&ndash; 이전 버튼 &ndash;&gt;-->
-<!--            <li th:if="${pagingVO.prev}">-->
-<!--                <a th:href="@{/shop/list(page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">Previous</a>-->
-<!--            </li>-->
-<!--            <li th:if="${exList.getPrePage() == 0}">-->
-<!--                <a>Previous</a>-->
-<!--            </li>-->
-<!--            &lt;!&ndash; 페이지 번호&ndash;&gt;-->
-<!--            <li th:each="page: ${#numbers.sequence(exList.getNavigateFirstPage(), exList.getNavigateLastPage())}" th:classappend="${page == exList.getPageNum()} ? 'active'">-->
-<!--                <a th:text="${page}" th:href="@{/sw/mypage/exchange/list(pageNum=${page}, mno=${mno})}"></a>-->
-<!--            </li>-->
-<!--            &lt;!&ndash; 다음 버튼&ndash;&gt;-->
-<!--            <li th:if="${exList.getNextPage() != 0}">-->
-<!--                <a th:href="@{/sw/mypage/exchange/list(pageNum=${exList.getNextPage()}, mno=${mno})}">Next</a>-->
-<!--            </li>-->
-<!--            <li th:if="${exList.getNextPage() == 0}">-->
-<!--                <a>Next</a>-->
-<!--            </li>-->
-<!--            <div style="font-size: small;">[ page[[${pageNum}]] ]</div>-->
-<!--        </div>-->
+
     </div>
 </div>
 <!-- mypage footer fragment -->
@@ -368,7 +347,7 @@
     $(".wishlist").click(function (){
 
         let pno =$(this).parents(".isotope-item").find(".hidden_data_div").find("input[name=pno]").val()
-        let mno =2
+        let mno = $("input[name=mnoSec]").val();
         console.log($(this).children().find(".pe-7s-like"))
         $.ajax({
             type:"post",

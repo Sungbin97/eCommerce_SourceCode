@@ -67,13 +67,13 @@ public class ShopController {
 
     // 상품 상세페이지
     @GetMapping("/read")
-    public void read(int pno,int mno, Model model){
+    public void read(int pno,Model model){
         log.info("read");
         log.info("pno : "+pno);
-       log.info("mno : " + mno);
+
         ProductVO pvo = shopService.getOne(pno);
 
-        model.addAttribute("member",memberInfoService.readOne(mno));
+        //model.addAttribute("member",memberInfoService.readOne(mno));
         model.addAttribute("relatedList",shopService.getListByRand( pvo.getPCateCode().substring(0,3)));
         System.out.println(shopService.getListByRand( pvo.getPName()));
         model.addAttribute("pvo",pvo);

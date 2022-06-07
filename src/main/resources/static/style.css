@@ -684,7 +684,40 @@ input:focus, textarea:focus {
     background-color: #3f3f3f;
     color: #fff;
 }
-
+/*-- community-slider-4 (JH추가) --*/
+.community-slider-4 .slick-arrow {
+    background-color: #fff;
+    border: medium none;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    color: #777777;
+    height: 40px;
+    margin-top: -20px;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    z-index: 9;
+}
+.community-slider-4 .slick-arrow i {
+    font-size: 24px;
+    line-height: 28px;
+}
+.community-slider-4 .arrow-prev {
+    left: -5px;
+}
+.community-slider-4 .arrow-next {
+    right: -5px;
+}
+.community-slider-4:hover .slick-arrow {
+    opacity: 1;
+}
+.community-slider-4 .slick-arrow:hover {
+    background-color: #3f3f3f;
+    color: #fff;
+}
 /*-- Scroll Up --*/
 #scrollUp {
     background-color: transparent;
