@@ -119,13 +119,13 @@
                     </div>
 
                     <!--        댓글 페이징 -->
-                    <div id="pagination">
-                        <a th:href="${pageMaker.startPage - 1}" id="prev"><button class="btn" th:if="${pageMaker.prev}" >이전</button></a>
-                        <span class="paginate_button" th:each="num: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
-                        <a th:href="${num}" th:text="${num}"></a>
-                        </span>
-                        <a th:href="${pageMaker.endPage + 1}" id="next"><button class="btn" th:if="${pageMaker.next}" >다음</button></a>
-                    </div>
+<!--                    <div id="pagination">-->
+<!--                        <a th:href="${pageMaker.startPage - 1}" id="prev"><button class="btn" th:if="${pageMaker.prev}" >이전</button></a>-->
+<!--                        <span class="paginate_button" th:each="num: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">-->
+<!--                        <a th:href="${num}" th:text="${num}"></a>-->
+<!--                        </span>-->
+<!--                        <a th:href="${pageMaker.endPage + 1}" id="next"><button class="btn" th:if="${pageMaker.next}" >다음</button></a>-->
+<!--                    </div>-->
 
 
                 </div>
@@ -207,14 +207,14 @@
         })
 
         // reply 수정
-        $('.replyModify').on('click', function (e) {
+        $('.replyModify').click(function (e) {
             e.preventDefault();
             console.log("work?")
             update();
         })
 
         // reply 삭제
-        $('.replyDelete').on('click', function (e) {
+        $('.replyDelete').click(function (e) {
             e.preventDefault();
             console.log("work?")
             deleteReply();

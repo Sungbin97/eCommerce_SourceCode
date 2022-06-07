@@ -32,3 +32,68 @@ create table tbl_board(
        nonMemberPassword varchar(50),
        foreign key (mno) references tbl_memberinfo(mno)
 );
+drop table tbl_board_reply;
+create table tbl_board_reply(
+      rno int auto_increment primary key,
+      bno int not null ,
+      mno int,
+      reply varchar(1000) not null,
+      replyer varchar(50) not null,
+      replyPassword varchar(50),
+      replyDate date,
+      modDate date,
+      foreign key (bno) references tbl_board(bno)
+);
+select bno, title, content, nickName, nonMemberId, regDate, modDate
+from tbl_board, tbl_memberinfo
+where tbl_memberinfo.nickName like concat('%하이%') or nonMemberId like concat('%하이%')
+order by bno desc;
+
+-- join
+select bno, tbl_board.mno, title, content, nickName, nonMemberId, regDate, modDate, bImg, community
+from tbl_board inner join tbl_memberinfo tm on tbl_board.mno = tm.mno;
+
+-- getPageList
+select bno, tbl_board.mno, title, content, nickName, nonMemberId, regDate, modDate, bImg, community
+from tbl_board inner join tbl_memberinfo tm on tbl_board.mno = tm.mno
+order by bno desc, regDate;
+
+
+
+select * from tbl_board;
+select * from tbl_memberinfo;
+
+insert into tbl_board values(null,10000,'하이1','하이 콘텐츠1', '하이 이미지1',now(),null,'주짓수','비회원 아이디1', '비회원 패스워드1');
+insert into tbl_board values(null,null,'하이10','하이 콘텐츠10', '하이 이미지10',now(),null,'주짓수10','비회원 아이디1', '비회원 패스워드1');
+insert into tbl_memberinfo values(10000,'비회원 아이디','비회원 비밀번호','비회원 이름', '비회원 123','비','123','주짓수','비회원 아이디1', '비회원 패스워드1'
+,'','','','','','등급',0);
+delete from tbl_memberinfo where mno = 10000;
+delete from tbl_board where mno = 10000;
+select mno, nickName from tbl_memberinfo where mno=10000;
+
+select * from tbl_board
+join tbl_memberinfo tb on tbl_board.mno = tb.mno
+where bno > 0;
+
+select bno, nonMemberPassword from tbl_board where bno=1;
+drop table tbl_testBoard;
+create table tbl_testBoard(
+    userId varchar(50),
+    userPassword varchar(50),
+    userPasswordBase64 varchar(5000)
+                    );
+insert into tbl_testBoard values ('hi','hipassword',null);
+update tbl_testBoard set userPassword= TO_BASE64(aes_encrypt(userPassword,'testkey1')) where userId='hi';
+SELECT CAST(AES_DECRYPT(FROM_BASE64(userPassword), 'testkey1') AS CHAR(50)) AS password
+FROM tbl_testBoard;
+drop table tbl_testBoard;
+select * from tbl_testBoard;
+alter table tbl_memberinfo modify password varchar(1000);
+create table tbl_product_cate(
+                                 tier int(1) not null, -- 카테고리 등급 ( 대분류 1 , 중분류 2 ,소분류 3)
+                                 pCateName varchar(30) not null, -- 카테고리 이름
+                                 pCatecode varchar(30) not null, -- 카테고리 코드
+                                 cateParent varchar(30) -- 바로 상위 카테고리
+    -- primary key(pCatecode)
+);
+select * from tbl_board_reply;
