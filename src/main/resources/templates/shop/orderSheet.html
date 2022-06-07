@@ -401,6 +401,9 @@
                                         <input type="hidden" name="tCpno" value="0"  >
                                     </form>
                             </div>
+                                    <div>
+                                        <button onclick="requestPay()">아임포트 결제하기</button>
+                                    </div>
                             <div>
                                 </div>
                             </div>
@@ -447,6 +450,147 @@
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 <script>
+
+    function requestPay() {
+        let receiverName =null
+        let addr1=null
+        let addr2=null
+        let addr3=null
+        $(".addressInfo_input_div").each(function (i,obj){
+            //받는이,주소 값 넣기
+            if($(obj).find(".selectAddress").val()==='T'){
+                receiverName =  $("input[name='receiverName']").val($(obj).find(".receiverName_input").val());
+                addr1 =  $("input[name='postcode']").val($(obj).find(".address1_input").val());
+                addr2 =  $("input[name='address']").val($(obj).find(".address2_input").val());
+                addr3 = $("input[name='detailAddress']").val($(obj).find(".address3_input").val());
+                $("input[name='receiverPhone']").val($(obj).find(".receiverPhone_input").val());
+
+            }
+            // 포인트 값 넣기
+            $("input[name='usePoint']").val($(".order_point_input").val())
+            // 쿠폰으로 할인받은 금액 넣기
+            $("input[name='tCouponPrice']").val($(".coupon_span").text())
+            //기타 값 넣기
+            $("input[name='message']").val($(".message_input").val())
+
+            /* 상품정보 */
+            let form_contents = '';
+            $(".product_price_td").each(function(index, element){
+                console.log(index)
+                // console.log("element : ",element)
+                let pno = $(element).find(".individual_pno_input").val();
+                let itemCount = $(element).find(".individual_itemCount_input").val();
+                let pColor = $(element).find(".individual_pColor_input").val();
+                let pOption = $(element).find(".individual_pOption_input").val();
+                let pOptionPrice = $(element).find(".individual_pOptionPrice_input").val();
+                let pOptionName = $(element).find(".individual_pOptionName_input").val();
+                let pOptionName2 = $(element).find(".individual_pOptionName2_input").val();
+                let pOption2 = $(element).find(".individual_pOption2_input").val();
+                let pno_input = "<input name='orders[" + index + "].pno' type='hidden' value='" + pno + "'>";
+                form_contents += pno_input;
+                let itemCount_input = "<input name='orders[" + index + "].iCount' type='hidden' value='" + itemCount + "'>";
+                form_contents += itemCount_input;
+                let pColor_input = "<input name='orders[" + index + "].pColor' type='hidden' value='" + pColor + "'>";
+                form_contents += pColor_input;
+                let pOption_input = "<input name='orders[" + index + "].pOption' type='hidden' value='" + pOption + "'>";
+                form_contents += pOption_input;
+                let pOptionName_input = "<input name='orders[" + index + "].pOptionName' type='hidden' value='" + pOptionName + "'>";
+                form_contents += pOptionName_input;
+                let pOption2_input = "<input name='orders[" + index + "].pOption2' type='hidden' value='" + pOption2 + "'>";
+                form_contents += pOption2_input;
+                let pOptionName2_input = "<input name='orders[" + index + "].pOptionName2' type='hidden' value='" + pOptionName2 + "'>";
+                form_contents += pOptionName2_input;
+                let pOptionPrice_input = "<input name='orders[" + index + "].pOptionPrice' type='hidden' value='" + pOptionPrice + "'>";
+                form_contents += pOptionPrice_input;
+
+            });
+            $(".order_form").append(form_contents);
+
+        })
+
+
+        let name=$(".product_name_td").text()
+        //let receiverName =receiverName.val(),
+        let postcode=addr1.val()
+        let  addr=addr2.val()
+        let  addr_detail=addr3.val()
+        let  amount=Number($(".finalTotalPrice_span").text())
+        let  buyer_name=$(".buyer_name_td").text()
+        let  buyer_email=$("input[name='email']").val()
+        let  buyer_tel=$("input[name='phone']").val()
+        let ono = createOrderNum();
+
+        // IMP.request_pay(param, callback) 결제창 호출
+
+        IMP.init("imp63826642"); // 예: imp00000000
+        IMP.request_pay({ // param
+            pg: "html5_inicis",
+            pay_method: "card",
+            merchant_uid: ono,
+            name: name,
+            amount: 100,
+            buyer_email:buyer_email,
+            buyer_name: buyer_name,
+            buyer_tel: buyer_tel,
+            buyer_addr: addr+addr_detail,
+            buyer_postcode: postcode,
+        }, function (rsp) { // callback
+            if (rsp.success) {
+                //나중에 시간날때 해보기(결제 검증작업)
+                // jQuery로 HTTP 요청
+                // jQuery.ajax({
+                //     url: "{서버의 결제 정보를 받는 endpoint}", // 예: https://www.myservice.com/payments/complete
+                //     method: "POST",
+                //     headers: { "Content-Type": "application/json" },
+                //     data: {
+                //         imp_uid: rsp.imp_uid,
+                //         merchant_uid: rsp.merchant_uid
+                //     }
+                // }).done(function (data) {
+                //     // 가맹점 서버 결제 API 성공시 로직
+                //     orderInsert();
+                // })
+
+                var msg = "";
+                msg += '결제승인/시도된 PG사' +rsp.pg_provider;
+                msg += '고유ID : ' + rsp.imp_uid;
+                msg += '상점 거래ID : ' + rsp.merchant_uid;
+                msg += '주문 상태 : ' + rsp.status;
+                msg += '카드 승인번호 : ' + rsp.apply_num;
+
+                $("input[name='ono']").val(parseInt(rsp.merchant_uid));
+                orderInsert();
+            } else {
+                alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+            }
+            alert(msg)
+
+        });
+    }
+    function orderInsert(){
+        let formObj=$(".order_form")
+        formObj.attr("action","/order")
+        formObj.attr("method","post")
+        formObj.submit();
+    }
+    // 주문번호 만들기
+    function createOrderNum(){
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        let orderNum = year + month + day;
+        for(let i=0;i<10;i++) {
+            orderNum += Math.floor(Math.random() * 8);
+        }
+        console.log("orderNum : ",orderNum)
+        return orderNum;
+    }
+
+
+
+
     //결제하기
     $(".order_btn").on("click", function(e){
         console.log("눌림")

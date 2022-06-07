@@ -1,4 +1,22 @@
-0531일자 수정
+0608일자 수정
+
+-- 상품 테이블 (pDiscount 타입 float으로 수정)
+create table tbl_product(
+    pno int(30) primary key auto_increment, -- 상품 번호
+    pName varchar(50) not null, -- 상품명
+    pSize varchar(50), -- 상품 사이즈 (추후 별도 테이블로 분리 예정)
+    pPrice int(50), -- 상품 가격 (추후 별도 테이블로 분리 예정)
+    pAmount int(30), -- 상품 재고
+    pColor varchar(50), -- 상품 색상
+    pRegdate DATETIME default now(), -- 상품 등록일
+    pImage varchar(300) not null, -- 상품 대표 이미지
+    pInformation varchar(300) not null, -- 상품 세부정보 대표 이미지
+    pRating decimal(2,1), -- 상품 평점
+    pReviewCnt int(20), -- 상품 리뷰 개수
+    pDiscount float(10), -- 상품 할인률(%)
+    pCatecode varchar(30) -- 카테고리 코드
+);
+
 -- 장바구니 테이블(상품 세부정보는 tbl_product join하여 출력)
 create table tbl_cart(
     mno int(30) not null, -- 회원번호
@@ -19,22 +37,7 @@ create table tbl_cart(
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (pno) references tbl_product (pno)
 );
--- 상품 테이블
-create table tbl_product(
-    pno int(30) primary key auto_increment, -- 상품 번호
-    pName varchar(50) not null, -- 상품명
-    pSize varchar(50), -- 상품 사이즈 (추후 별도 테이블로 분리 예정)
-    pPrice int(50), -- 상품 가격 (추후 별도 테이블로 분리 예정)
-    pAmount int(30), -- 상품 재고
-    pColor varchar(50), -- 상품 색상
-    pRegdate DATETIME default now(), -- 상품 등록일
-    pImage varchar(300) not null, -- 상품 대표 이미지
-    pInformation varchar(300) not null, -- 상품 세부정보 대표 이미지
-    pRating decimal(2,1), -- 상품 평점
-    pReviewCnt int(20), -- 상품 리뷰 개수
-    pDiscount float(10), -- 상품 할인률(%)
-    pCatecode varchar(30) -- 카테고리 코드
-);
+
 
 -- 상품 카테고리 테이블
 create table tbl_product_cate(
