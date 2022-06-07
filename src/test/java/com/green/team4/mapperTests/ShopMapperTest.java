@@ -4,7 +4,7 @@ import com.green.team4.mapper.JH.ShopMapper;
 import com.green.team4.vo.JH.ItemPageCriteria;
 import com.green.team4.vo.JH.PagingVO;
 
-import com.green.team4.vo.sb.ProductVO;
+import com.green.team4.vo.admin.ProductVO;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

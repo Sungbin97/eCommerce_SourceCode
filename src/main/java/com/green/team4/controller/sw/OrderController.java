@@ -1,16 +1,12 @@
 package com.green.team4.controller.sw;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.green.team4.mapper.sb.ProductMapper;
-import com.green.team4.mapper.sb.ProductOptMapper;
+import com.green.team4.mapper.admin.ProductOptMapper;
 import com.green.team4.mapper.sw.OrderItemMapper;
 import com.green.team4.service.sw.ExchangeService;
 import com.green.team4.service.sw.OrderService;
 import com.green.team4.service.sw.ReviewMpService;
 import com.green.team4.vo.JH.Product_optVO;
-import com.green.team4.vo.JH.ReviewVO;
-import com.green.team4.vo.sb.ProductVO;
 import com.green.team4.vo.sw.ExchangeVO;
 import com.green.team4.vo.sw.OrderItemVO;
 import com.green.team4.vo.sw.OrderVO;

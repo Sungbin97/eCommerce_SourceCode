@@ -1,7 +1,7 @@
 package com.green.team4.service.sw;
 
 import com.github.pagehelper.PageHelper;
-import com.green.team4.mapper.sb.ProductOptMapper;
+import com.green.team4.mapper.admin.ProductOptMapper;
 import com.green.team4.mapper.sw.ExchangeFilesMapper;
 import com.green.team4.mapper.sw.ExchangeMapper;
 import com.green.team4.mapper.sw.MemberInfoMapper;

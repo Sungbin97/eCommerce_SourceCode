@@ -43,9 +43,10 @@ public class LoginController {
     public void denied () {
 
     }
-    @GetMapping("/logout")
-    public void logout () {
+    @PostMapping("/logout")
+    public String logout () {
 
+        return "/dan/login";
     }
 
 

@@ -2,10 +2,9 @@ package com.green.team4.controller.dan;
 
 import com.green.team4.mapper.dan.SignupMapper;
 import com.green.team4.service.dan.SignupService;
-import com.green.team4.service.sb.MailService;
-import com.green.team4.vo.dan.LoginVO;
+import com.green.team4.service.admin.MailService;
 import com.green.team4.vo.dan.SignupVO;
-import com.green.team4.vo.sb.MailVO;
+import com.green.team4.vo.admin.MailVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

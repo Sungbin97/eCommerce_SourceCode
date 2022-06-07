@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
@@ -36,7 +36,12 @@
                                 <h3>로그인</h3>
                                 <p>아이디와 비밀번호를 입력해주세요</p>
                                 <div class="col-12 mb-20">
-
+                                    <sapn th:if="${errorMessage}">
+                                        <p>[[${errorMessage}]]</p>
+                                    </sapn>
+                                    <sapn th:if="${exception}">
+                                        <p>[[${exception}]]</p>
+                                    </sapn>
                                 </div>
                                 <div class="col-12 mb-20">
                                     <label>ID <span class="required">*</span></label>
@@ -50,19 +55,13 @@
 
                                 </div>
                                 <div class="col-12 mb-20">
-                                    <input value="Login" name="login" class="inline" type="submit">
+                                    <input value="Login" name="login" class="inline" type="submit" onclick="login()">
                                     <label class="inline">
                                         <a href="#">비밀번호 찾기</a>
                                         <span> | </span>
                                         <a style="font-weight: bold" href="/dan/signupCategory">회원가입</a>
                                     </label>
                                 </div>
-                                <sapn th:if="${errorMessage}">
-                                    <p>[[${errorMessage}]]</p>
-                                </sapn>
-                                <sapn th:if="${exception}">
-                                    <p>[[${exception}]]</p>
-                                </sapn>
                             </div>
                         </form>
                     </div>
