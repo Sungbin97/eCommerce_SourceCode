@@ -33,6 +33,9 @@ public interface ShopService {
     public List<ProductVO> getListBySearch(String keyword);
     public List<ProductVO> getListByRand(String keyword);
 
+    public List<ProductVO> getListWithBest(ItemPageCriteria cri);
+    public List<ProductVO> getListWithTimeDeal(ItemPageCriteria cri);
+
     //    옵션
     public List<Product_optVO> getColors(int pno);
     public List<Product_optVO> getOptions(int pno);

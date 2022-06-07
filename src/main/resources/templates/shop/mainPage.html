@@ -28,8 +28,14 @@
         font-size:12px;
         margin-left: 3px;
     }
-
+    #sample01{
+        color: red;
+        font-size: 25px;
+    }
 </style>
+
+
+
 <body>
 <!-- mypage header fragment -->
 <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
@@ -69,15 +75,10 @@
     </div>
 </div>
 <!-- END SLIDER SECTION -->
-<h1>Sample01 : 내일까지</h1>
-<h2 id="sample01"></h2>
+<!--<h1>Sample01 : 내일까지</h1>-->
+<!--<h2 id="sample01"></h2>-->
 <br/>
-<h1>Sample02 : 2024년 4월 1일까지 </h1>
-<h2 id="sample02"></h2>
-<h2 id="sample03"></h2>
-<br/>
-<h1>Sample03 : 종료 케이스 </h1>
-<h2 id="sample04"></h2>
+
 
 <!--BEST-->
 <div class="product-section section pt-120 pb-120" style="margin-top: 150px">
@@ -85,7 +86,7 @@
 
         <div class="row">
             <div class="section-title text-center col-xs-12 mb-60">
-                <h2 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">BEST SELLERS</h2>
+                <h2 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s" >베스트 셀러</h2>
                 <br>
                 <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">BUNDANG의 베스트 셀러</p>
                 <div style="width: 150px;height: 30px;float: right" class="cart-bottom  clearfix wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
@@ -106,10 +107,12 @@
                         </div>
                         <div class="product-info text-left">
                             <h5 class="title"><a href="product-details.html">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
-                            <div class="price-ratting fix">
-                                <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
+                            <div class="price-ratting fix"  th:if="${dto.pDiscount>0.0}">
+                                <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${dto?.pPrice}]]원</small></span></span>
                             </div>
-                            <br>
+                            <div class="price-ratting fix" th:if="${dto.pDiscount==0.0}" >
+                                <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${dto.pPrice}]]</strong><small>원</small></span></span>
+                            </div>
                             <span class="ratting float-end "  >
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
                                     <i class="fa fa-star active"
@@ -141,23 +144,26 @@
     </div>
 </div>
 <!-- BEST 끝 -->
-
+<br>
 <!-- MD -->
-<div class="product-section section pb-120" id="timeDeal" style="margin-top: 50px" >
+<div class="product-section section pb-120" id="timeDeal" style="margin-top: 200px" >
     <div class="container">
 
-        <div class="row">
+        <div class="row" style="margin-bottom: 5px">
             <div class="section-title text-center col-xs-12 mb-60">
-                <h2 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">MD's PICK</h2>
-                <br>
-                <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">오늘의 MD 탑픽!</p>
+                <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s" >타임딜</h1>
+                <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">이 기회를 놓치지 마세요!</p>
+                <span class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s"  id="sample01"></span>
             </div>
+
         </div>
 
-        <div class="row wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" >
+
+
+        <div class="row wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s"  >
             <div class="product-slider product-slider-4">
                 <!-- Product Item Start -->
-                <div class="col-xs-12" th:each="dto : ${MDList}">
+                <div class="col-xs-12" th:each="dto : ${TDList}">
                     <div class="product-item text-center" >
                         <div class="product-img">
                             <a class="image" th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|" alt=""/></a>
@@ -166,10 +172,12 @@
                         </div>
                         <div class="product-info text-left">
                             <h5 class="title"><a href="product-details.html">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
-                            <div class="price-ratting fix">
-                                <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
+                            <div class="price-ratting fix"  th:if="${dto.pDiscount>0.0}">
+                                <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${dto?.pPrice}]]원</small></span></span>
                             </div>
-                            <br>
+                            <div class="price-ratting fix" th:if="${dto.pDiscount==0.0}" >
+                            <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${dto.pPrice}]]</strong><small>원</small></span></span>
+                            </div>
                             <span class="ratting float-end "  >
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
                                     <i class="fa fa-star active"
@@ -267,6 +275,7 @@
 
             if (distDt < 0) {
                 clearInterval(timer);
+
                 document.getElementById(id).textContent = '해당 이벤트가 종료 되었습니다!';
                 $("#timeDeal").html("")
                 return;
@@ -278,10 +287,10 @@
             var seconds = Math.floor((distDt % _minute) / _second);
 
             //document.getElementById(id).textContent = date.toLocaleString() + "까지 : ";
-            document.getElementById(id).textContent = days + '일 ';
-            document.getElementById(id).textContent += hours + '시간 ';
-            document.getElementById(id).textContent += minutes + '분 ';
-            document.getElementById(id).textContent += seconds + '초';
+            document.getElementById(id).textContent =  ' ';
+            document.getElementById(id).textContent += hours + ': ';
+            document.getElementById(id).textContent += minutes + ': ';
+            document.getElementById(id).textContent += seconds + '';
         }
 
         timer = setInterval(showRemaining, 1000);
@@ -294,7 +303,9 @@
     countDownTimer('sample02', '04/01/2024 00:00 AM'); // 2024년 4월 1일까지, 시간을 표시하려면 01:00 AM과 같은 형식을 사용한다.
     countDownTimer('sample03', '04/01/2024'); // 2024년 4월 1일까지
     countDownTimer('sample04', '04/01/2019'); // 2024년 4월 1일까지
-    countDownTimer('timeDeal', '04/01/2019'); // 2024년 4월 1일까지
+
+
+
 
 </script>
 </html>

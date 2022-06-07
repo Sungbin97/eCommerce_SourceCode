@@ -32,9 +32,9 @@
     </select>
 
     <insert id="insert">
-        insert into tbl_product (pName,pPrice,pAmount,pImage,pInformation,pCateCode)
+        insert into tbl_product (pName,pPrice,pAmount,pImage,pInformation,pCateCode,pDiscount)
         values (#{pName},#{pPrice},#{pAmount},
-                #{pImage},#{pInformation},#{pCateCode})
+                #{pImage},#{pInformation},#{pCateCode},#{pDiscount})
     </insert>
 
     <select id="getColors" resultType="com.green.team4.vo.JH.Product_optVO">
@@ -102,26 +102,6 @@
    
 
 
-    <!--    페이징-->
-
-    <!--    <select id="getListByCategoryAndPage" resultType="com.green.team4.vo.admin.ProductVO"-->
-    <!--            parameterType="Map" >-->
-    <!--        select * from product where pCategory = #{p_category} order by pno desc ,pRegdate desc-->
-    <!--            limit #{pagingVO.cri.startPage}, #{pagingVO.cri.numPerPage}-->
-
-    <!--    </select>-->
-
-    <!--   하위 카테고리-->
-
-
-
-<!--    <select id="getListByFind" resultType="com.green.team4.vo.admin.ProductVO">-->
-<!--        select * from tbl_product-->
-<!--        where-->
-<!--        <include refid="keyword"></include>-->
-<!--        <include refid="sort"></include>-->
-<!--        limit #{startPage}, #{numPerPage}-->
-<!--    </select>-->
     <select id="getListByFind" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
@@ -135,6 +115,19 @@
         <include refid="criteria"></include>
         <include refid="sort"></include>
         limit 5
+    </select>
+    <select id="getListWithBest" resultType="com.green.team4.vo.admin.ProductVO">
+        select * from tbl_product P
+        left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
+          where  P.pCateCode like concat('5','%')
+
+    </select>
+    <select id="getListWithTimeDeal" resultType="com.green.team4.vo.admin.ProductVO">
+        select * from tbl_product P
+        left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
+        where  P.pCateCode like concat('6','%')
+
+
     </select>
     <select id="getTotaldatabyFind" resultType="int">
         select count(pno) from tbl_product P
@@ -153,6 +146,7 @@
         where pCateCode like concat('%',#{keyword},'%')
         order by rand() limit 10
     </select>
+
     <sql id="keyword">
         <if test="keyword != null and keyword != '' "  >
             pName like concat('%',#{keyword},'%')

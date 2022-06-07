@@ -27,10 +27,10 @@ public class MainController {
         PagingVO pagingVO = new PagingVO();
         pagingVO.setCri(cri);
         pagingVO.setTotalProductData(shopService.getTotaldatabyFind(cri));
-//        model.addAttribute("bestList",shopService.getListWithBest());
-        model.addAttribute("bestList",shopService.getListAll());
-//        model.addAttribute("MDList",shopService.getListWithMD());
-        model.addAttribute("MDList",shopService.getListAll());
+         model.addAttribute("bestList",shopService.getListWithBest(cri));
+
+        model.addAttribute("TDList",shopService.getListWithTimeDeal(cri));
+
         model.addAttribute("boardList",boardService.readListForMain());
         model.addAttribute("pagingVO",pagingVO);
         return "/shop/mainPage";

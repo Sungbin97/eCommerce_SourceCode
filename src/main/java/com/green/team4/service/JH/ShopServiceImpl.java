@@ -88,6 +88,16 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public List<ProductVO> getListWithBest(ItemPageCriteria cri) {
+        return shopMapper.getListWithBest(cri);
+    }
+
+    @Override
+    public List<ProductVO> getListWithTimeDeal(ItemPageCriteria cri) {
+        return shopMapper.getListWithTimeDeal(cri);
+    }
+
+    @Override
     public List<Product_optVO> getColors(int pno) {
         return shopMapper.getColors(pno);
     }

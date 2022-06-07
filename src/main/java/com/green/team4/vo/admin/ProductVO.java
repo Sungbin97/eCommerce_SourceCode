@@ -14,7 +14,7 @@ public class ProductVO {
     private int pno;
     private int pcno;
     private String pName;
-    private int pDiscount;
+    private double pDiscount;
     private double pRating;
     private int pReviewCnt;
     private int pPrice;

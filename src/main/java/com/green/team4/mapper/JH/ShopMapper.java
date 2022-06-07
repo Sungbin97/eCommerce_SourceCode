@@ -32,10 +32,12 @@ public interface ShopMapper {
     public List<ProductVO> getCategory(String p_category);
 
 
-    // 검색
+    // 리스트들
 
     public List<ProductVO> getListByFind(ItemPageCriteria cri);
     public List<ProductVO> getListByFind4(ItemPageCriteria cri);
+    public List<ProductVO> getListWithBest(ItemPageCriteria cri);
+    public List<ProductVO> getListWithTimeDeal(ItemPageCriteria cri);
 
     public List<ProductVO> getListBySearch(String keyword);
     public List<ProductVO> getListByRand(String keyword);

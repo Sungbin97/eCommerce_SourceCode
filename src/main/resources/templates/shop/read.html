@@ -156,8 +156,12 @@
                     <!-- Price Ratting -->
                     <div class="price-ratting section">
                         <!-- Price -->
-                        <div class="price_div">
-                            <span class="price float-start"><span class="new" th:value="${pvo.pPrice}">[[${pvo.pPrice}]]원</span></span>
+                        <div class="price_div" th:if="${pvo.pDiscount>0.0}">
+                            <span  style="color: red;float: left;font-size: 30px"><strong th:text="${#numbers.formatInteger(pvo.pDiscount*100,0)}"></strong><small style="font-size: 15px">%</small></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="price"><strong style="font-size: 30px"><span class="new" th:text="|${#numbers.formatInteger(pvo.pPrice-pvo.pPrice*pvo.pDiscount,0)}원|"></span></strong><span class="old"><small style="font-size: 15px">[[${pvo?.pPrice}]]원</small></span></span>
+                        </div>
+                        <div class="price_div" th:if="${pvo.pDiscount==0.0}">
+                            <span  class="price"><span class="new" ><strong style="font-size: 30px">[[${pvo.pPrice}]]</strong><small>원</small></span></span>
                         </div>
                         <!-- Ratting -->
                         <span class="ratting float-end">
@@ -172,6 +176,7 @@
                         <p>아디다스의 전 세계 멤버를 위해 준비된 편안한 순면 티셔츠입니다. 뒷면의 오리지널스 클럽 그래픽이 멤버십 카드를 떠오르게 하는 특별한 룩을 선사합니다.
 
                             지속 가능한 면 생산을 목표로 하는 비영리 단체, '베터 코튼 이니셔티브'와 파트너십을 통해 탄생한 제품입니다.</p>
+
                     <div>
 
                     </div>
@@ -264,8 +269,12 @@
                                     </div>
                                     <div class="product-info text-left">
                                         <h5 class="title" th:text="${related.pName}"><a href="product-details.html"></a></h5>
-                                        <div class="price-ratting fix">
-                                            <span class="price float-start"><span class="new" th:text="${related.pPrice}"></span></span>
+                                        <div class="price-ratting fix"  th:if="${related.pDiscount>0.0}">
+                                            <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(related.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(related.pPrice-related.pPrice*related.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${related?.pPrice}]]원</small></span></span>
+                                            </div>
+                                            <div class="price-ratting fix" th:if="${related.pDiscount==0.0}" >
+                                                <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${related.pPrice}]]</strong><small>원</small></span></span>
+                                            </div>
                                             <span class="ratting float-end "  >
                                 <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">
                                     <i class="fa fa-star active"
@@ -1380,20 +1389,19 @@
 
         }
         function loadQList(){
-
+            let str = '<div>';
+            str +='<ul>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>구매한 상품의 취소/반품은 마이페이지에서 신청 가능합니다.</strong></li>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</strong></li>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>가격, 판매자, 교환/환불 및 배송 등 해당 상품 자체와 관련 없는 문의는 고객센터 내 1:1 문의하기를 이용해주세요.</strong></li>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>"해당 상품 자체"와 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 이동, 노출제한, 삭제 등의 조치가 취해질 수 있습니다.</strong></li>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>공개 게시판이므로 전화번호, 메일 주소 등 고객님의 소중한 개인정보는 절대 남기지 말아주세요.</strong></li>'
+            str +='</ul>'
+            str +='</div>'
+            str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
+            str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
             $.getJSON("/rest/getQList/" + pno,function (data){
-                console.log(data)
-                let str = '<div>';
-                str +='<ul>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>구매한 상품의 취소/반품은 마이페이지에서 신청 가능합니다.</strong></li>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</strong></li>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>가격, 판매자, 교환/환불 및 배송 등 해당 상품 자체와 관련 없는 문의는 고객센터 내 1:1 문의하기를 이용해주세요.</strong></li>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>"해당 상품 자체"와 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 이동, 노출제한, 삭제 등의 조치가 취해질 수 있습니다.</strong></li>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>공개 게시판이므로 전화번호, 메일 주소 등 고객님의 소중한 개인정보는 절대 남기지 말아주세요.</strong></li>'
-                str +='</ul>'
-                str +='</div>'
-                str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
-                str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
+
                 $(data).each(function (){
                     str+='<div class="pro-info-tab tab-pane" id="data-sheet">'
                     str +='<table class="table-data-sheet" style="height: 100px;">'
@@ -1417,15 +1425,15 @@
                     str +='</div>'
 
                 })
-                qlistInfo.html(str)
-                deleveryInfo.html('');
-                reviewHeader.html('')
-                detailInfo.html('')
-                review_not_div.html('');
-                review_div.html('');
-                pageMaker.html('');
-            })
 
+            })
+            qlistInfo.html(str)
+            deleveryInfo.html('');
+            reviewHeader.html('')
+            detailInfo.html('')
+            review_not_div.html('');
+            review_div.html('');
+            pageMaker.html('');
         }
         $(".product-QList").on("click",".odd",function (){
 
