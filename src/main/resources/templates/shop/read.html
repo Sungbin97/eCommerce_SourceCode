@@ -899,8 +899,7 @@
                 window.location.replace('/dan/login')
                 return false;
             }
-            else{
-                // --------------------------------------------- SW수정 0607 (else 안에 코드 원래 else 밖에 있었음)
+            else{ // --------------------------------------------- SW수정 0607 (else 안에 코드 원래 else 밖에 있었음)
                 let mno = $("input[name=mnoSec]").val(); // SW수정 0607
                 let itemCount = $("#amountBox").val();
                 $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
@@ -922,9 +921,7 @@
                     console.log($(".order_form").attr("action"))
                     $(".order_form").submit();
                 }
-                // ---------------------------------------------
             }
-            // ---------------------------------------------
         });
 
         let detailInfo = $(".product-detailInfo")
