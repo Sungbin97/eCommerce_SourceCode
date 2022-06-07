@@ -152,9 +152,12 @@
                                                 <li><a th:href="@{/admin/mail/list}">mail list</a></li>
                                             </li>
                                             <li><a href="/dan/*/signup">Register</a></li>
-                                            <li><a href="/sw/mypage/main?mno=2">My Account</a></li>
-                                            <li><a href="/sw/mypage/interest/list?mno=2">Wish list</a></li>
-                                            <li><a href="/sw/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
+
+                                            <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/sw/mypage/main?mno=2">My Account</a></li>
+                                            <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/dan/login">My Account</a></li>
+
+                                            <li><a id="mypageInterest" href="/sw/mypage/interest/list?mno=2">Wish list</a></li>
+                                            <li><a id="mypageRegQ" href="/sw/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
 <!--                                            <li><a href="">Checkout</a></li>--> <!-- 로그아웃 화면 연결 예정 -->
                                         </ul>
                                     </li>
@@ -172,7 +175,10 @@
                                     <!-- Cart Products -->
                                     <h6>CART</h6>
 
-                                    <input type="text" name="id" th:value="${#authentication.name}"/>
+                                    <input type="text" name="idSec" th:value="${#authentication.name}"/>
+<!--                                    <input type="text" name="mnoTest" th:value="${#principal.}"/>-->
+<!--                                    <div name="mnoTest" sec:authentication="principal.getAuthorities()"></div>-->
+                                    <div sec:authentication="name"></div>
                                     <input type="text" name="mnoSec"/> <!-- ajax통신으로 받아온 mno 업데이트 영역 -->
 
                                     <!-- 회원별 장바구니 데이터 들어오는 영역 -->
