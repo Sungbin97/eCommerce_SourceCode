@@ -21,6 +21,7 @@ public class MainController {
     @GetMapping("/mainPage")
     public String  mainPage(@ModelAttribute("cri") ItemPageCriteria cri, Model model){
         log.info("메인페이지 입장");
+        log.info("cri : "+cri);
         PagingVO pagingVO = new PagingVO();
         pagingVO.setCri(cri);
         pagingVO.setTotalProductData(shopService.getTotaldatabyFind(cri));

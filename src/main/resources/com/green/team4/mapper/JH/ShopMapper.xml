@@ -134,7 +134,7 @@
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
         <include refid="criteria"></include>
         <include refid="sort"></include>
-        limit 4
+        limit 5
     </select>
     <select id="getTotaldatabyFind" resultType="int">
         select count(pno) from tbl_product P

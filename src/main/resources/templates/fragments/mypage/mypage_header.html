@@ -171,6 +171,10 @@
                                 <div class="mini-cart-brief text-left">
                                     <!-- Cart Products -->
                                     <h6>CART</h6>
+
+                                    <input type="text" name="id" th:value="${#authentication.name}"/>
+                                    <input type="text" name="mnoSec"/> <!-- ajax통신으로 받아온 mno 업데이트 영역 -->
+
                                     <!-- 회원별 장바구니 데이터 들어오는 영역 -->
                                     <div class="all-cart-product clearfix uploadCartResult">
 
@@ -179,6 +183,7 @@
                                     <div class="cart-bottom  clearfix">
                                         <a href="/sw/mypage/cart/list?mno=2">장바구니 전체 보기</a> <!-- mno 고정 풀어야함 -->
                                     </div>
+
                                 </div>
                             </div>
                         </div>

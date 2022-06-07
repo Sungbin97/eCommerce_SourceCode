@@ -31,10 +31,10 @@ public class SignupController {
         return generator.nextInt(1000000) % 1000000;
     }
 
-    @GetMapping("/signupCategory") // 회원가입 종류 화면 가져오기
-    public void signUpCategory() {
-        log.info("SignupController => signUpCategory 실행");
-    }
+//    @GetMapping("/signupCategory") // 회원가입 종류 화면 가져오기
+//    public void signUpCategory() {
+//        log.info("SignupController => signUpCategory 실행");
+//    }
 
     @GetMapping("/signup") // 회원가입 화면 가져오기
     public void signUp() {

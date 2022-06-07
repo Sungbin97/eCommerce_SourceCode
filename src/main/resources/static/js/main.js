@@ -66,6 +66,7 @@ $('#home-slider').nivoSlider({
 $('.home-slick-image-slider').slick({
     asNavFor: '.home-slick-text-slider',
     slidesToShow: 1,
+    autoplay: true,
     prevArrow: '<button type="button" class="arrow-prev"><i class="fa fa-long-arrow-left"></i></button>',
     nextArrow: '<button type="button" class="arrow-next"><i class="fa fa-long-arrow-right"></i></button>',
     responsive: [
@@ -82,6 +83,7 @@ $('.home-slick-image-slider').slick({
 /*-- Text Slider --*/
 $('.home-slick-text-slider').slick({
     arrows: false,
+    autoplay: true,
     asNavFor: '.home-slick-image-slider',
     slidesToShow: 1,
 });
