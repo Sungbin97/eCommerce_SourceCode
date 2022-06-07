@@ -16,7 +16,7 @@
                     <div class="page-banner-content">
                         <h1 th:text="'로그인'"></h1>
                         <ul class="breadcrumb">
-                            <li><a th:id="goBack">home</a></li>
+                            <li><a th:id="goBack">mainpage</a></li>
                             <li class="active">login</li>
                         </ul>
                     </div>
@@ -54,7 +54,7 @@
                                     <label class="inline">
                                         <a href="#">비밀번호 찾기</a>
                                         <span> | </span>
-                                        <a style="font-weight: bold" href="/dan/signupCategory">회원가입</a>
+                                        <a style="font-weight: bold" href="/dan/signup">회원가입</a>
                                     </label>
                                 </div>
                                 <sapn th:if="${errorMessage}">
@@ -77,6 +77,12 @@
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 <script>
+
+    // 메인 화면으로 돌아가기
+    $("#goBack").click(function (){
+        var mno = $("input[name=mno]").val();
+        window.location.href = '/mainPage';
+    })
 
 </script>
 </html>
