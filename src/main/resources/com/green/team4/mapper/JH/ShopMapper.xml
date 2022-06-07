@@ -3,23 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.team4.mapper.JH.ShopMapper">
-    <select id="getListAll" resultType="com.green.team4.vo.sb.ProductVO">
+    <select id="getListAll" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product where pno>0
     </select>
-    <!--    <select id="getListWithCategory" resultType="com.green.team4.vo.sb.ProductVO">-->
+    <!--    <select id="getListWithCategory" resultType="com.green.team4.vo.admin.ProductVO">-->
     <!--        select * from product where p_category = #{p_category}-->
     <!--    </select>-->
 
 
-    <select id="getOne" resultType="com.green.team4.vo.sb.ProductVO">
+    <select id="getOne" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product where pno=#{pno}
     </select>
-    <select id="getOneWithOpt" resultType="com.green.team4.vo.sb.ProductVO">
+    <select id="getOneWithOpt" resultType="com.green.team4.vo.admin.ProductVO">
        select p.pno,ps.pcno,ps.pColor,ps.pOption,ps.pOption2,ps.pOptionName,ps.pOptionName2  from tbl_product p
          inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno};
     </select>
-    <select id="getOneWithPno" resultType="com.green.team4.vo.sb.ProductVO">
+    <select id="getOneWithPno" resultType="com.green.team4.vo.admin.ProductVO">
         select p.pno,pName,pPrice,pDiscount,pImage,ps.pColor,ps.pAmount,ps.pcno,ps.pColor,ps.pOption,ps.pOption2,ps.pOptionName,ps.pOptionName2  from tbl_product p
                                                                                                        inner join tbl_product_opt ps on p.pno = ps.pno
         where p.pno = #{pno};
@@ -104,7 +104,7 @@
 
     <!--    페이징-->
 
-    <!--    <select id="getListByCategoryAndPage" resultType="com.green.team4.vo.sb.ProductVO"-->
+    <!--    <select id="getListByCategoryAndPage" resultType="com.green.team4.vo.admin.ProductVO"-->
     <!--            parameterType="Map" >-->
     <!--        select * from product where pCategory = #{p_category} order by pno desc ,pRegdate desc-->
     <!--            limit #{pagingVO.cri.startPage}, #{pagingVO.cri.numPerPage}-->
@@ -115,21 +115,21 @@
 
 
 
-<!--    <select id="getListByFind" resultType="com.green.team4.vo.sb.ProductVO">-->
+<!--    <select id="getListByFind" resultType="com.green.team4.vo.admin.ProductVO">-->
 <!--        select * from tbl_product-->
 <!--        where-->
 <!--        <include refid="keyword"></include>-->
 <!--        <include refid="sort"></include>-->
 <!--        limit #{startPage}, #{numPerPage}-->
 <!--    </select>-->
-    <select id="getListByFind" resultType="com.green.team4.vo.sb.ProductVO">
+    <select id="getListByFind" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
         <include refid="criteria"></include>
         <include refid="sort"></include>
         limit #{startPage}, #{numPerPage}
     </select>
-    <select id="getListByFind4" resultType="com.green.team4.vo.sb.ProductVO">
+    <select id="getListByFind4" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
         <include refid="criteria"></include>
@@ -143,12 +143,12 @@
         <include refid="sort"></include>
     </select>
 
-    <select id="getListBySearch" resultType="com.green.team4.vo.sb.ProductVO">
+    <select id="getListBySearch" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product
         where pName like concat('%',#{keyword},'%')
         order by pno desc limit 5
     </select>
-    <select id="getListByRand" resultType="com.green.team4.vo.sb.ProductVO">
+    <select id="getListByRand" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product
         where pCateCode like concat('%',#{keyword},'%')
         order by rand() limit 10

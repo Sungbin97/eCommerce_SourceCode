@@ -87,43 +87,41 @@
     <script>
         $(document).ready(function (){
             // 장바구니 총 개수 업데이트용 (회원번호 인식될때만 작동)
-            var mno = $("input[name=mno]").val();
-            if(mno!==undefined){
-                var data ={mno:mno}
-                console.log("입력받은 data: ",data)
-                $.ajax({
-                    url:'/sw/mypage/cart/listCnt',
-                    method:'post',
-                    data:JSON.stringify(data),
-                    contentType:'application/json; charset=utf-8',
-                    dataType:'text',
-                    success:function (cartCnt){
-                        console.log("Ajax통신 성공 후 받은 carCnt: ",cartCnt); // 받아온 데이터
-                        $("#cartCntSpan").text(cartCnt); // 장바구니 상품 개수 업데이트
-                    }
-                })
-            }
+            // var mno = $("input[name=mno]").val();
+            // if(mno!==undefined){
+            //     var data ={mno:mno}
+            //     console.log("입력받은 data: ",data)
+            //     $.ajax({
+            //         url:'/sw/mypage/cart/listCnt',
+            //         method:'post',
+            //         data:JSON.stringify(data),
+            //         contentType:'application/json; charset=utf-8',
+            //         dataType:'text',
+            //         success:function (cartCnt){
+            //             console.log("Ajax통신 성공 후 받은 carCnt: ",cartCnt); // 받아온 데이터
+            //             $("#cartCntSpan").text(cartCnt); // 장바구니 상품 개수 업데이트
+            //         }
+            //     })
+            // }
         })
 
         // 카트 상단 버튼 누르면
-        $(".cart-toggle").on("click",function (){
+
             $(".uploadCartResult").empty(); // 데이터 중복 방지
 
-            // 회원번호 가져오기
-            var mno = $("input[name=mno]").val();
+            // id 가져오기
+            var id = $("input[name=id]").val();
 
-            if(mno!==undefined){ // mno가 인식이 되면 동작
-
-                // 비회원일때
-                if(mno === '1000'){
-                    var str2 = "";
-                    str2 += "<p>"+"로그인 후 이용해주세요:)"+"</p>";
-                    $(".uploadCartResult").append(str2);
-                    return;
-                }
-
+            // 비회원일때
+            if(id === 'anonymousUser'){
+                var str2 = "";
+                str2 += "<p>"+"로그인 후 이용해주세요:)"+"</p>";
+                $(".uploadCartResult").append(str2);
+                // return;
+            }
+            else {
                 // 회원일때
-                var data ={mno:mno}
+                var data ={id:id}
 
                 console.log("입력받은 data: ",data)
                 $.ajax({
@@ -137,18 +135,23 @@
                         console.log("Ajax통신 성공 후 받은 cartList: ",cartList);
                         console.log(cartList[0]) // 장바구니 상품 2개 담긴 배열
                         console.log(cartList[1][0].cartCnt) // 장바구니 상품 전체 개수
+                        console.log(cartList[1][0].mno) // 접속한 회원 mno
 
                         var recentCartList = cartList[0];
                         var cartTotalCnt = cartList[1][0].cartCnt;
+                        var mnoSec = cartList[1][0].mno;
 
                         // 장바구니 상품 개수 업데이트
                         $("#cartCntSpan").text(cartTotalCnt);
+
+                        // mno 업데이트
+                        $("input[name=mnoSec]").val(mnoSec);
 
                         // 장바구니 최근 2개 상품 업데이트
                         var cartListDiv = $(".uploadCartResult"); // 태그 추가할 영역
                         var str = "";
 
-                        if(recentCartList.length>=1){ // 장바구니 상품이 1개 이상이면
+                        if(cartList[0][0].status !== '없음'){ // 장바구니 상품이 1개 이상이면
                             $(recentCartList).each(function (){
                                 console.log("들어오나")
                                 str+="<div class=\"single-cart clearfix\">"
@@ -167,19 +170,14 @@
                             cartListDiv.append(str);
                         }
                         else { // 장바구니가 비어있으면
+                            console.log("들어오나2")
                             str += "<p>"+"장바구니가 비어있습니다"+"</p>";
+                            cartListDiv.append(str);
                         }
                     }
                 })
+            }
 
-            }
-            else { // mno 인식이 안되면
-                var str2 = "";
-                str2 += "<p>"+"로그인 후 이용해주세요:)"+"</p>";
-                $(".uploadCartResult").append(str2);
-                return;
-            }
-        })
 
     </script>
 

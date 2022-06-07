@@ -1,8 +1,8 @@
 package com.green.team4.serviceTests;
 
-import com.green.team4.service.sb.MailService;
+import com.green.team4.service.admin.MailService;
 import com.green.team4.service.sw.MemberInfoService;
-import com.green.team4.vo.sb.MailVO;
+import com.green.team4.vo.admin.MailVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

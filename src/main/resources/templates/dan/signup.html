@@ -3,7 +3,7 @@
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-    <title>mypage-memberInfo-read</title>
+    <title>SIGNUP</title>
 </head>
 <body>
     <!-- mypage header fragment -->
@@ -14,10 +14,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-banner-content">
-                        <h1 th:text="'개인정보'"></h1>
+                        <h1 th:text="'회원가입'"></h1>
                         <ul class="breadcrumb">
-                            <li><a href="#" th:id="goBack">mypage</a></li>
-                            <li class="active">memberInfo</li>
+                            <li><a href="#" th:id="goBack">login</a></li>
+                            <li class="active">signup</li>
                         </ul>
                     </div>
                 </div>
@@ -106,10 +106,10 @@
                                         @
                                     </div>
                                     <div style="display: inline-block">
-                                        <input id="email2" type="text"/>
+                                        <input id="email2" type="text" readonly/>
                                     </div>
                                     <div style="display: inline-block">
-                                        <select style="width: 150px" id="email3">
+                                        <select style="width: 150px;text-transform :lowercase" id="email3">
                                             <option value="none">==선택==</option>
                                             <option value="naver.com">naver.com</option>
                                             <option value="gmail.com">gmail.com</option>
@@ -154,15 +154,6 @@
                                 <input type="text"  name="detailAddress" placeholder="세부주소" />
                             </div>
                             <br/>
-                            <div class="col-xs-12 mb-20">
-                                <label>권한(고정)</label>
-                                <div style="display: inline-block">
-                                    <label><input type="radio" name="auth" value="USER" checked disabled>USER</label>
-                                </div>
-                                <div style="display: inline-block">
-                                    <label><input type="radio" name="auth" value="ADMIN" disabled>ADMIN</label>
-                                </div>
-                            </div>
                             <div class="col-xs-12 mb-20">
                                 <label>관심종목(택1) <span class="required">*</span></label>
                                 <div style="display: inline-block">
@@ -222,16 +213,13 @@
                                 <div style="display: inline-block">
                                     <label><input type="checkbox" name="interestSports" value="스키"/> 스키</label>
                                 </div>
-                                <div style="display: inline-block">
-                                    <label><input type="checkbox" name="interestSports" value="농구"/> 농구</label>
-                                </div>
                             </div>
                             <div class="col-xs-12 mb-20">
                                 <input id="agree" type="checkbox">
                                 <label>동의 <a href="#">회원가입 약관(클릭)</a></label>
                             </div>
                             <div class="col-xs-12">
-                                <input id="signupBtn" value="회원가입" type="submit">
+                                <input name="signupBtn" value="회원가입" type="submit">
                             </div>
                             <br>
                             <br>
@@ -244,7 +232,6 @@
     <!-- PAGE SECTION END -->
 
 </body>
-
 
 <!-- daum postcode api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
@@ -314,6 +301,23 @@
     var min = "";
     var sec = "";
 
+    // 이메일 작성 이벤트
+    $("#email3").change(function (){ // 이메일 주소 select 변경되면
+        var selectVal = $("#email3").val();
+        console.log(selectVal)
+        if(selectVal === '0'){ // 직접입력을 선택한 경우
+            $("#email2").val("")
+            $("#email2").removeAttr("readonly")
+            $("#email2").attr("placeholder","주소를 입력하세요")
+            $("#email2").css("background","white")
+        }
+        else { // 다른 주소 선택한 경우
+            $("#email2").val(selectVal)
+            $("#email2").css("background","lightblue")
+            $("#email2").attr("readonly",true)
+        }
+    })
+
     // 이메일 인증코드 절차
     function mailCheck(){
 
@@ -329,10 +333,19 @@
         console.log(selectedEmail)
 
         var str = "";
-        if(selectedEmail !== null){
+        if(selectedEmail !== '0'){
+            console.log("들어오나");
             str += emailId;
             str += '@';
             str += selectedEmail;
+            console.log("emailAddress: ",str);
+            email.val(str);
+        }
+        else {
+            console.log("들어오나2");
+            str += emailId;
+            str += '@';
+            str += emailAd;
             console.log("emailAddress: ",str);
             email.val(str);
         }
@@ -374,15 +387,53 @@
         let insertAuthNum = $('#insertAuthNum').val();
         let authNum = $('#authNum').val();
 
-        $("#insertAuthNum").removeAttr("placeholder");
+        // $("#insertAuthNum").removeAttr("placeholder");
+        $("#insertAuthNum").attr("placeholder","");
         if(insertAuthNum === authNum){
-            $("#insertAuthNum").removeAttr("placeholder");
+            $("#insertAuthNum").attr("placeholder","");
+            // $("#insertAuthNum").removeAttr("placeholder");
             alert('인증이 완료되었습니다.')
-        }else{
-            $("#insertAuthNum").removeAttr("placeholder");
+        } else{
+            $("#insertAuthNum").attr("placeholder","");
+            // $("#insertAuthNum").removeAttr("placeholder");
             alert('ERROR: 인증번호가 일치하지 않습니다.')
         }
     }
+
+    // 등록버튼 클릭하면 데이터 입력유무 확인
+    $("input[name=signupBtn]").click(function (e){
+        e.preventDefault();
+        console.log("들어오나")
+        var id = $("input[name=id]");
+        var password = $("input[name=password]");
+        var name = $("input[name=name]");
+        var nickName = $("input[name=nickName]");
+        var gender = $("input[name=gender]");
+        var sSNum = $("input[name=sSNum]");
+        var phoneNum = $("input[name=phoneNum]");
+        var mobileNum = $("input[name=mobileNum]");
+        var postcode = $("input[name=postcode]");
+        var address = $("input[name=address]");
+        var detailAddress = $("input[name=detailAddress]");
+        console.log(id)
+
+        const arr = [id,password,name,nickName,gender,sSNum,phoneNum,mobileNum,postcode,address,detailAddress];
+        $(arr).each(function (index,item){
+            console.log("item",item)
+            if(item.val() === "") {
+                alert(item.attr("name")+" 작성해주세요");
+                return false;
+            }
+            else $("#signup").submit();
+        })
+
+    })
+
+    // 로그인 화면으로 돌아가기
+    $("#goBack").click(function (){
+        var mno = $("input[name=mno]").val();
+        window.location.href = '/dan/login';
+    })
 
 </script>
 </html>

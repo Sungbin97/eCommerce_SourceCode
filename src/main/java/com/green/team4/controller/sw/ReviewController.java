@@ -1,11 +1,6 @@
 package com.green.team4.controller.sw;
 
-import com.green.team4.mapper.sb.ProductOptMapper;
-import com.green.team4.mapper.sw.OrderItemMapper;
-import com.green.team4.service.sw.ExchangeService;
-import com.green.team4.service.sw.OrderService;
 import com.green.team4.service.sw.ReviewMpService;
-import com.green.team4.vo.JH.Product_optVO;
 import com.green.team4.vo.sw.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,9 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @Log4j2

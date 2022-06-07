@@ -1,6 +1,6 @@
 package com.green.team4.controller.JH;
 
-import com.green.team4.mapper.sb.ProductInfoImgMapper;
+import com.green.team4.mapper.admin.ProductInfoImgMapper;
 import com.green.team4.service.JH.CategoryService;
 import com.green.team4.service.JH.CouponService;
 import com.green.team4.service.JH.ReviewService;
@@ -9,8 +9,8 @@ import com.green.team4.service.JH.ShopService;
 import com.green.team4.service.sw.PersonalQService;
 import com.green.team4.service.sw.ReviewMpService;
 import com.green.team4.vo.JH.*;
-import com.green.team4.vo.sb.ProductInfoImgVO;
-import com.green.team4.vo.sb.ProductVO;
+import com.green.team4.vo.admin.ProductInfoImgVO;
+import com.green.team4.vo.admin.ProductVO;
 import com.green.team4.vo.sw.PersonalQVO;
 import com.green.team4.vo.sw.ReviewMpVO;
 import lombok.extern.log4j.Log4j2;

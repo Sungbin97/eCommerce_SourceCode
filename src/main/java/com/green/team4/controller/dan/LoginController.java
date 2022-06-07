@@ -1,5 +1,6 @@
 package com.green.team4.controller.dan;
 
+import com.green.team4.mapper.sw.MemberInfoMapper;
 import com.green.team4.service.dan.LoginService;
 
 
@@ -43,9 +44,10 @@ public class LoginController {
     public void denied () {
 
     }
-    @GetMapping("/logout")
-    public void logout () {
+    @PostMapping("/logout")
+    public String logout () {
 
+        return "/dan/login";
     }
 
 

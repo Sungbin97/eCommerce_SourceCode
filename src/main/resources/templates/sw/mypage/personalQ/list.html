@@ -35,8 +35,8 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="pro-stock-stauts">신청일</th>
-                                    <th class="pro-stock-stauts">처리 완료일</th>
+                                    <th class="pro-stock-stauts">등록일</th>
+                                    <th class="pro-stock-stauts">답변일</th>
                                     <th class="pro-stock-stauts">접수번호</th>
                                     <th class="pro-title">카테고리</th>
                                     <th class="pro-title">제목</th>
@@ -48,7 +48,7 @@
                                 <tr th:each="pq : ${pqList.getList()}">
                                     <td class="pro-stock-stauts" name="pqRegDate" th:text="${#temporals.format(pq.pqRegDate, 'yyyy-MM-dd')}"></td>
                                     <td class="pro-stock-stauts" name="pqReplyDate" th:text="${#temporals.format(pq.pqReplyDate, 'yyyy-MM-dd')}"></td>
-                                    <td class="pro-stock-stauts"><a th:href="@{/sw/mypage/personalQ/read(pqNo=${pq.pqNo})}" th:text="${pq.pqNo}"></a></td>
+                                    <td class="pro-stock-stauts"><a style="font-weight: bold; color: #191c1f" th:href="@{/sw/mypage/personalQ/read(pqNo=${pq.pqNo})}" th:text="${pq.pqNo}"></a></td>
                                     <td class="pro-stock-stauts" name="pqCategory" th:text="${pq.pqCategory}"></td>
                                     <td class="pro-title" name="pqTitle" th:text="${pq.pqTitle}"></td>
                                     <td class="pro-title" th:text="${pq.pqStatus}"></td>

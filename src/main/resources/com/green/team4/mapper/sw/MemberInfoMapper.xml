@@ -9,10 +9,10 @@
     <insert id="insert">
         insert into tbl_memberInfo (id, password, name, nickName, gender, sSNum,
                                     email, phoneNum, mobileNum, postcode, address, detailAddress,
-                                    interestSports, auth, grade)
+                                    interestSports)
         values (#{id},#{password},#{name},#{nickName},#{gender},#{sSNum},
                 #{email},#{phoneNum},#{mobileNum},#{postcode},#{address},#{detailAddress},
-                #{interestSports},#{auth},#{grade})
+                #{interestSports})
     </insert>
 
     <!-- MemberInfo 데이터 전체 가져오기 -->

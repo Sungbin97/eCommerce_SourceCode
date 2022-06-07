@@ -2,10 +2,9 @@ package com.green.team4.controller.dan;
 
 import com.green.team4.mapper.dan.SignupMapper;
 import com.green.team4.service.dan.SignupService;
-import com.green.team4.service.sb.MailService;
-import com.green.team4.vo.dan.LoginVO;
+import com.green.team4.service.admin.MailService;
 import com.green.team4.vo.dan.SignupVO;
-import com.green.team4.vo.sb.MailVO;
+import com.green.team4.vo.admin.MailVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,10 +31,10 @@ public class SignupController {
         return generator.nextInt(1000000) % 1000000;
     }
 
-    @GetMapping("/signupCategory") // 회원가입 종류 화면 가져오기
-    public void signUpCategory() {
-        log.info("SignupController => signUpCategory 실행");
-    }
+//    @GetMapping("/signupCategory") // 회원가입 종류 화면 가져오기
+//    public void signUpCategory() {
+//        log.info("SignupController => signUpCategory 실행");
+//    }
 
     @GetMapping("/signup") // 회원가입 화면 가져오기
     public void signUp() {

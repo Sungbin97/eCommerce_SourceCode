@@ -1,9 +1,8 @@
 package com.green.team4.service.sw;
 
 import com.github.pagehelper.PageHelper;
-import com.green.team4.mapper.sb.MailMapper;
+import com.green.team4.mapper.admin.MailMapper;
 import com.green.team4.mapper.sw.*;
-import com.green.team4.vo.sb.MailVO;
 import com.green.team4.vo.sw.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

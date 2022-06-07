@@ -6,7 +6,7 @@ use team4db;
 create table tbl_memberInfo(
     mno int(30) primary key auto_increment, -- 회원번호
     id varchar(50) not null, -- 아이디
-    password varchar(50) not null, -- 비밀번호
+    password varchar(100) not null, -- 비밀번호
     name varchar(50) not null, -- 이름
     nickName varchar(50) not null, -- 별명
     gender varchar(50) not null, -- 성별
@@ -18,10 +18,15 @@ create table tbl_memberInfo(
     address varchar(50) not null, -- 기본주소
     detailAddress varchar(50) not null, -- 세부주소
     interestSports varchar(50) default '없음', -- 관심 운동
-    auth varchar(50), -- 회원 권한
-    grade varchar(50), -- 회원 등급
+    auth varchar(50) default 'ROLE MEMBER', -- 회원 권한
+    grade varchar(50) default '일반회원', -- 회원 등급
     point int(100) default 0 -- 회원 보유 포인트
 );
+
+alter table tbl_memberInfo modify auth varchar(50) default 'ROLE_MEMBER';
+alter table tbl_memberInfo modify password varchar(100) not null ;
+alter table tbl_memberInfo modify grade varchar(50) default '일반회원';
+update tbl_memberInfo set auth = 'ROLE_MEMBER' where mno=7;
 
 -- 탈퇴 회원 테이블
 create table tbl_deleteMem(
@@ -250,8 +255,7 @@ create table tbl_mail(
     subject varchar(70),
     text varchar(700),
     sendDate DATETIME default now(),
-    reception varchar(1000),
-    foreign key (mno) references tbl_memberInfo (mno)
+    reception varchar(1000)
 );
 
 -- 상품 이미지 테이블 -- SB
@@ -288,6 +292,7 @@ create table tbl_delivery(
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (oINo) references tbl_orderItem (oINo)
 );
+
 
 -- 고객센터_1:1문의 => tbl_personalQ SW신규추가 20220601
 create table tbl_personalQ(
@@ -340,6 +345,28 @@ create table reply_tbl(
     modDate date,
     foreign key (uNo) references board_tbl(uNo)
 );
+
+-- 쿠폰 테이블
+create table tbl_coupon(
+    cpNo int primary key auto_increment,
+    cpName varchar(100),
+    cpValue int (255), -- 할인값
+    cpConditionVal int (50), -- 조건 금액
+    createDate timestamp default now(), -- 생성
+    assignDate timestamp default now(), -- 지급
+    startDate timestamp default now(), -- 시작 날짜
+    expireDate timestamp default now() -- 만료
+);
+
+-- 쿠폰 테이블2
+create table tbl_MemberCoupon(
+    mno int(10),
+    cpNo int primary key,
+    cpStatus varchar(10),
+    expireDate timestamp default now() -- 만료
+);
+
+
 
 
 -- 카테고리 데이터

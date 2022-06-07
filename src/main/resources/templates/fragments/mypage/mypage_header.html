@@ -106,11 +106,11 @@
                                 </li>
                                 <li><a href="blog.html">Admin</a>
                                     <ul class="sub-menu">
-                                        <li><a th:href="@{/sb/member/member?mno=1}">member</a></li>
-                                        <li><a th:href="@{/sb/product/upload}">product upload</a></li>
-                                        <li><a th:href="@{/sb/product/list(pno=1)}">product list</a></li>
-                                        <li><a th:href="@{/sb/mail/write}">mail write</a></li>
-                                        <li><a th:href="@{/sb/mail/list}">mail list</a></li>
+                                        <li><a th:href="@{/admin/member/member?mno=1}">member</a></li>
+                                        <li><a th:href="@{/admin/product/upload}">product upload</a></li>
+                                        <li><a th:href="@{/admin/product/list(pno=1)}">product list</a></li>
+                                        <li><a th:href="@{/admin/mail/write}">mail write</a></li>
+                                        <li><a th:href="@{/admin/mail/list}">mail list</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="contact.html">Contact</a></li>
@@ -140,16 +140,16 @@
                                 <ul>
                                     <li><a href="#" class="account-toggle"><i class="pe-7s-config"></i></a>
                                         <ul class="account-menu">
-                                            <form method="post" th:action="@{/logout}">
-                                                <li><a sec:authorize="isAuthenticated()" type="submit">Logout</a></li>
+                                            <form method="post" th:action="@{/dan/logout}">
+                                                <li><a sec:authorize="isAuthenticated()" th:href="@{/dan/logout}" type="submit" onclick="logout()">Logout</a></li>
                                                 <li><a sec:authorize="isAnonymous()" th:href="@{/dan/login}" type="submit">Login</a></li>
                                             </form>
                                             <ul sec:authorize="hasAnyRole('ROLE_ADMIN')">
-                                                <li><a th:href="@{/sb/member/member?mno=1}">member</a></li>
-                                                <li><a th:href="@{/sb/product/upload}">product upload</a></li>
-                                                <li><a th:href="@{/sb/product/list(pno=1)}">product list</a></li>
-                                                <li><a th:href="@{/sb/mail/write}">mail write</a></li>
-                                                <li><a th:href="@{/sb/mail/list}">mail list</a></li>
+                                                <li><a th:href="@{/admin/member/member?mno=1}">member</a></li>
+                                                <li><a th:href="@{/admin/product/upload}">product upload</a></li>
+                                                <li><a th:href="@{/admin/product/list(pno=1)}">product list</a></li>
+                                                <li><a th:href="@{/admin/mail/write}">mail write</a></li>
+                                                <li><a th:href="@{/admin/mail/list}">mail list</a></li>
                                             </li>
                                             <li><a href="/dan/*/signup">Register</a></li>
                                             <li><a href="/sw/mypage/main?mno=2">My Account</a></li>
@@ -171,6 +171,10 @@
                                 <div class="mini-cart-brief text-left">
                                     <!-- Cart Products -->
                                     <h6>CART</h6>
+
+                                    <input type="text" name="id" th:value="${#authentication.name}"/>
+                                    <input type="text" name="mnoSec"/> <!-- ajax통신으로 받아온 mno 업데이트 영역 -->
+
                                     <!-- 회원별 장바구니 데이터 들어오는 영역 -->
                                     <div class="all-cart-product clearfix uploadCartResult">
 
@@ -179,6 +183,7 @@
                                     <div class="cart-bottom  clearfix">
                                         <a href="/sw/mypage/cart/list?mno=2">장바구니 전체 보기</a> <!-- mno 고정 풀어야함 -->
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -191,4 +196,10 @@
         <!-- END HEADER SECTION -->
 
     </div>
+    <script>
+        function logout(){
+            alert("로그아웃이 완료되었습니다. 감사합니다.");
+        }
+    </script>
+
 </html>
