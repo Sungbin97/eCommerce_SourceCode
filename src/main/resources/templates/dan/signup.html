@@ -333,10 +333,19 @@
         console.log(selectedEmail)
 
         var str = "";
-        if(selectedEmail !== null){
+        if(selectedEmail !== '0'){
+            console.log("들어오나");
             str += emailId;
             str += '@';
             str += selectedEmail;
+            console.log("emailAddress: ",str);
+            email.val(str);
+        }
+        else {
+            console.log("들어오나2");
+            str += emailId;
+            str += '@';
+            str += emailAd;
             console.log("emailAddress: ",str);
             email.val(str);
         }
@@ -378,12 +387,15 @@
         let insertAuthNum = $('#insertAuthNum').val();
         let authNum = $('#authNum').val();
 
-        $("#insertAuthNum").removeAttr("placeholder");
+        // $("#insertAuthNum").removeAttr("placeholder");
+        $("#insertAuthNum").attr("placeholder","");
         if(insertAuthNum === authNum){
-            $("#insertAuthNum").removeAttr("placeholder");
+            $("#insertAuthNum").attr("placeholder","");
+            // $("#insertAuthNum").removeAttr("placeholder");
             alert('인증이 완료되었습니다.')
         } else{
-            $("#insertAuthNum").removeAttr("placeholder");
+            $("#insertAuthNum").attr("placeholder","");
+            // $("#insertAuthNum").removeAttr("placeholder");
             alert('ERROR: 인증번호가 일치하지 않습니다.')
         }
     }
@@ -412,6 +424,7 @@
                 alert(item.attr("name")+" 작성해주세요");
                 return false;
             }
+            else $("#signup").submit();
         })
 
     })

@@ -33,4 +33,5 @@ public class CartVO {
 
     // 카트 sub 메뉴 데이터 담을때 사용
     private int cartCnt;
+    private String status;
 }

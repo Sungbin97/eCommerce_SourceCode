@@ -1,7 +1,9 @@
 package com.green.team4.controller.sw;
 
+import com.green.team4.mapper.sw.MemberInfoMapper;
 import com.green.team4.service.sw.CartService;
 import com.green.team4.vo.sw.CartVO;
+import com.green.team4.vo.sw.MemberInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 @Controller
 @Log4j2
@@ -26,6 +29,7 @@ public class CartController {
 
     // 의존성 주입
     private final CartService cartService;
+    private final MemberInfoMapper memberInfoMapper;
 
     @GetMapping("/list")
     public void cartRead(int mno, Model model){ // 장바구니 List 가져오기
@@ -49,27 +53,45 @@ public class CartController {
     }
 
     @PostMapping("/listMain") // 카트 상단 메뉴 클릭하면 데이터 가져오기
-    public ResponseEntity<List<List<CartVO>>> cartListForMain(@RequestBody CartVO cartVO){
-        log.info("CartController => cartListForMain(POST) 실행 => 받은 mno: "+cartVO.getMno());
+    public ResponseEntity<List<List<CartVO>>> cartListForMain(@RequestBody MemberInfoVO memberInfoVO){
+        log.info("CartController => cartListForMain(POST) 실행 => 받은 id: "+memberInfoVO.getId());
         // CartList
         List<List<CartVO>> cartListWithCnt = new ArrayList<>();
 
         // 해당 회원 장바구니 모두 가져오기
-        List<CartVO> cartList = cartService.readAll(cartVO.getMno());
+        MemberInfoVO member = memberInfoMapper.findByUsername(memberInfoVO.getId());
+        List<CartVO> cartList = cartService.readAll(member.getMno());
+        log.info("cartList from controller: "+cartList);
 
         // 최근 장바구니에 담은 물건 2개만 가져오기
         List<CartVO> recentCartList = new ArrayList<>();
-        if(cartList != null){
-            recentCartList.add(cartList.get(0));
-            recentCartList.add(cartList.get(1));
+        if(cartList.size()>=1){ // cart가 있으면
+            log.info("cartList 있는 경우 접근");
+            if(cartList.size()>2){
+                IntStream.rangeClosed(0,1).forEach(i->{
+                    recentCartList.add(cartList.get(i));
+                });
+            }
+            else {
+                recentCartList.add(cartList.get(0));
+                recentCartList.add(cartList.get(1));
+            }
+        }
+        else { // cart가 없으면
+            log.info("cartList 없는 경우 접근");
+            CartVO cartVO = new CartVO();
+            cartVO.setStatus("없음");
+            recentCartList.add(cartVO);
+
         }
 
         // 장바구니 상품 개수 가져오기
         int cartCnt = cartList.size();
 
-        // 장바구니 상품 개수 담긴 CartVO List
+        // 장바구니 상품 개수 + mno 담긴 CartVO List
         List<CartVO> cartCntList = new ArrayList<>();
         CartVO cart = new CartVO();
+        cart.setMno(member.getMno());
         cart.setCartCnt(cartCnt);
         cartCntList.add(cart);
 

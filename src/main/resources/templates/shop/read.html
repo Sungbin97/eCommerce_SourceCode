@@ -371,7 +371,7 @@
 
 <script th:inline="javascript">
     function loadCartModal(){
-        let mno = [[${member.mno}]]
+        let mno = $("input[name=mnoSec]").val();
         str ='';
         str +='  <div class="modal-content">\n' +
             '                    <div class="modal-header">\n' +
@@ -390,7 +390,7 @@
             $(".modalbody").html(str)
     }
     function loadCartModal2(){
-        let mno = [[${member.mno}]]
+        let mno = $("input[name=mnoSec]").val();
         str ='';
         str +='   <div class="modal-content">\n' +
             '                    <div class="modal-header">\n' +
@@ -433,9 +433,17 @@
     //장바구니 등록하기
     $(".btn_cart").click(function (e){
 
+        // 비회원이 클릭하면 로그인 화면으로 이동 SW 추가 0607
+        console.log("mnoSec: ",$("input[name=mnoSec]").val())
+        if($("input[name=mnoSec]").val() === ""){
+            console.log("장바구니 담기 검증 들어오나")
+            alert("로그인 후 이용해주세요");
+            window.location.href = '/dan/login'
+        }
+
         e.preventDefault()
 
-        let cartMno=  [[${member.mno}]]
+        let cartMno = $("input[name=mnoSec]").val(); // SW 수정 0607 시큐리티로 받은 mno 반영
         let cartPno = [[${pvo.pno}]]
         let cName = [[${pvo.pName}]]
         let pImage = [[${pvo.pImage}]]
@@ -878,12 +886,20 @@
                 $(".price_div").html(str)
                 $("input[name='orders[0].pOptionPrice']").val(result[2])
             }
-
         }
 
         /* 바로구매 버튼 */
         $(".btn_buy").on("click", function(){
-            let mno = [[${member.mno}]]
+
+            // 비회원이 클릭하면 로그인 화면으로 이동 SW 추가 0607
+            console.log("mnoSec: ",$("input[name=mnoSec]").val())
+            if($("input[name=mnoSec]").val() === ""){
+                console.log("장바구니 담기 검증 들어오나")
+                alert("로그인 후 이용해주세요");
+                window.location.href = '/dan/login'
+            }
+
+            let mno = $("input[name=mnoSec]").val(); // SW수정 0607
             let itemCount = $("#amountBox").val();
             $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
             let inputs= $(".order_form").find("input")
@@ -900,7 +916,8 @@
                 alert("옵션을 선택해주세요!")
             }
             else{
-                $(".order_form").attr("action","/order/"+mno)
+                $(".order_form").attr("action","/order/"+$("input[name=mnoSec]").val())
+                console.log($(".order_form").attr("action"))
                 $(".order_form").submit();
             }
 
@@ -1232,7 +1249,7 @@
 
         })
         function commentLike(rno,rmno){
-            let mno = [[${member.mno}]]
+            let mno = $("input[name=mnoSec]").val(); // SW 수정 0607
             let pno = [[${pvo.pno}]]
             console.log("pno",pno,"rmno",rmno,"rno",rno,"mno",mno)
 
@@ -1377,7 +1394,7 @@
                 str +='</ul>'
                 str +='</div>'
                 str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
-                str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+mno+'">상품 문의</a></div>'
+                str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
                 $(data).each(function (){
                     str+='<div class="pro-info-tab tab-pane" id="data-sheet">'
                     str +='<table class="table-data-sheet" style="height: 100px;">'
@@ -1452,7 +1469,7 @@
             loadDeliDetailed();
         })
         // 찜하기 데이터 가져오기
-        let mno =2
+        let mno = $("input[name=mnoSec]").val() // SW 수정 0607
         $.ajax({
             type:"get",
             url :"/sw/mypage/interest/getOne",
