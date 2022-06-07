@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- mypage head fragment -->
-  <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
-  <title>mypage-main</title>
+    <!-- mypage head fragment -->
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <title>mypage-main</title>
+
 </head>
 <style>
-  .search_result_div{
-    width: 200px;
-  }
-  .search_img{
-    display: block;
-    float: left;
-    margin-right: 15px;
-    width: 95px;
-  }
-  .search_Name{
-    width: 95px;
-    font-size: 20px;
-    text-align: center;
-  }
-  .float-end{
-    margin-right: 80px;
-  }
-  .reviewCnt_span{
-    font-size:12px;
-    margin-left: 3px;
-  }
+    .search_result_div{
+        width: 200px;
+    }
+    .search_img{
+        display: block;
+        float: left;
+        margin-right: 15px;
+        width: 95px;
+    }
+    .search_Name{
+        width: 95px;
+        font-size: 20px;
+        text-align: center;
+    }
+    .float-end{
+        margin-right: 80px;
+    }
+    .reviewCnt_span{
+        font-size:12px;
+        margin-left: 3px;
+    }
 </style>
 <body>
 <!-- mypage header fragment -->
@@ -34,77 +35,67 @@
 
 <!-- START SLIDER SECTION -->
 <div class="home-slider-section section">
-  <div class="container">
-    <div class="row">
-      <!-- Home Slick Text Slider -->
-      <div class="home-slick-text-slider col-sm-6 col-xs-12">
-        <!-- Home Text Content -->
-        <div class="home-slick-content">
-          <h1>BUNDANG X</h1>
-          <p>친환경 소재의 새로운 느낌을 경험해보세요!</p>
-          <a href="#" class="btn">SHOP NOW</a>
-        </div>
-        <div class="home-slick-content">
-          <h1>여성의류 할인</h1>
-          <p>여성 스포츠용 제품 상시 할인 중</p>
-          <a href="#" class="btn">SHOP NOW</a>
-        </div>
-          <!-- Home Text Content -->
-          <div class="home-slick-content">
-            <h1>WORK IT OUT</h1>
-            <p>여러분의 지식과 노하우를 공유해보세요!</p>
-            <a href="#" class="btn">커뮤니티 들어가기</a>
-          </div>
-    </div>
-      <!-- Home Slick Image Slider -->
+    <div class="container">
+        <div class="row">
+            <!-- Home Slick Text Slider -->
+            <div class="home-slick-text-slider col-sm-6 col-xs-12">
+                <!-- Home Text Content -->
+                <div class="home-slick-content"  >
+                    <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s" >BUNDANG X</h1>
+                    <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">친환경 소재의 새로운 느낌을 경험해보세요</p>
+                    <a href="#" class="btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">SHOP NOW</a>
+                </div>
+                <div class="home-slick-content">
+                    <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">여성 스포츠 할인</h1>
+                    <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">여성 스포츠 제품을 합리적인 가격에 만나보세요</p>
+                    <a href="#" class="btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">SHOP NOW</a>
+                </div>
+                <!-- Home Text Content -->
+                <div class="home-slick-content">
+                    <h1>WORK IT OUT</h1>
+                    <p>여러분의 지식과 노하우를 공유해보세요</p>
+                    <a href="#" class="btn">커뮤니티 들어가기</a>
+                </div>
+            </div>
+            <!-- Home Slick Image Slider -->
 
-      <div class="home-slick-image-slider col-sm-6 col-xs-12">
-        <div class="image"><img src="mainPageImg/pic3.png" alt=""></div>
-        <div class="image"><img src="mainPageImg/main8.png" alt=""></div>
-        <div class="image"><img src="mainPageImg/pic6.png" alt=""></div>
-      </div>
+            <div class="home-slick-image-slider col-sm-6 col-xs-12">
+                <div class="image"><img src="mainPageImg/pic3.png" alt=""></div>
+                <div class="image"><img src="mainPageImg/main8.png" alt=""></div>
+                <div class="image"><img src="mainPageImg/pic6.png" alt=""></div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <!-- END SLIDER SECTION -->
 
-<!-- PRODUCT SECTION START -->
-<div class="product-section section pt-120 pb-120">
-  <div class="container">
 
+<div class="product-section section pt-120 pb-120" style="margin-top: 100px">
+    <div class="container">
 
-<!--1번-->
-    <div class="row">
-      <div class="section-title text-center col-xs-12 mb-60">
-        <h2>베스트 상품</h2>
-      </div>
-    </div>
-
-    <div class="isotope-grid row">
-
-      <div class="isotope-item  col-xl-3 col-lg-4 col-md-6 col-12 mb-50" th:classappend="${dto.pCateCode}" th:each="dto : ${list}">
-        <div class="product-item product-item-2 text-center">
-          <!-- Product Image -->
-          <div class="product-img">
-            <!-- Image -->
-            <a class="image"  th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|"  alt=""></a>
-            <!-- Action Button -->
-            <div class="action-btn-2">
-              <a href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
-              <a href="#" data-bs-toggle="modal"  data-bs-target="#quickViewModal" title="Quick View"><i class="pe-7s-look"></i></a>
-              <a class="wishlist"  title="Wishlist"><i class="pe-7s-like"></i></a>
+        <div class="row">
+            <div class="section-title text-center col-xs-12 mb-60">
+                <h2>BEST SELLERS</h2>
             </div>
-          </div>
-          <!-- Portfolio Info -->
-          <div class="product-info">
-            <!-- Title -->
-            <h5 class="title"><a th:href="@{/shop/read(pno=${dto?.pno},mno=2)}">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
-            <!-- Price -->
-            <div class="price-ratting fix">
-              <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
-            </div>
-            <br>
-            <span class="ratting float-end "  >
+        </div>
+
+        <div class="row">
+            <div class="product-slider product-slider-4">
+                <!-- Product Item Start -->
+                <div class="col-xs-12" th:each="dto : ${list}">
+                    <div class="product-item text-center" >
+                        <div class="product-img">
+                            <a class="image" th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|" alt=""/></a>
+                            <a class="wishlist" href="#" title="Wishlist"><i class="pe-7s-like"></i></a>
+
+                        </div>
+                        <div class="product-info text-left">
+                            <h5 class="title"><a href="product-details.html">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
+                            <div class="price-ratting fix">
+                                <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
+                            </div>
+                            <br>
+                            <span class="ratting float-end "  >
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
                                     <i class="fa fa-star active"
                                        th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
@@ -114,7 +105,7 @@
                                 </th:block>
 
                             </span>
-            <span th:if="${#numbers.formatInteger(dto.pRating,0)} ==0" class="ratting float-end">
+                            <span th:if="${#numbers.formatInteger(dto.pRating,0)} ==0" class="ratting float-end">
                                     <i class="fa fa-star "></i>
                                     <i class="fa fa-star "></i>
                                     <i class="fa fa-star "></i>
@@ -122,139 +113,137 @@
                                     <i class="fa fa-star "></i>
                             <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
                         </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Item End -->
 
-          </div>
 
-        </div>
-        <div class="hidden_data_div">
-          <input type="hidden" name="pno" th:value="${dto.pno}">
-        </div>
-      </div>
 
-    </div>
-<!--    1번끝-->
-<!--    2번-->
-    <div class="row">
-      <div class="section-title text-center col-xs-12 mb-60">
-        <h2>MD's PICK</h2>
-      </div>
-    </div>
 
-    <div class="isotope-grid row">
-
-      <div class="isotope-item  col-xl-3 col-lg-4 col-md-6 col-12 mb-50" th:classappend="${dto.pCateCode}" th:each="dto : ${list}">
-        <div class="product-item product-item-2 text-center">
-          <!-- Product Image -->
-          <div class="product-img">
-            <!-- Image -->
-            <a class="image"  th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|"  alt=""></a>
-            <!-- Action Button -->
-            <div class="action-btn-2">
-              <a href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
-              <a href="#" data-bs-toggle="modal"  data-bs-target="#quickViewModal" title="Quick View"><i class="pe-7s-look"></i></a>
-              <a class="wishlist"  title="Wishlist"><i class="pe-7s-like"></i></a>
             </div>
-          </div>
-          <!-- Portfolio Info -->
-          <div class="product-info">
-            <!-- Title -->
-            <h5 class="title"><a th:href="@{/shop/read(pno=${dto?.pno},mno=2)}">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
-            <!-- Price -->
-            <div class="price-ratting fix">
-              <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
-            </div>
-            <br>
-            <span class="ratting float-end "  >
-                                <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
-                                    <i class="fa fa-star active"
-                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
-                                     <i class="fa fa-star"
-                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>
-                                    <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
-                                </th:block>
-
-                            </span>
-            <span th:if="${#numbers.formatInteger(dto.pRating,0)} ==0" class="ratting float-end">
-                                    <i class="fa fa-star "></i>
-                                    <i class="fa fa-star "></i>
-                                    <i class="fa fa-star "></i>
-                                    <i class="fa fa-star "></i>
-                                    <i class="fa fa-star "></i>
-                            <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
-                        </span>
-
-          </div>
-
         </div>
-        <div class="hidden_data_div">
-          <input type="hidden" name="pno" th:value="${dto.pno}">
-        </div>
-      </div>
-
     </div>
-
-<!--    2번끝-->
-
-
-  </div>
 </div>
-<!-- PRODUCT SECTION END -->
+<!-- 1번끝 -->
 
-<!-- 커뮤니티 글 -->
-<div class="blog-section section pb-80">
-  <div class="container">
+<!-- 2번 -->
+<div class="product-section section pb-120" style="margin-top: 50px">
+    <div class="container">
 
-      <div class="row">
-          <div class="section-title text-center col-xs-12 mb-60">
-              <h2>Work it out 베스트</h2>
-          </div>
-      </div>
+        <div class="row">
+            <div class="section-title text-center col-xs-12 mb-60">
+                <h2>MD's PICK</h2>
+            </div>
+        </div>
 
-    <div class="row">
-      <!-- Home Blog Item -->
-      <div class="col-lg-6 col-12  mb-40">
-        <div class="home-blog-item">
-          <!-- Image -->
-          <a href="blog-details.html" class="image float-start"><img src="img/blog/1.jpg" alt=""></a>
-          <!-- Content -->
-          <div class="content fix">
-            <!-- Date -->
-            <span class="date">
+        <div class="row">
+            <div class="product-slider product-slider-4">
+                <!-- Product Item Start -->
+                <div class="col-xs-12" th:each="dto : ${list}">
+                    <div class="product-item text-center" >
+                        <div class="product-img">
+                            <a class="image" th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|" alt=""/></a>
+                            <a class="wishlist" href="#" title="Wishlist"><i class="pe-7s-like"></i></a>
+
+                        </div>
+                        <div class="product-info text-left">
+                            <h5 class="title"><a href="product-details.html">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
+                            <div class="price-ratting fix">
+                                <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
+                            </div>
+                            <br>
+                            <span class="ratting float-end "  >
+                                <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
+                                    <i class="fa fa-star active"
+                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
+                                     <i class="fa fa-star"
+                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>
+                                    <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
+                                </th:block>
+
+                            </span>
+                            <span th:if="${#numbers.formatInteger(dto.pRating,0)} ==0" class="ratting float-end">
+                                    <i class="fa fa-star "></i>
+                                    <i class="fa fa-star "></i>
+                                    <i class="fa fa-star "></i>
+                                    <i class="fa fa-star "></i>
+                                    <i class="fa fa-star "></i>
+                            <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Item End -->
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 2번끝 -->
+
+<!-- BLOG SECTION START -->
+<div class="blog-section section pb-80" style="margin-top: 50px">
+    <div class="container">
+        <div class="row">
+            <div class="section-title text-center col-xs-12 mb-60">
+                <h2>WORK IT OUT 베스트 글</h2>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Home Blog Item -->
+            <div class="col-lg-6 col-12  mb-40">
+                <div class="home-blog-item">
+                    <!-- Image -->
+                    <a href="blog-details.html" class="image float-start"><img src="img/blog/1.jpg" alt=""></a>
+                    <!-- Content -->
+                    <div class="content fix">
+                        <!-- Date -->
+                        <span class="date">
                             <span class="day">12</span>
                             <span class="month">/ feb</span>
                         </span>
-            <!-- Title -->
-            <h4 class="title"><a href="blog-details.html">If you are going to use a pass.</a></h4>
-            <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>
-            <a href="blog-details.html" class="read-more">READ MORE</a>
-          </div>
-        </div>
-      </div>
-      <!-- Home Blog Item -->
-      <div class="col-lg-6 col-12  mb-40">
-        <div class="home-blog-item">
-          <!-- Image -->
-          <a href="blog-details.html" class="image float-start"><img src="img/blog/2.jpg" alt=""></a>
-          <!-- Content -->
-          <div class="content fix">
-            <!-- Date -->
-            <span class="date">
+                        <!-- Title -->
+                        <h4 class="title"><a href="blog-details.html">If you are going to use a pass.</a></h4>
+                        <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>
+                        <a href="blog-details.html" class="read-more">READ MORE</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Home Blog Item -->
+            <div class="col-lg-6 col-12  mb-40">
+                <div class="home-blog-item">
+                    <!-- Image -->
+                    <a href="blog-details.html" class="image float-start"><img src="img/blog/2.jpg" alt=""></a>
+                    <!-- Content -->
+                    <div class="content fix">
+                        <!-- Date -->
+                        <span class="date">
                             <span class="day">14</span>
                             <span class="month">/ feb</span>
                         </span>
-            <!-- Title -->
-            <h4 class="title"><a href="blog-details.html">The Extremes of Good and Evil</a></h4>
-            <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>
-            <a href="blog-details.html" class="read-more">READ MORE</a>
-          </div>
+                        <!-- Title -->
+                        <h4 class="title"><a href="blog-details.html">The Extremes of Good and Evil</a></h4>
+                        <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>
+                        <a href="blog-details.html" class="read-more">READ MORE</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <!-- BLOG SECTION END -->
+
 
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 </body>
+<script>
+
+</script>
 </html>

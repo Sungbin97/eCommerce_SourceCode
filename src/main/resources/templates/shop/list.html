@@ -287,31 +287,51 @@
             </div>
         </div>
         <!-- QUICK VIEW MODAL END-->
-        <div class="row">
-            <div class="text-center col-xs-12 mt-30">
-                <a href="#" class="btn load-more-product">load more</a>
-            </div>
+
+
+        <div class="paginationC clearfix">
+            <li  th:if="${pagingVO.prev}"
+               >
+                <a th:href="@{/shop/list(page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">이전</a>
+            </li>
+            <th:block  th:with="start = ${pagingVO.start}, end = ${pagingVO.end}">
+                <li
+                   th:with="start = ${pagingVO.start}, end = ${pagingVO.end} "
+                   th:each="pageButton : ${#numbers.sequence(start, end)}"
+                   >
+                    <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pageButton},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}" th:text="${pageButton}"></a>
+                </li>
+            </th:block>
+            <li  th:if="${pagingVO.next}"
+               >
+                <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pagingVO.end+1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">다음</a>
+            </li>
+            <div style="font-size: small;">[ page[[${cri.page}]] ]</div>
         </div>
 
-<!--        <div class="pagination">-->
-<!--            <a class="page-item" th:if="${pagingVO.prev}"-->
-<!--               th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">-->
-<!--                <button class="page-link" >이전</button>-->
-<!--            </a>-->
-<!--            <th:block  th:with="start = ${pagingVO.start}, end = ${pagingVO.end}">-->
-<!--                <a class="page-item"-->
-<!--                   th:with="start = ${pagingVO.start}, end = ${pagingVO.end} "-->
-<!--                   th:each="pageButton : ${#numbers.sequence(start, end)}"-->
-<!--                   th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${pageButton},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">-->
-<!--                    <button   th:text="${pageButton}"></button>-->
-<!--                </a>-->
-<!--            </th:block>-->
-<!--            <a class="page-item" th:if="${pagingVO.next}"-->
-<!--               th:href="@{/shop/list(main_category=${cri.main_category},sub_category=${cri.sub_category},page=${pagingVO.end+1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">-->
-<!--                <button class="page-link" >다음</button>-->
-<!--            </a>-->
-<!--        </div>-->
 
+<!--        &lt;!&ndash; Paging custom &ndash;&gt;-->
+<!--        <div class="paginationC clearfix">-->
+<!--            &lt;!&ndash; 이전 버튼 &ndash;&gt;-->
+<!--            <li th:if="${pagingVO.prev}">-->
+<!--                <a th:href="@{/shop/list(page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">Previous</a>-->
+<!--            </li>-->
+<!--            <li th:if="${exList.getPrePage() == 0}">-->
+<!--                <a>Previous</a>-->
+<!--            </li>-->
+<!--            &lt;!&ndash; 페이지 번호&ndash;&gt;-->
+<!--            <li th:each="page: ${#numbers.sequence(exList.getNavigateFirstPage(), exList.getNavigateLastPage())}" th:classappend="${page == exList.getPageNum()} ? 'active'">-->
+<!--                <a th:text="${page}" th:href="@{/sw/mypage/exchange/list(pageNum=${page}, mno=${mno})}"></a>-->
+<!--            </li>-->
+<!--            &lt;!&ndash; 다음 버튼&ndash;&gt;-->
+<!--            <li th:if="${exList.getNextPage() != 0}">-->
+<!--                <a th:href="@{/sw/mypage/exchange/list(pageNum=${exList.getNextPage()}, mno=${mno})}">Next</a>-->
+<!--            </li>-->
+<!--            <li th:if="${exList.getNextPage() == 0}">-->
+<!--                <a>Next</a>-->
+<!--            </li>-->
+<!--            <div style="font-size: small;">[ page[[${pageNum}]] ]</div>-->
+<!--        </div>-->
     </div>
 </div>
 <!-- mypage footer fragment -->
@@ -334,7 +354,7 @@
                 str += '<div class="search_result_div">'
                 str +=	'<a href="/shop/read?pno='+this.pno+'"><img class="search_img" src=/display?fileName='+this.pimage+'></a><br>';
                 str +=	'<br><a class="search_Name"  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a>';
-                str +=   '<span style="font-size:7px">'+this.pprice+'원</span>';
+                str +=   '<div style="font-size:7px">'+this.pprice+'원</div>';
                 str += '</div>'
                 str += '<hr/>';
             })
