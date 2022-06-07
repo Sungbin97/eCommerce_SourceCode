@@ -85,27 +85,8 @@
 
     <!-- 카트 메뉴 데이터 (SW 추가 0605) -->
     <script>
-        $(document).ready(function (){
-            // 장바구니 총 개수 업데이트용 (회원번호 인식될때만 작동)
-            // var mno = $("input[name=mno]").val();
-            // if(mno!==undefined){
-            //     var data ={mno:mno}
-            //     console.log("입력받은 data: ",data)
-            //     $.ajax({
-            //         url:'/sw/mypage/cart/listCnt',
-            //         method:'post',
-            //         data:JSON.stringify(data),
-            //         contentType:'application/json; charset=utf-8',
-            //         dataType:'text',
-            //         success:function (cartCnt){
-            //             console.log("Ajax통신 성공 후 받은 carCnt: ",cartCnt); // 받아온 데이터
-            //             $("#cartCntSpan").text(cartCnt); // 장바구니 상품 개수 업데이트
-            //         }
-            //     })
-            // }
-        })
-        // 사용자 로그인하면 MyPage 접근 url 변경 --------------------------------------------------------
 
+        // Cart 관련 ---------------------------------------------------------------------------------
         $(".uploadCartResult").empty(); // 데이터 중복 방지
 
         // id 가져오기
@@ -183,6 +164,7 @@
                     $("#mypageMain").attr("href","/sw/mypage/main?mno="+getMno);
                     $("#mypageInterest").attr("href","/sw/mypage/interest?mno="+getMno);
                     $("#mypageRegQ").attr("href","/sw/mypage/personalQ/regQ?mno="+getMno);
+                    $("#getCartListM").attr("href","/sw/mypage/cart/list?mno="+getMno);
                 }
             })
         }
