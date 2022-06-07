@@ -6,6 +6,7 @@ import com.green.team4.mapper.sw.*;
 import com.green.team4.vo.sw.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,8 +58,19 @@ public class MemberInfoServiceImpl implements MemberInfoService{
     @Override
     public int modifyByMember(MemberInfoVO memberInfoVO) {
         log.info("MemberInfoService => modifyByMember(회원전용) 실행 => 받은 MemberInfoVO: "+memberInfoVO);
+        log.info("수정 대상 mno: "+memberInfoVO.getMno());
+
+        // 비밀번호 조정
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String rawPassword = memberInfoVO.getPassword(); // 사용자 입력 비밀번호
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+        log.info("encodePassword: "+encPassword);
+
+        // 조정 비밀번호 반영 및 회원정보 수정
+        memberInfoVO.setPassword(encPassword);
         int modResult = memberInfoMapper.updateByMember(memberInfoVO);
         log.info("memberInfoMapper 호출 => update 후 수정된 개수: "+modResult);
+
         return modResult;
     }
 
@@ -194,3 +206,4 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         return memberInfoMapper.findByUsername(id);
     }
 }
+
