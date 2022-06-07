@@ -140,11 +140,17 @@
                                 <ul>
                                     <li><a href="#" class="account-toggle"><i class="pe-7s-config"></i></a>
                                         <ul class="account-menu">
-                                            <form form-method="post" th:action="@{/logout}">
+                                            <form method="post" th:action="@{/logout}">
                                                 <li><a sec:authorize="isAuthenticated()" type="submit">Logout</a></li>
                                                 <li><a sec:authorize="isAnonymous()" th:href="@{/dan/login}" type="submit">Login</a></li>
-
                                             </form>
+                                            <ul sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                                                <li><a th:href="@{/sb/member/member?mno=1}">member</a></li>
+                                                <li><a th:href="@{/sb/product/upload}">product upload</a></li>
+                                                <li><a th:href="@{/sb/product/list(pno=1)}">product list</a></li>
+                                                <li><a th:href="@{/sb/mail/write}">mail write</a></li>
+                                                <li><a th:href="@{/sb/mail/list}">mail list</a></li>
+                                            </li>
                                             <li><a href="/dan/*/signup">Register</a></li>
                                             <li><a href="/sw/mypage/main?mno=2">My Account</a></li>
                                             <li><a href="/sw/mypage/interest/list?mno=2">Wish list</a></li>

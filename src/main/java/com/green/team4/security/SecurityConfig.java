@@ -15,6 +15,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder encodePwd() {
         return new BCryptPasswordEncoder();
     }
+    @Bean
+    public LoginFailHandler loginFailHandler(){
+        return new LoginFailHandler();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -32,11 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/dan/login")
                 .loginProcessingUrl("/loginProc")
                 .defaultSuccessUrl("/mainPage")
+                .failureHandler(loginFailHandler())
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/user/logout/result")
-                .invalidateHttpSession(true)
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/mainPage")
+                .invalidateHttpSession(true).deleteCookies("JSESSIONID")
                 .and()
                 .exceptionHandling().accessDeniedPage("/dan/denied");
     }

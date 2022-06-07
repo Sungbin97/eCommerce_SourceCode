@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -23,27 +21,33 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+//    @GetMapping("/login")
+//    public void Login (LoginVO loginVO) {
+//
+//    }
     @GetMapping("/login")
-    public void Login (LoginVO loginVO) {
-
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "errorMessage", required = false) String errorMessage,
+                        @RequestParam(value = "exception", required = false) String exception,
+                        Model model) {
+        log.info("login error: "+error);
+        log.info("login errorMessage: "+errorMessage);
+        log.info("login exception: "+exception);
+        model.addAttribute("error", error);
+        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("exception", exception);
+        return "/dan/login";
     }
+
     @GetMapping("/denied")
     public void denied () {
 
     }
+    @GetMapping("/logout")
+    public void logout () {
 
-//    @PostMapping("/login")
-//    public ResponseEntity<String> loginPost(@RequestBody LoginVO vo){
-//        System.out.println("로그인 Post Mapping 작동하나 "  +vo);
-//        LoginVO login = loginService.login(vo);
-//        String success = "";
-////        String fail = "";
-//        if (login != null) success ="성공";
-//        else success ="실패";
-////        fail= "아이디 또는 비밀번호가 맞지 않습니다.";
-//        System.out.println("컨트롤러에서 success 값 확인"+ success);
-//
-//        return new ResponseEntity<>(success, HttpStatus.OK);
-//    }
+    }
+
+
 }
 

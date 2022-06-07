@@ -17,7 +17,7 @@ public class PrincipalDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException{
         MemberInfoVO member = memberInfoService.findById(id);
         if(member != null){
-            System.out.println("UserDetails loadUserByUsername: " + id);
+            System.out.println("UserDetails loadUserByUsername => "+"mno: "+member.getMno() + " name: "+member.getName() + " auth: "+member.getAuth());
             return new PrincipalDetails(member);
         }
         return null;

@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-10 col-12 mx-auto">
                     <div class="login-reg-form">
-                        <form>
+                        <form action="/loginProc" method="post">
                             <div class="row">
                                 <h3>로그인</h3>
                                 <p>아이디와 비밀번호를 입력해주세요</p>
@@ -57,6 +57,12 @@
                                         <a style="font-weight: bold" href="/dan/signupCategory">회원가입</a>
                                     </label>
                                 </div>
+                                <sapn th:if="${errorMessage}">
+                                    <p>[[${errorMessage}]]</p>
+                                </sapn>
+                                <sapn th:if="${exception}">
+                                    <p>[[${exception}]]</p>
+                                </sapn>
                             </div>
                         </form>
                     </div>
@@ -72,31 +78,5 @@
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 <script>
 
-$("#button").click(function (e){
-    var data= {
-        id:$("#id").val(),
-        password:$("#password").val()
-    }
-    console.log("쿼리문에서 데이터가 잘 전달되나?",data)
-    $.ajax({
-        url:'/dan/login',
-        method:'post',
-        data:JSON.stringify(data),
-        contentType:'application/json; charset=utf-8',
-        dataType: 'text',
-        success:function (success){
-            console.log("html에서 success 값 확인",success)
-            if(success == "성공") {
-                window.location.href= '/dan/samplemain';
-            }
-            else {
-                alert("아이디 또는 비밀번호가 틀렸습니다.")
-            }
-            console.log("Ajax 통신 성공", result);
-            self.location.reload();
-        }
-
-    })
-})
 </script>
 </html>
