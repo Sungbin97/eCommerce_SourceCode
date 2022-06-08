@@ -85,4 +85,24 @@
         select * from tbl_board
             limit 10
     </select>
+
+    <!-- SW추가 -->
+    <select id="getAllByMno" resultType="com.green.team4.vo.community.BoardVO">
+        select * from tbl_board
+        where mno=#{mno}
+    </select>
+
+    <!-- SW추가 -->
+    <select id="getAllByMnoSearch" resultType="com.green.team4.vo.community.BoardVO">
+        select * from tbl_board
+        where mno=#{mno}
+        <if test="keyword == 'title'">
+            AND title LIKE CONCAT('%',#{search},'%')
+        </if>
+        <if test="keyword == 'content'">
+            AND content LIKE CONCAT('%',#{search},'%')
+        </if>
+        order by regDate desc
+    </select>
+
 </mapper>

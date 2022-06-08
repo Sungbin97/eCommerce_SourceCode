@@ -58,4 +58,11 @@ public class ReviewController {
 
         return new ResponseEntity<>(reply, HttpStatus.OK);
     }
+
+    @PostMapping("/remove")
+    public String reviewRemove(ReviewMpVO reviewMpVO){ // 리뷰 삭제
+        log.info("OrderController => reviewRemove(POST) 실행 => 받은 reviewMpVO: "+reviewMpVO);
+        reviewMpService.remove(reviewMpVO);
+        return "redirect:/mypage/review/list?mno="+reviewMpVO.getMno();
+    }
 }

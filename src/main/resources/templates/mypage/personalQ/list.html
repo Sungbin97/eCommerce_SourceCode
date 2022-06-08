@@ -51,7 +51,7 @@
                                     <td class="pro-stock-stauts"><a style="font-weight: bold; color: #191c1f" th:href="@{/mypage/personalQ/read(pqNo=${pq.pqNo})}" th:text="${pq.pqNo}"></a></td>
                                     <td class="pro-stock-stauts" name="pqCategory" th:text="${pq.pqCategory}"></td>
                                     <td class="pro-title" name="pqTitle" th:text="${pq.pqTitle}"></td>
-                                    <td class="pro-title" th:text="${pq.pqStatus}"></td>
+                                    <td style="font-weight: bold; color: #191c1f" class="pro-title" th:text="${pq.pqStatus}"></td>
                                     <td class="pro-remove">
                                         <form th:action="@{/mypage/personalQ/delete}" th:method="post">
                                             <input type="hidden" name="pqNo" th:value="${pq.pqNo}" readonly>

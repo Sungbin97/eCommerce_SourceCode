@@ -17,9 +17,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-banner-content">
-                        <h1 th:text="${memName}+'님'"></h1>
+                        <h1 th:text="'마이페이지'"></h1>
                         <ul class="breadcrumb">
-                            <li><a href="#">Home</a></li>
+                            <li><a th:id="goBack">Home</a></li>
                             <li class="active">myPage</li>
                         </ul>
                     </div>
@@ -28,28 +28,57 @@
         </div>
     </div>
 
+    <div class="product-section section pt-60" style="margin-top: 50px">
+        <div class="container">
+            <div class="row">
+                <div class="section-title text-center col-xs-12 mb-60">
+                    <h2 style="font-weight:bold;" class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s" >[[${memName}]] 님 환영합니다 :)</h2>
+                    <br>
+                    <p style="font-size: large" class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">쇼핑 내역 등 다양한 정보를 확인해보세요</p>
+                    <br/>
+                    <br/>
+                    <div class="product-img wow fadeInUp">
+                        <a class="image" th:href="@{/mypage/memberInfo/read(mno=${mno})}">
+                            <img src="/icons_bootstrap/person-circle.svg" height="100" alt="">
+                        </a>
+                    </div>
+                    <br/>
+                    <div class="product-img wow fadeInUp">
+                        <h5 style="font-weight: bold" class="wow fadeInUp">[[${memName}]] 님</h5>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h4 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s" ><span style="font-weight: bold" th:text="${#calendars.format(#calendars.createNow(),'MM')}+'월 '"></span>적립한 포인트</h4>
+                    <p style="color: #dc3545" class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s"
+                       data-th-text="${#numbers.formatInteger(thisMPoint, 3, 'COMMA') + ' POINT'}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- List -->
-    <div class="page-section section pt-120"> <!-- class: pb-120 지움 -->
+    <div class="page-section section pt-40"> <!-- class: pb-120 지움 -->
         <div class="container">
             <div class="isotope-grid row">
 
                 <!-- 개인정보관리 -->
-                <div class="isotope-item ptable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
-                    <div class="product-item product-item-2 text-center">
-                        <!-- Menu Image -->
-                        <div class="product-img">
-                            <!-- Image -->
-                            <a class="image" th:href="@{/mypage/memberInfo/read(mno=${mno})}">
-                                <img src="/icons_bootstrap/person-circle.svg" height="80" alt="">
-                            </a>
-                        </div>
-                        <!-- Menu Info -->
-                        <div class="product-info">
-                            <h5 class="title">개인정보관리</h5>
-                            <p><br/></p>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="isotope-item ptable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">-->
+<!--                    <div class="product-item product-item-2 text-center">-->
+<!--                        &lt;!&ndash; Menu Image &ndash;&gt;-->
+<!--                        <div class="product-img">-->
+<!--                            &lt;!&ndash; Image &ndash;&gt;-->
+<!--                            <a class="image" th:href="@{/mypage/memberInfo/read(mno=${mno})}">-->
+<!--                                <img src="/icons_bootstrap/person-circle.svg" height="80" alt="">-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Menu Info &ndash;&gt;-->
+<!--                        <div class="product-info">-->
+<!--                            <h5 class="title">개인정보관리</h5>-->
+<!--                            <p><br/></p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
                 <!-- 찜목록 -->
@@ -160,6 +189,24 @@
                     </div>
                 </div>
 
+                <!-- 커뮤니티 글 -->
+                <div class="isotope-item pable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Menu Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" th:href="@{/mypage/board/list(mno=${mno})}">
+                                <img src="/icons_bootstrap/globe2.svg" height="80" alt="">
+                            </a>
+                        </div>
+                        <!-- Menu Info -->
+                        <div class="product-info">
+                            <h5 class="title">내가 쓴 커뮤니티 글</h5>
+                            <p>[[${bCnt}]] 개</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 스포츠시설 찾기 -->
                 <div class="isotope-item pable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
                     <div class="product-item product-item-2 text-center">
@@ -192,5 +239,12 @@
 
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
+
+<script>
+    // Mypage 메인으로 돌아가기 버튼 클릭하면 동작
+    $("#goBack").click(function (){
+        window.location.href = '/mainPage';
+    })
+</script>
 
 </html>

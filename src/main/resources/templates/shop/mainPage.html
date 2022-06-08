@@ -232,18 +232,18 @@
             <div class="col-lg-6 col-12  mb-40 " th:each="board : ${boardList}">
                 <div class="home-blog-item">
                     <!-- Image -->
-                    <a th:href="@{/community/board/read(uNo=${board.uNo})}" class="image float-start"><img src="mainPageImg/community2.png" alt="mainPageImg/community2.png"></a>
+                    <a th:href="@{/community/board/read(mno=${board.mno})}" class="image float-start"><img src="mainPageImg/community2.png" alt="mainPageImg/community2.png"></a>
                     <!-- Content -->
                     <div class="content fix">
                         <!-- Date -->
-                        <span class="date" th:text="${board.userName}">
+<!--                        <span class="date" th:text="${board.mno}">-->
 <!--                            <span class="day">12</span>-->
                             <!--                            <span class="month"></span>-->
                         </span>
                         <!-- Title -->
-                        <h4 class="title" th:text="${board.title}"><a th:href="@{/community/board/read(uNo=${board.uNo})}"></a></h4>
-                        <p >여기에는 어떤 내용을 넣을까나</p>
-                        <a th:href="@{/community/board/read(uNo=${board.uNo})}" class="read-more">READ MORE</a>
+                        <h4 class="title" th:text="${board.title}"><a th:href="@{/community/board/read(bno=${board.bno})}"></a></h4>
+                        <p>[[${board.community}]]</p>
+                        <a th:href="@{/community/board/read(bno=${board.bno})}" class="read-more">READ MORE</a>
                     </div>
                 </div>
             </div>

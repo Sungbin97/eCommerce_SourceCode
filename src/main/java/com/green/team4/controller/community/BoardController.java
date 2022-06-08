@@ -107,6 +107,7 @@ public class BoardController {
         log.info("BoardController reply 댓글 등록");
     }
 
+
     // variable & method
 
     // File Upload
@@ -133,5 +134,8 @@ public class BoardController {
         img.transferTo(saveImgPath);
         return saveImgUrl;
     }
+
+
+
 
 }

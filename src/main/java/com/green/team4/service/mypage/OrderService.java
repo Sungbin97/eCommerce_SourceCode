@@ -14,4 +14,5 @@ public interface OrderService {
     int modifyItem(OrderItemVO orderItemVO); // 주문상품 업데이트
     int modifyStatus(OrderVO orderVO); // 주문상태 업데이트
     int register(OrderVO orderVO); // 취소/반품/교환 새주문서 등록
+    List<OrderVO> readAllByThisMonth();
 }

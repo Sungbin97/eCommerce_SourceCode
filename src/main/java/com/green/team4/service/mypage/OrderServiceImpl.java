@@ -105,4 +105,11 @@ public class OrderServiceImpl implements OrderService{
         log.info("OrderService => register 실행 후 등록된 데이터 개수: "+result);
         return result;
     }
+
+    @Override
+    public List<OrderVO> readAllByThisMonth() {
+        log.info("OrderService => readAllByThisMonth 실행");
+        List<OrderVO> orderList = orderMapper.getAllByThisMonth();
+        return orderList;
+    }
 }

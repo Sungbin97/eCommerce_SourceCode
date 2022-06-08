@@ -73,14 +73,15 @@
                                         <td name="iDisPrice" data-th-text="${#numbers.formatInteger(item.iDisPrice, 3, 'COMMA') + ' 원'}"></td>
                                         <td name="iCount" th:text="${item.iCount}"></td>
                                         <td name="iTotalPrice" data-th-text="${#numbers.formatInteger(item.iTotalPrice, 3, 'COMMA') + ' 원'}"></td>
-                                        <td name="isavePoint" data-th-text="${#numbers.formatInteger(item.iSavePoint, 3, 'COMMA') + ' 원'}"></td>
-                                        <td class="pro-title">
-                                            <!-- 배송조회 -->
+                                        <td name="isavePoint" data-th-text="${#numbers.formatInteger(item.iSavePoint, 3, 'COMMA') + ' POINT'}"></td>
+                                        <!-- 배송조회 -->
+                                        <td class="pro-title" style="font-weight: bold; color: #191c1f">
                                             <a th:if="${item.iDeliveryStatus != '배송전'}" th:href="@{/mypage/delivery/read(oINo=${item.oINo})}"><img width="30" height="30" src="/icons_bootstrap/truck.svg"></a>
                                             <div th:if="${item.iDeliveryStatus == '배송전'}">배송전</div>
                                         </td>
-                                        <td class="pro-title">
-                                            <!-- 리뷰등록 -->
+                                        <!-- 리뷰등록 -->
+                                        <td class="pro-title" style="font-weight: bold; color: #191c1f">
+
                                             <a th:if="${item.iReviewStatus.equals('미등록') && orderVO.tPayStatus.equals('결제완료')}"
                                                th:href="@{/mypage/order/regReview(mno=${orderVO.mno},ono=${item.ono},oINo=${item.oINo})}">
                                                 <img width="30" height="30" src="/icons_bootstrap/pencil-square.svg">
@@ -88,8 +89,8 @@
                                             <div th:if="${item.iReviewStatus != '미등록'}">등록완료</div>
                                             <div th:if="${item.iReviewStatus.equals('미등록') && orderVO.tPayStatus != '결제완료'}">작성불가</div>
                                         </td>
-                                        <td class="pro-title">
-                                            <!-- 취소/반품/교환 -->
+                                        <!-- 취소/반품/교환 -->
+                                        <td class="pro-title" style="font-weight: bold; color: #191c1f">
                                             <a th:if="${item.iExStatus.equals('미신청') && orderVO.tPayStatus.equals('결제완료')}"
                                                th:href="@{/mypage/order/exchange(mno=${orderVO.mno},ono=${item.ono},pno=${item.pno},oINo=${item.oINo})}">
                                                 <img width="20" height="20" src="/icons_bootstrap/arrow-left-right.svg">
