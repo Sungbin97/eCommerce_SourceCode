@@ -69,7 +69,7 @@ public class LoginController {
 
     }
     int authNum = generateAuthNumber();
-    @PostMapping("/findPw")
+    @PostMapping("/findPwAx")
     public ResponseEntity<Integer> findPwPost(@RequestBody MemberInfoVO vo) {
 
         MemberInfoVO findInfo = memberInfoMapper.findPw(vo);
@@ -85,15 +85,26 @@ public class LoginController {
         }
         return null;
     }
-    @GetMapping("/newPw")
-    public void newPwGet(){
 
+    @PostMapping("/findPw")
+    public String findPw(MemberInfoVO memberInfoVO){
+        log.info("findPw 실행 받은 memberInfoVO: "+memberInfoVO);
+        return "redirect:/dan/newPw?id="+memberInfoVO.getId();
     }
+
+
+    @GetMapping("/newPw")
+    public void newPwGet(String id,Model model){
+        log.info("newPwGet Id: " + id);
+        model.addAttribute("id",id);
+    }
+
+
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     @PostMapping("/newPw")
-    public String newPwPost(MemberInfoVO vo){
-        vo.setId(vo.getId());
-        log.info("받아온 id: " + vo.getId());
+    public String newPwPost(MemberInfoVO vo, String id){
+
+        log.info("받아온 id: " + id);
         String rowPw = vo.getPassword();
         log.info("받아온 비밀번호: "+rowPw);
         String encodePw = bCryptPasswordEncoder.encode(rowPw);
