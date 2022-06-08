@@ -15,8 +15,9 @@ public class BoardServiceImpl implements BoardService {
 
 
     @Override
-    public void insert(BoardVO vo) {
-        mapper.insert(vo);
+    public void insert(BoardVO boardVO) {
+        mapper.insert(boardVO);
+        System.out.println("insert 서비스 작동");
     }
 
     @Override
@@ -32,13 +33,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void modify(BoardVO vo) {
-        mapper.modify(vo);
+    public void modify(BoardVO boardVO) {
+        mapper.modify(boardVO);
     }
 
     @Override
-    public void delete(Long sid) {
-        mapper.delete(sid);
+    public void delete(Long bno) {
+        mapper.delete(bno);
     }
 
     @Override
