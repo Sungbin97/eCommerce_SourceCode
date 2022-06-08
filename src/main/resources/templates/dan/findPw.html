@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/mypage_header :: head"></th:block>
     <title>FindPassword</title>
 </head>
 <body>
     <!-- mypage header fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+    <th:block th:replace="fragments/common/mypage_header :: headerFragment"></th:block>
 
     <div class="page-banner-section section">
         <div class="container">
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-10 col-12 mx-auto">
                     <div class="login-reg-form">
-                        <form id="fp" action="/dan/findPw" method="post">
+                        <form id="fp" action="/account/findPw" method="post">
                             <div class="row">
                                 <h3>비밀번호찾기</h3>
                                 <p>아이디와 이메일을 입력해주세요</p>
@@ -56,7 +56,7 @@
                         </form>
                         <div class="col-12 mb-20">
                             <label class="inline">
-                                <a style="font-weight: bold" href="/dan/signup">회원가입</a>
+                                <a style="font-weight: bold" href="/account/signup">회원가입</a>
                             </label>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
 </body>
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/mypage_footer :: footerFragment"></th:block>
 <script>
 
     // 메인 화면으로 돌아가기
@@ -80,7 +80,7 @@
     var authNum = 0;
     function getVO(){
 			$.ajax({
-				url : "/dan/findPwAx",
+				url : "/account/findPwAx",
 				type : "POST",
 				data : JSON.stringify({
 					id : $("#id").val(),
@@ -104,7 +104,7 @@
     console.log('발급된 인증번호: ', authNum, ' 타입: ', typeof(authNum));
         if($('#auth').val() == authNum){
             alert("인증이 완료되었습니다. 비밀번호 재설정 페이지로 이동합니다.")
-            window.location.href = "/dan/newPw?id="+$("#id").val();
+            window.location.href = "/account/newPw?id="+$("#id").val();
             $("#fp").submit();
         } else{
             alert("인증번호가 유효하지 않습니다.");

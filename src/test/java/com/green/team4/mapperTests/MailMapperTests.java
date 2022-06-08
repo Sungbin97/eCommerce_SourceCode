@@ -2,7 +2,7 @@ package com.green.team4.mapperTests;
 
 import com.green.team4.mapper.admin.MailMapper;
 import com.green.team4.service.admin.MailService;
-import com.green.team4.service.sw.MemberInfoService;
+import com.green.team4.service.mypage.MemberInfoService;
 import com.green.team4.vo.admin.MailVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

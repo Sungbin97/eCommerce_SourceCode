@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/mypage_header :: head"></th:block>
     <title>mypage-main</title>
 </head>
 <style>
@@ -31,7 +31,7 @@
 </style>
 <body>
 <!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+<th:block th:replace="fragments/common/mypage_header :: headerFragment"></th:block>
 <!-- PAGE BANNER SECTION -->
 <div class="page-banner-section section">
     <div class="container">
@@ -203,7 +203,7 @@
     </div>
 </div>
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/mypage_footer :: footerFragment"></th:block>
 </body>
 <script>
     let selectView = $('#selectView');
@@ -240,7 +240,7 @@
         console.log($(this).children().find(".pe-7s-like"))
         $.ajax({
             type:"post",
-            url :"/sw/mypage/interest/insert",
+            url :"/mypage/interest/insert",
             data:{pno: pno, mno:mno},
             success:function (result){
                 if(result==1){

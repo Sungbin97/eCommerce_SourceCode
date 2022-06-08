@@ -1,7 +1,7 @@
 package com.green.team4.security;
 
-import com.green.team4.service.sw.MemberInfoService;
-import com.green.team4.vo.sw.MemberInfoVO;
+import com.green.team4.service.mypage.MemberInfoService;
+import com.green.team4.vo.mypage.MemberInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

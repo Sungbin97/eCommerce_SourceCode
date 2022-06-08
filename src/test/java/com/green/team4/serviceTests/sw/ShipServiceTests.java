@@ -1,7 +1,7 @@
 package com.green.team4.serviceTests.sw;
 
-import com.green.team4.service.sw.ShipmentService;
-import com.green.team4.vo.sw.ShipmentVO;
+import com.green.team4.service.mypage.ShipmentService;
+import com.green.team4.vo.mypage.ShipmentVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

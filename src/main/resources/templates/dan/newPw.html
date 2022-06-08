@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/mypage_header :: head"></th:block>
     <title>FindPassword</title>
 </head>
 <body>
     <!-- mypage header fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+    <th:block th:replace="fragments/common/mypage_header :: headerFragment"></th:block>
 
     <div class="page-banner-section section">
         <div class="container">
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-10 col-12 mx-auto">
                     <div class="login-reg-form">
-                        <form action="/dan/newPw" id="newPw" method="post">
+                        <form action="/account/newPw" id="newPw" method="post">
                             <div class="row">
                                 <h3>신규비밀번호등록</h3>
                                 <p>새로 등록할 비밀번호를 입력해주세요.</p>
@@ -58,7 +58,7 @@
 </body>
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/mypage_footer :: footerFragment"></th:block>
 <script>
 
     // 메인 화면으로 돌아가기

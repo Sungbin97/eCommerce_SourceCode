@@ -1,8 +1,8 @@
 package com.green.team4.controller.admin;//package com.green.team4.controller.sw;
 
 import com.github.pagehelper.PageInfo;
-import com.green.team4.service.sw.PersonalQService;
-import com.green.team4.vo.sw.PersonalQVO;
+import com.green.team4.service.mypage.PersonalQService;
+import com.green.team4.vo.mypage.PersonalQVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;

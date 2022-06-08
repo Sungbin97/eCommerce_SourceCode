@@ -5,7 +5,7 @@ import com.green.team4.mapper.shop.ShopMapper;
 import com.green.team4.mapper.admin.ProductMapper;
 import com.green.team4.mapper.admin.ProductOptMapper;
 import com.green.team4.mapper.admin.ProductImgMapper;
-import com.green.team4.mapper.sw.MemberInfoMapper;
+import com.green.team4.mapper.mypage.MemberInfoMapper;
 import com.green.team4.service.admin.ProductOptService;
 import com.green.team4.vo.shop.Product_optVO;
 import com.green.team4.vo.admin.ProductImgVO;

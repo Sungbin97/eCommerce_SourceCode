@@ -1,13 +1,13 @@
 package com.green.team4.controller.admin;
 
-import com.green.team4.mapper.sw.OrderItemMapper;
-import com.green.team4.service.sw.DeliveryService;
-import com.green.team4.service.sw.ExchangeService;
-import com.green.team4.service.sw.OrderService;
-import com.green.team4.vo.sw.DeliveryVO;
-import com.green.team4.vo.sw.ExchangeVO;
-import com.green.team4.vo.sw.OrderItemVO;
-import com.green.team4.vo.sw.OrderVO;
+import com.green.team4.mapper.mypage.OrderItemMapper;
+import com.green.team4.service.mypage.DeliveryService;
+import com.green.team4.service.mypage.ExchangeService;
+import com.green.team4.service.mypage.OrderService;
+import com.green.team4.vo.mypage.DeliveryVO;
+import com.green.team4.vo.mypage.ExchangeVO;
+import com.green.team4.vo.mypage.OrderItemVO;
+import com.green.team4.vo.mypage.OrderVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

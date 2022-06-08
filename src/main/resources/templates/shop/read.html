@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/mypage_header :: head"></th:block>
     <title>mypage-main</title>
 
 </head>
@@ -113,7 +113,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
 <!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+<th:block th:replace="fragments/common/mypage_header :: headerFragment"></th:block>
 <!-- PAGE BANNER SECTION -->
 <div class="page-banner-section section">
     <div class="container">
@@ -376,7 +376,7 @@
 
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/mypage_footer :: footerFragment"></th:block>
 
 <script th:inline="javascript">
     function loadCartModal(){
@@ -392,7 +392,7 @@
             '                    </div>\n' +
             '                    <div class="modal-footer">\n' +
             '                        <button type="button" class="btn add-to-cart" id="keepShoppingBtn1" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
-            '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>\n' +
+            '                        <a href="/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>\n' +
             '                    </div>\n' +
             '                </div>'
 
@@ -411,7 +411,7 @@
             '                    </div>\n' +
             '                    <div class="modal-footer">\n' +
             '                        <button type="button" class="btn add-to-cart" id="keepShoppingBtn2" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
-            '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>\n' +
+            '                        <a href="/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>\n' +
             '                    </div>\n' +
             '                </div>'
 
@@ -424,7 +424,7 @@
 
         $.ajax({
             type:"post",
-            url :"/sw/mypage/interest/insert",
+            url :"/mypage/interest/insert",
             data:{pno: pno, mno:mno},
             success:function (result){
                 if(result==1){
@@ -447,7 +447,7 @@
         if($("input[name=mnoSec]").val() === ""){
             console.log("장바구니 담기 검증 들어오나")
             alert("로그인 후 이용해주세요");
-            window.location.href = '/dan/login'
+            window.location.href = '/account/login'
         }
 
         e.preventDefault()
@@ -505,7 +505,7 @@
         else{
             $.ajax({
                 type: "post",
-                url: "/sw/mypage/cart/register",
+                url: "/mypage/cart/register",
                 data: JSON.stringify(data),
                 contentType: "application/json;charset=UTF-8",
                 success: (result) => {
@@ -904,7 +904,7 @@
             if($("input[name=mnoSec]").val() === ""){
                 console.log("장바구니 담기 검증 들어오나")
                 alert("로그인 후 이용해주세요");
-                window.location.replace('/dan/login')
+                window.location.replace('/account/login')
                 return false;
             }
             else{ // --------------------------------------------- SW수정 0607 (else 안에 코드 원래 else 밖에 있었음)
@@ -1398,7 +1398,7 @@
             str +='</ul>'
             str +='</div>'
             str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
-            str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
+            str +=  '<a href="/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
             $.getJSON("/rest/getQList/" + pno,function (data){
 
                 $(data).each(function (){
@@ -1478,7 +1478,7 @@
         let mno = $("input[name=mnoSec]").val() // SW 수정 0607
         $.ajax({
             type:"get",
-            url :"/sw/mypage/interest/getOne",
+            url :"/mypage/interest/getOne",
             data:{pno: pno, mno:mno},
             success:function (result){
                if(result==0){

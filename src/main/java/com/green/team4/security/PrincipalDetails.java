@@ -1,6 +1,6 @@
 package com.green.team4.security;
 
-import com.green.team4.vo.sw.MemberInfoVO;
+import com.green.team4.vo.mypage.MemberInfoVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

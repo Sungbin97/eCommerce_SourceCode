@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/mypage_header :: head"></th:block>
     <title>mypage-interest-list</title>
 </head>
 
 <body>
     <!-- mypage header fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+    <th:block th:replace="fragments/common/mypage_header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
     <div class="page-banner-section section">
@@ -59,7 +59,7 @@
 <!--                                    <td class="pro-title" th:text="${cancel.oINo}"></td>-->
                                     <td class="pro-title">
                                         <button type="button" class="btn" id="getExchangeRead">
-                                            <a style="font-size: small" th:href="@{/sw/mypage/exchange/read(eno=${cancel.eno})}">조회</a>
+                                            <a style="font-size: small" th:href="@{/templates/mypage/exchange/read(eno=${cancel.eno})}">조회</a>
                                         </button>
                                     </td>
                                     <td class="pro-title" th:text="${cancel.exStatus}"></td>
@@ -90,7 +90,7 @@
 </body>
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/mypage_footer :: footerFragment"></th:block>
 
 <script>
     $(document).ready(function (){

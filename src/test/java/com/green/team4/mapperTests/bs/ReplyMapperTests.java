@@ -1,9 +1,8 @@
 package com.green.team4.mapperTests.bs;
 
-import com.green.team4.mapper.bs.ReplyMapper;
-import com.green.team4.vo.bs.BoardVO;
-import com.green.team4.vo.bs.Criteria;
-import com.green.team4.vo.bs.ReplyVO;
+import com.green.team4.mapper.community.ReplyMapper;
+import com.green.team4.vo.community.Criteria;
+import com.green.team4.vo.community.ReplyVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

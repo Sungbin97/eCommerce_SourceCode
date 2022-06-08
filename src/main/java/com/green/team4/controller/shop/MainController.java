@@ -1,7 +1,7 @@
 package com.green.team4.controller.shop;
 
 import com.green.team4.service.shop.ShopService;
-import com.green.team4.service.bs.BoardService;
+import com.green.team4.service.community.BoardService;
 import com.green.team4.vo.shop.ItemPageCriteria;
 import com.green.team4.vo.shop.PagingVO;
 import lombok.extern.slf4j.Slf4j;

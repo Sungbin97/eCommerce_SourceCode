@@ -2,7 +2,7 @@ package com.green.team4.controller.shop;
 
 import com.green.team4.service.shop.OrderPageService;
 
-import com.green.team4.service.sw.MemberInfoService;
+import com.green.team4.service.mypage.MemberInfoService;
 import com.green.team4.vo.shop.DBOrderVO;
 import com.green.team4.vo.shop.OrderPageVO;
 import lombok.extern.slf4j.Slf4j;

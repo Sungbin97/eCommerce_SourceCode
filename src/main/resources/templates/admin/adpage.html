@@ -3,7 +3,7 @@
 
 <head>
   <!-- mypage head fragment -->
-  <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+  <th:block th:replace="fragments/common/mypage_header :: head"></th:block>
   <title>ADMIN MAIN</title>
 </head>
 
@@ -17,7 +17,7 @@
 
 <body>
 <!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+<th:block th:replace="fragments/common/mypage_header :: headerFragment"></th:block>
 
 <!-- PAGE BANNER SECTION -->
 <div class="page-banner-section section">
@@ -47,7 +47,7 @@
           <!-- Menu Image -->
           <div class="product-img">
             <!-- Image -->
-            <a class="image" th:href="@{/sw/mypage/interest/list(mno=${mno})}">
+            <a class="image" th:href="@{/templates/mypage/interest/list(mno=${mno})}">
               <img src="/icons_bootstrap/heart.svg" height="80" alt="">
             </a>
           </div>
@@ -65,7 +65,7 @@
           <!-- Menu Image -->
           <div class="product-img">
             <!-- Image -->
-            <a class="image" th:href="@{/sw/mypage/interest/list(mno=${mno})}">
+            <a class="image" th:href="@{/templates/mypage/interest/list(mno=${mno})}">
               <img src="/icons_bootstrap/heart.svg" height="80" alt="">
             </a>
           </div>
@@ -83,7 +83,7 @@
           <!-- Menu Image -->
           <div class="product-img">
             <!-- Image -->
-            <a class="image" th:href="@{/sw/mypage/interest/list(mno=${mno})}">
+            <a class="image" th:href="@{/templates/mypage/interest/list(mno=${mno})}">
               <img src="/icons_bootstrap/heart.svg" height="80" alt="">
             </a>
           </div>
@@ -101,7 +101,7 @@
           <!-- Menu Image -->
           <div class="product-img">
             <!-- Image -->
-            <a class="image" th:href="@{/sw/mypage/interest/list(mno=${mno})}">
+            <a class="image" th:href="@{/templates/mypage/interest/list(mno=${mno})}">
               <img src="/icons_bootstrap/heart.svg" height="80" alt="">
             </a>
           </div>
@@ -129,7 +129,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a47cc80dbbabed24ab87dc231f336fc&libraries=services,clusterer,drawing"></script>
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/mypage_footer :: footerFragment"></th:block>
 
 <script>
 

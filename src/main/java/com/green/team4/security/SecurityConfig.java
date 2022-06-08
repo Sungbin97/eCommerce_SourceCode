@@ -24,25 +24,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/dan/login", "/dan/signup", "/shop/list", "/mainPage","bs/board/list").permitAll()
-                .antMatchers("/dan/login/**").authenticated()
-                .antMatchers("/sw/mypage/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')")
+                .antMatchers("/account/login", "/account/signup", "/shop/list", "/mainPage","bs/board/list").permitAll()
+                .antMatchers("/account/login/**").authenticated()
+                .antMatchers("/mypage/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')")
                 .antMatchers("/order/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MEMBER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .usernameParameter("id")
-                .loginPage("/dan/login")
+                .loginPage("/account/login")
                 .loginProcessingUrl("/loginProc")
                 .defaultSuccessUrl("/mainPage")
                 .failureHandler(loginFailHandler())
                 .and()
                 .logout()
-                .logoutUrl("/dan/logout")
+                .logoutUrl("/account/logout")
                 .logoutSuccessUrl("/mainPage")
                 .invalidateHttpSession(true).deleteCookies("JSESSIONID")
                 .and()
-                .exceptionHandling().accessDeniedPage("/dan/denied");
+                .exceptionHandling().accessDeniedPage("/account/denied");
     }
 }
