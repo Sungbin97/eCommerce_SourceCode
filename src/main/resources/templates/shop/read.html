@@ -575,6 +575,7 @@
             'option' : option,
             'option2' : option2,
         }
+
         loadOptions(opt)
         $("input[name='orders[0].pColor']").val(color)
 
@@ -610,13 +611,13 @@
             let str ="";
             let pno = [[${pvo.pno}]]
             //컬러가 있을 때
-            if(colorList.length !=1 && colorList[0] != null){
+            if(colorList.length !=0 && colorList[0] != null){
                 str +='<input type="hidden" name="orders[0].pColor" value="">'
             }// 옵션이 있을때
-            if(optionList.length !=1 && optionList[0] != null){
+            if(optionList.length !=0 && optionList[0] != null){
                 str +='<input type="hidden" name="orders[0].pOption" value="">'
             }// 옵션2 있을때
-            if(optionList2.length !=1 && optionList2[0] != null){
+            if(optionList2.length !=0 && optionList2[0] != null){
                 str +='<input type="hidden" name="orders[0].pOption2" value="">'
             }
             str +='<input type="hidden"  name="orders[0].pno" value="' + pno+'">'
@@ -912,6 +913,7 @@
                 let itemCount = $("#amountBox").val();
                 $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
                 let inputs= $(".order_form").find("input")
+                console.log("")
                 let val = "";
                 let cnt="";
                 for(let i=0;i<inputs.length;i++){
@@ -1400,7 +1402,7 @@
             str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
             str +=  '<a href="/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
             $.getJSON("/rest/getQList/" + pno,function (data){
-
+                console.log("상품문의 data: ",data)
                 $(data).each(function (){
                     str+='<div class="pro-info-tab tab-pane" id="data-sheet">'
                     str +='<table class="table-data-sheet" style="height: 100px;">'
@@ -1424,15 +1426,16 @@
                     str +='</div>'
 
                 })
+                qlistInfo.html(str)
+                deleveryInfo.html('');
+                reviewHeader.html('')
+                detailInfo.html('')
+                review_not_div.html('');
+                review_div.html('');
+                pageMaker.html('');
 
             })
-            qlistInfo.html(str)
-            deleveryInfo.html('');
-            reviewHeader.html('')
-            detailInfo.html('')
-            review_not_div.html('');
-            review_div.html('');
-            pageMaker.html('');
+
         }
         $(".product-QList").on("click",".odd",function (){
 

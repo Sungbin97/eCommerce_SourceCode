@@ -308,9 +308,6 @@ create table tbl_personalQ(
     foreign key (mno) references tbl_memberInfo (mno),
     foreign key (pno) references tbl_product (pno)
 );
-select sum(tTotalPrice) as 'totalProfit' from tbl_order where tPayStatus = '결제완료';
-
-update tbl_memberInfo set auth='ROLE_ADMIN' where mno=7;
 
 -- 고객센터_1:1문의 첨부파일 SW신규추가 20220601
 create table tbl_personalQFiles(

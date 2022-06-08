@@ -45,6 +45,7 @@ public class BoardController {
     @GetMapping("/register")
     public void register(Model model,Long mno) {
         log.info("register로 이동....");
+        log.info("mno: "+mno);
         model.addAttribute("item",boardService.userInfo(mno));
     }
     // Create

@@ -61,7 +61,7 @@
                 <div class="home-slick-content">
                     <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">WORK IT OUT</h1>
                     <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">여러분의 지식과 노하우를 공유해보세요</p>
-                    <a th:href="@{/templates/community/board/list}" class="btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">커뮤니티 들어가기</a>
+                    <a th:href="@{/community/board/list}" class="btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">커뮤니티 들어가기</a>
                 </div>
             </div>
             <!-- Home Slick Image Slider -->
@@ -223,7 +223,7 @@
                 <br>
                 <p class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s">여러분의 지식과 노하우를 공유해보세요!</p>
                 <div  style="width: 150px;height: 30px;float: right" class="cart-bottom  clearfix">'
-                    <a class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" th:href="@{/templates/community/board/list}" style="color: white">커뮤니티 들어가기</a>
+                    <a class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" th:href="@{/community/board/list}" style="color: white">커뮤니티 들어가기</a>
                 </div>
             </div>
         </div>
@@ -232,7 +232,7 @@
             <div class="col-lg-6 col-12  mb-40 " th:each="board : ${boardList}">
                 <div class="home-blog-item">
                     <!-- Image -->
-                    <a th:href="@{/templates/community/board/read(uNo=${board.uNo})}" class="image float-start"><img src="mainPageImg/community2.png" alt="mainPageImg/community2.png"></a>
+                    <a th:href="@{/community/board/read(uNo=${board.uNo})}" class="image float-start"><img src="mainPageImg/community2.png" alt="mainPageImg/community2.png"></a>
                     <!-- Content -->
                     <div class="content fix">
                         <!-- Date -->
@@ -241,9 +241,9 @@
                             <!--                            <span class="month"></span>-->
                         </span>
                         <!-- Title -->
-                        <h4 class="title" th:text="${board.title}"><a th:href="@{/templates/community/board/read(uNo=${board.uNo})}"></a></h4>
+                        <h4 class="title" th:text="${board.title}"><a th:href="@{/community/board/read(uNo=${board.uNo})}"></a></h4>
                         <p >여기에는 어떤 내용을 넣을까나</p>
-                        <a th:href="@{/templates/community/board/read(uNo=${board.uNo})}" class="read-more">READ MORE</a>
+                        <a th:href="@{/community/board/read(uNo=${board.uNo})}" class="read-more">READ MORE</a>
                     </div>
                 </div>
             </div>

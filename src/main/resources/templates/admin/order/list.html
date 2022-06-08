@@ -97,7 +97,7 @@
                 <tr th:each="order : ${itemList}">
                     <td th:text="${order.orderDate}"></td>
                     <td th:text="${order.receiverName}"></td>
-                    <td><a th:href="@{/templates/mypage/order/read(ono=${order.ono})}" th:text="${order.ono}"></a></td>
+                    <td><a th:href="@{/mypage/order/read(ono=${order.ono})}" th:text="${order.ono}"></a></td>
                     <input type="hidden" th:name="ono" th:value="${order.ono}">
                     <td><select th:name="tPayStatus">
                         <option th:value="${order.tPayStatus}" th:text="'현재상태: '+${order.tPayStatus}"></option>

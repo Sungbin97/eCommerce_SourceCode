@@ -75,7 +75,7 @@
                                     <a th:href="@{/shop/read(pno=${itr.pno},mno=${itr.mno})}" th:text="'클릭'"></a>
                                 </td>
                                 <td class="pro-remove">
-                                    <form id="itrDeleteForm" th:action="@{/templates/mypage/interest/delete}" th:method="post">
+                                    <form id="itrDeleteForm" th:action="@{/mypage/interest/delete}" th:method="post">
                                         <input type="hidden" name="mno" th:value="${itr.mno}" readonly>
                                         <input type="hidden" name="pno" th:value="${itr.pno}" readonly>
                                         <input type="hidden" name="itrNo" th:value="${itr.itrNo}" readonly>
@@ -91,18 +91,18 @@
                 <div class="paginationC clearfix">
                     <!-- 이전 버튼 -->
                     <li th:if="${itrList.getPrePage() != 0}">
-                        <a th:href="@{/templates/mypage/interest/list(pageNum=${itrList.getPrePage()}, keyword=${searchVO.getKeyword()}, search=${searchVO.getSearch()}, mno=${mno})}">Previous</a>
+                        <a th:href="@{/mypage/interest/list(pageNum=${itrList.getPrePage()}, keyword=${searchVO.getKeyword()}, search=${searchVO.getSearch()}, mno=${mno})}">Previous</a>
                     </li>
                     <li th:if="${itrList.getPrePage() == 0}">
                         <a>Previous</a>
                     </li>
                     <!-- 페이지 번호-->
                     <li th:each="page: ${#numbers.sequence(itrList.getNavigateFirstPage(), itrList.getNavigateLastPage())}" th:classappend="${page == itrList.getPageNum()} ? 'active'">
-                        <a th:text="${page}" th:href="@{/templates/mypage/interest/list(pageNum=${page}, keyword=${searchVO.getKeyword()}, search=${searchVO.getSearch()}, mno=${mno})}"></a>
+                        <a th:text="${page}" th:href="@{/mypage/interest/list(pageNum=${page}, keyword=${searchVO.getKeyword()}, search=${searchVO.getSearch()}, mno=${mno})}"></a>
                     </li>
                     <!-- 다음 버튼-->
                     <li th:if="${itrList.getNextPage() != 0}">
-                        <a th:href="@{/templates/mypage/interest/list(pageNum=${itrList.getNextPage()}, keyword=${searchVO.getKeyword()}, search=${searchVO.getSearch()},mno=${mno})}">Next</a>
+                        <a th:href="@{/mypage/interest/list(pageNum=${itrList.getNextPage()}, keyword=${searchVO.getKeyword()}, search=${searchVO.getSearch()},mno=${mno})}">Next</a>
                     </li>
                     <li th:if="${itrList.getNextPage() == 0}">
                         <a>Next</a>

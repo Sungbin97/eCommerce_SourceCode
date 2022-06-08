@@ -49,13 +49,13 @@
                             <tr th:each="exchange : ${exList.getList()}">
                                 <td class="pro-stock-stauts" name="exDate" th:text="${#temporals.format(exchange.exDate, 'yyyy-MM-dd')}"></td>
                                 <td class="pro-stock-stauts" name="exEndDate" th:text="${#temporals.format(exchange.exEndDate, 'yyyy-MM-dd')}"></td>
-                                <td class="pro-title"><a th:href="@{/templates/mypage/exchange/read(eno=${exchange.eno})}" th:text="${exchange.eno}"></a></td>
-                                <td class="pro-title"><a th:href="@{/templates/mypage/order/read(ono=${exchange.ono})}" th:text="${exchange.ono}"></a></td>
+                                <td class="pro-title"><a th:href="@{/mypage/exchange/read(eno=${exchange.eno})}" th:text="${exchange.eno}"></a></td>
+                                <td class="pro-title"><a th:href="@{/mypage/order/read(ono=${exchange.ono})}" th:text="${exchange.ono}"></a></td>
                                 <td class="pro-title" th:text="${exchange.pName}"></td>
                                 <td class="pro-title" th:text="${exchange.exCategory}"></td>
                                 <td class="pro-title" th:text="${exchange.exStatus}"></td>
                                 <td class="pro-remove">
-                                    <form th:action="@{/templates/mypage/exchange/delete}" th:method="post">
+                                    <form th:action="@{/mypage/exchange/delete}" th:method="post">
                                         <input type="hidden" name="mno" th:value="${exchange.mno}" readonly>
                                         <input type="hidden" name="eno" th:value="${exchange.eno}" readonly>
                                         <input type="hidden" name="ono" th:value="${exchange.ono}" readonly>
@@ -74,18 +74,18 @@
                 <div class="paginationC clearfix">
                     <!-- 이전 버튼 -->
                     <li th:if="${exList.getPrePage() != 0}">
-                        <a th:href="@{/templates/mypage/exchange/list(pageNum=${exList.getPrePage()}, mno=${mno})}">Previous</a>
+                        <a th:href="@{/mypage/exchange/list(pageNum=${exList.getPrePage()}, mno=${mno})}">Previous</a>
                     </li>
                     <li th:if="${exList.getPrePage() == 0}">
                         <a>Previous</a>
                     </li>
                     <!-- 페이지 번호-->
                     <li th:each="page: ${#numbers.sequence(exList.getNavigateFirstPage(), exList.getNavigateLastPage())}" th:classappend="${page == exList.getPageNum()} ? 'active'">
-                        <a th:text="${page}" th:href="@{/templates/mypage/exchange/list(pageNum=${page}, mno=${mno})}"></a>
+                        <a th:text="${page}" th:href="@{/mypage/exchange/list(pageNum=${page}, mno=${mno})}"></a>
                     </li>
                     <!-- 다음 버튼-->
                     <li th:if="${exList.getNextPage() != 0}">
-                        <a th:href="@{/templates/mypage/exchange/list(pageNum=${exList.getNextPage()}, mno=${mno})}">Next</a>
+                        <a th:href="@{/mypage/exchange/list(pageNum=${exList.getNextPage()}, mno=${mno})}">Next</a>
                     </li>
                     <li th:if="${exList.getNextPage() == 0}">
                         <a>Next</a>

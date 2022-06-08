@@ -76,13 +76,13 @@
                                         <td name="isavePoint" data-th-text="${#numbers.formatInteger(item.iSavePoint, 3, 'COMMA') + ' 원'}"></td>
                                         <td class="pro-title">
                                             <!-- 배송조회 -->
-                                            <a th:if="${item.iDeliveryStatus != '배송전'}" th:href="@{/templates/mypage/delivery/read(oINo=${item.oINo})}"><img width="30" height="30" src="/icons_bootstrap/truck.svg"></a>
+                                            <a th:if="${item.iDeliveryStatus != '배송전'}" th:href="@{/mypage/delivery/read(oINo=${item.oINo})}"><img width="30" height="30" src="/icons_bootstrap/truck.svg"></a>
                                             <div th:if="${item.iDeliveryStatus == '배송전'}">배송전</div>
                                         </td>
                                         <td class="pro-title">
                                             <!-- 리뷰등록 -->
                                             <a th:if="${item.iReviewStatus.equals('미등록') && orderVO.tPayStatus.equals('결제완료')}"
-                                               th:href="@{/templates/mypage/order/regReview(mno=${orderVO.mno},ono=${item.ono},oINo=${item.oINo})}">
+                                               th:href="@{/mypage/order/regReview(mno=${orderVO.mno},ono=${item.ono},oINo=${item.oINo})}">
                                                 <img width="30" height="30" src="/icons_bootstrap/pencil-square.svg">
                                             </a>
                                             <div th:if="${item.iReviewStatus != '미등록'}">등록완료</div>
@@ -91,7 +91,7 @@
                                         <td class="pro-title">
                                             <!-- 취소/반품/교환 -->
                                             <a th:if="${item.iExStatus.equals('미신청') && orderVO.tPayStatus.equals('결제완료')}"
-                                               th:href="@{/templates/mypage/order/exchange(mno=${orderVO.mno},ono=${item.ono},pno=${item.pno},oINo=${item.oINo})}">
+                                               th:href="@{/mypage/order/exchange(mno=${orderVO.mno},ono=${item.ono},pno=${item.pno},oINo=${item.oINo})}">
                                                 <img width="20" height="20" src="/icons_bootstrap/arrow-left-right.svg">
                                             </a>
                                             <div th:if="${item.iExStatus != '미신청'}">신청완료</div>

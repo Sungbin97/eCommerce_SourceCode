@@ -16,22 +16,22 @@ public class AdminPageController {
     MailService mailService;
     @Autowired
     private StaticMapper staticMapper;
-    @GetMapping("/admin/adpage")
-    public void adPage(Model model){
-        log.info("AdminPageController => adPage(GET) 실행");
-        int profit = staticMapper.getTotalProfit();
-        int memberCnt = staticMapper.getTotalMemberCnt();
-        int delMemCnt = staticMapper.getTotalDeleteMemCnt();
-        int productCnt = staticMapper.getTotalProductCnt();
-        log.info("staticVo profit 출력: "+profit);
-        log.info("staticVo memberCnt 출력: "+memberCnt);
-        log.info("staticVo delMemCnt 출력: "+delMemCnt);
-        log.info("staticVo productCnt 출력: "+productCnt);
-
-        model.addAttribute("profit",profit);
-        model.addAttribute("memberCnt",memberCnt);
-        model.addAttribute("delMemCnt",delMemCnt);
-        model.addAttribute("productCnt",productCnt);
-    }
+//    @GetMapping("/admin/adpage")
+//    public void adPage(Model model){
+//        log.info("AdminPageController => adPage(GET) 실행");
+//        StaticVO profit = staticMapper.getTotalProfit();
+//        StaticVO memberCnt = staticMapper.getTotalMemberCnt();
+//        StaticVO delMemCnt = staticMapper.getTotalDeleteMemCnt();
+//        StaticVO productCnt = staticMapper.getTotalProductCnt();
+//        log.info("staticVo profit 출력: "+profit.getTotalProfit());
+//        log.info("staticVo memberCnt 출력: "+memberCnt.getTotalMemberCnt());
+//        log.info("staticVo delMemCnt 출력: "+delMemCnt.getTotalDeleteMemCnt());
+//        log.info("staticVo productCnt 출력: "+productCnt.getTotalProductCnt());
+//
+//        model.addAttribute("profit",profit.getTotalProfit());
+//        model.addAttribute("memberCnt",memberCnt.getTotalMemberCnt());
+//        model.addAttribute("delMemCnt",delMemCnt.getTotalDeleteMemCnt());
+//        model.addAttribute("productCnt",productCnt.getTotalProductCnt());
+//    }
 
 }

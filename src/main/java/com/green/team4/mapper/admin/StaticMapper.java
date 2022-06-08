@@ -8,8 +8,8 @@ import java.util.List;
 
 @Mapper
 public interface StaticMapper {
-    int getTotalProfit();
-    int getTotalMemberCnt();
-    int getTotalDeleteMemCnt();
-    int getTotalProductCnt();
+    StaticVO getTotalProfit();
+    StaticVO getTotalMemberCnt();
+    StaticVO getTotalDeleteMemCnt();
+    StaticVO getTotalProductCnt();
 }

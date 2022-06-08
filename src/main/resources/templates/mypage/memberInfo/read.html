@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-lg-8 col-12 mx-auto">
                     <div class="login-reg-form">
-                        <form class="forModify" th:action="@{/templates/mypage/memberInfo/memModify}" th:method="post">
+                        <form class="forModify" th:action="@{/mypage/memberInfo/memModify}" th:method="post">
                             <div class="row">
                                 <h3>개인정보</h3>
                                 <p>수정할 내용을 입력하시고 등록을 눌러주세요</p>
@@ -178,7 +178,7 @@
         <div class="row">
             <div class="col-lg-8 col-12 mx-auto">
                 <!-- 회원 탈퇴 -->
-                <form th:action="@{/templates/mypage/memberInfo/memDelete}" th:method="get">
+                <form th:action="@{/mypage/memberInfo/memDelete}" th:method="get">
                     <input type="hidden" name="mno" th:value="${memberInfo.mno}">
                     <input type="submit" class="btn" value="회원탈퇴">
                 </form>

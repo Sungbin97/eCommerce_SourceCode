@@ -45,7 +45,7 @@
                         <!-- Product Image -->
                         <div class="product-img">
                             <!-- Image -->
-                            <a class="image" th:href="@{/templates/mypage/review/read(rno=${review.rno})}"> <!-- 리뷰 세부조회 연결 -->
+                            <a class="image" th:href="@{/mypage/review/read(rno=${review.rno})}"> <!-- 리뷰 세부조회 연결 -->
                                 <img th:if="${review.reviewFilesList.size() >= 1}" th:src="|/display?fileName=${review.reviewFilesList[0].getThumbnailURL}|" height="200" alt=""> <!-- 첨부파일 중 맨 첫번째 사진만 show -->
                                 <img th:if="${review.reviewFilesList.size() == 0}" src="/icons_bootstrap/noImage.jpg" height="200" alt=""> <!-- 첨부파일 없으면 기본 사진 띄우기 -->
                             </a>

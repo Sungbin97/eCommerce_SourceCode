@@ -88,7 +88,7 @@
                                                 </td>
                                                 <td class="pro-price" name="cTotalPrice" th:text="${cart.cTotalPrice}"></td>
                                                 <td class="pro-remove">
-                                                    <form id="deleteForm" th:action="@{/templates/mypage/cart/delete}" th:method="post">
+                                                    <form id="deleteForm" th:action="@{/mypage/cart/delete}" th:method="post">
                                                         <input type="hidden" name="cno" th:value="${cart.cno}" readonly>
                                                         <input type="hidden" name="mno" th:value="${cart.mno}" readonly>
                                                         <input style="border: white; background-color: white" type="button" name="cartDeleteBtn" value="X">
