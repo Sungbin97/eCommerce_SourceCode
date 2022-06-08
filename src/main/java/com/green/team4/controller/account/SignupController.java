@@ -49,6 +49,7 @@ public class SignupController {
         log.info("encodePassword: "+encPassword);
         signupVO.setPassword(encPassword);
         signupVO.setAuth("ROLE_MEMBER");
+        signupVO.setGrade("고급회원");
         signupService.insert(signupVO);
         return "redirect:/account/login";
     }
