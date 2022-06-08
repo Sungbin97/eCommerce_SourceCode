@@ -1,7 +1,7 @@
 package com.green.team4.service.admin;
 
 import com.green.team4.mapper.admin.ProductOptMapper;
-import com.green.team4.vo.JH.Product_optVO;
+import com.green.team4.vo.shop.Product_optVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

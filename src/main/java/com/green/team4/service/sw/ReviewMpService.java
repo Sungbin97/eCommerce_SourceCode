@@ -2,8 +2,8 @@ package com.green.team4.service.sw;
 
 
 
-import com.green.team4.vo.JH.ItemPageCriteria;
-import com.green.team4.vo.JH.ReviewPageVO;
+import com.green.team4.vo.shop.ItemPageCriteria;
+import com.green.team4.vo.shop.ReviewPageVO;
 import com.green.team4.vo.sw.ReviewMpVO;
 import com.green.team4.vo.sw.SearchVO;
 

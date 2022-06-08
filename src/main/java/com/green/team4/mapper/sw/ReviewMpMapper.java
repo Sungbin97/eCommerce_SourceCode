@@ -1,6 +1,6 @@
 package com.green.team4.mapper.sw;
 
-import com.green.team4.vo.JH.ItemPageCriteria;
+import com.green.team4.vo.shop.ItemPageCriteria;
 import com.green.team4.vo.sw.ReviewMpVO;
 import com.green.team4.vo.sw.SearchVO;
 import org.apache.ibatis.annotations.Mapper;

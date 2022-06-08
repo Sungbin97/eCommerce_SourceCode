@@ -6,7 +6,7 @@ import com.green.team4.mapper.sw.ExchangeFilesMapper;
 import com.green.team4.mapper.sw.ExchangeMapper;
 import com.green.team4.mapper.sw.MemberInfoMapper;
 import com.green.team4.mapper.sw.OrderItemMapper;
-import com.green.team4.vo.JH.Product_optVO;
+import com.green.team4.vo.shop.Product_optVO;
 import com.green.team4.vo.sw.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

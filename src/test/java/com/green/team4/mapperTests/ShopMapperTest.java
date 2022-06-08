@@ -1,8 +1,8 @@
 package com.green.team4.mapperTests;
 
-import com.green.team4.mapper.JH.ShopMapper;
-import com.green.team4.vo.JH.ItemPageCriteria;
-import com.green.team4.vo.JH.PagingVO;
+import com.green.team4.mapper.shop.ShopMapper;
+import com.green.team4.vo.shop.ItemPageCriteria;
+import com.green.team4.vo.shop.PagingVO;
 
 import com.green.team4.vo.admin.ProductVO;
 import org.junit.jupiter.api.Test;
