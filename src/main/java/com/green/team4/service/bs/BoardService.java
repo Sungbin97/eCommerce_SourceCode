@@ -20,4 +20,5 @@ public interface BoardService {
     public List<BoardVO> getPageList(Criteria criteria);
     public int getTotal(Criteria criteria);
     public BoardVO userInfo(Long mno);
+    public List<BoardVO> readListForMain();
 }

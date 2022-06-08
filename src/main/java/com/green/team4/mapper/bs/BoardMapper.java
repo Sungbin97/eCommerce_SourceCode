@@ -17,4 +17,6 @@ public interface BoardMapper {
     public int getTotalCount(Criteria criteria);
     // 전체 게시글 수를 구하기 위한 메서드
     public BoardVO userInfo(Long mno);
+    //JH추가
+    public List<BoardVO> readListForMain();
 }
