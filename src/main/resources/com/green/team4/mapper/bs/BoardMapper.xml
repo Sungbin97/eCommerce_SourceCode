@@ -82,7 +82,7 @@
 
     <!--    JH추가-->
     <select id="readListForMain" parameterType="com.green.team4.vo.bs.BoardVO" resultType="com.green.team4.vo.bs.BoardVO">
-        select * from board_tbl
+        select * from tbl_board
             limit 10
     </select>
 </mapper>
