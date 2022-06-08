@@ -3,6 +3,8 @@
 <head>
     <!-- mypage head fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <title>mypage-main</title>
 </head>
@@ -150,13 +152,13 @@
                                         <input id="b_l_name" type="text" th:value="${memberInfo.phoneNum}" readonly/>
                                     </div>
                                 </div>
-                                    <hr>
-                                    <h6>받는 사람 정보</h6>
-                                        <div class="addressInfoBtn_div">
-                                            <a class="addressBtn addressBtn_1" onclick="showAddress('1')" >등록된 주소</a>
-                                            <a class="addressBtn addressBtn_2" onclick="showAddress('2')">직접 입력</a>
-                                        </div>
-                                        <br/> <!-- SW 추가 br만 -->
+                                <hr>
+                                <h6>받는 사람 정보</h6>
+                                <div class="addressInfoBtn_div">
+                                    <a class="addressBtn addressBtn_1" onclick="showAddress('1')" >등록된 주소</a>
+                                    <a class="addressBtn addressBtn_2" onclick="showAddress('2')">직접 입력</a>
+                                </div>
+                                <br/> <!-- SW 추가 br만 -->
                                 <div class="addressInfo_input_div addressInfo_input_div_1" style="display: block">
                                     <div class="row">
                                         <div class="col-sm-6 col-xs-12 mb-30">
@@ -239,7 +241,7 @@
                         <div class="col-lg-6 col-12 mb-40">
 
 
-<!--                            [[${orderlist}]]-->
+                            <!--                            [[${orderlist}]]-->
                             <div class="order-wrapper">
                                 <h3>주문서</h3>
                                 <div class="order-table table-responsive mb-30">
@@ -263,7 +265,7 @@
                                         <tbody>
                                         <tr>
                                             <td class="img_th"><img class="img_td" th:src="|/display?fileName=${product.pImage}|"></td>
-                                            <td class="product_name_td pName">
+                                            <td class="product_name_td pName" th:text="${product.pName}">
                                                 [[${product.pName}]]
                                             </td>
                                             <td>
@@ -307,7 +309,7 @@
                                         <tr>
                                             <div class="coupon-form ">
                                                 <p>쿠폰</p>
-<!--                                                <p>Enter your coupon code if you have one</p>-->
+                                                <!--                                                <p>Enter your coupon code if you have one</p>-->
                                                 <form class="coupon_form">
                                                     <select  class="coupon_select">
                                                         <option disabled></option>
@@ -353,7 +355,7 @@
                                             <li>
                                                 <span class="price_span_label">포인트 할인금액</span>
                                                 <strong class="strong_blue">-
-                                                <span class="usePoint_span">
+                                                    <span class="usePoint_span">
 
                                                 </span>원
                                                 </strong>
@@ -376,7 +378,7 @@
                                     </div>
                                 </div>
                                 <div class="order-button">
-                                    <input type="submit" class="order_btn" value="결제하기" />
+
                                     <!-- 주문 요청 form -->
                                     <form class="order_form" action="/order" method="post">
                                         <!--   주문번호  -->
@@ -400,11 +402,12 @@
                                         <!--  사용한 쿠폰 번호-->
                                         <input type="hidden" name="tCpno" value="0"  >
                                     </form>
-                            </div>
-                                    <div>
-                                        <button onclick="requestPay()">아임포트 결제하기</button>
-                                    </div>
-                            <div>
+                                    <input type="submit" class="order_btn" value="결제하기" />
+                                </div>
+                                <div>
+                                    <button onclick="requestPay()">아임포트 결제하기</button>
+                                </div>
+                                <div>
                                 </div>
                             </div>
                         </div>
@@ -467,49 +470,48 @@
 
             }
             // 포인트 값 넣기
-            $("input[name='usePoint']").val($(".order_point_input").val())
+            $("input[name='tUsePoint']").val($(".order_point_input").val())
             // 쿠폰으로 할인받은 금액 넣기
             $("input[name='tCouponPrice']").val($(".coupon_span").text())
             //기타 값 넣기
             $("input[name='message']").val($(".message_input").val())
 
-            /* 상품정보 */
-            let form_contents = '';
-            $(".product_price_td").each(function(index, element){
-                console.log(index)
-                // console.log("element : ",element)
-                let pno = $(element).find(".individual_pno_input").val();
-                let itemCount = $(element).find(".individual_itemCount_input").val();
-                let pColor = $(element).find(".individual_pColor_input").val();
-                let pOption = $(element).find(".individual_pOption_input").val();
-                let pOptionPrice = $(element).find(".individual_pOptionPrice_input").val();
-                let pOptionName = $(element).find(".individual_pOptionName_input").val();
-                let pOptionName2 = $(element).find(".individual_pOptionName2_input").val();
-                let pOption2 = $(element).find(".individual_pOption2_input").val();
-                let pno_input = "<input name='orders[" + index + "].pno' type='hidden' value='" + pno + "'>";
-                form_contents += pno_input;
-                let itemCount_input = "<input name='orders[" + index + "].iCount' type='hidden' value='" + itemCount + "'>";
-                form_contents += itemCount_input;
-                let pColor_input = "<input name='orders[" + index + "].pColor' type='hidden' value='" + pColor + "'>";
-                form_contents += pColor_input;
-                let pOption_input = "<input name='orders[" + index + "].pOption' type='hidden' value='" + pOption + "'>";
-                form_contents += pOption_input;
-                let pOptionName_input = "<input name='orders[" + index + "].pOptionName' type='hidden' value='" + pOptionName + "'>";
-                form_contents += pOptionName_input;
-                let pOption2_input = "<input name='orders[" + index + "].pOption2' type='hidden' value='" + pOption2 + "'>";
-                form_contents += pOption2_input;
-                let pOptionName2_input = "<input name='orders[" + index + "].pOptionName2' type='hidden' value='" + pOptionName2 + "'>";
-                form_contents += pOptionName2_input;
-                let pOptionPrice_input = "<input name='orders[" + index + "].pOptionPrice' type='hidden' value='" + pOptionPrice + "'>";
-                form_contents += pOptionPrice_input;
-
-            });
-            $(".order_form").append(form_contents);
 
         })
+        /* 상품정보 */
+        let form_contents = '';
+        $(".product_price_td").each(function(index, element){
+            console.log(index)
+            // console.log("element : ",element)
+            let pno = $(element).find(".individual_pno_input").val();
+            let itemCount = $(element).find(".individual_itemCount_input").val();
+            let pColor = $(element).find(".individual_pColor_input").val();
+            let pOption = $(element).find(".individual_pOption_input").val();
+            let pOptionPrice = $(element).find(".individual_pOptionPrice_input").val();
+            let pOptionName = $(element).find(".individual_pOptionName_input").val();
+            let pOptionName2 = $(element).find(".individual_pOptionName2_input").val();
+            let pOption2 = $(element).find(".individual_pOption2_input").val();
+            let pno_input = "<input name='orders[" + index + "].pno' type='hidden' value='" + pno + "'>";
+            form_contents += pno_input;
+            let itemCount_input = "<input name='orders[" + index + "].iCount' type='hidden' value='" + itemCount + "'>";
+            form_contents += itemCount_input;
+            let pColor_input = "<input name='orders[" + index + "].pColor' type='hidden' value='" + pColor + "'>";
+            form_contents += pColor_input;
+            let pOption_input = "<input name='orders[" + index + "].pOption' type='hidden' value='" + pOption + "'>";
+            form_contents += pOption_input;
+            let pOptionName_input = "<input name='orders[" + index + "].pOptionName' type='hidden' value='" + pOptionName + "'>";
+            form_contents += pOptionName_input;
+            let pOption2_input = "<input name='orders[" + index + "].pOption2' type='hidden' value='" + pOption2 + "'>";
+            form_contents += pOption2_input;
+            let pOptionName2_input = "<input name='orders[" + index + "].pOptionName2' type='hidden' value='" + pOptionName2 + "'>";
+            form_contents += pOptionName2_input;
+            let pOptionPrice_input = "<input name='orders[" + index + "].pOptionPrice' type='hidden' value='" + pOptionPrice + "'>";
+            form_contents += pOptionPrice_input;
 
-
+        });
+        $(".order_form").append(form_contents);
         let name=$(".product_name_td").text()
+        console.log(name)
         //let receiverName =receiverName.val(),
         let postcode=addr1.val()
         let  addr=addr2.val()
@@ -520,8 +522,7 @@
         let  buyer_tel=$("input[name='phone']").val()
         let ono = createOrderNum();
 
-        // IMP.request_pay(param, callback) 결제창 호출
-
+        //IMP.request_pay(param, callback) 결제창 호출
         IMP.init("imp63826642"); // 예: imp00000000
         IMP.request_pay({ // param
             pg: "html5_inicis",
@@ -535,6 +536,8 @@
             buyer_addr: addr+addr_detail,
             buyer_postcode: postcode,
         }, function (rsp) { // callback
+            console.log("하이")
+            console.log("rsp",rsp)
             if (rsp.success) {
                 //나중에 시간날때 해보기(결제 검증작업)
                 // jQuery로 HTTP 요청
@@ -563,11 +566,12 @@
             } else {
                 alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
             }
-            alert(msg)
+            // alert(msg)
 
         });
     }
     function orderInsert(){
+        console.log("하이하이")
         let formObj=$(".order_form")
         formObj.attr("action","/order")
         formObj.attr("method","post")
@@ -584,11 +588,8 @@
         for(let i=0;i<10;i++) {
             orderNum += Math.floor(Math.random() * 8);
         }
-        console.log("orderNum : ",orderNum)
         return orderNum;
     }
-
-
 
 
     //결제하기
