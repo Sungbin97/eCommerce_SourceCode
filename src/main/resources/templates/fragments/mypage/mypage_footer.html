@@ -11,17 +11,18 @@
                 <!-- Footer Widget -->
                 <div class="footer-widget col-lg-4 col-md-6 col-12 mb-40">
                     <h5 class="widget-title">ABOUT THE STORE</h5>
-                    <p>There are many variations of passages of Lor available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+<!--                    <p>There are many variations of passages of Lor available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>-->
+                    <p>"TEAM4PJT" 는 운동 관련 쇼핑과 커뮤니티 활동을 모두 즐길 수 있는 통합 플랫폼 입니다. 최고의 품질과 서비스로 여러분에게 최고의 경험을 제공할 수 있도록 노력하고 있습니다.</p>
                 </div>
 
-                <!-- Footer Widget -->
+<!--                 Footer Widget -->
                 <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
                     <h5 class="widget-title">CUSTOMER SERVICE</h5>
                     <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Returns & Refunds</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">online store</a></li>
+                        <li><a>Contact Us</a></li>
+                        <li><a>Returns & Refunds</a></li>
+                        <li><a>Terms & Conditions</a></li>
+                        <li><a>online store</a></li>
                     </ul>
                 </div>
 
@@ -29,10 +30,10 @@
                 <div class="footer-widget col-lg-2 col-md-6 col-12 mb-40">
                     <h5 class="widget-title">PROFILE</h5>
                     <ul>
-                        <li><a href="#">my Account</a></li>
-                        <li><a href="#">Checkout</a></li>
-                        <li><a href="#">help</a></li>
-                        <li><a href="#">support</a></li>
+                        <li><a>my Account</a></li>
+                        <li><a>Checkout</a></li>
+                        <li><a>help</a></li>
+                        <li><a>support</a></li>
                     </ul>
                 </div>
 
@@ -144,7 +145,7 @@
                             str+="</a>"
                             str+="</div>"
                             str+="<div class=\"cart-info\">";
-                            str+="<h5><a>"+this.cname+"</a></h5>";
+                            str+="<h5><a style='font-weight: bold; color: #191c1f'>"+this.cname+"</a></h5>";
                             str+="<p style='font-size: small'>"+"["+this.coption+" / "+this.coption2+" / "+this.ccolor+"]"+"</p>";
                             str+="<p>"+this.ccount+"개"+"</p>";
                             str+="</div>"
@@ -162,9 +163,7 @@
                     var getMno = $("input[name=mnoSec]").val();
                     console.log("mnoSec: "+getMno)
                     $("#mypageMain").attr("href","/sw/mypage/main?mno="+getMno);
-                    $("#mypageInterest").attr("href","/sw/mypage/interest?mno="+getMno);
                     $("#mypageRegQ").attr("href","/sw/mypage/personalQ/regQ?mno="+getMno);
-                    $("#getCartListM").attr("href","/sw/mypage/cart/list?mno="+getMno);
                 }
             })
         }

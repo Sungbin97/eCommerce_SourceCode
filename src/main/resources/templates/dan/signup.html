@@ -266,9 +266,7 @@
         }
     })
 
-
-
-    // 체크박스 하나만 선택되도록 set
+    // 관심 스포츠 체크박스 하나만 선택되도록 set
     $('input[type="checkbox"][name="interestSports"]').click(function(){
         if($(this).prop('checked')){
             $('input[type="checkbox"][name="interestSports"]').prop('checked',false);
@@ -420,8 +418,11 @@
 
     // 등록버튼 클릭하면 데이터 최종 검증 진행
     $("input[name=signupBtn]").click(function (e){
+
         e.preventDefault();
+
         console.log("회원가입 데이터 최종 검증 실행")
+
         var id = $("input[name=id]").val();
         var password = $("input[name=password]").val();
         var name = $("input[name=name]").val();
@@ -439,7 +440,7 @@
         console.log("비밀번호 확인: ",pwdFlag)
         console.log("인증코드 확인: ",authNumFlag)
 
-        if(arr.includes("")){ // input 데이터 검증
+        if(arr.includes("")){ // 기본 input 데이터 검증
             alert("양식을 빠짐없이 작성해주세요.")
             return;
         }
@@ -462,13 +463,10 @@
             alert("회원가입이 완료되었습니다.")
             $("#signup").submit();
         }
-
-
     })
 
     // 로그인 화면으로 돌아가기
     $("#goBack").click(function (){
-        var mno = $("input[name=mno]").val();
         window.location.href = '/dan/login';
     })
 

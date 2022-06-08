@@ -74,7 +74,7 @@
                                             <input type="hidden" name="pno" th:value="${return.pno}" readonly>
                                             <input type="hidden" name="eno" th:value="${return.eno}" readonly>
                                             <input type="hidden" name="category" value="'반품신청'" readonly>
-                                            <button type="submit" th:if="${return.exStatus != '반품완료'}" class="btn">반품</button>
+                                            <button type="submit" th:if="${return.exStatus != '반품완료'}" id="returnBtn" class="btn">반품</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -95,6 +95,12 @@
 <script>
     $(document).ready(function (){
 
+        // 반품 처리 버튼 누르면
+        $("#returnBtn").click(function (){
+            alert("반품처리가 완료되었습니다.")
+        })
+
+        // 이전 메뉴로 가기
         $("#goBack").click(function (){
             window.location.href = '/admin/adpage'
         })
