@@ -58,6 +58,8 @@ public interface ShopMapper {
     public Product_optVO getOptionPrice(Product_optVO povo);
 
 
+// 타임딜 업데이트
+    public int updateDiscount(String pCatecode);
 
 
 }

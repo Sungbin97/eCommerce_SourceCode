@@ -123,4 +123,9 @@ public class ShopServiceImpl implements ShopService {
     public Product_optVO getOptionPrice(Product_optVO povo) {
         return shopMapper.getOptionPrice(povo);
     }
+
+    @Override
+    public int updateDiscount(String pCatecode) {
+        return shopMapper.updateDiscount(pCatecode);
+    }
 }

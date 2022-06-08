@@ -126,9 +126,13 @@
         select * from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
         where  P.pCateCode like concat('6','%')
-
+        order by pno desc
 
     </select>
+    <update id="updateDiscount">
+        update tbl_product set pDiscount = 0.0 where pCateCode like concat(#{pCatecode},'%');
+    </update>
+
     <select id="getTotaldatabyFind" resultType="int">
         select count(pno) from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode

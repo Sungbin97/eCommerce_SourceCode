@@ -44,4 +44,7 @@ public interface ShopService {
     public List<ProductVO> getOneWithOpt(int pno);
     public Product_optVO getOptionPrice(Product_optVO povo);
 
+
+
+    public int updateDiscount(String pCatecode);
 }

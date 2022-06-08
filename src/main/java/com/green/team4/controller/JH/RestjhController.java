@@ -247,4 +247,18 @@ public class RestjhController {
         }
         return responseEntity;
     }
+
+    @PostMapping("/updateTimeDeal")
+    public ResponseEntity<Integer> updateTimeDeal(String pCatecode){
+        System.out.println("updateTimeDeal 입장" + pCatecode);
+        String code =pCatecode.substring(0,1);
+        ResponseEntity<Integer> responseEntity = null;
+        try {
+            responseEntity = new ResponseEntity<>(shopService.updateDiscount(code),HttpStatus.OK);
+        }catch (Exception e){
+            responseEntity = new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+
+    }
 }

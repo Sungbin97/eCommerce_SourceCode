@@ -72,7 +72,6 @@ public class ShopController {
         log.info("pno : "+pno);
 
         ProductVO pvo = shopService.getOne(pno);
-
         //model.addAttribute("member",memberInfoService.readOne(mno));
         model.addAttribute("relatedList",shopService.getListByRand( pvo.getPCateCode().substring(0,3)));
         System.out.println(shopService.getListByRand( pvo.getPName()));
