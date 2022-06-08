@@ -17,7 +17,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void insert(BoardVO boardVO) {
         mapper.insert(boardVO);
-        System.out.println("insert 서비스 작동");
     }
 
     @Override

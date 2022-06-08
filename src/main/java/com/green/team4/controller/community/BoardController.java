@@ -48,10 +48,11 @@ public class BoardController {
     }
 
     @GetMapping("/register")
-    public void register(Model model,@RequestParam("idSec") String idSec) {
+    public void register(Model model,@RequestParam("mno") int mno) {
         log.info("register로 이동....");
-        log.info(memberInfoService.findById(idSec));
-        model.addAttribute("item",memberInfoService.findById(idSec));
+        log.info("mno : " + mno);
+        MemberInfoVO memberInfoVO = memberInfoService.getMemberInfo(mno);
+        model.addAttribute("memberInfoVO",memberInfoVO);
     }
     // Create
     @PostMapping("/register")
@@ -101,16 +102,16 @@ public class BoardController {
     }
 
     // Test
-//    @GetMapping("id/{idSec}")
-//    public ResponseEntity<Long> test(@PathVariable("idSec") String idSec){
-//        log.info("@@ idSec : " + idSec);
-//        MemberInfoVO memberInfoVO = memberInfoService.findById(idSec);
-//        if (idSec.isEmpty()){
-//
-//
-//        }
-//        return new ResponseEntity<>((long)(memberInfoVO.getMno()), HttpStatus.OK);
-//    }
+    @GetMapping("id/{idSec}")
+    public ResponseEntity<Integer> test(@PathVariable("idSec") String idSec){
+        log.info("@@ idSec : " + idSec);
+        MemberInfoVO memberInfoVO = memberInfoService.findById(idSec);
+        if (idSec.isEmpty()){
+
+
+        }
+        return new ResponseEntity<>((memberInfoVO.getMno()), HttpStatus.OK);
+    }
 
 
     @GetMapping("/insert")

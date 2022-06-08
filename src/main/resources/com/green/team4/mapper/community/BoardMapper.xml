@@ -15,7 +15,7 @@
     <select id="readOne" parameterType="long" resultType="com.green.team4.vo.community.BoardVO">
         select bno, tbl_board.mno, title, content, id, password, nickName, nonMemberId,nonMemberPassword, regDate, modDate, bImg, community
         from tbl_board
-        join tbl_memberinfo tm on tbl_board.mno = tm.mno
+        left outer join tbl_memberinfo tm on tbl_board.mno = tm.mno
         where bno=#{bno}
     </select>
 
@@ -42,7 +42,7 @@
     <select id="getPageList" parameterType="com.green.team4.vo.community.Criteria" resultType="com.green.team4.vo.community.BoardVO">
         select bno, title, content, nickName, nonMemberId, regDate, modDate
         from tbl_board
-        join tbl_memberinfo tm on tm.mno = tbl_board.mno
+        left outer join tbl_memberinfo tm on tm.mno = tbl_board.mno
         <trim prefix="where">
             <if test="type=='title' and keyword != null and keyword !='' ">
                 title like concat('%',#{keyword},'%')
@@ -63,7 +63,7 @@
     </select>
     <select id="getTotalCount" resultType="int">
         select count(*) from tbl_board
-        join tbl_memberinfo tm on tbl_board.mno = tm.mno
+        left outer join tbl_memberinfo tm on tbl_board.mno = tm.mno
         where bno > 0
             <if test="type=='title' and keyword != null and keyword !=''">
                 and title like concat('%',#{keyword},'%')
