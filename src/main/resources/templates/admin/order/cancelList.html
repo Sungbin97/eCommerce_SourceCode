@@ -74,7 +74,7 @@
                                             <input type="hidden" name="pno" th:value="${cancel.pno}" readonly>
                                             <input type="hidden" name="eno" th:value="${cancel.eno}" readonly>
                                             <input type="hidden" name="category" value="'취소신청'" readonly>
-                                            <button type="submit" th:if="${cancel.exStatus != '취소완료'}" class="btn">취소</button>
+                                            <button type="submit" th:if="${cancel.exStatus != '취소완료'}" id="cancelBtn" class="btn">취소</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -94,6 +94,10 @@
 
 <script>
     $(document).ready(function (){
+
+        $("#cancelBtn").click(function (){
+            alert("취소처리가 완료되었습니다.")
+        })
 
         $("#goBack").click(function (){
             window.location.href = '/admin/adpage'

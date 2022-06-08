@@ -22,15 +22,6 @@ create table tbl_memberInfo(
     grade varchar(50) default '일반회원', -- 회원 등급
     point int(100) default 0 -- 회원 보유 포인트
 );
-alter table tbl_memberInfo modify auth varchar(50) default 'ROLE_MEMBER';
-update tbl_memberInfo set auth = 'ROLE_MEMBER' where mno =12;
-
-commit;
-
-alter table tbl_memberInfo modify auth varchar(50) default 'ROLE_MEMBER';
-alter table tbl_memberInfo modify password varchar(100) not null ;
-alter table tbl_memberInfo modify grade varchar(50) default '일반회원';
-update tbl_memberInfo set auth = 'ROLE_MEMBER' where mno=7;
 
 -- 탈퇴 회원 테이블
 create table tbl_deleteMem(
@@ -570,14 +561,6 @@ insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, 
 insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '싸이클 용품', '404003','404000');
 insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '테니스 용품', '404004','404000');
 insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타', '404005','404000');
-
-
-insert into tbl_memberInfo (mno, id, password, name, nickName, gender, sSNum, email,
-                            phoneNum, mobileNum, postcode, address, detailAddress,
-                            interestSports, auth, grade, point)
-values (0,'test1234','1234','홍길동','닉네이임','남성','016065-0460','swchung0521@gmail.com',
-        '031-1546-1546','0506-0646-05','12345','판교역로123','101동101호','축구','일반회원','준회원',1000);
-
 
 
 commit;
