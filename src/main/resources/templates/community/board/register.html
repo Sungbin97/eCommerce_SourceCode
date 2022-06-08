@@ -17,6 +17,7 @@
                     <form action="register" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-xs-12 mb-20">
+                                <input type="hidden" th:value="${memberInfoVO.mno}">
                                 <label for="title">제목 <span class="required">*</span></label>
                                 <input id="title" name="title" type="text"/>
                             </div>
@@ -28,7 +29,7 @@
                                 <label for="nonMemberId" th:if="${#authentication.name=='anonymousUser'}">작성자<span class="required">*</span></label>
                                 <input id="nonMemberId" name="nonMemberId" type="text" th:if="${#authentication.name=='anonymousUser'}"/>
                                 <label for="nickName" th:if="${#authentication.name!='anonymousUser'}">작성자</span></label>
-                                <input id="nickName" name="nickName" type="text" th:value="${item.nickName}" th:if="${#authentication.name!='anonymousUser'}" readonly/>
+                                <input id="nickName" name="nickName" type="text" th:value="${memberInfoVO.nickName}" th:if="${#authentication.name!='anonymousUser'}" readonly/>
                             </div>
                             <div class="col-xs-12 mb-20">
                                 <label for="nonMemberPassword" th:if="${#authentication.name=='anonymousUser'}">비밀번호<span class="required">*</span></label>

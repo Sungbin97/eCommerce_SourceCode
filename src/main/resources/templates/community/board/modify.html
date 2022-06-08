@@ -29,10 +29,10 @@
                                 <textarea id="content" name="content" th:text="${item.content}"></textarea>
                             </div>
                             <div class="col-xs-12 mb-20">
-                                <label for="nonMemberId" th:if="${item.mno}==10000">작성자<span class="required">*</span></label>
-                                <input id="nonMemberId" name="nonMemberId" type="text" th:if="${item.mno}==10000" th:value="${item.nonMemberId}" readonly/>
-                                <label for="nickName" th:if="${item.mno}!=10000">작성자</span></label>
-                                <input id="nickName" name="nickName" type="text" th:value="${item.nickName}" th:if="${item.mno}!=10000" readonly/>
+                                <label for="nonMemberId" th:if="${#authentication.name=='anonymousUser'}">작성자<span class="required">*</span></label>
+                                <input id="nonMemberId" name="nonMemberId" type="text" th:if="${#authentication.name=='anonymousUser'}" th:value="${item.nonMemberId}" readonly/>
+                                <label for="nickName" ${#authentication.name!='anonymousUser'}>작성자</span></label>
+                                <input id="nickName" name="nickName" type="text" th:if="${#authentication.name!='anonymousUser'}" th:value="${item.nickName}" readonly/>
                             </div>
                             <div class="bs-div-btn">
                                 <button class="btn" id="modify">수정</button>
