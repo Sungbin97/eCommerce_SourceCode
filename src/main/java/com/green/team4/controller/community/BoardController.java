@@ -2,6 +2,7 @@ package com.green.team4.controller.community;
 
 import com.green.team4.security.PrincipalDetails;
 import com.green.team4.service.community.BoardService;
+import com.green.team4.service.mypage.MemberInfoService;
 import com.green.team4.vo.community.BoardVO;
 import com.green.team4.vo.community.Criteria;
 import com.green.team4.vo.community.PageMaker;
@@ -9,6 +10,8 @@ import com.green.team4.vo.mypage.MemberInfoVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +32,8 @@ import java.util.UUID;
 public class BoardController {
     @Autowired
     BoardService boardService;
+    @Autowired
+    MemberInfoService memberInfoService;
 
     PrincipalDetails principalDetails = new PrincipalDetails(new MemberInfoVO());
 
@@ -96,9 +101,11 @@ public class BoardController {
     }
 
     // Test
-    @GetMapping("test")
-    public void test(){
-
+    @GetMapping("id/{idSec}")
+    public ResponseEntity<Long> test(@PathVariable("idSec") String idSec){
+        log.info("@@ idSec : " + idSec);
+        MemberInfoVO memberInfoVO = memberInfoService.findById(idSec);
+        return new ResponseEntity<>((long)(memberInfoVO.getMno()), HttpStatus.OK);
     }
 
 
