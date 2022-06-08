@@ -31,8 +31,8 @@
                         <span th:text="${item.bno}"></span>
                         <!-- Title -->
                         <a class="move" th:href="${item.bno}"><h4 class="title" th:text="${item.title}"></h4></a>
-                        <span th:text="${item.nonMemberId}" th:if="item.mno==0"></span>
-                        <span th:text="${item.nickName}" th:if="item.mno!=0"></span>
+                        <span th:text="${item.nonMemberId}" th:if="item.mno==10000"></span>
+                        <span th:text="${item.nickName}" th:if="item.mno!=10000"></span>
                         <!-- Date -->
                         <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}">
                         </span>

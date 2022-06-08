@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/reply/*")
@@ -41,14 +43,15 @@ public class ReplyController {
     }
 
     @GetMapping(value = "getList/{bno}/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ReplyVO>> getCommentList(Model model,
-            @PathVariable("bno") Long bno, @PathVariable("page") Long page){
-        Criteria criteria = new Criteria(page*10-9,10L);
+    public ResponseEntity<Map<String,Object>> getCommentList(@PathVariable("bno") Long bno, @PathVariable("page") Long page){
+        Map<String,Object> map = new HashMap<>();
+        Criteria criteria = new Criteria(page*10-9,3L);
         PageMaker pageMaker = new PageMaker(criteria, replyService.getTotal(criteria));
-        model.addAttribute("pageMaker",pageMaker);
+        map.put("pageMaker",pageMaker);
+        map.put("list",replyService.getPageList(criteria,bno));
         try {
             log.info(replyService.getPageList(criteria,bno));
-            return new ResponseEntity<>(replyService.getPageList(criteria,bno),HttpStatus.OK);
+            return new ResponseEntity<>(map,HttpStatus.OK);
         } catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(null,HttpStatus.BAD_GATEWAY);
