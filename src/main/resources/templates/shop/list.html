@@ -7,20 +7,7 @@
 </head>
 <style>
 
-    .search_result_div{
-        width: 200px;
-    }
-    .search_img{
-        display: block;
-        float: left;
-        margin-right: 15px;
-        width: 95px;
-    }
-    .search_Name{
-        width: 95px;
-        font-size: 20px;
-        text-align: center;
-    }
+
     .float-end{
         margin-right: 80px;
     }
@@ -54,10 +41,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-banner-content">
-                    <h1 th:text="${memName}+'님'"></h1>
+                    <h1>SHOP</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li class="active">myPage</li>
+                        <li><a onclick="history.back()">뒤로가기</a></li>
                     </ul>
                 </div>
             </div>
@@ -152,10 +138,7 @@
                     <div class="product-img">
                         <!-- Image -->
                         <a class="image"  th:href="@{/shop/read(pno=${dto?.pno})}"><img th:src="|/display?fileName=${dto.pImage}|"  alt="" style="width: 442px; height: 350px"></a>
-                        <!-- Action Button -->
-                        <div class="action-btn-2">
-                            <a class="wishlist"  title="Wishlist"><i class="pe-7s-like"></i></a>
-                        </div>
+
                     </div>
                     <!-- Portfolio Info -->
                     <div class="product-info">
@@ -225,30 +208,30 @@
 <th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 </body>
 <script>
-    let selectView = $('#selectView');
-
-    function loadGetListBysearch(){
-        let keyword  = $('#keyword').val();
-        console.log("검색어 들어오나유?",keyword);
-        $.getJSON("/rest/getListBySearch/"+keyword,function (data){
-            console.log(data)
-            let str = "";
-            $(data).each(function (){
-                console.log(this.pImage)
-                // str +=	'<tr><td ><a href="/shop/read?pno='+this.pno+'"><img class="search_img" src=/display?fileName='+this.pimage+'></a></td>';
-                // str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a>';
-                // str +=   '<p style="font-size:7px">'+this.pprice+'원</p></td>';
-                str += '<div class="search_result_div">'
-                str +=	'<a href="/shop/read?pno='+this.pno+'"><img class="search_img" src=/display?fileName='+this.pimage+' style="width: 200px; height:200"></a><br>';
-                str +=	'<br><a class="search_Name"  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a>';
-                str +=   '<div style="font-size:7px">'+this.pprice+'원</div>';
-                str += '</div>'
-                str += '<hr/>';
-            })
-            selectView.html(str);
-        })
-
-    }
+    // let selectView = $('#selectView');
+    //
+    // function loadGetListBysearch(){
+    //     let keyword  = $('#keyword').val();
+    //     console.log("검색어 들어오나유?",keyword);
+    //     $.getJSON("/rest/getListBySearch/"+keyword,function (data){
+    //         console.log(data)
+    //         let str = "";
+    //         $(data).each(function (){
+    //             console.log(this.pImage)
+    //             // str +=	'<tr><td ><a href="/shop/read?pno='+this.pno+'"><img class="search_img" src=/display?fileName='+this.pimage+'></a></td>';
+    //             // str +=	'<td style="vertical-align : bottom; font-size:15px;"><a  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a>';
+    //             // str +=   '<p style="font-size:7px">'+this.pprice+'원</p></td>';
+    //             str += '<div class="search_result_div">'
+    //             str +=	'<a href="/shop/read?pno='+this.pno+'"><img class="search_img" src=/display?fileName='+this.pimage+' style="width: 200px; height:200"></a><br>';
+    //             str +=	'<br><a class="search_Name"  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a>';
+    //             str +=   '<div style="font-size:7px">'+this.pprice+'원</div>';
+    //             str += '</div>'
+    //             str += '<hr/>';
+    //         })
+    //         selectView.html(str);
+    //     })
+    //
+    // }
     $("input[name='keyword']").keyup(function (){
         loadGetListBysearch();
     })

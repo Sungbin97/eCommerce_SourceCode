@@ -32,6 +32,7 @@ public class MainController {
         model.addAttribute("TDList",shopService.getListWithTimeDeal(cri));
 
         model.addAttribute("boardList",boardService.readListForMain());
+        log.info("boardList"+boardService.readListForMain());
         model.addAttribute("pagingVO",pagingVO);
         return "/shop/mainPage";
     }

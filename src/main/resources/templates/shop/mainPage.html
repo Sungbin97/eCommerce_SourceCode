@@ -69,14 +69,14 @@
                 </div>
                 <div class="home-slick-content">
                     <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">여성 스포츠 할인</h1>
-                    <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">여성 스포츠 제품 최대 50% 할인</p>
+                    <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s">여성 스포츠 제품 최대 15% 할인</p>
                     <a href="#" class="btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">SHOP NOW</a>
                 </div>
                 <!-- Home Text Content -->
                 <div class="home-slick-content">
                     <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">WORK IT OUT</h1>
                     <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">여러분의 지식과 노하우를 공유해보세요</p>
-                    <a th:href="@{/bs/board/list}" class="btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">커뮤니티 들어가기</a>
+                    <a th:href="@{/community/board/list}" class="btn wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">커뮤니티 들어가기</a>
                 </div>
             </div>
             <!-- Home Slick Image Slider -->
@@ -186,12 +186,12 @@
 
                         </div>
                         <div class="product-info text-left">
-                            <h5 class="title"><button th:if="${dto.pCateCode.substring(0,1)}=='6'" class="product_TimeDealLogo" style="font-size: 4px;float: left;margin-left: 2px;color: red">타임딜</button><a style="margin-right: 7px" th:href="@{/shop/read(pno=${dto.pno})}">[[${dto?.pName}]]</a></h5>
+                            <h5 class="title"><button th:if="${dto.pCateCode.substring(0,1)}=='6'" class="product_TimeDealLogo" style="font-size: 4px;float: left;margin-left: 2px;color: red">타임딜</button><a style="margin-right: 10px;text-align: center" th:href="@{/shop/read(pno=${dto.pno})}">[[${dto?.pName}]]</a></h5>
                             <div class="price-ratting fix" style="margin: 5px"  th:if="${dto.pDiscount>0.0}">
                                 <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${dto?.pPrice}]]원</small></span></span>
                             </div>
                             <div class="price-ratting fix" th:if="${dto.pDiscount==0.0}" >
-                                <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${dto.pPrice}]]</strong><small>원</small></span></span>
+                                <span  class="price"><span class="new" ><strong style="font-size: 19px;margin-left: 3px">[[${dto.pPrice}]]</strong><small>원</small></span></span>
                             </div>
                             <span class="ratting float-end "  >
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
@@ -237,28 +237,27 @@
                 <h2 class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s">WORK IT OUT</h2>
                 <br>
                 <p class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s">여러분의 지식과 노하우를 공유해보세요!</p>
+
                 <div  style="width: 150px;height: 30px;float: right" class="cart-bottom  clearfix">'
-                    <a class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" th:href="@{/bs/board/list}" style="color: white">커뮤니티 들어가기</a>
+                    <a class="wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" th:href="@{/community/board/list}" style="color: white">커뮤니티 들어가기</a>
                 </div>
             </div>
         </div>
         <div class="row community-slider-4 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.5s" style="margin-top: 50px">
             <!-- Home Blog Item -->
             <div class="col-lg-6 col-12  mb-40 " th:each="board : ${boardList}">
+
                 <div class="home-blog-item">
                     <!-- Image -->
-                    <a th:href="@{/bs/board/read(uNo=${board.uNo})}" class="image float-start"><img src="mainPageImg/community2.png" alt="mainPageImg/community2.png"></a>
+<!--                    <img th:src="|/display?fileName=${item.bImg}|" alt="mainPageImg/community2.png" th:if="${board.bImg != null}" />-->
+                    <a th:href="@{/community/board/read(bno=${board.bno})}" class="image float-start"><img src="mainPageImg/community2.png"  />   </a>
                     <!-- Content -->
                     <div class="content fix">
-                        <!-- Date -->
-                        <span class="date" th:text="${board.userName}">
-<!--                            <span class="day">12</span>-->
-                            <!--                            <span class="month"></span>-->
-                        </span>
+
                         <!-- Title -->
-                        <h4 class="title" th:text="${board.title}"><a th:href="@{/bs/board/read(uNo=${board.uNo})}"></a></h4>
-                        <p >여기에는 어떤 내용을 넣을까나</p>
-                        <a th:href="@{/bs/board/read(uNo=${board.uNo})}"   class="read-more">READ MORE</a>
+                        <h4 class="title" th:text="${board.title}"><a th:href="@{/community/board/read(bno=${board.bno})}"></a></h4>
+                        <p th:text="${board.content}"></p>
+                        <a th:href="@{/community/board/read(bno=${board.bno})}"   class="read-more">READ MORE</a>
                     </div>
                 </div>
             </div>
@@ -322,7 +321,7 @@
     var dateObj = new Date();
     dateObj.setDate(dateObj.getDate() + 1);
 
-    countDownTimer('sample01', '06/09/2022 11:10 AM');
+    countDownTimer('sample01', '06/20/2022 11:10 AM');
     // countDownTimer('sample02', '04/01/2024 00:00 AM'); // 2024년 4월 1일까지, 시간을 표시하려면 01:00 AM과 같은 형식을 사용한다.
     // countDownTimer('sample03', '04/01/2024'); // 2024년 4월 1일까지
     // countDownTimer('sample04', '04/01/2019'); // 2024년 4월 1일까지

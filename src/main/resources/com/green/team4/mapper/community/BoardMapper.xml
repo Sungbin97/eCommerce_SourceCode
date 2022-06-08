@@ -81,7 +81,7 @@
     </select>
 
     <!--    JH추가-->
-    <select id="readListForMain" parameterType="com.green.team4.vo.community.BoardVO" resultType="com.green.team4.vo.community.BoardVO">
+    <select id="readListForMain"  resultType="com.green.team4.vo.community.BoardVO">
         select * from tbl_board
             limit 10
     </select>
