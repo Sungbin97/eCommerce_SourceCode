@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/common/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <title>mypage-main</title>
 
 </head>
@@ -38,7 +38,7 @@
 
 <body>
 <!-- mypage header fragment -->
-<th:block th:replace="fragments/common/mypage_header :: headerFragment"></th:block>
+<th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 
 <!-- START SLIDER SECTION -->
 <div class="home-slider-section section">
@@ -258,7 +258,7 @@
 
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/common/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 </body>
 <script>
     const countDownTimer = function (id, date) {

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <!-- head fragment -->
-    <th:block th:replace="/fragments/common/mypage_header :: head"></th:block>
+    <th:block th:replace="/fragments/common/header :: head"></th:block>
     <title>Title</title>
 </head>
 <body>
 <!-- header fragment -->
-<th:block th:replace="/fragments/common/mypage_header.html :: headerFragment"></th:block>
+<th:block th:replace="/fragments/common/header.html :: headerFragment"></th:block>
 <div class="page-section section pt-120 pb-120">
     <div class="container">
         <div class="row">
@@ -55,5 +55,5 @@
 </body>
 <!-- Body main wrapper end -->
 <!-- footer fragment -->
-<th:block th:replace="fragments/common/mypage_footer.html :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer.html :: footerFragment"></th:block>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="${item.title}"></title>
     <!-- head fragment -->
-    <th:block th:replace="fragments/common/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <style>
         .modal {
             position: absolute;
@@ -23,7 +23,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
 <!-- header fragment -->
-<th:block th:replace="fragments/common/mypage_header :: headerFragment"></th:block>
+<th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <!-- PAGE SECTION START -->
 <div class="page-section section pt-120 pb-45">
     <div class="container">
@@ -134,7 +134,7 @@
 <!-- PAGE SECTION END -->
 
 <!-- footer fragment -->
-<th:block th:replace="fragments/common/mypage_footer.html :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer.html :: footerFragment"></th:block>
 <script th:inline="javascript">
     // let hi = {hi:'hi'}
     /*<![CDATA[*/

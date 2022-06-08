@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>리스트</title>
     <!-- head fragment -->
-    <th:block th:replace="fragments/common/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <link id="contextPathHolder" th:data-contextPath="${#httpServletRequest.getContextPath()}"/>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
 <!-- header fragment -->
-<th:block th:replace="fragments/common/mypage_header :: headerFragment"></th:block>
+<th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <!-- PAGE SECTION START -->
 <div class="page-section section pt-120 pb-45">
     <div class="container">
@@ -89,7 +89,7 @@
 
 </body>
 <!-- footer fragment -->
-<th:block th:replace="fragments/common/mypage_footer.html :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer.html :: footerFragment"></th:block>
 
 <script th:inline="javascript">
     $(document).ready(function (){
