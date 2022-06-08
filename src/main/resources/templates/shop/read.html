@@ -120,10 +120,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-banner-content">
-                    <h1 th:text="${memName}+'님'"></h1>
+                    <h1 th:text="'상품상세페이지'"></h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li class="active">myPage</li>
+                        <li><a onclick="history.back()">뒤로가기</a></li>
+                        <li class="active">[[${pvo.pName}]]</li>
                     </ul>
                 </div>
             </div>
@@ -156,8 +156,12 @@
                     <!-- Price Ratting -->
                     <div class="price-ratting section">
                         <!-- Price -->
-                        <div class="price_div">
-                            <span class="price float-start"><span class="new" th:value="${pvo.pPrice}">[[${pvo.pPrice}]]원</span></span>
+                        <div class="price_div" th:if="${pvo.pDiscount>0.0}">
+                            <span  style="color: red;float: left;font-size: 30px"><strong th:text="${#numbers.formatInteger(pvo.pDiscount*100,0)}"></strong><small style="font-size: 15px">%</small></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="price"><strong style="font-size: 30px"><span class="new" th:text="|${#numbers.formatInteger(pvo.pPrice-pvo.pPrice*pvo.pDiscount,0)}원|"></span></strong><span class="old"><small style="font-size: 15px">[[${pvo?.pPrice}]]원</small></span></span>
+                        </div>
+                        <div class="price_div" th:if="${pvo.pDiscount==0.0}">
+                            <span  class="price"><span class="new" ><strong style="font-size: 30px">[[${pvo.pPrice}]]</strong><small>원</small></span></span>
                         </div>
                         <!-- Ratting -->
                         <span class="ratting float-end">
@@ -172,6 +176,7 @@
                         <p>아디다스의 전 세계 멤버를 위해 준비된 편안한 순면 티셔츠입니다. 뒷면의 오리지널스 클럽 그래픽이 멤버십 카드를 떠오르게 하는 특별한 룩을 선사합니다.
 
                             지속 가능한 면 생산을 목표로 하는 비영리 단체, '베터 코튼 이니셔티브'와 파트너십을 통해 탄생한 제품입니다.</p>
+
                     <div>
 
                     </div>
@@ -259,13 +264,17 @@
                             <div class="col-xs-12" th:each="related : ${relatedList}">
                                 <div class="product-item text-center" >
                                     <div class="product-img">
-                                        <a class="image" th:href="@{/shop/read(pno=${related.pno},mno=2)}"><img th:src="|/display?fileName=${related.pImage}|" alt=""/></a>
+                                        <a class="image" th:href="@{/shop/read(pno=${related.pno})}"><img th:src="|/display?fileName=${related.pImage}|" alt=""/></a>
                                         <a  title="Wishlist"><i class="pe-7s-like"></i></a>
                                     </div>
                                     <div class="product-info text-left">
                                         <h5 class="title" th:text="${related.pName}"><a href="product-details.html"></a></h5>
-                                        <div class="price-ratting fix">
-                                            <span class="price float-start"><span class="new" th:text="${related.pPrice}"></span></span>
+                                        <div class="price-ratting fix"  th:if="${related.pDiscount>0.0}">
+                                            <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(related.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(related.pPrice-related.pPrice*related.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${related?.pPrice}]]원</small></span></span>
+                                            </div>
+                                            <div class="price-ratting fix" th:if="${related.pDiscount==0.0}" >
+                                                <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${related.pPrice}]]</strong><small>원</small></span></span>
+                                            </div>
                                             <span class="ratting float-end "  >
                                 <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">
                                     <i class="fa fa-star active"
@@ -411,7 +420,7 @@
     $(".wishlist").click(function (){
 
         let pno =[[${pvo.pno}]]
-        let mno =2
+        let mno = $("input[name=mnoSec]").val();
 
         $.ajax({
             type:"post",
@@ -896,31 +905,32 @@
             if($("input[name=mnoSec]").val() === ""){
                 console.log("장바구니 담기 검증 들어오나")
                 alert("로그인 후 이용해주세요");
-                window.location.href = '/dan/login'
+                window.location.replace('/dan/login')
+                return false;
             }
+            else{ // --------------------------------------------- SW수정 0607 (else 안에 코드 원래 else 밖에 있었음)
+                let mno = $("input[name=mnoSec]").val(); // SW수정 0607
+                let itemCount = $("#amountBox").val();
+                $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
+                let inputs= $(".order_form").find("input")
+                let val = "";
+                let cnt="";
+                for(let i=0;i<inputs.length;i++){
+                    val =inputs[i].value
+                    if(val==""){
+                        cnt++
+                    }
 
-            let mno = $("input[name=mnoSec]").val(); // SW수정 0607
-            let itemCount = $("#amountBox").val();
-            $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
-            let inputs= $(".order_form").find("input")
-            let val = "";
-            let cnt="";
-            for(let i=0;i<inputs.length;i++){
-                val =inputs[i].value
-               if(val==""){
-                 cnt++
-               }
-
+                }
+                if(cnt>0){
+                    alert("옵션을 선택해주세요!")
+                }
+                else{
+                    $(".order_form").attr("action","/order/"+$("input[name=mnoSec]").val())
+                    console.log($(".order_form").attr("action"))
+                    $(".order_form").submit();
+                }
             }
-            if(cnt>0){
-                alert("옵션을 선택해주세요!")
-            }
-            else{
-                $(".order_form").attr("action","/order/"+$("input[name=mnoSec]").val())
-                console.log($(".order_form").attr("action"))
-                $(".order_form").submit();
-            }
-
         });
 
         let detailInfo = $(".product-detailInfo")
@@ -1037,7 +1047,7 @@
 
             review_div.html(str)
 
-                let review_pageMaker = '';
+                let review_pageMaker = '<div class="paginationC clearfix">';
                 console.log(pageInfo)
                 /* prev */
                 if(pageInfo.prev){
@@ -1063,10 +1073,8 @@
                     review_pageMaker += '<a href="'+ next_num +'">다음</a>';
                     review_pageMaker += '</li>';
                 }
-                // <span className="ratting float-end">
-                //
-                //             <span>  [[${pvo.pRating}]]([[${pvo.pReviewCnt}]])</span>
-                //         </span>
+                review_pageMaker +='<div style="font-size: small;">[page'+pageInfo.cri.page+']</div>'
+                review_pageMaker +='</div>'
                 reviewhead = "";
                 reviewhead +="<div class='review-sortContainer'>"
                 reviewhead  += "<a href='new'>최신리뷰순</a>&nbsp"
@@ -1381,20 +1389,19 @@
 
         }
         function loadQList(){
-
+            let str = '<div>';
+            str +='<ul>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>구매한 상품의 취소/반품은 마이페이지에서 신청 가능합니다.</strong></li>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</strong></li>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>가격, 판매자, 교환/환불 및 배송 등 해당 상품 자체와 관련 없는 문의는 고객센터 내 1:1 문의하기를 이용해주세요.</strong></li>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>"해당 상품 자체"와 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 이동, 노출제한, 삭제 등의 조치가 취해질 수 있습니다.</strong></li>'
+            str +='<li style="margin: 5px;list-style-type: disc;"><strong>공개 게시판이므로 전화번호, 메일 주소 등 고객님의 소중한 개인정보는 절대 남기지 말아주세요.</strong></li>'
+            str +='</ul>'
+            str +='</div>'
+            str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
+            str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
             $.getJSON("/rest/getQList/" + pno,function (data){
-                console.log(data)
-                let str = '<div>';
-                str +='<ul>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>구매한 상품의 취소/반품은 마이페이지에서 신청 가능합니다.</strong></li>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>상품문의 및 후기게시판을 통해 취소나 환불, 반품 등은 처리되지 않습니다.</strong></li>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>가격, 판매자, 교환/환불 및 배송 등 해당 상품 자체와 관련 없는 문의는 고객센터 내 1:1 문의하기를 이용해주세요.</strong></li>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>"해당 상품 자체"와 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 이동, 노출제한, 삭제 등의 조치가 취해질 수 있습니다.</strong></li>'
-                str +='<li style="margin: 5px;list-style-type: disc;"><strong>공개 게시판이므로 전화번호, 메일 주소 등 고객님의 소중한 개인정보는 절대 남기지 말아주세요.</strong></li>'
-                str +='</ul>'
-                str +='</div>'
-                str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
-                str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
+
                 $(data).each(function (){
                     str+='<div class="pro-info-tab tab-pane" id="data-sheet">'
                     str +='<table class="table-data-sheet" style="height: 100px;">'
@@ -1418,15 +1425,15 @@
                     str +='</div>'
 
                 })
-                qlistInfo.html(str)
-                deleveryInfo.html('');
-                reviewHeader.html('')
-                detailInfo.html('')
-                review_not_div.html('');
-                review_div.html('');
-                pageMaker.html('');
-            })
 
+            })
+            qlistInfo.html(str)
+            deleveryInfo.html('');
+            reviewHeader.html('')
+            detailInfo.html('')
+            review_not_div.html('');
+            review_div.html('');
+            pageMaker.html('');
         }
         $(".product-QList").on("click",".odd",function (){
 

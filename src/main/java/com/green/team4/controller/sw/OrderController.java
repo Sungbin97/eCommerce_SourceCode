@@ -6,7 +6,7 @@ import com.green.team4.mapper.sw.OrderItemMapper;
 import com.green.team4.service.sw.ExchangeService;
 import com.green.team4.service.sw.OrderService;
 import com.green.team4.service.sw.ReviewMpService;
-import com.green.team4.vo.JH.Product_optVO;
+import com.green.team4.vo.shop.Product_optVO;
 import com.green.team4.vo.sw.ExchangeVO;
 import com.green.team4.vo.sw.OrderItemVO;
 import com.green.team4.vo.sw.OrderVO;

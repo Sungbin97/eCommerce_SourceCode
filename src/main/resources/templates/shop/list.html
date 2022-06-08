@@ -135,24 +135,24 @@
                     <!-- Product Image -->
                     <div class="product-img">
                         <!-- Image -->
-                        <a class="image"  th:href="@{/shop/read(pno=${dto?.pno},mno=2)}"><img th:src="|/display?fileName=${dto.pImage}|"  alt="" style="width: 442px; height: 350px"></a>
+                        <a class="image"  th:href="@{/shop/read(pno=${dto?.pno})}"><img th:src="|/display?fileName=${dto.pImage}|"  alt="" style="width: 442px; height: 350px"></a>
                         <!-- Action Button -->
                         <div class="action-btn-2">
-                            <a href="#" title="Add to Cart"><i class="pe-7s-cart"></i></a>
-                            <a href="#" data-bs-toggle="modal"  data-bs-target="#quickViewModal" title="Quick View"><i class="pe-7s-look"></i></a>
                             <a class="wishlist"  title="Wishlist"><i class="pe-7s-like"></i></a>
                         </div>
                     </div>
                     <!-- Portfolio Info -->
                     <div class="product-info">
                         <!-- Title -->
-                        <h5 class="title"><a th:href="@{/shop/read(pno=${dto?.pno},mno=2)}">[[${dto?.pName}]]--[[${dto?.pCateName}]]</a></h5>
+                        <h5 class="title"><a th:href="@{/shop/read(pno=${dto?.pno})}">[[${dto?.pName}]]</a></h5>
                         <!-- Price -->
-                        <div class="price-ratting fix">
-                            <span class="price"><span class="new">€137.00</span><span class="old">[[${dto?.pPrice}]]원</span></span>
+                        <div class="price-ratting fix"  th:if="${dto.pDiscount>0.0}">
+                            <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${dto?.pPrice}]]원</small></span></span>
                         </div>
-                        <br>
-                        <span class="ratting float-end "  >
+                        <div class="price-ratting fix" th:if="${dto.pDiscount==0.0}" >
+                            <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${dto.pPrice}]]</strong><small>원</small></span></span>
+                        </div>
+                        <span class="ratting float-end" style="margin-left: 15px" >
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
                                     <i class="fa fa-star active"
                                        th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
@@ -162,7 +162,7 @@
                                 </th:block>
 
                             </span>
-                        <span th:if="${#numbers.formatInteger(dto.pRating,0)} ==0" class="ratting float-end">
+                        <span th:if="${#numbers.formatInteger(dto.pRating,0)} ==0" class="ratting float-end" style="margin-left: 65px">
                                     <i class="fa fa-star "></i>
                                     <i class="fa fa-star "></i>
                                     <i class="fa fa-star "></i>
@@ -172,166 +172,34 @@
                         </span>
 
                     </div>
-
-                </div>
-                <div class="hidden_data_div">
-                    <input type="hidden" name="pno" th:value="${dto.pno}">
-                </div>
-            </div>
-
-        </div>
-        <!-- QUICK VIEW MODAL START-->
-        <div class="modal fade" id="quickViewModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <!-- QuickView Product Images -->
-                            <div class="col-xl-5 col-md-6 col-12 mb-40">
-                                <!-- Tab panes -->
-                                <div class="tab-content mb-10">
-                                    <div class="pro-large-img tab-pane active" id="pro-large-img-1">
-                                        <img src="img/product/2.jpg" alt="" />
-                                    </div>
-                                    <div class="pro-large-img tab-pane" id="pro-large-img-2">
-                                        <img src="img/product/1.jpg" alt="" />
-                                    </div>
-                                    <div class="pro-large-img tab-pane" id="pro-large-img-3">
-                                        <img src="img/product/3.jpg" alt="" />
-                                    </div>
-                                    <div class="pro-large-img tab-pane" id="pro-large-img-4">
-                                        <img src="img/product/4.jpg" alt="" />
-                                    </div>
-                                    <div class="pro-large-img tab-pane" id="pro-large-img-5">
-                                        <img src="img/product/5.jpg" alt="" />
-                                    </div>
-                                </div>
-                                <!-- QuickView Product Thumbnail Slider -->
-                                <div class="pro-thumb-img-slider">
-                                    <div><a href="#pro-large-img-1" data-toggle="tab"><img src="img/product/2.jpg" alt="" /></a></div>
-                                    <div><a href="#pro-large-img-2" data-toggle="tab"><img src="img/product/1.jpg" alt="" /></a></div>
-                                    <div><a href="#pro-large-img-3" data-toggle="tab"><img src="img/product/3.jpg" alt="" /></a></div>
-                                    <div><a href="#pro-large-img-4" data-toggle="tab"><img src="img/product/4.jpg" alt="" /></a></div>
-                                    <div><a href="#pro-large-img-5" data-toggle="tab"><img src="img/product/5.jpg" alt="" /></a></div>
-                                </div>
-                            </div>
-                            <!-- QuickView Product Details -->
-                            <div class="col-xl-7 col-md-6 col-12 mb-40">
-                                <div class="product-details section">
-                                    <!-- Title -->
-                                    <h1 class="title">DSR Eiffel chair</h1>
-                                    <!-- Price Ratting -->
-                                    <div class="price-ratting section d-flex flex-column flex-sm-row justify-content-between">
-                                        <!-- Price -->
-                                        <span class="price"><span class="new">€ 120.00</span></span>
-                                        <!-- Ratting -->
-                                        <span class="ratting">
-                                <i class="fa fa-star active"></i>
-                                <i class="fa fa-star active"></i>
-                                <i class="fa fa-star active"></i>
-                                <i class="fa fa-star active"></i>
-                                <i class="fa fa-star active"></i>
-                                <span> (01 Customer Review)</span>
-                            </span>
-                                    </div>
-                                    <!-- Short Description -->
-                                    <div class="short-desc section">
-                                        <h5 class="pd-sub-title">Quick Overview</h5>
-                                        <p>There are many variations of passages of Lorem Ipsum avaable, b majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. make an ami jani na.</p>
-                                    </div>
-                                    <!-- Product Size -->
-                                    <div class="product-size section">
-                                        <h5 class="pd-sub-title">Select Size</h5>
-                                        <button>s</button>
-                                        <button class="active">m</button>
-                                        <button>x</button>
-                                        <button>xl</button>
-                                    </div>
-                                    <!-- Product Color -->
-                                    <div class="color-list section">
-                                        <h5 class="pd-sub-title">Select Color</h5>
-                                        <button class="active" style="background-color: #51bd99;"><i class="fa fa-check"></i></button>
-                                        <button style="background-color: #ff7a5f;"><i class="fa fa-check"></i></button>
-                                        <button style="background-color: #baa6c2;"><i class="fa fa-check"></i></button>
-                                        <button style="background-color: #414141;"><i class="fa fa-check"></i></button>
-                                    </div>
-                                    <!-- Quantity Cart -->
-                                    <div class="quantity-cart section">
-                                        <div class="product-quantity">
-                                            <input type="text" value="0">
-                                        </div>
-                                        <button class="add-to-cart">add to cart</button>
-                                    </div>
-                                    <!-- Usefull Link -->
-                                    <ul class="usefull-link section">
-                                        <li><a href="#"><i class="pe-7s-mail"></i> Email to a Friend</a></li>
-                                        <li><a href="#"><i class="pe-7s-like"></i> Wishlist</a></li>
-                                        <li><a href="#"><i class="pe-7s-print"></i> print</a></li>
-                                    </ul>
-                                    <!-- Share -->
-                                    <div class="share-icons section">
-                                        <span>share :</span>
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-instagram"></i></a>
-                                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- QUICK VIEW MODAL END-->
 
 
-        <div class="paginationC clearfix">
-            <li  th:if="${pagingVO.prev}"
-               >
-                <a th:href="@{/shop/list(page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">이전</a>
-            </li>
-            <th:block  th:with="start = ${pagingVO.start}, end = ${pagingVO.end}">
-                <li
-                   th:with="start = ${pagingVO.start}, end = ${pagingVO.end} "
-                   th:each="pageButton : ${#numbers.sequence(start, end)}"
-                   >
-                    <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pageButton},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}" th:text="${pageButton}"></a>
-                </li>
-            </th:block>
-            <li  th:if="${pagingVO.next}"
-               >
-                <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pagingVO.end+1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">다음</a>
-            </li>
-            <div style="font-size: small;">[ page[[${cri.page}]] ]</div>
-        </div>
 
 
-<!--        &lt;!&ndash; Paging custom &ndash;&gt;-->
-<!--        <div class="paginationC clearfix">-->
-<!--            &lt;!&ndash; 이전 버튼 &ndash;&gt;-->
-<!--            <li th:if="${pagingVO.prev}">-->
-<!--                <a th:href="@{/shop/list(page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">Previous</a>-->
-<!--            </li>-->
-<!--            <li th:if="${exList.getPrePage() == 0}">-->
-<!--                <a>Previous</a>-->
-<!--            </li>-->
-<!--            &lt;!&ndash; 페이지 번호&ndash;&gt;-->
-<!--            <li th:each="page: ${#numbers.sequence(exList.getNavigateFirstPage(), exList.getNavigateLastPage())}" th:classappend="${page == exList.getPageNum()} ? 'active'">-->
-<!--                <a th:text="${page}" th:href="@{/sw/mypage/exchange/list(pageNum=${page}, mno=${mno})}"></a>-->
-<!--            </li>-->
-<!--            &lt;!&ndash; 다음 버튼&ndash;&gt;-->
-<!--            <li th:if="${exList.getNextPage() != 0}">-->
-<!--                <a th:href="@{/sw/mypage/exchange/list(pageNum=${exList.getNextPage()}, mno=${mno})}">Next</a>-->
-<!--            </li>-->
-<!--            <li th:if="${exList.getNextPage() == 0}">-->
-<!--                <a>Next</a>-->
-<!--            </li>-->
-<!--            <div style="font-size: small;">[ page[[${pageNum}]] ]</div>-->
-<!--        </div>-->
+                            <div class="paginationC clearfix">
+                                <li  th:if="${pagingVO.prev}"
+                                >
+                                    <a th:href="@{/shop/list(page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">이전</a>
+                                </li>
+                                <th:block  th:with="start = ${pagingVO.start}, end = ${pagingVO.end}">
+                                    <li
+                                            th:with="start = ${pagingVO.start}, end = ${pagingVO.end} "
+                                            th:each="pageButton : ${#numbers.sequence(start, end)}"
+                                    >
+                                        <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pageButton},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}" th:text="${pageButton}"></a>
+                                    </li>
+                                </th:block>
+                                <li  th:if="${pagingVO.next}"
+                                >
+                                    <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pagingVO.end+1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">다음</a>
+                                </li>
+                                <div style="font-size: small;">[ page[[${cri.page}]] ]</div>
+                            </div>
+
+
     </div>
 </div>
 <!-- mypage footer fragment -->
@@ -368,7 +236,7 @@
     $(".wishlist").click(function (){
 
         let pno =$(this).parents(".isotope-item").find(".hidden_data_div").find("input[name=pno]").val()
-        let mno =2
+        let mno = $("input[name=mnoSec]").val();
         console.log($(this).children().find(".pe-7s-like"))
         $.ajax({
             type:"post",

@@ -1,6 +1,6 @@
 package com.green.team4.service.admin;
 
-import com.green.team4.vo.JH.Product_optVO;
+import com.green.team4.vo.shop.Product_optVO;
 
 import java.util.List;
 

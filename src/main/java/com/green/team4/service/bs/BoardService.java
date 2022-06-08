@@ -20,4 +20,6 @@ public interface BoardService {
     public List<BoardVO> getPageList(Criteria criteria);
     public int getTotal(Criteria criteria);
     public void saveFile(BoardVO vo, MultipartFile imgFile) throws IOException;
+
+    public List<BoardVO> readListForMain();
 }

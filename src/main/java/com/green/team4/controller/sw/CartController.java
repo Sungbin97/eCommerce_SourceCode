@@ -74,7 +74,6 @@ public class CartController {
             }
             else {
                 recentCartList.add(cartList.get(0));
-//                recentCartList.add(cartList.get(1));
             }
         }
         else { // cart가 없으면

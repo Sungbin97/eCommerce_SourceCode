@@ -1,8 +1,8 @@
 package com.green.team4.controller.admin;
 
 import com.github.pagehelper.PageInfo;
-import com.green.team4.mapper.JH.OrderPageMapper;
-import com.green.team4.mapper.JH.ShopMapper;
+import com.green.team4.mapper.shop.OrderPageMapper;
+import com.green.team4.mapper.shop.ShopMapper;
 import com.green.team4.mapper.admin.ProductInfoImgMapper;
 import com.green.team4.mapper.admin.ProductImgMapper;
 import com.green.team4.mapper.admin.ProductOptMapper;
@@ -10,7 +10,7 @@ import com.green.team4.paging.PagingEntity;
 import com.green.team4.vo.admin.SearchVO;
 import com.green.team4.service.admin.PagingService;
 import com.green.team4.service.admin.ProductService;
-import com.green.team4.vo.JH.Product_optVO;
+import com.green.team4.vo.shop.Product_optVO;
 import com.green.team4.vo.admin.ProductImgVO;
 import com.green.team4.vo.admin.ProductInfoImgVO;
 import com.green.team4.vo.admin.ProductVO;

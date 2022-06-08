@@ -179,7 +179,35 @@ $('.product-slider-4').slick({
     ]
 });
 
- 
+    //커뮤니티 슬라이더 JH 추가
+    $('.community-slider-4').slick({
+        speed: 2000,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay : true,
+        prevArrow: '<button type="button" class="arrow-prev"><i class="fa fa-angle-left"></i></button>',
+        nextArrow: '<button type="button" class="arrow-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 1169,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+        ]
+    });
 /*--
     Product Details Thumbnail Slider
 -----------------------------------*/

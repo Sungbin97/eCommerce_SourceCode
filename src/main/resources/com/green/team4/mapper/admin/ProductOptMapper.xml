@@ -10,11 +10,11 @@
         values (#{pno}, #{pOption}, #{pOptionName}, #{pOption2}, #{pOptionName2}, #{pAmount}, #{pOptionPrice}, #{pColor})
     </insert>
 
-    <select id="getAll" resultType="com.green.team4.vo.JH.Product_optVO">
+    <select id="getAll" resultType="com.green.team4.vo.shop.Product_optVO">
         select * from tbl_product_opt
     </select>
 
-    <select id="getProductJoin" resultType="com.green.team4.vo.JH.Product_optVO">
+    <select id="getProductJoin" resultType="com.green.team4.vo.shop.Product_optVO">
 <!-- pno를 통한 상품 색상, 사이즈별 가격 및 수량 조회 -->
         select p.pno, p.pname, o.pSize, o.pColor, o.pAmount from  tbl_product p
         inner join tbl_product_opt o
@@ -22,16 +22,16 @@
     </select>
 
     <!-- 상품 옵션정도 모두 가져오기 -->
-    <select id="getProductOption" resultType="com.green.team4.vo.JH.Product_optVO">
+    <select id="getProductOption" resultType="com.green.team4.vo.shop.Product_optVO">
         select distinct * from tbl_product_opt
         where pno=#{pno}
     </select>
 
-    <select id="getOpt" resultType="com.green.team4.vo.JH.Product_optVO">
+    <select id="getOpt" resultType="com.green.team4.vo.shop.Product_optVO">
         select * from tbl_product_opt where pno=#{pno}
     </select>
 
-    <select id="getColors" resultType="com.green.team4.vo.JH.Product_optVO">
+    <select id="getColors" resultType="com.green.team4.vo.shop.Product_optVO">
         select pColor from tbl_product_opt where pno=#{pno};
     </select>
 
@@ -72,7 +72,7 @@
     </delete>
 
 
-    <select id="findAmount" resultType="com.green.team4.vo.JH.Product_optVO">
+    <select id="findAmount" resultType="com.green.team4.vo.shop.Product_optVO">
         select * from tbl_product_opt ps where pno = #{pno} <include refid="option"></include>
     </select>
 

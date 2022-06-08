@@ -1,8 +1,8 @@
 package com.green.team4.mapperTests;
 
-import com.green.team4.mapper.JH.ReviewMapper;
-import com.green.team4.service.JH.ReviewService;
-import com.green.team4.vo.JH.ReviewVO;
+import com.green.team4.mapper.shop.ReviewMapper;
+import com.green.team4.service.shop.ReviewService;
+import com.green.team4.vo.shop.ReviewVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
