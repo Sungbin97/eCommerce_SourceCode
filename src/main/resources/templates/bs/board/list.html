@@ -16,18 +16,23 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <button id="regBtn">게시글 등록</button>
+                <form method="get" action="register">
+                    <!--  추후 넘어오는 데이터로 수정 -->
+                    <input type="hidden" name="mno" value="10000">
+                    <button type="submit" id="regBtn">게시글 등록</button>
+                </form>
                 <!-- Blog Item -->
                 <div class="blog-item mb-75" th:each="item : ${items}">
                     <!-- Image -->
                     <a href="blog-details.html" class="image"><img src="img/blog/3.jpg" alt=""></a>
                     <!-- Content -->
                     <div class="content fix">
-                        <!-- uNo-->
-                        <span th:text="${item.uNo}"></span>
+                        <!-- bno-->
+                        <span th:text="${item.bno}"></span>
                         <!-- Title -->
-                        <a class="move" th:href="${item.uNo}"><h4 class="title" th:text="${item.title}"></h4></a>
-                        <span th:text="${item.userName}"></span>
+                        <a class="move" th:href="${item.bno}"><h4 class="title" th:text="${item.title}"></h4></a>
+                        <span th:text="${item.nonMemberId}" th:if="item.mno==10000"></span>
+                        <span th:text="${item.nickName}" th:if="item.mno!=10000"></span>
                         <!-- Date -->
                         <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}">
                         </span>
@@ -103,11 +108,6 @@
 
             // $("#myModal").modal("show");
         }
-        // 게시글 등록
-        $("#regBtn").on("click", function (){
-            // The Window.location 읽기전용 요소는 문서의 위치(url)에 대한 정보가 담긴 Location 객체를 반환한다.
-            self.location = "/bs/board/register";
-        })
         let actionForm = $("#actionForm")
 
         // pagination start
@@ -132,10 +132,10 @@
             actionForm.submit();
         })
 
-        // 게시글 href 연결, 복잡한 링크를 만들지 않기 위해 form에 uNo정보 담아 전달
+        // 게시글 href 연결, 복잡한 링크를 만들지 않기 위해 form에 bno정보 담아 전달
         $(".move").on("click",function (e){
             e.preventDefault();
-            actionForm.append("<input type='hidden' name='uNo' value='" +
+            actionForm.append("<input type='hidden' name='bno' value='" +
                 $(this).attr("href") +"'>");
             actionForm.attr("action","/bs/board/read");
             actionForm.submit();

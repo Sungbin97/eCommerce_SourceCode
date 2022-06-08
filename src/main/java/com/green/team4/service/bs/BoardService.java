@@ -19,7 +19,5 @@ public interface BoardService {
     public void delete(Long sid);
     public List<BoardVO> getPageList(Criteria criteria);
     public int getTotal(Criteria criteria);
-    public void saveFile(BoardVO vo, MultipartFile imgFile) throws IOException;
-
-    public List<BoardVO> readListForMain();
+    public BoardVO userInfo(Long mno);
 }

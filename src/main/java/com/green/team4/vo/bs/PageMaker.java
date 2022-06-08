@@ -20,7 +20,7 @@ public class PageMaker {
         this.endPage = (int)(Math.ceil((double)(criteria.getPage())/(double)10) * 10);
         this.startPage = this.endPage - 10 + 1;
         int realEnd = (int)(Math.ceil((double)total/(double)10));
-        if(endPage>realEnd){
+        if(this.endPage>realEnd){
             this.endPage = realEnd;
         }
         prev = startPage > 1;
