@@ -25,10 +25,26 @@
         margin-right: 80px;
     }
     .reviewCnt_span{
-     font-size:12px;
+        font-size:12px;
         margin-left: 3px;
     }
+    .product_TimeDealLogo{
+        border: solid 1px red;
+        color: red;
+        background-color: white;
+    }
+    .product_BestLogo{
+        border: solid 1px blue;
+        color: blue;
+        background-color: white;
+    }
+    .product_HotDealLogo{
+        border: solid 1px hotpink;
+        color: hotpink;
+        background-color: white;
+    }
 </style>
+
 <body>
 <!-- mypage header fragment -->
 <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
@@ -144,7 +160,9 @@
                     <!-- Portfolio Info -->
                     <div class="product-info">
                         <!-- Title -->
-                        <h5 class="title"><a th:href="@{/shop/read(pno=${dto?.pno})}">[[${dto?.pName}]]</a></h5>
+                        <h5 class="title">
+                            <button th:if="${dto.pCateCode.substring(0,1)}=='5'"  class="product_BestLogo" style="font-size: 4px;float: left;">BEST</button><button th:if="${dto.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
+                            <a style="margin-right: 25px" th:href="@{/shop/read(pno=${dto?.pno})}">[[${dto?.pName}]]</a></h5>
                         <!-- Price -->
                         <div class="price-ratting fix"  th:if="${dto.pDiscount>0.0}">
                             <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${dto?.pPrice}]]원</small></span></span>
@@ -179,29 +197,30 @@
 
 
 
-                            <div class="paginationC clearfix">
-                                <li  th:if="${pagingVO.prev}"
-                                >
-                                    <a th:href="@{/shop/list(page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">이전</a>
-                                </li>
-                                <th:block  th:with="start = ${pagingVO.start}, end = ${pagingVO.end}">
-                                    <li
-                                            th:with="start = ${pagingVO.start}, end = ${pagingVO.end} "
-                                            th:each="pageButton : ${#numbers.sequence(start, end)}"
-                                    >
-                                        <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pageButton},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}" th:text="${pageButton}"></a>
-                                    </li>
-                                </th:block>
-                                <li  th:if="${pagingVO.next}"
-                                >
-                                    <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pagingVO.end+1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">다음</a>
-                                </li>
-                                <div style="font-size: small;">[ page[[${cri.page}]] ]</div>
-                            </div>
+        <div class="paginationC clearfix">
+            <li  th:if="${pagingVO.prev}"
+            >
+                <a th:href="@{/shop/list(page=${pagingVO.start-1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">이전</a>
+            </li>
+            <th:block  th:with="start = ${pagingVO.start}, end = ${pagingVO.end}">
+                <li
+                        th:with="start = ${pagingVO.start}, end = ${pagingVO.end} "
+                        th:each="pageButton : ${#numbers.sequence(start, end)}"
+                >
+                    <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pageButton},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}" th:text="${pageButton}"></a>
+                </li>
+            </th:block>
+            <li  th:if="${pagingVO.next}"
+            >
+                <a th:href="@{/shop/list(pCateCode=${cri.pCateCode},tier=${cri.tier},page=${pagingVO.end+1},numPerPage=${cri.numPerPage},sort=${cri.sort},keyword=${cri.keyword})}">다음</a>
+            </li>
+            <div style="font-size: small;">[ page[[${cri.page}]] ]</div>
+        </div>
 
 
     </div>
 </div>
+
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 </body>
