@@ -52,7 +52,6 @@ public class ProductController {
     private final ProductInfoImgMapper productImgInfoMapper;
     private final PagingService pagingService;
     private final ShopMapper shopMapper;
-
     private final OrderPageMapper orderPageMapper;
 
     private String makeFolder(){ // 파일 저장 폴더 만들기(탐색기)
