@@ -38,6 +38,7 @@
                             <thead>
                             <tr>
                                 <th class="pro-remove">회원번호</th>
+                                <th class="pro-remove">아이디</th>
                                 <th class="pro-remove">이름</th>
                                 <th class="pro-thumbnail">주소</th>
                                 <th class="pro-price">전화번호</th>
@@ -49,6 +50,7 @@
                             <tbody>
                             <tr th:each="dto:${list.getList()}">
                                 <td class="pro-remove"><a th:href="@{/admin/member/modify(mno=${dto.mno})}" th:text="${dto.mno}"/></td>
+                                <td class="pro-remove" th:text="${dto.id}"></td>
                                 <td class="pro-remove" th:text="${dto.name}"></td>
                                 <td class="pro-thumbnail" th:text="${dto.address}"></td>
                                 <td class="pro-price"><span class="amount" th:text="${dto.mobileNum}"/></td>

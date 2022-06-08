@@ -81,11 +81,11 @@ public class MemServiceTests {
         System.out.println("가져온 MemberInfo: "+memberInfoVO);
     }
 
-    @Test
-    public void testGetAll(){
-        List<MemberInfoVO> list = service.readAll();
-        list.forEach(System.out::println);
-    }
+//    @Test
+//    public void testGetAll(){
+//        List<MemberInfoVO> list = service.readAll();
+//        list.forEach(System.out::println);
+//    }
 
 //    @Test
 //    public void testUpdate(){

@@ -65,5 +65,13 @@
         select * from tbl_memberInfo
         where id=#{id}
     </select>
+    <select id="findPw" resultType="com.green.team4.vo.sw.MemberInfoVO">
+        select * from tbl_memberInfo
+        where id=#{id} and email=#{email}
+    </select>
+    <!-- 비밀번호 생성 -->
+    <update id="newPw">
+        update tbl_memberInfo set password=#{password} where id=#{id}
+    </update>
 
 </mapper>

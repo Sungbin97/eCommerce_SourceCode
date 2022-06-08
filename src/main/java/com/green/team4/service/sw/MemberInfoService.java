@@ -13,5 +13,8 @@ public interface MemberInfoService {
     int remove(int mno,String delCategory, String delContent);
     public MemberInfoVO getMemberInfo(int mno); //주문페이지에 사용할 멤버 서비스
     MemberInfoVO findById(String id);
+    //비밀번호찾기
+    MemberInfoVO findPw(MemberInfoVO vo);
+
 
 }

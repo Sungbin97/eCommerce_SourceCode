@@ -193,4 +193,12 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         log.info("security id 조회 service: " + id);
         return memberInfoMapper.findByUsername(id);
     }
+
+    @Override
+    public MemberInfoVO findPw(MemberInfoVO vo) {
+        log.info("비밀번호 찾기 조회 결과: "+vo);
+        return memberInfoMapper.findPw(vo);
+    }
+
+
 }

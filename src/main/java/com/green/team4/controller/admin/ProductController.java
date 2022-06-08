@@ -119,12 +119,9 @@ public class ProductController {
         //옵션 저장
         for (String o1 : opt1){
             optVO.setPOption(o1);
-            log.info("o1: " + o1);
             for (String o2 : opt2){
-                log.info("o2: " + o2);
                 optVO.setPOption2(o2);
                 for (String c : colors){
-                    log.info("color: " + c);
                     optVO.setPColor(c);
                     productOptMapper.insert(optVO);
                 }

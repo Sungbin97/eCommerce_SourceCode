@@ -48,6 +48,7 @@ public class SignupController {
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         log.info("encodePassword: "+encPassword);
         signupVO.setPassword(encPassword);
+        signupVO.setAuth("ROLE_MEMBER");
         signupService.insert(signupVO);
         return "redirect:/dan/login";
     }

@@ -23,7 +23,7 @@ public class DeliveryServiceImpl implements DeliveryService{
         log.info("DeliveryService => register 실행 => 받은 deliveryVO: "+deliveryVO);
         int result = deliveryMapper.insert(deliveryVO);
         log.info("DeliveryService => register 실행 후 등록된 데이터 개수: "+result);
-        return 1;
+        return result;
     }
 
     @Override

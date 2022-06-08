@@ -41,7 +41,7 @@ public class MemberController {
         MailVO mvo = new MailVO();
         memberInfoService.modifyByAdmin(memberInfoVO);
 
-        return "redirect:/admin/member/modify?mno="+memberInfoVO.getMno();
+        return "redirect:/admin/member/member";
     }
     @PostMapping("/remove")
     public String MemberRemove(int mno,String delCategory, String delContent){

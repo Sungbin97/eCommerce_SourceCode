@@ -131,7 +131,12 @@
                                                     <option id="optShoes" type="text" value="SHOES(240...)">SHOES(240...)</option>
                                                     <option type="text" style="align-center">--- 식품 ---</option>
                                                     <option id="optTaste" type="text" value="FLAVOR">FLAVOR</option>
+                                                    <option id="optFoodGram" type="text" value="GRAM(food)">GRAM(100g...)</option>
+                                                    <option id="optFoodKG" type="text" value="KG(food)">KG(1kg...)</option>
                                                     <option type="text" style="align-center">--- 운동기구 ---</option>
+                                                    <option id="optShape" type="text" value="SHAPE">SHAPE</option>
+                                                    <option id="optMachineGram" type="text" value="GRAM(machine)">GRAM(500g...)</option>
+                                                    <option id="optMachineKG" type="text" value="KG(machine)">KG(1kg...)</option>
                                                 </select>
 
                                                 <div id="optNullCheckbox" style="display:none">
@@ -256,6 +261,97 @@
                                                     <label><input class="opt1Class" type="checkbox" name="opt1" value=오렌지>오렌지</label>
                                                 </div>
 
+                                                <div id="optFoodGramCheckbox" style="display:none">
+                                                    <label>
+                                                        <input type='checkbox'
+                                                               class="opt1Class"
+                                                               value='selectall'
+                                                               onclick='selectAll(this)'/>SELECT ALL
+                                                    </label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=100>100</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=200>200</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=300>300</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=400>400</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=500>500</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=600>600</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=700>700</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=800>800</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=900>900</label>
+                                                </div>
+
+                                                <div id="optFoodKGCheckbox" style="display:none">
+                                                    <label>
+                                                        <input type='checkbox'
+                                                               class="opt1Class"
+                                                               value='selectall'
+                                                               onclick='selectAll(this)'/>SELECT ALL
+                                                    </label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=1>1</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=2>2</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=3>3</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=4>4</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=5>5</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=6>6</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=7>7</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=8>8</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=9>9</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=10>10</label>
+                                                </div>
+
+                                                <div id="optShapeCheckbox" style="display:none">
+                                                    <label>
+                                                        <input type='checkbox'
+                                                               class="opt1Class"
+                                                               value='selectall'
+                                                               onclick='selectAll(this)'/>SELECT ALL
+                                                    </label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=일체형>일체형</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=분리형>분리형</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=접이식>접이식</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=탈부착식>탈부착식</label>
+                                                </div>
+
+                                                <div id="optMachineGramCheckbox" style="display:none">
+                                                    <label>
+                                                        <input type='checkbox'
+                                                               class="opt1Class"
+                                                               value='selectall'
+                                                               onclick='selectAll(this)'/>SELECT ALL
+                                                    </label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=100>100</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=200>200</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=300>300</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=400>400</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=500>500</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=600>600</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=700>700</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=800>800</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=900>900</label>
+                                                </div>
+                                                <div id="optMachineKGCheckbox" style="display:none">
+                                                    <label>
+                                                        <input type='checkbox'
+                                                               class="opt1Class"
+                                                               value='selectall'
+                                                               onclick='selectAll(this)'/>SELECT ALL
+                                                    </label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=1>1</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=2>2</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=3>3</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=4>4</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=5>5</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=6>6</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=7>7</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=8>8</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=9>9</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=10>10</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=11>11</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=12>12</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=13>13</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=14>14</label>
+                                                    <label><input class="opt1Class" type="checkbox" name="opt1" value=15>15</label>
+                                                </div>
+
                                             </div>
 
                                         <div class="col-sm-6 col-xs-12 mb-20">
@@ -275,7 +371,12 @@
                                                 <option id="optShoes2" type="text" value="SHOES(240...)">SHOES(240...)</option>
                                                 <option type="text" style="align-center">--- 식품 ---</option>
                                                 <option id="optTaste2" type="text" value="FLAVOR">FLAVOR</option>
+                                                <option id="optFoodGram2" type="text" value="GRAM(food)">GRAM(100g...)</option>
+                                                <option id="optFoodKG2" type="text" value="KG(food)">KG(1kg...)</option>
                                                 <option type="text" style="align-center">--- 운동기구 ---</option>
+                                                <option id="optShape2" type="text" value="SHAPE">SHAPE</option>
+                                                <option id="optMachineGram2" type="text" value="GRAM(machine)">GRAM(500g...)</option>
+                                                <option id="optMachineKG2" type="text" value="KG(machine)">KG(1kg...)</option>
                                             </select>
 
                                             <div id="optNullCheckbox2" style="display:none">
@@ -362,6 +463,98 @@
                                                 <label><input class="opt2Class" type="checkbox" name="opt2" value=바나나>바나나</label>
                                                 <label><input class="opt2Class" type="checkbox" name="opt2" value=메론>메론</label>
                                                 <label><input class="opt2Class" type="checkbox" name="opt2" value=오렌지>오렌지</label>
+                                            </div>
+
+                                            <div id="optFoodGramCheckbox2" style="display:none">
+                                                <label>
+                                                    <input type='checkbox'
+                                                           class="opt2Class"
+                                                           value='selectall'
+                                                           onclick='selectAll(this)'/>SELECT ALL
+                                                </label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=100>100</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=200>200</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=300>300</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=400>400</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=500>500</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=600>600</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=700>700</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=800>800</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=900>900</label>
+                                            </div>
+
+                                            <div id="optFoodKGCheckbox2" style="display:none">
+                                                <label>
+                                                    <input type='checkbox'
+                                                           class="opt2Class"
+                                                           value='selectall'
+                                                           onclick='selectAll(this)'/>SELECT ALL
+                                                </label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=1>1</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=2>2</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=3>3</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=4>4</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=5>5</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=6>6</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=7>7</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=8>8</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=9>9</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=10>10</label>
+                                            </div>
+
+                                            <div id="optShapeCheckbox2" style="display:none">
+                                                <label>
+                                                    <input type='checkbox'
+                                                           class="opt2Class"
+                                                           value='selectall'
+                                                           onclick='selectAll(this)'/>SELECT ALL
+                                                </label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=일체형>일체형</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=분리형>분리형</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=접이식>접이식</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=탈부착식>탈부착식</label>
+                                            </div>
+
+                                            <div id="optMachineGramCheckbox2" style="display:none">
+                                                <label>
+                                                    <input type='checkbox'
+                                                           class="opt2Class"
+                                                           value='selectall'
+                                                           onclick='selectAll(this)'/>SELECT ALL
+                                                </label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=100>100</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=200>200</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=300>300</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=400>400</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=500>500</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=600>600</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=700>700</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=800>800</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=900>900</label>
+                                            </div>
+
+                                            <div id="optMachineKGCheckbox2" style="display:none">
+                                                <label>
+                                                    <input type='checkbox'
+                                                           class="opt2Class"
+                                                           value='selectall'
+                                                           onclick='selectAll(this)'/>SELECT ALL
+                                                </label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=1>1</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=2>2</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=3>3</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=4>4</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=5>5</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=6>6</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=7>7</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=8>8</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=9>9</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=10>10</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=11>11</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=12>12</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=13>13</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=14>14</label>
+                                                <label><input class="opt2Class" type="checkbox" name="opt2" value=15>15</label>
                                             </div>
 
 
@@ -566,6 +759,40 @@
             $('#optFlavorCheckbox').attr('style', 'display:none');
          }
 
+         if(option === 'GRAM(food)'){
+            console.log('GRAM opt: ', option)
+            $('#optFoodGramCheckbox').attr('style', 'display:show');
+         }else{
+            $('#optFoodGramCheckbox').attr('style', 'display:none');
+         }
+
+         if(option === 'KG(food)'){
+            console.log('KG(food) opt: ', option)
+            $('#optFoodKGCheckbox').attr('style', 'display:show');
+         }else{
+            $('#optFoodKGCheckbox').attr('style', 'display:none');
+         }
+
+         if(option === 'SHAPE'){
+            console.log('SHAPE opt: ', option)
+            $('#optShapeCheckbox').attr('style', 'display:show');
+         }else{
+            $('#optShapeCheckbox').attr('style', 'display:none');
+         }
+
+         if(option === 'GRAM(machine)'){
+            console.log('FLAVOR opt: ', option)
+            $('#optMachineGramCheckbox').attr('style', 'display:show');
+         }else{
+            $('#optMachineGramCheckbox').attr('style', 'display:none');
+         }
+         if(option === 'KG(machine)'){
+            console.log('FLAVOR opt: ', option)
+            $('#optMachineKGCheckbox').attr('style', 'display:show');
+         }else{
+            $('#optMachineKGCheckbox').attr('style', 'display:none');
+         }
+
     })
 
     $("#options2").change(function(){
@@ -619,6 +846,41 @@
             $('#optFlavorCheckbox2').attr('style', 'display:show');
          }else{
             $('#optFlavorCheckbox2').attr('style', 'display:none');
+         }
+
+         if(option2 === 'GRAM(food)'){
+            console.log('GRAM opt2: ', option2)
+            $('#optFoodGramCheckbox2').attr('style', 'display:show');
+         }else{
+            $('#optFoodGramCheckbox2').attr('style', 'display:none');
+         }
+
+         if(option2 === 'KG(food)'){
+            console.log('KG(food) opt2: ', option2)
+            $('#optFoodKGCheckbox2').attr('style', 'display:show');
+         }else{
+            $('#optFoodKGCheckbox2').attr('style', 'display:none');
+         }
+
+         if(option2 === 'SHAPE'){
+            console.log('SHAPE opt2: ', option2)
+            $('#optShapeCheckbox2').attr('style', 'display:show');
+         }else{
+            $('#optShapeCheckbox2').attr('style', 'display:none');
+         }
+
+         if(option2 === 'GRAM(machine)'){
+            console.log('GRAM opt2: ', option2)
+            $('#optMachineGramCheckbox2').attr('style', 'display:show');
+         }else{
+            $('#optMachineGramCheckbox2').attr('style', 'display:none');
+         }
+
+         if(option2 === 'KG(machine)'){
+            console.log('KG opt2: ', option2)
+            $('#optMachineKGCheckbox2').attr('style', 'display:show');
+         }else{
+            $('#optMachineKGCheckbox2').attr('style', 'display:none');
          }
 
     })
