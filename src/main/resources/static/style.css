@@ -41,36 +41,6 @@ body {
     font-size: 14px;
     line-height: 24px;
 }
-/* BS ADD */
-.bs-div-btn{
-    text-align: center;
-}
-#replyForm textara,
-.login-reg-form form textarea{
-    border: 1px solid #ddd;
-    display: block;
-    height: 400px;
-    padding: 7px 15px;
-    width: 100%;
-}
-.login-reg-form form button {
-    /*background-color: #282828;*/
-    /*border: medium none;*/
-    /*color: #fff;*/
-    /*height: 40px;*/
-    /*margin: 0 15px 0 0;*/
-    /*padding: 7px 50px;*/
-    /*text-transform: uppercase;*/
-    /*width: auto;*/
-    border: 1px solid #ddd;
-}
-.login-reg-form form button:hover {
-    background-color: #3f3f3f;
-}
-.bs-paging{
-    text-align: center;
-}
-/* BS ADD END */
 img{
     max-width: 100%;
     -webkit-transition: all 0.3s ease-out 0s;
@@ -146,6 +116,38 @@ p {
     color: #999999;
     margin-bottom: 15px;
 }
+/* BS ADD */
+.bs-div-btn{
+    text-align: center;
+}
+.login-reg-form form textarea{
+    border: 1px solid #ddd;
+    display: block;
+    height: 400px;
+    padding: 7px 15px;
+    width: 100%;
+}
+.login-reg-form form button {
+    /*background-color: #282828;*/
+    /*border: medium none;*/
+    /*color: #fff;*/
+    /*height: 40px;*/
+    /*margin: 0 15px 0 0;*/
+    /*padding: 7px 50px;*/
+    /*text-transform: uppercase;*/
+    /*width: auto;*/
+    border: 1px solid #ddd;
+}
+.login-reg-form form button:hover {
+    background-color: #3f3f3f;
+}
+.bs-paging{
+    text-align: center;
+}
+/* BS ADD END */
+
+
+
 
 blockquote {
     background-color: #f7f7f7;
@@ -767,7 +769,7 @@ input:focus, textarea:focus {
 
 /*-- Page Banner Section --*/
 .page-banner-section {
-    background-image: url("../outside/img/bg/2.jpg");
+    background-image: url("/img/bg/bannerImg_test2.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -947,7 +949,51 @@ input:focus, textarea:focus {
     width: 10px;
 }
 
-/*-- Mobile Menu --*/
+/*강정현 */
+
+.shopCategory {
+    background-color: #fff;
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    margin-top: 30px;
+    opacity: 0;
+    padding: 10px 20px;
+    position: absolute;
+    left: 0px;
+    height: 300px;
+    text-align: center;
+    top: 100%;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+    visibility: hidden;
+    width: 100%;
+    z-index: -999;
+
+}
+.shopCategory li > a {
+    display: block;
+    color: #a3a3a3;
+    font-family: "Catamaran",sans-serif;
+    font-weight: 500;
+    position: relative;
+    text-transform: uppercase;
+    text-align: center;
+    width:140px;
+
+}
+.shopCategory_div{
+    float: left;
+    margin-left: 180px;
+}
+.tier2_a{
+    font-size: 18px;
+
+}
+.tier3_a{
+    font-size: 13px;
+}
+-- Mobile Menu --
 .mean-bar {
     background-color: transparent;
     min-height: auto;
@@ -1228,6 +1274,7 @@ a.meanmenu-reveal i {
     top: 100%;
 }
 
+
 .all-cart-product{
     padding-top: 20px;
 }
@@ -1482,6 +1529,22 @@ a.meanmenu-reveal i {
     margin-bottom: 44px;
 }
 .isotope-product-filter button {
+    background-color: transparent;
+    border: medium none;
+    color: #818181;
+    display: block;
+    float: left;
+    font-family: "Catamaran",sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 18px;
+    margin-left: 28px;
+    padding: 0;
+    text-transform: uppercase;
+}
+/*강정현 추가*/
+.isotope-product-filter a {
     background-color: transparent;
     border: medium none;
     color: #818181;
@@ -1934,9 +1997,49 @@ a.meanmenu-reveal i {
     margin-bottom: 27px;
     text-transform: capitalize;
 }
+/*JH추가*/
+.product-details2 {
+    padding-left: 40px;
+    padding-top: 5px;
+}
+.product-details2 .title {
+    color: #565656;
+    display: block;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 27px;
+    text-transform: capitalize;
+}
+.product-details2 .ratting i.active {
+    color: #ffc741;
+}
+/*JH추가*/
+.product-details2 {
+    padding-left: 40px;
+    padding-top: 5px;
+}
+.product-details2 .title {
+    color: #565656;
+    display: block;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 27px;
+    text-transform: capitalize;
+}
+.product-details2 .ratting i.active {
+    color: #ffc741;
+}
 /*-- Product Price & Ratting --*/
 .price-ratting {
     margin-bottom: 38px;
+}
+/*JH추가*/
+.price-ratting {
+    margin-bottom: 10px;
+}
+/*JH추가*/
+.price-ratting {
+    margin-bottom: 10px;
 }
 /*-- Price --*/
 .product-details .price {
@@ -2501,6 +2604,7 @@ a.meanmenu-reveal i {
   08. Blog Section
 --------------------------------------*/
 /*-- Home Blog Item Style --*/
+
 .home-blog-item .image {
     display: block;
     margin-right: 35px;
@@ -3175,7 +3279,7 @@ a.meanmenu-reveal i {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background: rgba(0, 0, 0, 0) url("../outside/img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
+    background: rgba(0, 0, 0, 0) url("img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
     border: 1px solid #ddd;
     height: 40px;
     padding: 7px 15px;
@@ -3319,12 +3423,11 @@ a.meanmenu-reveal i {
     padding: 7px 15px;
     width: 100%;
 }
-
 .login-reg-form form select {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background: rgba(0, 0, 0, 0) url("../outside/img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
+    background: rgba(0, 0, 0, 0) url("img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
     border: 1px solid #ddd;
     height: 40px;
     padding: 7px 15px;
@@ -3339,22 +3442,11 @@ a.meanmenu-reveal i {
     margin-right: 10px;
     margin-top: 3px;
 }
-.login-reg-form form button[type="text"]{
+.login-reg-form form input[type="submit"]{
     background-color: #282828;
     border: medium none;
     color: #fff;
-    float: right;
-    height: 40px;
-    margin: 0 15px 0 0;
-    padding: 7px 50px;
-    text-transform: uppercase;
-    width: auto;
-}
-.login-reg-form form input[type="submit"] {
-    background-color: #282828;
-    border: medium none;
-    color: #fff;
-    float: right;
+    float: left;
     height: 40px;
     margin: 0 15px 0 0;
     padding: 7px 50px;
@@ -3363,9 +3455,6 @@ a.meanmenu-reveal i {
 }
 
 .login-reg-form form input[type="submit"]:hover {
-    background-color: #3f3f3f;
-}
-.login-reg-form form button[type="text"]:hover {
     background-color: #3f3f3f;
 }
 .login-reg-form form a {

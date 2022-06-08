@@ -36,12 +36,12 @@
                                 <h3>로그인</h3>
                                 <p>아이디와 비밀번호를 입력해주세요</p>
                                 <div class="col-12 mb-20">
-                                    <sapn th:if="${errorMessage}">
+                                    <span th:if="${errorMessage}">
                                         <p>[[${errorMessage}]]</p>
-                                    </sapn>
-                                    <sapn th:if="${exception}">
+                                    </span>
+                                    <span th:if="${exception}">
                                         <p>[[${exception}]]</p>
-                                    </sapn>
+                                    </span>
                                 </div>
                                 <div class="col-12 mb-20">
                                     <label>ID <span class="required">*</span></label>

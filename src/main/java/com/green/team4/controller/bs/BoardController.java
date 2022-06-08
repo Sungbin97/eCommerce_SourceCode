@@ -3,6 +3,7 @@ package com.green.team4.controller.bs;
 import com.green.team4.security.PrincipalDetails;
 import com.green.team4.service.bs.BoardService;
 import com.green.team4.service.bs.ReplyService;
+import com.green.team4.service.sw.MemberInfoService;
 import com.green.team4.vo.bs.BoardVO;
 import com.green.team4.vo.bs.Criteria;
 import com.green.team4.vo.bs.PageMaker;
@@ -11,6 +12,8 @@ import com.green.team4.vo.sw.MemberInfoVO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +35,12 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+    @Autowired
+    MemberInfoService memberInfoService;
+
     PrincipalDetails principalDetails = new PrincipalDetails(new MemberInfoVO());
+
+    private Long mnoSec = 0L;
 
     // Board List
     @GetMapping("/list")
@@ -96,10 +104,12 @@ public class BoardController {
         return "redirect:list";
     }
 
-    // Test
-    @GetMapping("test")
-    public void test(){
-
+    // IdSec
+    @GetMapping("/id/{idSec}")
+    public ResponseEntity<Long> transferId(@RequestParam String id){
+        log.info("@id : " + id);
+        mnoSec = (long)(memberInfoService.findById(id).getMno());
+        return new ResponseEntity<>(mnoSec, HttpStatus.OK);
     }
 
 
