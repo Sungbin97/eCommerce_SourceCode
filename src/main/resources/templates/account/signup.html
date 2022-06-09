@@ -274,6 +274,14 @@
         }
     })
 
+    // 성별 체크박스 하나만 선택되도록 set
+    $('input[type="checkbox"][name="gender"]').click(function(){
+        if($(this).prop('checked')){
+            $('input[type="checkbox"][name="gender"]').prop('checked',false);
+            $(this).prop('checked',true);
+        }
+    })
+
     // 우편번호 가져오기
     $("#getPostCode").click(function (){
         daum.postcode.load(function(){

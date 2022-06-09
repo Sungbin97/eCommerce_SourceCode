@@ -94,6 +94,8 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public List<ProductVO> getListWithTimeDeal(ItemPageCriteria cri) {
+        System.out.println("타임딜 가져오기 서비스 받은 cri: "+cri);
+        System.out.println("타임딜List"+shopMapper.getListWithTimeDeal(cri));
         return shopMapper.getListWithTimeDeal(cri);
     }
 

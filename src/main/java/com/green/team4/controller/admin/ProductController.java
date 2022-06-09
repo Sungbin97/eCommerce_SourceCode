@@ -93,6 +93,7 @@ public class ProductController {
                              @RequestParam("pInfo") MultipartFile info) throws IOException {
         vo.setPImage(saveImg(img));
         vo.setPInformation(saveImg(info));
+        vo.setPStatus("판매중");
         productService.insert(vo);
         ProductVO eve = productService.getEvePno();
         return "redirect:/admin/product/uploadOpt?pno="+eve.getPno();

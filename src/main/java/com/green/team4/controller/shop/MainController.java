@@ -30,6 +30,7 @@ public class MainController {
          model.addAttribute("bestList",shopService.getListWithBest(cri));
 
         model.addAttribute("TDList",shopService.getListWithTimeDeal(cri));
+        log.info("TDList"+shopService.getListWithTimeDeal(cri));
 
         model.addAttribute("boardList",boardService.readListForMain());
         log.info("boardList"+boardService.readListForMain());
