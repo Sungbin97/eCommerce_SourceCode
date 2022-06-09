@@ -48,16 +48,16 @@ public class BoardController {
     }
 
     @GetMapping("/register")
-    public void register(Model model,Integer mno) throws Exception {
+    public void register(Model model,String idSec) throws Exception {
 
         log.info("register로 이동....");
 
         try {
-            log.info("mno : " + mno);
+            log.info("idSec : " + idSec);
         } catch(Exception e) {
             e.printStackTrace();
         }
-        MemberInfoVO memberInfoVO = memberInfoService.getMemberInfo(mno);
+        MemberInfoVO memberInfoVO = memberInfoService.findById(idSec);
         model.addAttribute("memberInfoVO",memberInfoVO);
 
     }
