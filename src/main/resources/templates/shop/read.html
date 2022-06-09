@@ -138,13 +138,13 @@
             <div class="col-md-5 col-sm-6 col-xs-12 mb-40">
                 <!-- Tab panes -->
                 <div class="tab-content mb-10">
-                    <div class="pro-large-img tab-pane active" id="pro-large-img-1">
-                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" alt="" style="width: 270px; height: 307px"/>
+                    <div class="pro-large-img tab-pane active" id="pro-large-img-1" >
+                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" style="width: 100%; height: 100%" alt="" />
                     </div>
                 </div>
                 <!-- Single Product Thumbnail Slider -->
-                <div class="pro-thumb-img-slider">
-                    <div th:each="imgs : ${pImgs}"><a data-toggle="tab"><img class="small" th:src="|/display?fileName=${imgs.pImagePath}|" alt=""></a></div>
+                <div class="pro-thumb-img-slider" >
+                    <div th:each="imgs : ${pImgs}"><a data-toggle="tab"><img   class="small" th:src="|/display?fileName=${imgs.pImagePath}|" alt=""></a></div>
                 </div>
             </div>
 
@@ -274,22 +274,22 @@
                                             <div class="price-ratting fix" th:if="${related.pDiscount==0.0}" >
                                                 <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${related.pPrice}]]</strong><small>원</small></span></span>
                                             </div>
-                                            <span class="ratting float-end "  >
-                                <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">
-                                    <i class="fa fa-star active"
-                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
-                                     <i class="fa fa-star"
-                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>
-                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>
-                                </th:block>
-                                </span>
-                                    <span th:if="${#numbers.formatInteger(related.pRating,0)} ==0" class="ratting float-end">
-                                        <i class="fa fa-star "></i>
-                                        <i class="fa fa-star "></i>
-                                        <i class="fa fa-star "></i>
-                                        <i class="fa fa-star "></i>
-                                        <i class="fa fa-star "></i>
-                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>
+                                            <span class="ratting float-end related_star"  >
+<!--                                <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">-->
+<!--                                    <i class="fa fa-star active"-->
+<!--                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>-->
+<!--                                     <i class="fa fa-star"-->
+<!--                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>-->
+<!--                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>-->
+<!--                                </th:block>-->
+<!--                                </span>-->
+<!--                                    <span th:if="${#numbers.formatInteger(related.pRating,0)} ==0" class="ratting float-end">-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>-->
                                 </span>
                                         </div>
                                     </div>

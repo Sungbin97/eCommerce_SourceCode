@@ -209,7 +209,7 @@
                                     <i class="fa fa-star "></i>
                                     <i class="fa fa-star "></i>
                                     <i class="fa fa-star "></i>
-                            <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
+                            <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|">${#numbers.formatInteger(dto.pRating,0)}</span>
                         </span>
                         </div>
                     </div>
