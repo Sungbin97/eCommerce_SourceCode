@@ -139,12 +139,12 @@
                 <!-- Tab panes -->
                 <div class="tab-content mb-10">
                     <div class="pro-large-img tab-pane active" id="pro-large-img-1">
-                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" alt="" style="width: 270px; height: 307px"/>
+                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" alt="" style="width: 531px; height: 560px"/>
                     </div>
                 </div>
                 <!-- Single Product Thumbnail Slider -->
                 <div class="pro-thumb-img-slider">
-                    <div th:each="imgs : ${pImgs}"><a data-toggle="tab"><img class="small" th:src="|/display?fileName=${imgs.pImagePath}|" alt=""></a></div>
+                    <div th:each="imgs : ${pImgs}"><a data-toggle="tab"><img class="small" th:src="|/display?fileName=${imgs.pImagePath}|" style="width: auto;height: auto" alt=""></a></div>
                 </div>
             </div>
 

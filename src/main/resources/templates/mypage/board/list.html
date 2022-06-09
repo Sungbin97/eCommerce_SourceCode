@@ -59,7 +59,7 @@
                         <div class="product-img">
                             <!-- Image -->
                             <a class="image" th:href="@{/community/board/read(bno=${board.bno})}"> <!-- 게시글 세부조회 연결 -->
-                                <img th:if="${board.bImg != null}" th:src="|/display?fileName=${board.bImg}|" height="200" alt="">
+                                <img th:if="${board.bImg != null}" th:src="|/display?fileName=${board.bImg}|" height="200">
                                 <img th:if="${board.bImg == null}" src="/icons_bootstrap/noImage.jpg" height="200" alt=""> <!-- 첨부파일 없으면 기본 사진 띄우기 -->
                             </a>
                         </div>

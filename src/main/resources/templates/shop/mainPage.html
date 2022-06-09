@@ -232,7 +232,10 @@
             <div class="col-lg-6 col-12  mb-40 " th:each="board : ${boardList}">
                 <div class="home-blog-item">
                     <!-- Image -->
-                    <a th:href="@{/community/board/read(mno=${board.mno})}" class="image float-start"><img src="mainPageImg/community2.png" alt="mainPageImg/community2.png"></a>
+                    <a th:href="@{/community/board/read(bno=${board.bno})}" class="image float-start">
+                        <img th:if="${board.bImg != null}" th:src="|/display?fileName=${board.bImg}|" alt="">
+                        <img th:if="${board.bImg == null}" src="mainPageImg/community2.png" alt="mainPageImg/community2.png">
+                    </a>
                     <!-- Content -->
                     <div class="content fix">
                         <!-- Date -->

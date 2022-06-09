@@ -73,5 +73,6 @@
         select * from tbl_order
         WHERE MONTH(orderDate) = MONTH(CURRENT_DATE())
         AND YEAR(orderDate) = YEAR(CURRENT_DATE())
+        and tPayStatus = '결제완료'
     </select>
 </mapper>
