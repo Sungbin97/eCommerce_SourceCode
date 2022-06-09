@@ -16,4 +16,7 @@ public interface ExchangeMapper {
     ExchangeVO getOne(int eno); // 데이터 하나 가져오기(eno로 검색)
     int update(ExchangeVO exchangeVO); // 데이터 수정
     int delete(int eno); // 데이터 삭제
+    void updateNull1(); // 공란 및 없음을 null 로 변경
+    void updateNull2(); // 공란 및 없음을 null 로 변경
+    void updateNull3(); // 공란 및 없음을 null 로 변경
 }

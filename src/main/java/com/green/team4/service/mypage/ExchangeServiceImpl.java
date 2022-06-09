@@ -285,6 +285,9 @@ public class ExchangeServiceImpl implements ExchangeService{
 
         // 신청서 등록
         int result = exchangeMapper.insert(exchangeVO);
+//        if(exchangeVO.getEOption() == "" || exchangeVO.getEOption() == "없음") exchangeVO.setEOption(null);
+//        else if(exchangeVO.getEOption2() == "" || exchangeVO.getEOption2() == "없음") exchangeVO.setEOption2(null);
+//        else if(exchangeVO.getColor() == "" || exchangeVO.getColor() == "없음") exchangeVO.setColor(null);
         int key = exchangeVO.getEno();
         log.info("key: "+key);
 
@@ -296,6 +299,12 @@ public class ExchangeServiceImpl implements ExchangeService{
                 exchangeFilesMapper.insert(file);
             });
         }
+
+        // 없는 데이터 null로 업데이트
+        exchangeMapper.updateNull1();
+        exchangeMapper.updateNull2();
+        exchangeMapper.updateNull3();
+
         return result;
     }
 
@@ -511,11 +520,21 @@ public class ExchangeServiceImpl implements ExchangeService{
         // (4) 교환(변경) 상품 재고 현황 업데이트(차감)
         log.info("교환(변경) 상품 재고 업데이트 프로세스 진행");
         ExchangeVO trgExVO = exchangeMapper.getOne(eno); // 교환신청서 가져오기(안에 교환신청 상품 옵션 활용)
+        log.info("trgExVO"+trgExVO);
+
+
+        optList.forEach(i->{
+            log.info("살려줘"+i);
+        });
+
+
+
         List<Product_optVO> newTrgOptList = optList.stream().filter(
                 opt->(String.valueOf(opt.getPOption())).equals(String.valueOf(trgExVO.getEOption()))
                     && (String.valueOf(opt.getPOption2())).equals(String.valueOf(trgExVO.getEOption2()))
                     && (String.valueOf(opt.getPColor())).equals(String.valueOf(trgExVO.getColor()))
         ).collect(Collectors.toList());
+        log.info("넘어오나 newTrgOptList"+newTrgOptList);
 
         int exItemCnt = cancelCnt; // 교환을 위해 반품받은 물건의 수량과 새로 출고해야할 물건 수량은 동일
         int exOriginalCnt = newTrgOptList.get(0).getPAmount(); // 출고 될 상품의 기존 재고

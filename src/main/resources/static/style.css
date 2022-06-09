@@ -127,17 +127,6 @@ p {
     padding: 7px 15px;
     width: 100%;
 }
-.login-reg-form form button {
-    /*background-color: #282828;*/
-    /*border: medium none;*/
-    /*color: #fff;*/
-    /*height: 40px;*/
-    /*margin: 0 15px 0 0;*/
-    /*padding: 7px 50px;*/
-    /*text-transform: uppercase;*/
-    /*width: auto;*/
-    border: 1px solid #ddd;
-}
 .login-reg-form form button:hover {
     background-color: #3f3f3f;
 }

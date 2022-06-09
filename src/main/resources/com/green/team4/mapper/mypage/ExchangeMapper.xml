@@ -85,6 +85,24 @@
                 where eno=#{eno}
     </update>
 
+    <update id="updateNull1">
+        update tbl_exchange
+        set eOption=null
+        where nullif (eOption,"") is null
+    </update>
+
+    <update id="updateNull2">
+        update tbl_exchange
+        set eOption2=null
+        where nullif (eOption2,"") is null
+    </update>
+
+    <update id="updateNull3">
+        update tbl_exchange
+        set color=null
+        where nullif (color,"") is null
+    </update>
+
     <!-- tbl_exchange 데이터 삭제 -->
     <delete id="delete">
         delete from tbl_exchange where eno=#{eno}

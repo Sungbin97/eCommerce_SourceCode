@@ -44,7 +44,7 @@
                         </span>
                         <!-- Title -->
                         <h4 class="title" th:text="${item.title}"></h4>
-                        <img th:src="|/display?fileName=${item.bImg}|" alt="첨부이미지" th:if="${item.bImg != null}" />
+                        <img style="width: 50%; height: 50%" th:src="|/display?fileName=${item.bImg}|" alt="첨부이미지" th:if="${item.bImg != null}" />
                         <p th:text="${item.content}"></p>
                         <div class="row mt-50 mb-20">
                             <div class="col-md-6 col-12 mb-30"><img src="img/blog/4.jpg" alt=""></div>
@@ -116,6 +116,9 @@
                     <!--        댓글 목록-->
                     <hr>
                     <div id="replyList">
+                        <ul>
+                            그랭
+                        </ul>
 
                     </div>
 
@@ -197,7 +200,7 @@
             // json 형식으로 데이터 set
             $.ajax({
                 type: 'post',
-                url: "/reply/register",
+                url: "/community/reply/register",
                 data: JSON.stringify({
                     'reply': reply,
                     'replyer': replyer,
@@ -208,6 +211,7 @@
                 contentType: "application/json; charset=utf-8",
                 success: function () {
                     alert("등록에 성공했습니다.")
+                    self.location.reload();
                 },
                 error: function () {
                     alert("등록에 실패했습니다.")
@@ -242,7 +246,7 @@
     function update(){
         $.ajax({
             type : 'put',
-            url : '/reply/'+rno,
+            url : '/community/reply/'+rno,
             data : JSON.stringify({
                 'reply' : reply
             }),
@@ -258,19 +262,21 @@
     function getList(){
             $.ajax({
                 type: 'get',
-                url: '/reply/getList/'+bno+"/"+page,
+                url: '/community/reply/getList/'+bno+"/"+page,
                 contentType: 'application/json; charset=utf-8',
                 success: function (result){
+                    console.log("getlist",result.list)
                     let list = "";
-                    for (let i = 0; i < result.length; i++) {
+                    for (let i = 0; i < result.list.length; i++) {
                         list = "<div class=\"comment\">";
                         list += "<span name=\"rno\">"+result.list[i].rno+"</span>"
                         list += "<span> "+result.list[i].replyer+"</span>"
                         list += "<span> "+result.list[i].reply+"</span>"
                         list += "<button type=\"button\" class=\"replyModify\">수정</button></div>"
                         list += "</hr>";
-                        $("#replyList").append(str);
+                        $("#replyList ul").append(list);
                     }
+
                     printPage(result.pageMaker);
 
                 }
@@ -283,7 +289,7 @@
         $.ajax({
             type: 'get',
             data: {'rno' : rno},
-            url: '/reply/getOne',
+            url: '/community/reply/getOne',
             contentType: 'application/json; charset=utf-8',
             success: function (result){
                 let str = "";
@@ -298,7 +304,7 @@
     function deleteReply(){
         $.ajax({
             type : 'delete',
-            url : '/reply/'+rno,
+            url : '/community/reply/'+rno,
             success : function(){
                 alert("삭제되었습니다.")
             }

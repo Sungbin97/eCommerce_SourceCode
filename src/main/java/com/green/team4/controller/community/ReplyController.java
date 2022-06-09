@@ -47,6 +47,7 @@ public class ReplyController {
         map.put("list",replyService.getPageList(criteria,bno));
         try {
             log.info(replyService.getPageList(criteria,bno));
+            log.info("컨트롤러에서 list: "+replyService.getPageList(criteria,bno));
             return new ResponseEntity<>(map,HttpStatus.OK);
         } catch(Exception e){
             e.printStackTrace();

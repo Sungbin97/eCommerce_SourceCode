@@ -65,7 +65,7 @@
                             <!-- 답변 내역 -->
                             <div class="col-lg-6 col-12 mb-40">
                                 <div class="order-wrapper">
-                                    <form action="/admin/cs/personalQ/replyM" method="post">
+                                    <form action="/admin/personalQ/replyM" method="post">
                                         <h3><span style="font-size: 45px;margin-right: 20px">A</span> 답변 내용</h3>
                                         <p>고객 문의 내용에 대한 답변을 작성해주세요</p>
                                         <br/>
@@ -110,7 +110,7 @@
         // 뒤로가기 버튼 클릭하면 동작
         $("#goBack").click(function (){
             var mno = $("input[name=mno]").val();
-            window.location.href = '/admin/cs/personalQ/listM?mno='+mno;
+            window.location.href = '/admin/personalQ/listM?mno='+mno;
         })
     })
 </script>

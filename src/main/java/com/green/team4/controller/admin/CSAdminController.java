@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @Controller
 @Log4j2
-@RequestMapping("/admin/cs/*")
+@RequestMapping("/admin/*")
 @RequiredArgsConstructor
 public class CSAdminController {
 
