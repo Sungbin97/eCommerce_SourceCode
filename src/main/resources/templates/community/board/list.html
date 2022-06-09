@@ -12,6 +12,36 @@
 <!-- header fragment -->
 <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <!-- PAGE SECTION START -->
+<!-- banner -->
+<div class="page-banner-section section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1 th:text="'Sports'"></h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#" th:id="goBack">community</a></li>
+                        <li class="active">Sports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        hey
+        <div class="col-8 mx-auto">
+           hey what
+        </div>
+    </div>
+    <div class="row">
+        hey
+        <div class="col-8 mx-auto">
+            hey what
+        </div>
+    </div>
+</div>
 <div class="page-section section pt-120 pb-45">
     <div class="container">
         <div class="row">
@@ -21,6 +51,12 @@
                     <input type="hidden" name="idSec" th:value="${#authentication.name}">
                     <button type="submit" id="regBtn">게시글 등록</button>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
                 <!-- Blog Item -->
                 <div class="blog-item mb-75" th:each="item : ${items}">
                     <!-- Image -->
@@ -116,7 +152,7 @@
         $("#regBtn").on('click', function(e){
             e.preventDefault();
             if(mnoSec.val()!=""){
-                regForm.append("<input type='hidden' name='mno' value='"+mnoSec.val()+"'>");
+                regForm.append("<input type='hidden' name='idSec' value='"+idSec.val()+"'>");
             }
             // anonymousUser 일 때, mnoSec에 null값이 들어가게 되고 value가 넘어갈 때 String으로 넘어가면서 Type 오류가 생김
             regForm.submit();
