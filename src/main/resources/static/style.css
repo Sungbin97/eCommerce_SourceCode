@@ -120,9 +120,6 @@ p {
 .bs-div-btn{
     text-align: center;
 }
-#regBtn{
-    float: right;
-}
 .login-reg-form form textarea{
     border: 1px solid #ddd;
     display: block;

@@ -28,53 +28,46 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row">
-        hey
-        <div class="col-8 mx-auto">
-           hey what
-        </div>
-    </div>
-    <div class="row">
-        hey
-        <div class="col-8 mx-auto">
-            hey what
-        </div>
-    </div>
-</div>
+<!-- page section start -->
 <div class="page-section section pt-120 pb-45">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <form method="get" action="register" id="registerForm">
-                    <!--  추후 넘어오는 데이터로 수정 -->
-                    <input type="hidden" name="idSec" th:value="${#authentication.name}">
-                    <button type="submit" id="regBtn">게시글 등록</button>
-                </form>
+                <div class="mb-100">
+                    <form method="get" action="register" id="registerForm">
+                        <!--  추후 넘어오는 데이터로 수정 -->
+                        <input type="hidden" name="idSec" th:value="${#authentication.name}">
+                        <button type="submit" id="regBtn" style="float: right">게시글 등록</button>
+                    </form>
+                </div>
+
             </div>
         </div>
+    </div>
+    <div class="container" th:each="item : ${items}">
+        <p>
+        <div class="row">
+
+            <div class="col-2 mx-auto">
+                <span th:text="${item.bno}" style="float: right"></span>
+            </div>
+            <div class="col-8 mx-auto">
+                <div class="blog-item mb-100">
+                    <a class="move" th:href="${item.bno}"><h4 class="title" th:text="${item.title}"></h4></a>
+                    <span th:text="${item.nonMemberId}" th:if="${item.nickName}==null"></span>
+                    <span th:text="${item.nickName}" th:if="${item.nickName}!=null"></span>
+                </div>
+            </div>
+            <div class="col-2 mx-auto">
+                <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}"></span>
+            </div>
+
+        </div>
+        </p>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <!-- Blog Item -->
-                <div class="blog-item mb-75" th:each="item : ${items}">
-                    <!-- Image -->
-                    <!-- Content -->
-                    <div class="content fix">
-                        <!-- bno-->
-                        <span th:text="${item.bno}"></span>
-                        <!-- Title -->
-                        <a class="move" th:href="${item.bno}"><h4 class="title" th:text="${item.title}"></h4></a>
-                        <span th:text="${item.nonMemberId}" th:if="${item.nickName}==null"></span>
-                        <span th:text="${item.nickName}" th:if="${item.nickName}!=null"></span>
-                        <!-- Date -->
-                        <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}">
-                        </span>
-                    </div>
-                </div>
-                <p>
-
                 <!-- pagination -->
                 <div class="bs-paging">
                 <!--            th:block 사용시 selector 인식 못함-->
@@ -84,8 +77,13 @@
                     </span>
                     <a th:href="${pageMaker.endPage + 1}" id="next"><button class="btn" th:if="${pageMaker.next}" >다음</button></a>
                 </div>
+            </div>
+        </div>
+    </div>
                 <!-- pagination end-->
-                </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
                 <form id="actionForm" action="list" method="get">
                     <div>
                         <input type="hidden" name="page" th:value="${pageMaker.criteria.page/pageMaker.criteria.pageNum+1}">
@@ -107,21 +105,12 @@
                     </div>
                     <!-- Search end-->
                 </form>
-
-
-
             </div>
         </div>
     </div>
 </div>
 <!-- PAGE SECTION END -->
 <!-- search, pagination info -->
-    <div>
-
-    </div>
-
-
-
 </body>
 <!-- footer fragment -->
 <th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
