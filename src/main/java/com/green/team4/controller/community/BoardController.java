@@ -48,11 +48,18 @@ public class BoardController {
     }
 
     @GetMapping("/register")
-    public void register(Model model,@RequestParam("mno") int mno) {
+    public void register(Model model,Integer mno) throws Exception {
+
         log.info("register로 이동....");
-        log.info("mno : " + mno);
+
+        try {
+            log.info("mno : " + mno);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         MemberInfoVO memberInfoVO = memberInfoService.getMemberInfo(mno);
         model.addAttribute("memberInfoVO",memberInfoVO);
+
     }
     // Create
     @PostMapping("/register")
@@ -73,6 +80,7 @@ public class BoardController {
     @GetMapping({"/read","/modify"})
     public void read(Model model, Long bno, Criteria criteria) {
         log.info("read로 이동");
+        log.info(boardService.getOne(bno));
         model.addAttribute("item", boardService.getOne(bno));
         model.addAttribute("cri",criteria);
     }

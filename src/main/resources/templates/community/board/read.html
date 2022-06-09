@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="nonMember-certification">
-                    <input type="password" id="nonMemberPassword">
+                    <input type="password" id="nonMemberPassword" th:if="${item.nickName} == null">
                 </div>
                 <div class="bs-div-btn">
                 <button class="btn" id="modify">수정</button>
@@ -79,7 +79,8 @@
                         <a href="blog-details.html" class="image float-start"><img src="img/blog/1.jpg" alt=""></a>
                         <!-- Content -->
                             <!-- UserName : userid/상세정보등 mypage-blog로 연결 -->
-                            <h4 class="title" th:text="${item.nickName}"><a href="#"></a></h4>
+                            <h4 class="title" id="nickName" th:text="${item.nickName}" th:if="${item.nickName} != null"><a href="#"></a></h4>
+                        <h4 class="title" id="nonMemberId" th:text="${item.nonMemberId}" th:if="${item.nickName} == null"><a href="#"></a></h4>
                             <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>                     </div>
 
                     </div>
@@ -143,9 +144,19 @@
 
     // 본문수정
     $(document).ready(function (){
+        let nonMemberPassword = $('#nonMemberPassword');
+        $("#modify").on("mouseover",function (){
+            console.log($('#nonMemberPassword').val())
+
+
+        })
         $("#modify").on("click",function (e){
             e.preventDefault();
-            if($('#nonMemberPassword').val()===boardVO.nonMemberPassword){
+
+            if(nonMemberPassword.val()===boardVO.nonMemberPassword){
+                $('#openForm').submit();
+            }
+            else if($('nickName') != null){
                 $('#openForm').submit();
             }
             else{

@@ -161,6 +161,7 @@
 
                                     <input type="hidden" name="idSec" th:value="${#authentication.name}"/>
                                     <input type="hidden" name="mnoSec"/> <!-- ajax통신으로 받아온 mno 업데이트 영역 -->
+                                    <input type="hidden" name="mnoBoard" value="0" th:if="${#authentication.name}=='anonymousUser'"/>
 
                                     <!-- 회원별 장바구니 데이터 들어오는 영역 -->
                                     <div class="all-cart-product clearfix uploadCartResult">

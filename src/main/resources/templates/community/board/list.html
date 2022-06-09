@@ -16,9 +16,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <form method="get" action="register">
+                <form method="get" action="register" id="registerForm">
                     <!--  추후 넘어오는 데이터로 수정 -->
-                    <input type="hidden" name="mno" >
                     <input type="hidden" name="idSec" th:value="${#authentication.name}">
                     <button type="submit" id="regBtn">게시글 등록</button>
                 </form>
@@ -94,6 +93,8 @@
     $('document').ready(function (e){
         let idSec = $('input[name=idSec]');
         let mnoSec = $('input[name=mnoSec]');
+        let mno = $('input[name=mno]');
+        let regForm = $('#registerForm');
         // // 인증 정보(id) 컨트롤러로 넘겨주기
         // $.ajax({
         //     url : "id/"+idSec.val(),
@@ -105,16 +106,29 @@
         //     }
         // })
         // console.log("@@ after ajax mnoSec : "+mnoSec.val());
-        $("input[name=mno]").val(mnoSec.val());
+        if (idSec.val()=='anonymousUser'){
+            mnoSec = $('input[name=mnoBoard]');
+        }
+
+        $("#regBtn").on('mouseover',function (){
+            console.log("idSec : " + idSec.val() + "mnoSec : " + mnoSec.val() + " | mno : "+ mno);
+        });
+        $("#regBtn").on('click', function(e){
+            e.preventDefault();
+            if(mnoSec.val()!=""){
+                regForm.append("<input type='hidden' name='mno' value='"+mnoSec.val()+"'>");
+            }
+            // anonymousUser 일 때, mnoSec에 null값이 들어가게 되고 value가 넘어갈 때 String으로 넘어가면서 Type 오류가 생김
+            regForm.submit();
+        })
+
     })
 
 </script>
 <script th:inline="javascript">
     // 변수
+
     $(document).ready(function (){
-
-
-
         let result = '<div th:text="${result}">';
         checkModal(result);
         history.replaceState({},null,null);
