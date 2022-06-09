@@ -16,23 +16,22 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <form method="get" action="register">
+                <form method="get" action="register" id="registerForm">
                     <!--  추후 넘어오는 데이터로 수정 -->
-                    <input type="hidden" name="mno" value="10000">
+                    <input type="hidden" name="idSec" th:value="${#authentication.name}">
                     <button type="submit" id="regBtn">게시글 등록</button>
                 </form>
                 <!-- Blog Item -->
                 <div class="blog-item mb-75" th:each="item : ${items}">
                     <!-- Image -->
-                    <a href="blog-details.html" class="image"><img src="img/blog/3.jpg" alt=""></a>
                     <!-- Content -->
                     <div class="content fix">
                         <!-- bno-->
                         <span th:text="${item.bno}"></span>
                         <!-- Title -->
                         <a class="move" th:href="${item.bno}"><h4 class="title" th:text="${item.title}"></h4></a>
-                        <span th:text="${item.nonMemberId}" th:if="item.mno==10000"></span>
-                        <span th:text="${item.nickName}" th:if="item.mno!=10000"></span>
+                        <span th:text="${item.nonMemberId}" th:if="${item.nickName}==null"></span>
+                        <span th:text="${item.nickName}" th:if="${item.nickName}!=null"></span>
                         <!-- Date -->
                         <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}">
                         </span>
@@ -89,9 +88,46 @@
 
 </body>
 <!-- footer fragment -->
-<th:block th:replace="fragments/common/footer.html :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
+<script>
+    $('document').ready(function (e){
+        let idSec = $('input[name=idSec]');
+        let mnoSec = $('input[name=mnoSec]');
+        let mno = $('input[name=mno]');
+        let regForm = $('#registerForm');
+        // // 인증 정보(id) 컨트롤러로 넘겨주기
+        // $.ajax({
+        //     url : "id/"+idSec.val(),
+        //     data : idSec.val(),
+        //     type : 'get',
+        //     success : function (result){
+        //         console.log("@Result : " + result);
+        //         mnoSec.val(result);
+        //     }
+        // })
+        // console.log("@@ after ajax mnoSec : "+mnoSec.val());
+        if (idSec.val()=='anonymousUser'){
+            mnoSec = $('input[name=mnoBoard]');
+        }
 
+        $("#regBtn").on('mouseover',function (){
+            console.log("idSec : " + idSec.val() + "mnoSec : " + mnoSec.val() + " | mno : "+ mno);
+        });
+        $("#regBtn").on('click', function(e){
+            e.preventDefault();
+            if(mnoSec.val()!=""){
+                regForm.append("<input type='hidden' name='mno' value='"+mnoSec.val()+"'>");
+            }
+            // anonymousUser 일 때, mnoSec에 null값이 들어가게 되고 value가 넘어갈 때 String으로 넘어가면서 Type 오류가 생김
+            regForm.submit();
+        })
+
+    })
+
+</script>
 <script th:inline="javascript">
+    // 변수
+
     $(document).ready(function (){
         let result = '<div th:text="${result}">';
         checkModal(result);
@@ -140,6 +176,8 @@
             actionForm.attr("action","/community/board/read");
             actionForm.submit();
         })
+
+
         // pagination end
         // search start
         $("#btnSearch").on('click',function (e){
