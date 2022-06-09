@@ -29,10 +29,10 @@
                                 <textarea id="content" name="content" th:text="${item.content}"></textarea>
                             </div>
                             <div class="col-xs-12 mb-20">
-                                <label for="nonMemberId" th:if="${#authentication.name=='anonymousUser'}">작성자<span class="required">*</span></label>
-                                <input id="nonMemberId" name="nonMemberId" type="text" th:if="${#authentication.name=='anonymousUser'}" th:value="${item.nonMemberId}" readonly/>
-                                <label for="nickName" ${#authentication.name!='anonymousUser'}>작성자</span></label>
-                                <input id="nickName" name="nickName" type="text" th:if="${#authentication.name!='anonymousUser'}" th:value="${item.nickName}" readonly/>
+<!--                                <label for="nonMemberId" th:if="${#authentication.name=='anonymousUser'}">작성자<span class="required">*</span></label>-->
+<!--                                <input id="nonMemberId" name="nonMemberId" type="text" th:if="${#authentication.name=='anonymousUser'}" th:value="${item.nonMemberId}" readonly/>-->
+<!--                                <label for="nickName" ${#authentication.name!='anonymousUser'}>작성자</span></label>-->
+<!--                                <input id="nickName" name="nickName" type="text" th:if="${#authentication.name!='anonymousUser'}" th:value="${item.nickName}" readonly/>-->
                             </div>
                             <div class="bs-div-btn">
                                 <button class="btn" id="modify">수정</button>
@@ -55,15 +55,6 @@
         </div>
     </div>
 </div>
-<!-- page section end -->
-<!--<form id="modifyForm" action="modify" method="post">-->
-<!--    <input type="hidden" th:value="${item.bno}" name="bno">-->
-<!--    <input th:value="${item.title}" name="title"><br>-->
-<!--    <textarea th:text="${item.content}" name="content"></textarea><br>-->
-<!--    <input th:value="${item.userName}" readonly><br>-->
-<!--    <input th:value="${#dates.format(item.regDate, 'yyyy-MM-dd')}" readonly><br>-->
-<!--    <input th:value="${#dates.format(item.modDate, 'yyyy-MM-dd')}" readonly><br>-->
-
 
 </body>
 <!-- footer fragment -->
