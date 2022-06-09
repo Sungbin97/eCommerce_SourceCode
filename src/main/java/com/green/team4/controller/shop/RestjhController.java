@@ -6,13 +6,13 @@ import com.green.team4.service.shop.CouponService;
 import com.green.team4.service.shop.ReviewService;
 import com.green.team4.service.shop.ShopService;
 
-import com.green.team4.service.sw.PersonalQService;
-import com.green.team4.service.sw.ReviewMpService;
+import com.green.team4.service.mypage.PersonalQService;
+import com.green.team4.service.mypage.ReviewMpService;
 import com.green.team4.vo.shop.*;
 import com.green.team4.vo.admin.ProductInfoImgVO;
 import com.green.team4.vo.admin.ProductVO;
-import com.green.team4.vo.sw.PersonalQVO;
-import com.green.team4.vo.sw.ReviewMpVO;
+import com.green.team4.vo.mypage.PersonalQVO;
+import com.green.team4.vo.mypage.ReviewMpVO;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -261,4 +261,5 @@ public class RestjhController {
         return responseEntity;
 
     }
+
 }

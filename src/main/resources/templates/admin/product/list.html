@@ -3,12 +3,12 @@
 
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <title>Product-List</title>
 </head>
 <body>
 <!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+<th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <script src="/js/storeDataSendAjax.js"></script>
 
 <div class="wrapper">
@@ -187,7 +187,7 @@
 <!-- PAGE SECTION END -->
 
 <!-- FOOTER TOP SECTION START -->
-    <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+    <th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 <!-- FOOTER BOTTOM SECTION END -->
 
 </body>

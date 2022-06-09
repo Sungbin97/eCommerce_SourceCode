@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- head fragment -->
+<div th:fragment="head">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="/image/x-icon" href="/img/favicon.ico">
+
+        <!-- All CSS Files -->
+        <!-- Bootstrap css -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <!-- Icon Font -->
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/pe-icon-7-stroke.css">
+        <!-- Plugins css file -->
+        <link rel="stylesheet" href="/css/plugins.css">
+        <!-- Theme main style -->
+        <link rel="stylesheet" href="/style.css">
+        <!-- Responsive css -->
+        <link rel="stylesheet" href="/css/responsive.css">
+        <!-- 페이징 별도 css (SW추가) -->
+        <link rel="stylesheet" href="/paginationCustom.css">
+
+    </head>
+</div>
+
+<!-- header fragment -->
+<div th:fragment="headerFragment">
+    <!-- Body main wrapper start -->
+    <div class="wrapper">
+
+        <!-- START HEADER SECTION -->
+        <header class="header-section section sticker">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <!-- logo -->
+                        <div class="header-logo">
+                            <a th:href="@{/mainPage}"><img src="/img/logo.png" alt="main logo"></a>
+                        </div>
+<!--                        src="/img/logo.png"-->
+                    </div>
+                    <div class="col-auto d-flex">
+                        <!-- header-search & total-cart -->
+                        <nav class="main-menu">
+                            <ul>
+                                <li><a th:href="@{/shop/list(pCateCode='500000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">Best Sellers</a>
+                                    <ul class="sub-menu shopCategory bestSellerCategory">
+
+                                    </ul>
+                                </li>
+                                <li><a th:href="@{/shop/list(pCateCode='100000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">MEN</a>
+                                    <ul class="sub-menu shopCategory firstCategory">
+
+                                    </ul>
+                                </li>
+                                <li ><a th:href="@{/shop/list(pCateCode='200000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">WOMEN</a>
+                                    <ul class="sub-menu shopCategory secondCategory">
+
+                                    </ul>
+                                </li>
+                                <li><a th:href="@{/shop/list(pCateCode='300000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">Nutrition</a>
+                                    <ul class="sub-menu shopCategory thirdCategory">
+
+                                    </ul>
+                                </li>
+                                <li><a th:href="@{/shop/list(pCateCode='400000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">accessories</a>
+                                    <ul class="sub-menu shopCategory fourthCategory">
+
+                                    </ul>
+                                </li>
+                                <li><a href="#">Pages</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="cart.html">cart</a></li>
+                                        <li><a href="checkout.html">checkout</a></li>
+                                        <li><a href="login.html">login</a></li>
+                                        <li><a href="register.html">register</a></li>
+                                        <li><a href="wishlist.html">wishlist</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="blog.html">Blog</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="blog.html">blog</a></li>
+                                        <li><a href="blog-details.html">blog details</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="">Admin</a>
+                                    <ul class="sub-menu">
+                                        <li><a th:href="@{/admin/member/member?mno=1}">member</a></li>
+                                        <li><a th:href="@{/admin/product/upload}">product upload</a></li>
+                                        <li><a th:href="@{/admin/product/list(pno=1)}">product list</a></li>
+                                        <li><a th:href="@{/admin/mail/write}">mail write</a></li>
+                                        <li><a th:href="@{/admin/mail/list}">mail list</a></li>
+                                    </ul>
+                                </li>
+<!--                                <li><a href="contact.html">Contact</a></li>-->
+                            </ul>
+                        </nav>
+                        <!-- header-search & total-cart -->
+                        <div class="header-option-btns d-flex">
+                            <!-- header-search -->
+                            <div class="header-search">
+                                <button class="search-toggle"><i class="pe-7s-search"></i></button>
+                                <div class="header-search-form">
+
+                                    <form class="searchForm" action="/shop/list" method="get">
+                                        <input type="text" placeholder="Search" id="keyword" name="keyword">
+                                        <button id="findBtn"><i class="fa fa-long-arrow-right"></i></button>
+                                    </form>
+                                    <div id="selectView"></div>
+                                </div>
+                            </div>
+
+                            <!-- header Account SW 내용 수정 0605 -->
+                            <!-- 추후 mno 고정 해제 예정 -->
+                            <div class="header-account">
+                                <ul>
+                                    <li><a href="#" class="account-toggle"><i class="pe-7s-config"></i></a>
+                                        <ul class="account-menu">
+                                            <form method="post" th:action="@{/account/logout}">
+                                                <li><a sec:authorize="isAuthenticated()" th:href="@{/account/logout}" type="submit" onclick="logout()">Logout</a></li>
+                                                <li><a sec:authorize="isAnonymous()" th:href="@{/account/login}" type="submit">Login</a></li>
+                                            </form>
+                                            <ul sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                                                <li><a th:href="@{/admin/member/member?mno=1}">member</a></li>
+                                                <li><a th:href="@{/admin/product/upload}">product upload</a></li>
+                                                <li><a th:href="@{/admin/product/list(pno=1)}">product list</a></li>
+                                                <li><a th:href="@{/admin/mail/write}">mail write</a></li>
+                                                <li><a th:href="@{/admin/mail/list}">mail list</a></li>
+                                            </li>
+                                            <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/mypage/main?mno=2">My Account</a></li>
+                                            <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/account/login">My Account</a></li>
+                                            <li><a id="mypageRegQ" href="/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Header Cart -->
+                            <div class="header-cart">
+                                <!-- Cart Toggle -->
+                                <a class="cart-toggle">
+                                    <i class="pe-7s-cart"></i>
+                                    <span id="cartCntSpan"></span>
+                                </a>
+                                <!-- Mini Cart Brief -->
+                                <div class="mini-cart-brief text-left">
+                                    <!-- Cart Products -->
+                                    <h6>CART</h6>
+
+                                    <input type="hidden" name="idSec" th:value="${#authentication.name}"/>
+                                    <input type="hidden" name="mnoSec"/> <!-- ajax통신으로 받아온 mno 업데이트 영역 -->
+
+                                    <!-- 회원별 장바구니 데이터 들어오는 영역 -->
+                                    <div class="all-cart-product clearfix uploadCartResult">
+
+                                    </div>
+                                    <!-- Cart Button -->
+                                    <div class="cart-bottom  clearfix">
+                                        <a id="getCartListM" href="/mypage/cart/list?mno=2">장바구니 전체 보기</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mobile-menu"></div>
+
+                </div>
+            </div>
+        </header>
+        <!-- END HEADER SECTION -->
+
+    </div>
+    <script>
+        function logout(){
+            alert("로그아웃이 완료되었습니다. 감사합니다.");
+        }
+    </script>
+
+</html>

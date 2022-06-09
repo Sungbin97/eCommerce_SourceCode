@@ -2,10 +2,10 @@ package com.green.team4.mapperTests;
 
 import com.green.team4.mapper.shop.OrderPageMapper;
 import com.green.team4.mapper.shop.ShopMapper;
-import com.green.team4.mapper.sw.PersonalQMapper;
+import com.green.team4.mapper.mypage.PersonalQMapper;
 import com.green.team4.vo.shop.Product_optVO;
 
-import com.green.team4.vo.sw.PersonalQVO;
+import com.green.team4.vo.mypage.PersonalQVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

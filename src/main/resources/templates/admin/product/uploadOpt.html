@@ -3,7 +3,7 @@
 
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <title>product/uploadOpt</title>
 </head>
 <style>
@@ -14,7 +14,7 @@
 
 <body>
 <!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+<th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 
 <!-- PAGE BANNER SECTION -->
 <div class="page-banner-section section">
@@ -630,7 +630,7 @@
 
 </body>
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 <script>
     //옵션1 전체선택, 해제
     function selectAll(selectAll)  {

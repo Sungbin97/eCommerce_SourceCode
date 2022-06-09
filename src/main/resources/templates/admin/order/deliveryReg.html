@@ -3,13 +3,13 @@
 
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <title>mypage-memberInfo-read</title>
 </head>
 
 <body>
     <!-- mypage header fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+    <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
     <div class="page-banner-section section">
@@ -101,14 +101,14 @@
 </body>
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 
 <script>
     $(document).ready(function (){
 
         // 등록 버튼 누르면
         $("#addDelivery").click(function (){
-            alert("등록이 완료되었습니다.")
+            alert("배송 등록이 완료되었습니다.")
         })
 
         // 이전 화면으로 돌아가기 버튼 클릭하면 동작

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${item.title}"></title>
+    <!-- head fragment -->
+    <th:block th:replace="fragments/common/header :: head"></th:block>
+    <style>
+        .modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: none;
+
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<body>
+<!-- header fragment -->
+<th:block th:replace="fragments/common/header :: headerFragment"></th:block>
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-45">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <!-- Blog Item -->
+                <div class="blog-item mb-75">
+                    <!-- Image -->
+                    <div class="image"><img src="img/blog/3.jpg" alt=""></div>
+                    <!-- Content -->
+                    <div class="content fix">
+                        <!-- Date -->
+                        <span th:if="${item.modDate==null}">
+                            <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}"></span>
+                        </span>
+                        <span th:if="${item.modDate!=null}">
+                            <span class="date" th:text="${#dates.format(item.modDate, 'MM-dd')}"></span>
+                        </span>
+                        <!-- Title -->
+                        <h4 class="title" th:text="${item.title}"></h4>
+                        <img th:src="|/display?fileName=${item.bImg}|" alt="첨부이미지" th:if="${item.bImg != null}" />
+                        <p th:text="${item.content}"></p>
+                        <div class="row mt-50 mb-20">
+                            <div class="col-md-6 col-12 mb-30"><img src="img/blog/4.jpg" alt=""></div>
+                            <div class="col-md-6 col-12 mb-30"><img src="img/blog/5.jpg" alt=""></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nonMember-certification">
+                    <input type="password" id="nonMemberPassword">
+                </div>
+                <div class="bs-div-btn">
+                <button class="btn" id="modify">수정</button>
+                <button class="btn" id="list">목록</button>
+                </div>
+                <div class="modal">
+                    <div class="modal_body">Modal</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div>
+    <div class="blog-section section pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 mx-auto">
+                <!-- Home Blog Item -->
+                <div class="col-lg-6 col-12  mb-40">
+                    <div class="home-blog-item">
+                        <!-- Image -->
+                        <a href="blog-details.html" class="image float-start"><img src="img/blog/1.jpg" alt=""></a>
+                        <!-- Content -->
+                            <!-- UserName : userid/상세정보등 mypage-blog로 연결 -->
+                            <h4 class="title" th:text="${item.nickName}"><a href="#"></a></h4>
+                            <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>                     </div>
+
+                    </div>
+                </div>
+                <!-- Home Blog Item -->
+            </div>
+        </div>
+    </div>
+</div>
+<form id="openForm" action="modify" method="get">
+    <input type="hidden" name="page" th:value="${cri.page}">
+    <input type="hidden" name="pageNum" th:value="${cri.pageNum}">
+    <input type="hidden" name="bno" th:value="${item.bno}">
+</form>
+
+<!-- reply section -->
+<div class="page-section section pt-120 pb-45">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div>
+                    <hr>
+                    <div>
+                        <!--        댓글 등록 -->
+                        <h4>Reply</h4>
+                        <form id="replyForm" method="post" action="read">
+                            <input type="text" name="replyer" id="replyer">
+                            <input type="password" name="replyPassword" id="replyPassword"><br>
+                            <textarea name="reply" id="reply"></textarea>
+                            <button class="btn" type="button" id="replySubmit">등록</button>
+                        </form>
+                    </div>
+                    <!--        댓글 목록-->
+                    <hr>
+                    <div id="replyList">
+
+                    </div>
+
+                    <!--        댓글 페이징 -->
+                    <div id="pagination">
+
+                    </div>
+
+
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- reply section End-->
+</body>
+<!-- PAGE SECTION END -->
+
+<!-- footer fragment -->
+<th:block th:replace="fragments/common/footer.html :: footerFragment"></th:block>
+<script th:inline="javascript">
+    // let hi = {hi:'hi'}
+    /*<![CDATA[*/
+    let boardVO = [[${item}]];
+    /*]]>*/
+
+    // 본문수정
+    $(document).ready(function (){
+        $("#modify").on("click",function (e){
+            e.preventDefault();
+            if($('#nonMemberPassword').val()===boardVO.nonMemberPassword){
+                $('#openForm').submit();
+            }
+            else{
+                alert("비밀번호를 잘못 입력하셨습니다.")
+            }
+        })
+        getList();
+    })
+
+</script>
+<script>
+    // 변수
+    let bno= $("input[name=bno]").val();
+    let page = 0;
+    let rno= $("span[name=rno]").val();
+
+
+    $(document).ready(function () {
+        let openForm = $("#openForm")
+
+        // 목록
+        $("#list").on("click", function (e) {
+            e.preventDefault();
+            openForm.attr('action', 'list');
+            openForm.submit();
+        })
+
+        // reply 등록
+        $("#replySubmit").click(function (e) {
+
+            let mno= $("input[name=mnoSec]").val();
+            e.preventDefault();
+            let reply= $("#reply").val();
+            let replyer= $("#replyer").val();
+            let replyPassword = $("#replyPassword").val();
+            console.log("@@VO : " , replyer , " @"+replyPassword ," @" + reply
+            , " @" +bno);
+            // json 형식으로 데이터 set
+            $.ajax({
+                type: 'post',
+                url: "/reply/register",
+                data: JSON.stringify({
+                    'reply': reply,
+                    'replyer': replyer,
+                    'replyPassword': replyPassword,
+                    'bno': bno,
+                    'mno': mno
+                }),
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("등록에 성공했습니다.")
+                },
+                error: function () {
+                    alert("등록에 실패했습니다.")
+                }
+            })
+            //appendReply();
+        })
+
+        // reply 수정
+        $('.replyModify').click(function (e) {
+            e.preventDefault();
+            console.log("work?")
+            update();
+        })
+
+        // reply 삭제
+        $('.replyDelete').click(function (e) {
+            e.preventDefault();
+            console.log("work?")
+            deleteReply();
+        })
+
+        $('#pagination a').click(function (e){
+            e.preventDefault();
+            page = this.attr('href').val();
+            console.log(page);
+            getList();
+        })
+    })
+
+    // 함수
+    function update(){
+        $.ajax({
+            type : 'put',
+            url : '/reply/'+rno,
+            data : JSON.stringify({
+                'reply' : reply
+            }),
+            success : function (){
+                console.log("complete")
+            },
+            error(e){
+                console.log(e);
+            }
+        })
+    }
+
+    function getList(){
+            $.ajax({
+                type: 'get',
+                url: '/reply/getList/'+bno+"/"+page,
+                contentType: 'application/json; charset=utf-8',
+                success: function (result){
+                    let list = "";
+                    for (let i = 0; i < result.length; i++) {
+                        list = "<div class=\"comment\">";
+                        list += "<span name=\"rno\">"+result.list[i].rno+"</span>"
+                        list += "<span> "+result.list[i].replyer+"</span>"
+                        list += "<span> "+result.list[i].reply+"</span>"
+                        list += "<button type=\"button\" class=\"replyModify\">수정</button></div>"
+                        list += "</hr>";
+                        $("#replyList").append(str);
+                    }
+                    printPage(result.pageMaker);
+
+                }
+            })
+    }
+    // 삭제 : "<button type=\"button\" class=\"replyDelete\">삭제</button>
+
+    function appendReply(){
+        console.log("댓글 하나 추가")
+        $.ajax({
+            type: 'get',
+            data: {'rno' : rno},
+            url: '/reply/getOne',
+            contentType: 'application/json; charset=utf-8',
+            success: function (result){
+                let str = "";
+                str = "<div class=\"comment\">";
+                str += result.replyer;
+                str += " "+ result.reply+"</div></hr>";
+                $("#replyList").append(str);
+            }
+        })
+    }
+
+    function deleteReply(){
+        $.ajax({
+            type : 'delete',
+            url : '/reply/'+rno,
+            success : function(){
+                alert("삭제되었습니다.")
+            }
+        })
+    }
+    function listPage(page){
+        $.ajax()
+    }
+
+    function printPage(pageMaker){
+        let str="";
+        page = 0;
+        if(pageMaker.prev){
+            page = pageMaker.startPage-1;
+            str='<a href="#" onclick="listPage(page)">이전</a>'
+        }
+        for (let i = pageMaker.startPage; i<pageMaker.endPage; i++){
+            // str += "<li><a href=\"#\" onclick={listPage("+i+")} class=\"${currentPage === "+i+" ? \"active\" : \"\"}\"}></a></li>"
+        }
+
+        if(pageMaker.next){
+            page = pageMaker.endPage+1;
+            str='<a href="#" onclick="listPage(page)">다음</a>'
+        }
+        $("#pagination").append(str);
+    }
+</script>
+</html>

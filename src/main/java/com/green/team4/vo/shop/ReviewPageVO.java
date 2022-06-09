@@ -1,6 +1,6 @@
 package com.green.team4.vo.shop;
 
-import com.green.team4.vo.sw.ReviewMpVO;
+import com.green.team4.vo.mypage.ReviewMpVO;
 import lombok.*;
 
 import java.util.List;

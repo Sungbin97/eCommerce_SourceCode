@@ -6,7 +6,7 @@ import com.green.team4.vo.shop.OrderPageItemVO;
 import com.green.team4.vo.shop.Product_optVO;
 
 import com.green.team4.vo.admin.ProductVO;
-import com.green.team4.vo.sw.MemberInfoVO;
+import com.green.team4.vo.mypage.MemberInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,7 +1,7 @@
 package com.green.team4.mapperTests.bs;
 
-import com.green.team4.mapper.bs.BoardMapper;
-import com.green.team4.vo.bs.BoardVO;
+import com.green.team4.mapper.community.BoardMapper;
+import com.green.team4.vo.community.BoardVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,23 +32,24 @@ public class BoardMapperTests {
         for (int i = 0; i < 500; i++) {
             int rand = (int)(Math.random()*7);
             BoardVO vo = new BoardVO();
-            vo.setUserName("guest"+i);
+            vo.setNickName("guest"+i);
             vo.setContent("제목이 곧 내용입니다." + i);
             vo.setTitle(titleArr.get(rand)+i);
+
             mapper.insert(vo);
         }
 
     }
 
-    @Test
-    public void modifyTest(){
-        BoardVO vo = new BoardVO();
-        vo.setUserName("수정된 이름 수정이");
-        vo.setTitle("수정된 제목 수정제");
-        vo.setContent("수정된 내용 수정내");
-        vo.setUNo(4L);
-        mapper.modify(vo);
-    }
+//    @Test
+//    public void modifyTest(){
+//        BoardVO vo = new BoardVO();
+//        vo.setUserName("수정된 이름 수정이");
+//        vo.setTitle("수정된 제목 수정제");
+//        vo.setContent("수정된 내용 수정내");
+//        vo.setUNo(4L);
+//        mapper.modify(vo);
+//    }
 
     @Test
     public void readOneTest(){

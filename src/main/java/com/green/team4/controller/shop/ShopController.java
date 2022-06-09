@@ -6,7 +6,7 @@ import com.green.team4.service.shop.CategoryService;
 import com.green.team4.service.shop.ReviewService;
 import com.green.team4.service.shop.ShopService;
 
-import com.green.team4.service.sw.MemberInfoService;
+import com.green.team4.service.mypage.MemberInfoService;
 import com.green.team4.vo.shop.ItemPageCriteria;
 import com.green.team4.vo.shop.PagingVO;
 import com.green.team4.vo.admin.ProductVO;

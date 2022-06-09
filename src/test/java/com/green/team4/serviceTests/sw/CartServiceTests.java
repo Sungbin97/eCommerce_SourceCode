@@ -1,7 +1,7 @@
 package com.green.team4.serviceTests.sw;
 
-import com.green.team4.service.sw.CartService;
-import com.green.team4.vo.sw.CartVO;
+import com.green.team4.service.mypage.CartService;
+import com.green.team4.vo.mypage.CartVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

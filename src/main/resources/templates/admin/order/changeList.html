@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <title>mypage-interest-list</title>
 </head>
 
 <body>
     <!-- mypage header fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+    <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
     <div class="page-banner-section section">
@@ -58,7 +58,7 @@
                                     <td class="pro-title" th:text="${change.ono}"></td>
                                     <td class="pro-title">
                                         <button type="button" class="btn" id="getExchangeRead">
-                                            <a style="font-size: small" th:href="@{/sw/mypage/exchange/read(eno=${change.eno})}">조회</a>
+                                            <a style="font-size: small" th:href="@{/mypage/exchange/read(eno=${change.eno})}">조회</a>
                                         </button>
                                     </td>
                                     <td class="pro-title" th:text="${change.exStatus}"></td>
@@ -96,12 +96,12 @@
 </body>
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 
 <script>
     $(document).ready(function (){
 
-        // 일반 이벤트
+        // 이전화면으로 돌아가기
         $("#goBack").click(function (){
             window.location.href = '/admin/adpage'
         })
@@ -123,7 +123,7 @@
                 dataType: 'text',
                 success: function (newOno) {
                     console.log("Ajax통신 성공 후 받은 result: ", newOno);
-                    alert("교환처리 성공(신규발행 주문번호: "+newOno+")")
+                    alert("교환처리가 완료되었습니다. (신규발행 주문번호: "+newOno+")")
                     self.location.reload();
                 }
             })

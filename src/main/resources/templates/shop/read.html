@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <title>mypage-main</title>
 
 </head>
@@ -113,14 +113,14 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
 <!-- mypage header fragment -->
-<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+<th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <!-- PAGE BANNER SECTION -->
 <div class="page-banner-section section">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="page-banner-content">
-                    <h1 th:text="'상품상세페이지'"></h1>
+                    <h1 th:text="SHOP"></h1>
                     <ul class="breadcrumb">
                         <li><a onclick="history.back()">뒤로가기</a></li>
                         <li class="active">[[${pvo.pName}]]</li>
@@ -138,13 +138,13 @@
             <div class="col-md-5 col-sm-6 col-xs-12 mb-40">
                 <!-- Tab panes -->
                 <div class="tab-content mb-10">
-                    <div class="pro-large-img tab-pane active" id="pro-large-img-1">
-                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" alt="" style="width: 270px; height: 307px"/>
+                    <div class="pro-large-img tab-pane active" id="pro-large-img-1" >
+                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" style="width: 100%; height: 100%" alt="" />
                     </div>
                 </div>
                 <!-- Single Product Thumbnail Slider -->
-                <div class="pro-thumb-img-slider">
-                    <div th:each="imgs : ${pImgs}"><a data-toggle="tab"><img class="small" th:src="|/display?fileName=${imgs.pImagePath}|" alt=""></a></div>
+                <div class="pro-thumb-img-slider" >
+                    <div th:each="imgs : ${pImgs}"><a data-toggle="tab"><img   class="small" th:src="|/display?fileName=${imgs.pImagePath}|" alt=""></a></div>
                 </div>
             </div>
 
@@ -265,7 +265,6 @@
                                 <div class="product-item text-center" >
                                     <div class="product-img">
                                         <a class="image" th:href="@{/shop/read(pno=${related.pno})}"><img th:src="|/display?fileName=${related.pImage}|" alt=""/></a>
-                                        <a  title="Wishlist"><i class="pe-7s-like"></i></a>
                                     </div>
                                     <div class="product-info text-left">
                                         <h5 class="title" th:text="${related.pName}"><a href="product-details.html"></a></h5>
@@ -275,22 +274,22 @@
                                             <div class="price-ratting fix" th:if="${related.pDiscount==0.0}" >
                                                 <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${related.pPrice}]]</strong><small>원</small></span></span>
                                             </div>
-                                            <span class="ratting float-end "  >
-                                <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">
-                                    <i class="fa fa-star active"
-                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
-                                     <i class="fa fa-star"
-                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>
-                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>
-                                </th:block>
-                                </span>
-                                    <span th:if="${#numbers.formatInteger(related.pRating,0)} ==0" class="ratting float-end">
-                                        <i class="fa fa-star "></i>
-                                        <i class="fa fa-star "></i>
-                                        <i class="fa fa-star "></i>
-                                        <i class="fa fa-star "></i>
-                                        <i class="fa fa-star "></i>
-                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>
+                                            <span class="ratting float-end related_star"  >
+<!--                                <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">-->
+<!--                                    <i class="fa fa-star active"-->
+<!--                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>-->
+<!--                                     <i class="fa fa-star"-->
+<!--                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>-->
+<!--                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>-->
+<!--                                </th:block>-->
+<!--                                </span>-->
+<!--                                    <span th:if="${#numbers.formatInteger(related.pRating,0)} ==0" class="ratting float-end">-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                        <i class="fa fa-star "></i>-->
+<!--                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>-->
                                 </span>
                                         </div>
                                     </div>
@@ -355,15 +354,6 @@
         </div>
 
 
-
-
-        <!-- QUICK VIEW MODAL END-->
-        <div class="row">
-            <div class="text-center col-xs-12 mt-30">
-                <a href="#" class="btn load-more-product">load more</a>
-            </div>
-        </div>
-
     </div>
 <!--    상세 리뷰 모달-->
     <div class="modal fade" id="quickViewModal" tabindex="-1">
@@ -376,7 +366,7 @@
 
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 
 <script th:inline="javascript">
     function loadCartModal(){
@@ -391,8 +381,8 @@
             '                        장바구니에 등록 되었습니다.\n' +
             '                    </div>\n' +
             '                    <div class="modal-footer">\n' +
-            '                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
-            '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>\n' +
+            '                        <button type="button" class="btn add-to-cart" id="keepShoppingBtn1" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
+            '                        <a href="/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>\n' +
             '                    </div>\n' +
             '                </div>'
 
@@ -410,13 +400,16 @@
             '                        이미 등록한 상품입니다.\n' +
             '                    </div>\n' +
             '                    <div class="modal-footer">\n' +
-            '                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
-            '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>\n' +
+            '                        <button type="button" class="btn add-to-cart" id="keepShoppingBtn2" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
+            '                        <a href="/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>\n' +
             '                    </div>\n' +
             '                </div>'
 
         $(".modalbody").html(str)
     }
+    $(".modalbody").on("click","#keepShoppingBtn1",function (){
+         self.location.reload();
+    })
     $(".wishlist").click(function (){
 
         let pno =[[${pvo.pno}]]
@@ -424,7 +417,7 @@
 
         $.ajax({
             type:"post",
-            url :"/sw/mypage/interest/insert",
+            url :"/mypage/interest/insert",
             data:{pno: pno, mno:mno},
             success:function (result){
                 if(result==1){
@@ -447,7 +440,7 @@
         if($("input[name=mnoSec]").val() === ""){
             console.log("장바구니 담기 검증 들어오나")
             alert("로그인 후 이용해주세요");
-            window.location.href = '/dan/login'
+            window.location.href = '/account/login'
         }
 
         e.preventDefault()
@@ -505,7 +498,7 @@
         else{
             $.ajax({
                 type: "post",
-                url: "/sw/mypage/cart/register",
+                url: "/mypage/cart/register",
                 data: JSON.stringify(data),
                 contentType: "application/json;charset=UTF-8",
                 success: (result) => {
@@ -518,14 +511,14 @@
                     else{
                         //$(this).attr("data-bs-target","exampleModal")
                         loadCartModal()
+
                     }
-                    // self.location.reload();
+
                 },
             });
         }
-
-
     })
+
     // 사진 위치 변경
     $(".small").click(function (){
         let newPic = $(this).attr("src");
@@ -576,6 +569,7 @@
             'option' : option,
             'option2' : option2,
         }
+
         loadOptions(opt)
         $("input[name='orders[0].pColor']").val(color)
 
@@ -611,13 +605,13 @@
             let str ="";
             let pno = [[${pvo.pno}]]
             //컬러가 있을 때
-            if(colorList.length !=1 && colorList[0] != null){
+            if(colorList.length !=0 && colorList[0] != null){
                 str +='<input type="hidden" name="orders[0].pColor" value="">'
             }// 옵션이 있을때
-            if(optionList.length !=1 && optionList[0] != null){
+            if(optionList.length !=0 && optionList[0] != null){
                 str +='<input type="hidden" name="orders[0].pOption" value="">'
             }// 옵션2 있을때
-            if(optionList2.length !=1 && optionList2[0] != null){
+            if(optionList2.length !=0 && optionList2[0] != null){
                 str +='<input type="hidden" name="orders[0].pOption2" value="">'
             }
             str +='<input type="hidden"  name="orders[0].pno" value="' + pno+'">'
@@ -905,7 +899,7 @@
             if($("input[name=mnoSec]").val() === ""){
                 console.log("장바구니 담기 검증 들어오나")
                 alert("로그인 후 이용해주세요");
-                window.location.replace('/dan/login')
+                window.location.replace('/account/login')
                 return false;
             }
             else{ // --------------------------------------------- SW수정 0607 (else 안에 코드 원래 else 밖에 있었음)
@@ -913,6 +907,7 @@
                 let itemCount = $("#amountBox").val();
                 $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
                 let inputs= $(".order_form").find("input")
+                console.log("")
                 let val = "";
                 let cnt="";
                 for(let i=0;i<inputs.length;i++){
@@ -1399,9 +1394,9 @@
             str +='</ul>'
             str +='</div>'
             str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
-            str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
+            str +=  '<a href="/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
             $.getJSON("/rest/getQList/" + pno,function (data){
-
+                console.log("상품문의 data: ",data)
                 $(data).each(function (){
                     str+='<div class="pro-info-tab tab-pane" id="data-sheet">'
                     str +='<table class="table-data-sheet" style="height: 100px;">'
@@ -1425,15 +1420,16 @@
                     str +='</div>'
 
                 })
+                qlistInfo.html(str)
+                deleveryInfo.html('');
+                reviewHeader.html('')
+                detailInfo.html('')
+                review_not_div.html('');
+                review_div.html('');
+                pageMaker.html('');
 
             })
-            qlistInfo.html(str)
-            deleveryInfo.html('');
-            reviewHeader.html('')
-            detailInfo.html('')
-            review_not_div.html('');
-            review_div.html('');
-            pageMaker.html('');
+
         }
         $(".product-QList").on("click",".odd",function (){
 
@@ -1479,7 +1475,7 @@
         let mno = $("input[name=mnoSec]").val() // SW 수정 0607
         $.ajax({
             type:"get",
-            url :"/sw/mypage/interest/getOne",
+            url :"/mypage/interest/getOne",
             data:{pno: pno, mno:mno},
             success:function (result){
                if(result==0){

@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <title>mypage-interest-list</title>
 </head>
 
 <body>
     <!-- mypage header fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+    <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
     <div class="page-banner-section section">
@@ -59,7 +59,7 @@
 <!--                                    <td class="pro-title" th:text="${return.pno}"></td>-->
                                     <td class="pro-title">
                                         <button type="button" class="btn" id="getExchangeRead">
-                                            <a style="font-size: small" th:href="@{/sw/mypage/exchange/read(eno=${return.eno})}">조회</a>
+                                            <a style="font-size: small" th:href="@{/mypage/exchange/read(eno=${return.eno})}">조회</a>
                                         </button>
                                     </td>
                                     <td class="pro-title" th:text="${return.exStatus}"></td>
@@ -74,7 +74,7 @@
                                             <input type="hidden" name="pno" th:value="${return.pno}" readonly>
                                             <input type="hidden" name="eno" th:value="${return.eno}" readonly>
                                             <input type="hidden" name="category" value="'반품신청'" readonly>
-                                            <button type="submit" th:if="${return.exStatus != '반품완료'}" class="btn">반품</button>
+                                            <button type="submit" th:if="${return.exStatus != '반품완료'}" id="returnBtn" class="btn">반품</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -90,11 +90,17 @@
 </body>
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 
 <script>
     $(document).ready(function (){
 
+        // 반품 처리 버튼 누르면
+        $("#returnBtn").click(function (){
+            alert("반품처리가 완료되었습니다.")
+        })
+
+        // 이전 메뉴로 가기
         $("#goBack").click(function (){
             window.location.href = '/admin/adpage'
         })

@@ -1,7 +1,7 @@
 package com.green.team4.service.admin;
 
 import com.green.team4.mapper.admin.MailMapper;
-import com.green.team4.mapper.sw.MemberInfoMapper;
+import com.green.team4.mapper.mypage.MemberInfoMapper;
 import com.green.team4.vo.admin.MailVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
