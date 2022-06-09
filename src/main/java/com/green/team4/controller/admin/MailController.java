@@ -6,7 +6,7 @@ import com.green.team4.paging.PagingEntity;
 import com.green.team4.service.admin.MailService;
 import com.green.team4.service.mypage.MemberInfoService;
 import com.green.team4.vo.admin.MailVO;
-import com.green.team4.vo.sw.MemberInfoVO;
+import com.green.team4.vo.mypage.MemberInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.lang.Nullable;

@@ -139,9 +139,9 @@
                                 <ul>
                                     <li><a href="#" class="account-toggle"><i class="pe-7s-config"></i></a>
                                         <ul class="account-menu">
-                                            <form method="post" th:action="@{/dan/logout}">
-                                                <li><a sec:authorize="isAuthenticated()" th:href="@{/dan/logout}" type="submit" onclick="logout()">Logout</a></li>
-                                                <li><a sec:authorize="isAnonymous()" th:href="@{/dan/login}" type="submit">Login</a></li>
+                                            <form method="post" th:action="@{/account/logout}">
+                                                <li><a sec:authorize="isAuthenticated()" th:href="@{/account/logout}" type="submit" onclick="logout()">Logout</a></li>
+                                                <li><a sec:authorize="isAnonymous()" th:href="@{/account/login}" type="submit">Login</a></li>
                                             </form>
                                             <ul sec:authorize="hasAnyRole('ROLE_ADMIN')">
                                                 <li><a th:href="@{/admin/member/member?mno=1}">member</a></li>
@@ -162,7 +162,7 @@
                                             </ul>
                                             <ul sec:authorize="isAnonymous() or hasAnyRole('ROLE_MEMBER')">
                                             <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/sw/mypage/main?mno=2">My Account</a></li>
-                                            <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/dan/login">My Account</a></li>
+                                            <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/account/login">My Account</a></li>
                                             <li><a id="mypageInterest" href="/sw/mypage/interest/list?mno=2">Wish list</a></li>
                                             <li><a id="mypageRegQ" href="/sw/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
 <!--                                            <li><a href="">Checkout</a></li>--> <!-- 로그아웃 화면 연결 예정 -->

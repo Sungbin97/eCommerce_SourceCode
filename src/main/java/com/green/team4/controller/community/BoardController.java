@@ -7,6 +7,7 @@ import com.green.team4.vo.community.BoardVO;
 import com.green.team4.vo.community.Criteria;
 import com.green.team4.vo.community.PageMaker;
 import com.green.team4.vo.mypage.MemberInfoVO;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,10 +33,13 @@ import java.util.UUID;
 public class BoardController {
     @Autowired
     BoardService boardService;
+
     @Autowired
     MemberInfoService memberInfoService;
 
     PrincipalDetails principalDetails = new PrincipalDetails(new MemberInfoVO());
+
+    private Long mnoSec = 0L;
 
     // Board List
     @GetMapping("/list")
@@ -48,18 +52,10 @@ public class BoardController {
     }
 
     @GetMapping("/register")
-    public void register(Model model,Integer mno) throws Exception {
-
+    public void register(Model model,Long mno) {
         log.info("register로 이동....");
-
-        try {
-            log.info("mno : " + mno);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        MemberInfoVO memberInfoVO = memberInfoService.getMemberInfo(mno);
-        model.addAttribute("memberInfoVO",memberInfoVO);
-
+        log.info("mno: "+mno);
+        model.addAttribute("item",boardService.userInfo(mno));
     }
     // Create
     @PostMapping("/register")
@@ -80,7 +76,6 @@ public class BoardController {
     @GetMapping({"/read","/modify"})
     public void read(Model model, Long bno, Criteria criteria) {
         log.info("read로 이동");
-        log.info(boardService.getOne(bno));
         model.addAttribute("item", boardService.getOne(bno));
         model.addAttribute("cri",criteria);
     }
@@ -109,16 +104,12 @@ public class BoardController {
         return "redirect:list";
     }
 
-    // Test
-    @GetMapping("id/{idSec}")
-    public ResponseEntity<Integer> test(@PathVariable("idSec") String idSec){
-        log.info("@@ idSec : " + idSec);
-        MemberInfoVO memberInfoVO = memberInfoService.findById(idSec);
-        if (idSec.isEmpty()){
-
-
-        }
-        return new ResponseEntity<>((memberInfoVO.getMno()), HttpStatus.OK);
+    // IdSec
+    @GetMapping("/id/{idSec}")
+    public ResponseEntity<Long> transferId(@RequestParam String id){
+        log.info("@id : " + id);
+        mnoSec = (long)(memberInfoService.findById(id).getMno());
+        return new ResponseEntity<>(mnoSec, HttpStatus.OK);
     }
 
 

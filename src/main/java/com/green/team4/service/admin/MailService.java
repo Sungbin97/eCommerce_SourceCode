@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.green.team4.mapper.admin.MailMapper;
 import com.green.team4.mapper.mypage.MemberInfoMapper;
 import com.green.team4.vo.admin.MailVO;
-import com.green.team4.vo.sw.MemberInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
