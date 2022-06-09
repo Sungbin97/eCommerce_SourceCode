@@ -3,6 +3,7 @@ package com.green.team4.vo.community;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +23,8 @@ public class BoardVO {
     private String nonMemberId;
     private String nonMemberPassword;
     private String community;
+
+    // SW 추가
+    private int replyCnt; // 해당 게시글 댓글 개수
+
 }

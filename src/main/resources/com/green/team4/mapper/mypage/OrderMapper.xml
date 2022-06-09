@@ -67,5 +67,12 @@
     <delete id="delete">
         delete from tbl_order where ono=#{ono}
     </delete>
-    
+
+    <!-- 현재월 데이터 가져오기 -->
+    <select id="getAllByThisMonth" resultType="com.green.team4.vo.mypage.OrderVO">
+        select * from tbl_order
+        WHERE MONTH(orderDate) = MONTH(CURRENT_DATE())
+        AND YEAR(orderDate) = YEAR(CURRENT_DATE())
+        and tPayStatus = '결제완료'
+    </select>
 </mapper>

@@ -138,13 +138,13 @@
             <div class="col-md-5 col-sm-6 col-xs-12 mb-40">
                 <!-- Tab panes -->
                 <div class="tab-content mb-10">
-                    <div class="pro-large-img tab-pane active" id="pro-large-img-1" >
-                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" style="width: 100%; height: 100%" alt="" />
+                    <div class="pro-large-img tab-pane active" id="pro-large-img-1">
+                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" alt="" style="width: 531px; height: 560px"/>
                     </div>
                 </div>
                 <!-- Single Product Thumbnail Slider -->
                 <div class="pro-thumb-img-slider">
-                    <div th:each="imgs : ${pImgs}"><a data-toggle="tab"><img class="small" th:src="|/display?fileName=${imgs.pImagePath}|" alt=""></a></div>
+                    <div th:each="imgs : ${pImgs}"><a data-toggle="tab"><img class="small" th:src="|/display?fileName=${imgs.pImagePath}|" style="width: auto;height: auto" alt=""></a></div>
                 </div>
             </div>
 
@@ -392,7 +392,7 @@
             '                    </div>\n' +
             '                    <div class="modal-footer">\n' +
             '                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
-            '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>\n' +
+            '                        <a href="/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart">장바구니 가기</button></a>\n' +
             '                    </div>\n' +
             '                </div>'
 
@@ -411,7 +411,7 @@
             '                    </div>\n' +
             '                    <div class="modal-footer">\n' +
             '                        <button type="button" class="btn add-to-cart" data-bs-dismiss="modal">계속 쇼핑하기</button>\n' +
-            '                        <a href="/sw/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>\n' +
+            '                        <a href="/mypage/cart/list?mno='+mno+'"><button type="button" class="btn add-to-cart gotoCart" >장바구니 가기</button></a>\n' +
             '                    </div>\n' +
             '                </div>'
 
@@ -424,7 +424,7 @@
 
         $.ajax({
             type:"post",
-            url :"/sw/mypage/interest/insert",
+            url :"/mypage/interest/insert",
             data:{pno: pno, mno:mno},
             success:function (result){
                 if(result==1){
@@ -447,7 +447,7 @@
         if($("input[name=mnoSec]").val() === ""){
             console.log("장바구니 담기 검증 들어오나")
             alert("로그인 후 이용해주세요");
-            window.location.href = '/dan/login'
+            window.location.href = '/account/login'
         }
 
         e.preventDefault()
@@ -505,7 +505,7 @@
         else{
             $.ajax({
                 type: "post",
-                url: "/sw/mypage/cart/register",
+                url: "/mypage/cart/register",
                 data: JSON.stringify(data),
                 contentType: "application/json;charset=UTF-8",
                 success: (result) => {
@@ -611,13 +611,13 @@
             let str ="";
             let pno = [[${pvo.pno}]]
             //컬러가 있을 때
-            if(colorList.length !=1 && colorList[0] != null){
+            if(colorList.length !=0 && colorList[0] != null){
                 str +='<input type="hidden" name="orders[0].pColor" value="">'
             }// 옵션이 있을때
-            if(optionList.length !=1 && optionList[0] != null){
+            if(optionList.length !=0 && optionList[0] != null){
                 str +='<input type="hidden" name="orders[0].pOption" value="">'
             }// 옵션2 있을때
-            if(optionList2.length !=1 && optionList2[0] != null){
+            if(optionList2.length !=0 && optionList2[0] != null){
                 str +='<input type="hidden" name="orders[0].pOption2" value="">'
             }
             str +='<input type="hidden"  name="orders[0].pno" value="' + pno+'">'
@@ -905,7 +905,7 @@
             if($("input[name=mnoSec]").val() === ""){
                 console.log("장바구니 담기 검증 들어오나")
                 alert("로그인 후 이용해주세요");
-                window.location.replace('/dan/login')
+                window.location.replace('/account/login')
                 return false;
             }
             else{ // --------------------------------------------- SW수정 0607 (else 안에 코드 원래 else 밖에 있었음)
@@ -913,6 +913,7 @@
                 let itemCount = $("#amountBox").val();
                 $(".order_form").find("input[name='orders[0].itemCount']").val(itemCount);
                 let inputs= $(".order_form").find("input")
+                console.log("")
                 let val = "";
                 let cnt="";
                 for(let i=0;i<inputs.length;i++){
@@ -1399,9 +1400,9 @@
             str +='</ul>'
             str +='</div>'
             str +='<div style="width: 200px;float: right" class="cart-bottom  clearfix">'
-            str +=  '<a href="/sw/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
+            str +=  '<a href="/mypage/personalQ/regQ?mno='+$("input[name=mnoSec]").val()+'">상품 문의</a></div>' // SW 수정 0607
             $.getJSON("/rest/getQList/" + pno,function (data){
-
+                console.log("상품문의 data: ",data)
                 $(data).each(function (){
                     str+='<div class="pro-info-tab tab-pane" id="data-sheet">'
                     str +='<table class="table-data-sheet" style="height: 100px;">'
@@ -1425,15 +1426,16 @@
                     str +='</div>'
 
                 })
+                qlistInfo.html(str)
+                deleveryInfo.html('');
+                reviewHeader.html('')
+                detailInfo.html('')
+                review_not_div.html('');
+                review_div.html('');
+                pageMaker.html('');
 
             })
-            qlistInfo.html(str)
-            deleveryInfo.html('');
-            reviewHeader.html('')
-            detailInfo.html('')
-            review_not_div.html('');
-            review_div.html('');
-            pageMaker.html('');
+
         }
         $(".product-QList").on("click",".odd",function (){
 
@@ -1479,7 +1481,7 @@
         let mno = $("input[name=mnoSec]").val() // SW 수정 0607
         $.ajax({
             type:"get",
-            url :"/sw/mypage/interest/getOne",
+            url :"/mypage/interest/getOne",
             data:{pno: pno, mno:mno},
             success:function (result){
                if(result==0){

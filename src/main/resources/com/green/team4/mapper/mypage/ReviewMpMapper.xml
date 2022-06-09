@@ -75,7 +75,7 @@
         <if test="search != null">
             AND tbl_orderItem.iName LIKE CONCAT('%',#{search},'%')
         </if>
-        order by mno
+        order by tbl_review.rRegdate desc;
     </select>
 
     <!-- tbl_review 데이터 하나 가져오기(mno 단위) -->
@@ -97,12 +97,12 @@
         where rno=#{rno}
     </update>
 
-    <!-- tbl_review 데이터 삭제 -->
+    <!-- tbl_review 데이터 삭제(ReviewMpVO) -->
     <delete id="delete">
         delete from tbl_review where rno=#{rno}
     </delete>
 
-    <!-- tbl_review 데이터 삭제 -->
+    <!-- tbl_review 데이터 삭제(rno) -->
     <delete id="deleteByRno">
         delete from tbl_review where rno=#{rno}
     </delete>
