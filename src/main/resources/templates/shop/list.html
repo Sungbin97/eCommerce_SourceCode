@@ -157,7 +157,7 @@
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
                                     <i class="fa fa-star active"
                                        th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
-                                     <i class="fa fa-star"
+                                     <i class="fa fa-star" th:if="${end } !=5"
                                         th:each="star : ${#numbers.sequence(1, end2)}"></i>
                                     <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
                                 </th:block>

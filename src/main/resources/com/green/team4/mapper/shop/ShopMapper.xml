@@ -109,13 +109,13 @@
         <include refid="sort"></include>
         limit #{startPage}, #{numPerPage}
     </select>
-    <select id="getListByFind4" resultType="com.green.team4.vo.admin.ProductVO">
-        select * from tbl_product P
-        left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
-        <include refid="criteria"></include>
-        <include refid="sort"></include>
-        limit 5
-    </select>
+<!--    <select id="getListByFind4" resultType="com.green.team4.vo.admin.ProductVO">-->
+<!--        select * from tbl_product P-->
+<!--        left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode-->
+<!--        <include refid="criteria"></include>-->
+<!--        <include refid="sort"></include>-->
+<!--        limit 5-->
+<!--    </select>-->
     <select id="getListWithBest" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode

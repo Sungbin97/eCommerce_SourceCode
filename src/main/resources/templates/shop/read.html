@@ -354,15 +354,6 @@
         </div>
 
 
-
-
-        <!-- QUICK VIEW MODAL END-->
-        <div class="row">
-            <div class="text-center col-xs-12 mt-30">
-                <a href="#" class="btn load-more-product">load more</a>
-            </div>
-        </div>
-
     </div>
 <!--    상세 리뷰 모달-->
     <div class="modal fade" id="quickViewModal" tabindex="-1">
@@ -416,6 +407,9 @@
 
         $(".modalbody").html(str)
     }
+    $(".modalbody").on("click","#keepShoppingBtn1",function (){
+         self.location.reload();
+    })
     $(".wishlist").click(function (){
 
         let pno =[[${pvo.pno}]]
@@ -517,8 +511,9 @@
                     else{
                         //$(this).attr("data-bs-target","exampleModal")
                         loadCartModal()
+
                     }
-                    // self.location.reload();
+
                 },
             });
         }

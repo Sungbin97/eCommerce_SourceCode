@@ -197,9 +197,11 @@
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
                                     <i class="fa fa-star active"
                                        th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
-                                     <i class="fa fa-star"
+
+                                     <i class="fa fa-star" th:if="${end } !=5"
                                         th:each="star : ${#numbers.sequence(1, end2)}"></i>
                                     <span class="reviewCnt_span" th:text="|(${dto.pReviewCnt})|"></span>
+                                    <span>[[${dto.pRating}]]</span>
                                 </th:block>
 
                             </span>
@@ -326,7 +328,10 @@
     // countDownTimer('sample03', '04/01/2024'); // 2024년 4월 1일까지
     // countDownTimer('sample04', '04/01/2019'); // 2024년 4월 1일까지
 
+    $(document).ready(function (){
 
+
+    })
 
 
 </script>
