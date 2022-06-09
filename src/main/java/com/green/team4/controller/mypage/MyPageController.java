@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
@@ -55,11 +56,25 @@ public class MyPageController {
         // 주문 상품 개수
         int orderCnt = orderService.readAllCnt(mno);
         model.addAttribute("orderCnt",orderCnt);
+
         // 이번 달 적립 포인트
         List<OrderVO> orderList = orderService.readAllByThisMonth();
         int thisMPoint = 0;
         for(OrderVO order : orderList) thisMPoint += order.getTSavePoint();
         model.addAttribute("thisMPoint",thisMPoint);
+
+        // 누적 적립 포인트
+        int accuPoint = 0;
+        List<OrderVO> orderListdef = orderService.readAllByMno(mno);
+        log.info("orderListdef: "+orderListdef);
+        List<OrderVO> orderListOnlyPay = orderListdef
+                .stream()
+                .filter(i->i.getTPayStatus().equals("결제완료"))
+                .collect(Collectors.toList());
+        log.info("orderListOnlyPay: "+orderListOnlyPay);
+        for (OrderVO order : orderListOnlyPay) accuPoint += order.getTSavePoint();
+        model.addAttribute("accuPoint",accuPoint);
+
 
         // 취소/반품/교환 신청 건 수 가져오기
         int exCnt = exchangeService.readAllCnt(mno);

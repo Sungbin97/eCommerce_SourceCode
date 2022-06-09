@@ -68,9 +68,13 @@
                             <!-- 분야 -->
                             <h5 class="title">[[${board.title}]]</a></h5>
                             <p>[[${board.community}]]</p>
-                            <!-- 게시글 작성정보 -->
+                            <!-- 게시글 정보 -->
                             <div class="price-ratting fix">
                                 <span style="font-size: small" class="price">작성일자: <span class="new" th:text="${#dates.format(board.regDate, 'yyyy-MM-dd')}"></span></span>
+                            </div>
+                            <hr/>
+                            <div class="price-ratting fix">
+                                <span style="font-size: small" class="price">댓글 개수: <span class="new" th:text="${board.replyCnt}"></span> 개</span>
                             </div>
                         </div>
                     </div>

@@ -46,9 +46,11 @@
                     <br/>
                     <br/>
                     <br/>
-                    <h4 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s" ><span style="font-weight: bold" th:text="${#calendars.format(#calendars.createNow(),'MM')}+'월 '"></span>적립한 포인트</h4>
-                    <p style="color: #dc3545" class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s"
-                       data-th-text="${#numbers.formatInteger(thisMPoint, 3, 'COMMA') + ' POINT'}"></p>
+                    <h4 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s" ><span style="font-weight: bold" th:text="${#calendars.format(#calendars.createNow(),'MM')}+'월 '"></span>적립 포인트</h4>
+                    <p style="color: #dc3545;font-weight: bold" class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s"
+                       data-th-text="${'당월: '+#numbers.formatInteger(thisMPoint, 3, 'COMMA') + ' P' +'  /  '+'누적: '+#numbers.formatInteger(accuPoint, 3, 'COMMA') + ' P'}"></p>
+<!--                    <p style="color: #dc3545" class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s"-->
+<!--                       data-th-text="${'누적 적립 포인트: '+#numbers.formatInteger(accuPoint, 3, 'COMMA') + ' POINT'}"></p>-->
                 </div>
             </div>
         </div>

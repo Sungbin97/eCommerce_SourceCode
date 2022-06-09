@@ -2,6 +2,7 @@ package com.green.team4.service.community;
 
 import com.github.pagehelper.PageHelper;
 import com.green.team4.mapper.community.BoardMapper;
+import com.green.team4.mapper.community.ReplyMapper;
 import com.green.team4.vo.mypage.SearchVO;
 import com.green.team4.vo.community.BoardVO;
 import com.green.team4.vo.community.Criteria;
@@ -14,6 +15,9 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     @Autowired
     BoardMapper mapper;
+
+    @Autowired
+    ReplyMapper replyMapper;
 
 
     @Override
@@ -76,9 +80,17 @@ public class BoardServiceImpl implements BoardService {
         System.out.println("BoardService => readAllByMnoSearch 실행 => 받은 searchVO: "+searchVO);
         searchVO.setMno(mno); // 검색 vo에 mno set
         PageHelper.startPage(pageNum,8); // 가져올 데이터 페이지 번호, 페이지 당 데이터 개수
-        List<BoardVO> list = mapper.getAllByMnoSearch(searchVO);
-        System.out.println("BoardService => readAllByMnoSearch 실행 후 가져온 list: "+list);
 
-        return list;
+        // 게시글 가져오기
+        List<BoardVO> boardlist = mapper.getAllByMnoSearch(searchVO);
+
+        // 게시글에 해당하는 댓글 개수 가져오기
+        boardlist.forEach(board->{
+            board.setReplyCnt(replyMapper.getCntByBno(board.getBno()));
+        });
+
+        System.out.println("BoardService => readAllByMnoSearch 실행 후 가져온 list: "+boardlist);
+
+        return boardlist;
     }
 }
