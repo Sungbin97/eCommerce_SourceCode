@@ -417,6 +417,9 @@
 
         $(".modalbody").html(str)
     }
+    $(".modalbody").on("click","#keepShoppingBtn1",function (){
+        self.location.reload();
+    })
     $(".wishlist").click(function (){
 
         let pno =[[${pvo.pno}]]

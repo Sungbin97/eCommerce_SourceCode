@@ -241,6 +241,7 @@ public class ProductController {
     @PostMapping("/remove")
     public String ProductRemove(int pno){
         log.info("받아온 pno: " + pno);
+
         productService.delete(pno);
         productImgMapper.delete(pno);
         productOptMapper.delete(pno);

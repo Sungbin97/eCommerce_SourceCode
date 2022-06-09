@@ -107,9 +107,9 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<OrderVO> readAllByThisMonth() {
-        log.info("OrderService => readAllByThisMonth 실행");
-        List<OrderVO> orderList = orderMapper.getAllByThisMonth();
+    public List<OrderVO> readAllByThisMonth(int mno) {
+        log.info("OrderService => readAllByThisMonth 실행 => 받은 mno: "+mno);
+        List<OrderVO> orderList = orderMapper.getAllByThisMonth(mno);
         return orderList;
     }
 

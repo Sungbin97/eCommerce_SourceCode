@@ -58,7 +58,7 @@ public class MyPageController {
         model.addAttribute("orderCnt",orderCnt);
 
         // 이번 달 적립 포인트
-        List<OrderVO> orderList = orderService.readAllByThisMonth();
+        List<OrderVO> orderList = orderService.readAllByThisMonth(mno);
         int thisMPoint = 0;
         for(OrderVO order : orderList) thisMPoint += order.getTSavePoint();
         model.addAttribute("thisMPoint",thisMPoint);
