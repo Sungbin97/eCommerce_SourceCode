@@ -46,6 +46,11 @@
         delete from tbl_interest where mno=#{mno} and pno=#{pno}
     </delete>
 
+    <!-- Interest 데이터 삭제(pno 단위) -->
+    <delete id="deleteByPno">
+        delete from tbl_interest pno=#{pno}
+    </delete>
+
     <select id="getOne" resultType="int">
         select count(*) from tbl_interest where mno =#{mno} and pno = #{pno}
     </select>

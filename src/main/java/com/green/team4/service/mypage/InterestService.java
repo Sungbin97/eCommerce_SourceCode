@@ -16,4 +16,5 @@ public interface InterestService {
 
     // 위시리스트 데이터 확인
     public int getOne(InterestVO interestVO);
+    int removeByPno(int pno); // 찜목록 삭제(pno 단위)
 }

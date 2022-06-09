@@ -14,4 +14,5 @@ public interface CartMapper {
     List<CartVO> getAll(int mno); // 데이터 전체 가져오기(mno 단위로)
     int update(CartVO cartVO); // 데이터 수정
     int delete(int cno); // 데이터 삭제
+    int deleteByPno(int pno); // 데이터 삭제
 }

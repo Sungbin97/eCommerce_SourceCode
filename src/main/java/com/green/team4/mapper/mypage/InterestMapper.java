@@ -18,4 +18,5 @@ public interface InterestMapper {
 
     // 위시리스트 데이터 확인
     int getOne(InterestVO interestVO);
+    int deleteByPno(int pno); // 데이터 삭제
 }

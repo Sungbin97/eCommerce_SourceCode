@@ -568,9 +568,9 @@ insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, 
 insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '테니스 용품', '404004','404000');
 insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타', '404005','404000');
 
-
+insert into tbl_board (mno, title, content,
+                       regDate, community)
+values (1,'게시글 제목 테스트 입니다22242.','메롱',now(),'야구');
 commit;
-
-
 
 

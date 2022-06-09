@@ -18,4 +18,7 @@ public interface ReplyMapper {
                                      @Param("bno") Long bno);
     public int getTotalCount(Criteria criteria);
     // 전체 게시글 수를 구하기 위한 메서드
+
+    // SW 추가
+    public int getCntByBno(Long bno); // 해당 게시글의 댓글 모두 가져오기
 }
