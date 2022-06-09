@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
+    <th:block th:replace="fragments/common/header :: head"></th:block>
     <title>LOGIN</title>
 </head>
 <style>
@@ -13,7 +13,7 @@
 </style>
 <body>
     <!-- mypage header fragment -->
-    <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
+    <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 
     <div class="page-banner-section section">
         <div class="container">
@@ -80,7 +80,7 @@
 </body>
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 <script src="https://cdn.jsdeliver.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script th:inline="javascript">
 
