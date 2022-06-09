@@ -91,16 +91,26 @@
                                         <li><a href="blog-details.html">blog details</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="">Admin</a>
+                                <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a href="blog.html">Admin</a>
                                     <ul class="sub-menu">
                                         <li><a th:href="@{/admin/member/member?mno=1}">member</a></li>
                                         <li><a th:href="@{/admin/product/upload}">product upload</a></li>
                                         <li><a th:href="@{/admin/product/list(pno=1)}">product list</a></li>
-                                        <li><a th:href="@{/admin/mail/write}">mail write</a></li>
+
+                                        <li><a th:href="@{/admin/order/list}">order List</a></li>
+                                        <li><a th:href="@{/admin/order/cancelList}">cancel List</a></li>
+                                        <li><a th:href="@{/admin/order/changeList}">change List</a></li>
+                                        <li><a th:href="@{/admin/order/deliveryReg}">deliveryReg</a></li>
+                                        <li><a th:href="@{/admin/order/normalList}">normal List</a></li>
+                                        <li><a th:href="@{/admin/order/returnList}">return List</a></li>
+
+                                        <li><a th:href="@{/admin/personalQ/listM}">customer inquiry</a></li>
+
+                                        <li><a th:href="@{/admin/mail/writeDirect}">mail write</a></li>
                                         <li><a th:href="@{/admin/mail/list}">mail list</a></li>
                                     </ul>
                                 </li>
-<!--                                <li><a href="contact.html">Contact</a></li>-->
+                                <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </nav>
                         <!-- header-search & total-cart -->
@@ -109,7 +119,10 @@
                             <div class="header-search">
                                 <button class="search-toggle"><i class="pe-7s-search"></i></button>
                                 <div class="header-search-form">
-
+                                    <!--                                    <form action="#">-->
+                                    <!--                                        <input type="text" placeholder="Search">-->
+                                    <!--                                        <button><i class="fa fa-long-arrow-right"></i></button>-->
+                                    <!--                                    </form>-->
                                     <form class="searchForm" action="/shop/list" method="get">
                                         <input type="text" placeholder="Search" id="keyword" name="keyword">
                                         <button id="findBtn"><i class="fa fa-long-arrow-right"></i></button>
@@ -124,20 +137,34 @@
                                 <ul>
                                     <li><a href="#" class="account-toggle"><i class="pe-7s-config"></i></a>
                                         <ul class="account-menu">
-                                            <form method="post" th:action="@{/account/logout}">
-                                                <li><a sec:authorize="isAuthenticated()" th:href="@{/account/logout}" type="submit" onclick="logout()">Logout</a></li>
-                                                <li><a sec:authorize="isAnonymous()" th:href="@{/account/login}" type="submit">Login</a></li>
+                                            <form method="post" th:action="@{/dan/logout}">
+                                                <li><a sec:authorize="isAuthenticated()" th:href="@{/dan/logout}" type="submit" onclick="logout()">Logout</a></li>
+                                                <li><a sec:authorize="isAnonymous()" th:href="@{/dan/login}" type="submit">Login</a></li>
                                             </form>
                                             <ul sec:authorize="hasAnyRole('ROLE_ADMIN')">
                                                 <li><a th:href="@{/admin/member/member?mno=1}">member</a></li>
                                                 <li><a th:href="@{/admin/product/upload}">product upload</a></li>
                                                 <li><a th:href="@{/admin/product/list(pno=1)}">product list</a></li>
-                                                <li><a th:href="@{/admin/mail/write}">mail write</a></li>
+
+                                                <li><a th:href="@{/admin/order/list}">order List</a></li>
+                                                <li><a th:href="@{/admin/order/cancelList}">cancel List</a></li>
+                                                <li><a th:href="@{/admin/order/changeList}">change List</a></li>
+                                                <li><a th:href="@{/admin/order/deliveryReg}">deliveryReg</a></li>
+                                                <li><a th:href="@{/admin/order/normalList}">normal List</a></li>
+                                                <li><a th:href="@{/admin/order/returnList}">return List</a></li>
+
+                                                <li><a th:href="@{/admin/personalQ/listM}">customer inquiry</a></li>
+
+                                                <li><a th:href="@{/admin/mail/writeDirect}">mail write</a></li>
                                                 <li><a th:href="@{/admin/mail/list}">mail list</a></li>
-                                            </li>
-                                            <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/mypage/main?mno=2">My Account</a></li>
-                                            <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/account/login">My Account</a></li>
-                                            <li><a id="mypageRegQ" href="/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
+                                            </ul>
+                                            <ul sec:authorize="isAnonymous() or hasAnyRole('ROLE_MEMBER')">
+                                            <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/sw/mypage/main?mno=2">My Account</a></li>
+                                            <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/dan/login">My Account</a></li>
+                                            <li><a id="mypageInterest" href="/sw/mypage/interest/list?mno=2">Wish list</a></li>
+                                            <li><a id="mypageRegQ" href="/sw/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
+<!--                                            <li><a href="">Checkout</a></li>--> <!-- 로그아웃 화면 연결 예정 -->
+                                            </ul>
                                         </ul>
                                     </li>
                                 </ul>
@@ -154,8 +181,11 @@
                                     <!-- Cart Products -->
                                     <h6>CART</h6>
 
-                                    <input type="hidden" name="idSec" th:value="${#authentication.name}"/>
-                                    <input type="hidden" name="mnoSec"/> <!-- ajax통신으로 받아온 mno 업데이트 영역 -->
+                                    <input type="text" name="idSec" th:value="${#authentication.name}"/>
+<!--                                    <input type="text" name="mnoTest" th:value="${#principal.}"/>-->
+<!--                                    <div name="mnoTest" sec:authentication="principal.getAuthorities()"></div>-->
+                                    <div sec:authentication="name"></div>
+                                    <input type="text" name="mnoSec"/> <!-- ajax통신으로 받아온 mno 업데이트 영역 -->
 
                                     <!-- 회원별 장바구니 데이터 들어오는 영역 -->
                                     <div class="all-cart-product clearfix uploadCartResult">
@@ -163,7 +193,7 @@
                                     </div>
                                     <!-- Cart Button -->
                                     <div class="cart-bottom  clearfix">
-                                        <a id="getCartListM" href="/mypage/cart/list?mno=2">장바구니 전체 보기</a>
+                                        <a href="/sw/mypage/cart/list?mno=2">장바구니 전체 보기</a> <!-- mno 고정 풀어야함 -->
                                     </div>
 
                                 </div>

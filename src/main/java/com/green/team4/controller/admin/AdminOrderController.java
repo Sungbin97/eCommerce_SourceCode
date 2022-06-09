@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @Log4j2
-@RequestMapping("/adminadmin/order/*")
+@RequestMapping("/admin/order/*")
 @RequiredArgsConstructor
 public class AdminOrderController {
     private final OrderItemMapper orderItemMapper;

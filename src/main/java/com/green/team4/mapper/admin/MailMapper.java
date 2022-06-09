@@ -9,6 +9,7 @@ import java.util.List;
 public interface MailMapper {
     int insert(MailVO vo);
     List<MailVO> getAll();
+    List<MailVO> getPage(int pageNum);
     MailVO getOne(int mno);
     int update(MailVO vo);
     int delete(int mno);

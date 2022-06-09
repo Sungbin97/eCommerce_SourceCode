@@ -45,7 +45,6 @@ import java.util.UUID;
 public class ProductController {
     @Value("${com.green.upload.path}") //application.properties 변수
     private String uploadPath;
-
     private final ProductService productService;
     private final ProductOptMapper productOptMapper;
     private final ProductImgMapper productImgMapper;
@@ -151,13 +150,11 @@ public class ProductController {
         model.addAttribute("list", list);
         model.addAttribute("getOne", productService.getOne(pno));
         model.addAttribute("product", productService.getOne(pno));
-
         //페이징
         PageInfo<PagingEntity> products = new PageInfo<>(pagingService.getProductList(pageNum, search), 10);
         model.addAttribute("products", products);
         model.addAttribute("pageNum", pageNum);
         model.addAttribute("search", search);
-//        model.addAttribute("getOpt", productOptMapper.getOpt(pno));
     }
 
     @GetMapping("/modify")
@@ -243,6 +240,7 @@ public class ProductController {
 
     @PostMapping("/remove")
     public String ProductRemove(int pno){
+        log.info("받아온 pno: " + pno);
         productService.delete(pno);
         productImgMapper.delete(pno);
         productOptMapper.delete(pno);

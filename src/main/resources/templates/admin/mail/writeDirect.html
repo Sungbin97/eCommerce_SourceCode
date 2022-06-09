@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- mypage head fragment -->
-    <th:block th:replace="fragments/common/header :: head"></th:block>
+    <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
     <title>Mail-write</title>
 </head>
 <body>
 <!-- mypage header fragment -->
-<th:block th:replace="fragments/common/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
 
 <!-- PAGE BANNER SECTION -->
 <div class="page-banner-section section">
@@ -37,7 +37,7 @@
                                 <h5>매일 작성</h5>
                                 <div class="col-12 mb-20">
                                     <label>회원번호<span class="required">*</span></label>
-                                    <input name="mno" type="text" th:value="${member.mno}">
+                                    <input name="mno" type="text">
                                 </div>
                                 <div class="col-12 mb-20">
                                     <label>제목 <span class="required">*</span></label>
@@ -60,7 +60,7 @@
 </body>
 
 <!-- mypage footer fragment -->
-<th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
+<th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
 <script>
 
 </script>

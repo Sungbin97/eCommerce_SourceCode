@@ -1,8 +1,10 @@
 package com.green.team4.service.admin;
 
+import com.github.pagehelper.PageHelper;
 import com.green.team4.mapper.admin.MailMapper;
 import com.green.team4.mapper.mypage.MemberInfoMapper;
 import com.green.team4.vo.admin.MailVO;
+import com.green.team4.vo.sw.MemberInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -50,5 +53,11 @@ public class MailService {
         javaMailSender.send(simpleMailMessage);
 
         return mailMapper.insert(vo);
+    }
+    public List<MailVO> page(int pageNum) {
+        PageHelper.startPage(pageNum,10);
+        List<MailVO> mailList = mailMapper.getAll();
+        mailList.forEach(System.out::println);
+        return mailList;
     }
 }
