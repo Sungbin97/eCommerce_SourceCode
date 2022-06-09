@@ -104,7 +104,8 @@
                                             <th class="pro-quantity">
                                                 Registration Date</th>
                                             <th class="pro-subtotal">Rating</th>
-                                            <th class="pro-price">Remove</th>
+                                            <th class="pro-subtotal">Status</th>
+                                            <th class="pro-price">상태변경</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -116,10 +117,13 @@
                                         <td class="pro-price" id="price" th:text="|₩${#numbers.formatInteger(dto.pPrice, 0, 'COMMA')}|" ></td>
                                         <td class="pro-price">[[${dto.pRegdate}]]</td>
                                         <td class="pro-subtotal">[[${dto.pRating}]]</td>
+                                        <td class="pro-subtotal">[[${dto.pStatus}]]</td>
                                         <td class="pro-price">
-                                            <form id="removeForm" th:action="@{/admin/product/remove}" method="post">
+                                            <form id="removeForm" th:action="@{/admin/product/stop}" method="post">
                                                 <input type="hidden" th:value="${dto.pno}" th:name="pno">
-                                                <input name="productRemove" value="삭제" type="button"/>
+                                                <input type="hidden" th:value="${dto.pStatus}" th:name="pStatus">
+                                                <input th:if="${dto.pStatus != '판매중지'}" class="stopAndStart" name="productRemove" value="판매중지 처리" type="button"/>
+                                                <input th:if="${dto.pStatus == '판매중지'}" class="stopAndStart" name="productSell" value="판매중 처리" type="button"/>
                                             </form>
                                         </td>
                                     </tr>
@@ -167,18 +171,18 @@ console.log("pno: ", $("#pno").val());
         console.log("pno: ", pno)
     }
     $(document).ready(function (){
-        $("input[name=productRemove]").click(function (e){
+        $(".stopAndStart").click(function (e){
 
             var target = $(this).closest('form');
             console.log("target: ", target);
 
-            if(!confirm("정말 삭제하시겠습니까?")){
-                alert("삭제를 취소합니다.")
+            if(!confirm("real??")){
+                alert("처리 완료하였습니다.")
                 return
             }
             else {
                 target.submit();
-                alert("삭제 완료하였습니다.")
+                alert("처리 완료하였습니다.")
             }
         })
     })

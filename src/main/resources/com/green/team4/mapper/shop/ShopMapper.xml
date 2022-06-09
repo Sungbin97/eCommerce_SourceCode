@@ -119,13 +119,13 @@
     <select id="getListWithBest" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
-          where  P.pCateCode like concat('5','%')
+          where  P.pCateCode like concat('5','%') and pStatus = '판매중'
 
     </select>
     <select id="getListWithTimeDeal" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
-        where  P.pCateCode like concat('6','%')
+        where  P.pCateCode like concat('6','%') and pStatus = '판매중'
         order by pno desc
 
     </select>
@@ -147,7 +147,7 @@
     </select>
     <select id="getListByRand" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product
-        where pCateCode like concat('%',#{keyword},'%')
+        where pCateCode like concat('%',#{keyword},'%') and pStatus = '판매중'
         order by rand() limit 10
     </select>
 

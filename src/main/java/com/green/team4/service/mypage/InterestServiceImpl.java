@@ -67,5 +67,13 @@ public class InterestServiceImpl implements InterestService{
     public int getOne(InterestVO interestVO) {
         return interestMapper.getOne(interestVO);
     }
+
+    @Override
+    public int removeByPno(int pno) {
+        log.info("InterestService => removeByPno 실행 => 받은 pno: "+pno);
+        int result = interestMapper.deleteByPno(pno);
+        log.info("InterestService => removeByPno 실행 후 삭제된 개수: "+result);
+        return result;
+    }
 }
 

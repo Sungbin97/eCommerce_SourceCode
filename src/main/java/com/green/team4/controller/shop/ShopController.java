@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 @Log4j2
 @RequestMapping("/shop")
@@ -57,9 +60,18 @@ public class ShopController {
         }
         cri.setPCateCode(code);
         System.out.println("코드 변환후 cri : "+cri);
+
+        // 판매중인 상품만 sort
+        List<ProductVO> productList = shopService.getListByFind(cri);
+        List<ProductVO> finalList = productList.stream()
+                            .filter(i->i.getPStatus()
+                            .equals("판매중"))
+                            .collect(Collectors.toList());
+        log.info("sort 완료한 list: "+finalList);
+
         pagingVO.setCri(cri);
         pagingVO.setTotalProductData(shopService.getTotaldatabyFind(cri));
-        model.addAttribute("list",shopService.getListByFind(cri));
+        model.addAttribute("list",finalList);
         model.addAttribute("pagingVO",pagingVO);
     }
 

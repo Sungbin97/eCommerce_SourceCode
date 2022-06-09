@@ -98,4 +98,12 @@ public class CartServiceImpl implements CartService{
         log.info("CartService => remove 실행 후 삭제된 개수: "+result);
         return result;
     }
+
+    @Override
+    public int removeByPno(int pno) { // 장바구니 삭제(pno 단위)
+        log.info("CartService => removeByPno 실행 => 받은 pno: "+pno);
+        int result = cartMapper.deleteByPno(pno);
+        log.info("CartService => removeByPno 실행 후 삭제된 개수: "+result);
+        return result;
+    }
 }

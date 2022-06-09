@@ -1,12 +1,15 @@
 package com.green.team4.controller.admin;
 
 import com.github.pagehelper.PageInfo;
+import com.green.team4.mapper.admin.ProductMapper;
 import com.green.team4.mapper.shop.OrderPageMapper;
 import com.green.team4.mapper.shop.ShopMapper;
 import com.green.team4.mapper.admin.ProductInfoImgMapper;
 import com.green.team4.mapper.admin.ProductImgMapper;
 import com.green.team4.mapper.admin.ProductOptMapper;
 import com.green.team4.paging.PagingEntity;
+import com.green.team4.service.mypage.CartService;
+import com.green.team4.service.mypage.InterestService;
 import com.green.team4.vo.admin.SearchVO;
 import com.green.team4.service.admin.PagingService;
 import com.green.team4.service.admin.ProductService;
@@ -52,6 +55,9 @@ public class ProductController {
     private final PagingService pagingService;
     private final ShopMapper shopMapper;
     private final OrderPageMapper orderPageMapper;
+    private final CartService cartService;
+    private final InterestService interestService;
+    private final ProductMapper productMapper;
 
     private String makeFolder(){ // 파일 저장 폴더 만들기(탐색기)
         String str = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
@@ -238,15 +244,18 @@ public class ProductController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping("/remove")
-    public String ProductRemove(int pno){
-        log.info("받아온 pno: " + pno);
+    @PostMapping("/stop")
+    public String ProductRemove(ProductVO productVO){
+        log.info("받아온 productVO: " + productVO);
 
-        productService.delete(pno);
-        productImgMapper.delete(pno);
-        productOptMapper.delete(pno);
-        productImgInfoMapper.delete(pno);
-        log.info(pno+"번 상품 삭제");
+        if(productVO.getPStatus().equals("판매중지")){
+            productVO.setPStatus("판매중");
+        }
+        else productVO.setPStatus("판매중지");
+
+        productMapper.update(productVO);
+
+        log.info(productVO.getPno()+"번 상품 판매대기");
         return "redirect:/admin/product/list?pno=1";
     }
 

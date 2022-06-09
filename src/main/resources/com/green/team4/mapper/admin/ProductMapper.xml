@@ -7,9 +7,9 @@
 
     <insert id="insert">
         insert into tbl_product (pName, pPrice, pSize, pColor, pInformation,
-                                 pImage, pAmount, pCateCode, pDiscount)
+                                 pImage, pAmount, pCateCode, pDiscount, pStatus)
         values (#{pName}, #{pPrice}, #{pSize}, #{pColor}, #{pInformation},
-                #{pImage}, #{pAmount}, #{pCateCode}, #{pDiscount})
+                #{pImage}, #{pAmount}, #{pCateCode}, #{pDiscount}, #{pStatus})
     </insert>
 
     <select id="getAll" resultType="com.green.team4.vo.admin.ProductVO">
@@ -22,9 +22,8 @@
 
     <update id="update">
         update tbl_product
-            set pName=#{pName}, pPrice=#{pPrice}, pInformation=#{pInformation}, pSize=#{pSize},
-                pColor=#{pColor}, pImage=#{pImage}, pAmount=#{pAmount}, pCateCode=#{pCateCode}
-                where pno=#{pno}
+        set pStatus=#{pStatus}
+        where pno=#{pno}
     </update>
 
     <delete id="delete">

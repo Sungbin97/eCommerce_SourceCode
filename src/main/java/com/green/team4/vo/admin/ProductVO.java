@@ -35,4 +35,7 @@ public class ProductVO {
 
     private String pCateName;
     private String CateParent;
+
+    // 판매상태 추가
+    private String pStatus;
 }
