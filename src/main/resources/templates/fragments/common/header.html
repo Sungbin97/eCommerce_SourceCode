@@ -85,12 +85,10 @@
                                         <li><a href="wishlist.html">wishlist</a></li>
                                     </ul>
                                 </li>
-                                <li><a th:href="@{/community/board/list}">Community</a>
+                                <li><a href="blog.html">Blog</a>
                                     <ul class="sub-menu">
-                                        <li><a href="#">Health</a></li>
-                                        <li><a href="#">Sports</a></li>
-                                        <li><a href="#">Fashion</a></li>
-                                        <li><a href="#">Life Hacks</a></li>
+                                        <li><a href="blog.html">blog</a></li>
+                                        <li><a href="blog-details.html">blog details</a></li>
                                     </ul>
                                 </li>
                                 <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a href="blog.html">Admin</a>
@@ -161,10 +159,10 @@
                                                 <li><a th:href="@{/admin/mail/list}">mail list</a></li>
                                             </ul>
                                             <ul sec:authorize="isAnonymous() or hasAnyRole('ROLE_MEMBER')">
-                                            <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/sw/mypage/main?mno=2">My Account</a></li>
+                                            <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/mypage/main?mno=2">My Account</a></li>
                                             <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/account/login">My Account</a></li>
-                                            <li><a id="mypageInterest" href="/sw/mypage/interest/list?mno=2">Wish list</a></li>
-                                            <li><a id="mypageRegQ" href="/sw/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
+                                            <li><a id="mypageInterest" href="/mypage/interest/list?mno=2">Wish list</a></li>
+                                            <li><a id="mypageRegQ" href="/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
 <!--                                            <li><a href="">Checkout</a></li>--> <!-- 로그아웃 화면 연결 예정 -->
                                             </ul>
                                         </ul>
@@ -195,8 +193,9 @@
                                     </div>
                                     <!-- Cart Button -->
                                     <div class="cart-bottom  clearfix">
-                                        <a href="/sw/mypage/cart/list?mno=2">장바구니 전체 보기</a> <!-- mno 고정 풀어야함 -->
+                                        <a href="/mypage/cart/list?mno=2">장바구니 전체 보기</a> <!-- mno 고정 풀어야함 -->
                                     </div>
+
                                 </div>
                             </div>
                         </div>
