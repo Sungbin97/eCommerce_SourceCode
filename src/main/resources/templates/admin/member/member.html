@@ -54,7 +54,7 @@
                                 <td class="pro-remove" th:text="${dto.name}"></td>
                                 <td class="pro-thumbnail" th:text="${dto.address}"></td>
                                 <td class="pro-price"><span class="amount" th:text="${dto.mobileNum}"/></td>
-                                <td class="pro-price"><span class="in-stock" th:text="${dto.email}"/></td>
+                                <td class="pro-price"><a th:href="@{/admin/mail/write(mno=${dto.mno})}" class="in-stock" th:text="${dto.email}"/></td>
                                 <td class="pro-remove" th:text="${dto.nickName}"></td>
                                 <td class="pro-remove" th:text="${dto.auth}"></td>
                             </tr>

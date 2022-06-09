@@ -5,6 +5,12 @@
     <th:block th:replace="fragments/mypage/mypage_header :: head"></th:block>
     <title>LOGIN</title>
 </head>
+<style>
+    .error{
+        color: red;
+        font-weight: bold;
+    }
+</style>
 <body>
     <!-- mypage header fragment -->
     <th:block th:replace="fragments/mypage/mypage_header :: headerFragment"></th:block>
@@ -45,11 +51,11 @@
                                 </div>
                                 <div class="col-12 mb-20">
                                     <label>ID <span class="required">*</span></label>
-                                    <input name="id" type="text">
+                                    <input name="id" type="text" required>
                                 </div>
                                 <div class="col-12 mb-20">
                                     <label>PASSWORD <span class="required">*</span></label>
-                                    <input name="password" type="password">
+                                    <input name="password" type="password" required>
                                 </div>
                                 <div class="col-12 mb-20">
 
@@ -75,7 +81,8 @@
 
 <!-- mypage footer fragment -->
 <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
-<script>
+<script src="https://cdn.jsdeliver.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+<script th:inline="javascript">
 
     // 메인 화면으로 돌아가기
     $("#goBack").click(function (){

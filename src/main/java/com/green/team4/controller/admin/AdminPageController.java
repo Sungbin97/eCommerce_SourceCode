@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AdminPageController {
     @Autowired
     MailService mailService;
-    @GetMapping("/adminadmin/adpage")
+    @GetMapping("/admin/adpage")
     public void adPage(){
         System.out.println("adpgae");
     }

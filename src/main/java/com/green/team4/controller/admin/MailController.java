@@ -1,16 +1,21 @@
 package com.green.team4.controller.admin;
 
+import com.github.pagehelper.PageInfo;
 import com.green.team4.mapper.admin.MailMapper;
+import com.green.team4.paging.PagingEntity;
 import com.green.team4.service.admin.MailService;
 import com.green.team4.service.sw.MemberInfoService;
 import com.green.team4.vo.admin.MailVO;
+import com.green.team4.vo.sw.MemberInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -22,10 +27,15 @@ public class MailController {
 
     private final MailService mailService;
     private final MailMapper mailMapper;
-    private final MemberInfoService mem;
+    private final MemberInfoService memberInfoService;
 
     @GetMapping("/write")
-    public void write(){
+    public void write(@RequestParam @Nullable int mno, Model model){
+        MemberInfoVO member = memberInfoService.readOne(mno);
+        model.addAttribute("member", member);
+    }
+    @GetMapping("/writeDirect")
+    public void writeD(){
 
     }
 
@@ -33,7 +43,7 @@ public class MailController {
     public String writePost(Model model, int mno, String subject, String text){
         MailVO vo = new MailVO();
         vo.setMno(mno);
-        vo.setEmail(mem.readOne(mno).getEmail());
+        vo.setEmail(memberInfoService.readOne(mno).getEmail());
         vo.setSubject(subject);
         vo.setText(text);
         mailService.sendMail(vo);
@@ -41,11 +51,10 @@ public class MailController {
     }
 
     @GetMapping("/list")
-    public void list(Model model){
-        log.info("MailController 실행 => list 실행");
-        List<MailVO> mailList = mailMapper.getAll();
-        log.info("MailController 실행 => list 실행 => 받은 mailList: "+mailList);
-        model.addAttribute("list", mailList);
+    public void list(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum){
+        PageInfo<MailVO> list = new PageInfo<>(mailService.page(pageNum), 10);
+        model.addAttribute("list", list);
+        model.addAttribute("pageNum",pageNum);
     }
 
 }

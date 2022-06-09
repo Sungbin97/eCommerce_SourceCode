@@ -89,8 +89,7 @@
                         </div>
                     </form>
                     <br/>
-                    <h6>상세정보 조회 및 수정을 원하시면 상품명을 눌러주세요</h6>
-                <form action="#">	
+                    <h6>상세정보 조회 및 수정을 원하시면 상품명 혹은 이미지를 눌러주세요</h6>
                     <div class="row">
                         <div class="col-12">
                             <div class="cart-table table-responsive mb-40">
@@ -105,25 +104,30 @@
                                             <th class="pro-quantity">
                                                 Registration Date</th>
                                             <th class="pro-subtotal">Rating</th>
-
+                                            <th class="pro-price">Remove</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="dto : ${products.getList()}">
-                                            <td class="pro-price">[[${dto.pno}]]</td>
-                                            <td class="pro-price">[[${dto.pCateCode}]]</td>
-                                            <td class="pro-thumbnail"><img th:src="|/display?fileName=${dto.pImage}|" style="width: 100px; height: 100px"/></a></td>
-                                            <td class="pro-title"><a th:href="@{/admin/product/modify(pno=${dto.pno})}">[[${dto.pName}]]</a></td>
-                                            <td class="pro-price" id="price" th:text="|₩${#numbers.formatInteger(dto.pPrice, 0, 'COMMA')}|" ></td>
-                                            <td class="pro-price"><div class="product-quantity">[[${dto.pRegdate}]]</div></td>
-                                            <td class="pro-subtotal">[[${dto.pRating}]]</td>
-                                        </tr>
+                                        <td class="pro-price" id="pno">[[${dto.pno}]]</td>
+                                        <td class="pro-price">[[${dto.pCateCode}]]</td>
+                                        <td class="pro-thumbnail"><a th:href="@{/admin/product/modify(pno=${dto.pno})}"><img th:src="|/display?fileName=${dto.pImage}|" style="width: 100px; height: 100px"/></a></td>
+                                        <td class="pro-title"><a th:href="@{/admin/product/modify(pno=${dto.pno})}">[[${dto.pName}]]</a></td>
+                                        <td class="pro-price" id="price" th:text="|₩${#numbers.formatInteger(dto.pPrice, 0, 'COMMA')}|" ></td>
+                                        <td class="pro-price">[[${dto.pRegdate}]]</td>
+                                        <td class="pro-subtotal">[[${dto.pRating}]]</td>
+                                        <td class="pro-price">
+                                            <form id="removeForm" th:action="@{/admin/product/remove}" method="post">
+                                                <input type="hidden" th:value="${dto.pno}" th:name="pno">
+                                                <input name="productRemove" value="삭제" type="button"/>
+                                            </form>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </form>	 
             </div>
         </div>
     </div>
@@ -150,41 +154,6 @@
         </li>
         <p>현재페이지[[${pageNum}]]</p>
     </div>
-<!--    &lt;!&ndash; 페이징 &ndash;&gt;-->
-<!--    <table style="margin-left:auto; margin-right:auto; font-size:25px;">-->
-
-<!--        <thead>-->
-<!--        <tr></tr>-->
-<!--        <tr></tr>-->
-<!--        <tr></tr>-->
-<!--        </thead>-->
-
-<!--        <tbody>-->
-<!--        <tr>-->
-
-<!--            <td>-->
-<!--                <div th:classappend="${products.getPrePage() == 0} ? 'disabled'">-->
-<!--                <span><a th:href="@{/admin/product/list(pno=${getOne.pno}, pageNum=${products.getPrePage()}, keyword=${search.getKeyword()}, search=${search.getSearch()})}">Previous</a></span>-->
-<!--                </div>-->
-<!--            </td>-->
-
-<!--            <td th:each="page: ${#numbers.sequence(products.getNavigateFirstPage(), products.getNavigateLastPage())}" th:classappend="${page == products.getPageNum()} ? 'active'">-->
-<!--                <div>-->
-<!--                <span><a th:text="${page}" th:href="@{/admin/product/list(pno=${getOne.pno}, pageNum=${page}, keyword=${search.getKeyword()}, search=${search.getSearch()})}"></a></span>-->
-<!--                </div>-->
-<!--            </td>-->
-
-<!--            <td>-->
-<!--                <div th:classappend="${products.getNextPage() == 0} ? 'disabled'">-->
-<!--                <span><a th:href="@{/admin/product/list(pno=${getOne.pno}, pageNum=${products.getNextPage()}, keyword=${search.getKeyword()}, search=${search.getSearch()})}">Next</a></span>-->
-<!--                </div>-->
-<!--            </td>-->
-
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--&lt;!&ndash;페이징 끝&ndash;&gt;-->
-<!-- PAGE SECTION END -->
 
 <!-- FOOTER TOP SECTION START -->
     <th:block th:replace="fragments/mypage/mypage_footer :: footerFragment"></th:block>
@@ -192,7 +161,27 @@
 
 </body>
 <script>
+console.log("pno: ", $("#pno").val());
+    function removeProduct(){
+        var pno = document.querySelector("#pno").innerText;
+        console.log("pno: ", pno)
+    }
+    $(document).ready(function (){
+        $("input[name=productRemove]").click(function (e){
 
+            var target = $(this).closest('form');
+            console.log("target: ", target);
+
+            if(!confirm("정말 삭제하시겠습니까?")){
+                alert("삭제를 취소합니다.")
+                return
+            }
+            else {
+                target.submit();
+                alert("삭제 완료하였습니다.")
+            }
+        })
+    })
 </script>
 
 </html>

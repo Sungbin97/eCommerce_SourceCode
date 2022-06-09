@@ -21,6 +21,9 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public int insert(ProductVO vo) {
         log.info("상품등록Service");
+        log.info("받아온 할인률: " + vo.getPDiscount());
+        log.info("실수로 변환 후: " + vo.getPDiscount()/100f);
+        vo.setPDiscount(vo.getPDiscount()/100f);
         return productMapper.insert(vo);
     }
 

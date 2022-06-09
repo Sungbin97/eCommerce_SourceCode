@@ -139,7 +139,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content mb-10">
                     <div class="pro-large-img tab-pane active" id="pro-large-img-1">
-                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" alt="" style="width: 270px; height: 307px"/>
+                        <img id="bigPic" th:src="|/display?fileName=${pvo.pImage}|" alt="" style="width: 370px; height: 307px"/>
                     </div>
                 </div>
                 <!-- Single Product Thumbnail Slider -->
@@ -264,7 +264,7 @@
                             <div class="col-xs-12" th:each="related : ${relatedList}">
                                 <div class="product-item text-center" >
                                     <div class="product-img">
-                                        <a class="image" th:href="@{/shop/read(pno=${related.pno})}"><img th:src="|/display?fileName=${related.pImage}|" alt=""/></a>
+                                        <a class="image" th:href="@{/shop/read(pno=${related.pno})}"><img th:src="|/display?fileName=${related.pImage}|" alt="" style="width:298px; height:300px;"/></a>
                                         <a  title="Wishlist"><i class="pe-7s-like"></i></a>
                                     </div>
                                     <div class="product-info text-left">
