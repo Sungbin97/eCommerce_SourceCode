@@ -234,8 +234,8 @@
                                     <tbody >
                                     <tr >
                                         <td  class=" product-name" style="width: 400px;text-align: center" ><img  class="" th:src="|/display?fileName=${product.pImage}|" style="width: 150px;height: 140px"></td>
-                                       <td  class="product_name_td product-name" style="text-align: center;" >
-                                           <strong th:text="${product.pName}"></strong>
+                                       <td  class="product-name" style="text-align: center;"  >
+                                           <strong class="product_name_td" th:text="${product.pName}" th:value="${product.pName}"></strong>
                                         </td>
                                         <td class="product-name" th:text="${product.itemCount}" style="text-align: center">
                                             <strong th:text="${product.itemCount}"></strong>
@@ -563,7 +563,7 @@
 
     //결제하기
     $(".order_btn").on("click", function(e){
-        console.log("눌림")
+
         $(".addressInfo_input_div").each(function (i,obj){
             console.log("obj ",obj)
             //받는이,주소 값 넣기

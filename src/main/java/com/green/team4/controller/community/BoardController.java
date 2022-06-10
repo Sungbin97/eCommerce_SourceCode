@@ -79,6 +79,7 @@ public class BoardController {
     // Read One
     @GetMapping({"/read","/modify"})
     public void read(Model model, Long bno, Criteria criteria) {
+        System.out.println("bno : " + bno);
         log.info("read로 이동");
         log.info(boardService.getOne(bno));
         model.addAttribute("item", boardService.getOne(bno));
