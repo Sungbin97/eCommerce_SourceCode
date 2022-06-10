@@ -32,7 +32,6 @@
                 <!-- Blog Item -->
                 <div class="blog-item mb-75">
                     <!-- Image -->
-                    <div class="image"><img src="img/blog/3.jpg" alt=""></div>
                     <!-- Content -->
                     <div class="content fix">
                         <!-- Date -->
@@ -46,22 +45,42 @@
                         <h4 class="title" th:text="${item.title}"></h4>
                         <img style="width: 50%; height: 50%" th:src="|/display?fileName=${item.bImg}|" alt="첨부이미지" th:if="${item.bImg != null}" />
                         <p th:text="${item.content}"></p>
-                        <div class="row mt-50 mb-20">
-                            <div class="col-md-6 col-12 mb-30"><img src="img/blog/4.jpg" alt=""></div>
-                            <div class="col-md-6 col-12 mb-30"><img src="img/blog/5.jpg" alt=""></div>
-                        </div>
                     </div>
                 </div>
                 <div class="nonMember-certification">
                     <input type="password" id="nonMemberPassword" th:if="${item.nickName} == null">
                 </div>
                 <div class="bs-div-btn">
-                <button class="btn" id="modify">수정</button>
-                <button class="btn" id="list">목록</button>
+                    <!-- Button trigger modal -->
+                    <button type="button" id="modify" class="btn" data-bs-toggle="modal" data-target="#modifyModal">
+                        수정
+                    </button>
+                    <button class="btn" id="list">목록</button>
                 </div>
-                <div class="modal">
-                    <div class="modal_body">Modal</div>
+                <!-- Modal -->
+                <!-- QUICK VIEW MODAL START-->
+                <div class="modal fade" id="modifyModal" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xl-7 col-md-6 col-12 mb-40">
+                                        <div class="product-details section">
+                                            <!-- Title -->
+                                            <h1 class="title">DSR Eiffel chair</h1>
+                                            <!-- Price Ratting -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- QUICK VIEW MODAL END-->
             </div>
         </div>
     </div>
@@ -75,8 +94,6 @@
                 <!-- Home Blog Item -->
                 <div class="col-lg-6 col-12  mb-40">
                     <div class="home-blog-item">
-                        <!-- Image -->
-                        <a href="blog-details.html" class="image float-start"><img src="img/blog/1.jpg" alt=""></a>
                         <!-- Content -->
                             <!-- UserName : userid/상세정보등 mypage-blog로 연결 -->
                             <h4 class="title" id="nickName" th:text="${item.nickName}" th:if="${item.nickName} != null"><a href="#"></a></h4>
@@ -116,15 +133,10 @@
                     <!--        댓글 목록-->
                     <hr>
                     <div id="replyList">
-                        <ul>
-                            그랭
-                        </ul>
-
                     </div>
 
                     <!--        댓글 페이징 -->
                     <div id="pagination">
-
                     </div>
 
 
@@ -148,18 +160,13 @@
     // 본문수정
     $(document).ready(function (){
         let nonMemberPassword = $('#nonMemberPassword');
+        let idSec = $('input[name=idSec]');
         $("#modify").on("mouseover",function (){
-            console.log($('#nonMemberPassword').val())
-
-
+            console.log(idSec.val());
         })
         $("#modify").on("click",function (e){
             e.preventDefault();
-
-            if(nonMemberPassword.val()===boardVO.nonMemberPassword){
-                $('#openForm').submit();
-            }
-            else if($('nickName') != null){
+            if(idSec.val() != 'anonymousUser'){
                 $('#openForm').submit();
             }
             else{

@@ -25,8 +25,12 @@
         where rno= #{rno}
     </update>
 
-    <delete id="delete" parameterType="Long">
+    <delete id="deleteOne" parameterType="long">
         delete from tbl_board_reply where rno=#{rno}
+    </delete>
+
+    <delete id="deleteAll" parameterType="long">
+        delete from tbl_board_reply where bno=#{bno}
     </delete>
 
     <select id="replyList" parameterType="com.green.team4.vo.community.ReplyVO" resultType="com.green.team4.vo.community.ReplyVO">

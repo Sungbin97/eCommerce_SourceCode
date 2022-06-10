@@ -34,8 +34,13 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
-    public void delete(Long rno) {
-        replyMapper.delete(rno);
+    public void deleteOne(Long rno) {
+        replyMapper.deleteOne(rno);
+    }
+
+    @Override
+    public void deleteAll(Long bno) {
+        replyMapper.deleteAll(bno);
     }
 
     @Override

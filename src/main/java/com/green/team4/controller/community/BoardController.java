@@ -2,6 +2,7 @@ package com.green.team4.controller.community;
 
 import com.green.team4.security.PrincipalDetails;
 import com.green.team4.service.community.BoardService;
+import com.green.team4.service.community.ReplyService;
 import com.green.team4.service.mypage.MemberInfoService;
 import com.green.team4.vo.community.BoardVO;
 import com.green.team4.vo.community.Criteria;
@@ -32,6 +33,8 @@ import java.util.UUID;
 public class BoardController {
     @Autowired
     BoardService boardService;
+    @Autowired
+    ReplyService replyService;
     @Autowired
     MemberInfoService memberInfoService;
 
@@ -104,7 +107,9 @@ public class BoardController {
     // Delete Board
     @PostMapping("/delete")
     public String delete(@RequestParam("bno") Long bno){
+        replyService.deleteAll(bno);
         boardService.delete(bno);
+
         log.info("삭제(수정) 완료");
         return "redirect:list";
     }

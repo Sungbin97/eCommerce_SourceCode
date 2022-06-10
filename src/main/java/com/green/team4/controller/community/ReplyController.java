@@ -84,7 +84,7 @@ public class ReplyController {
     @DeleteMapping(value = "/delete/{rno}",
     produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<String> get(@PathVariable("rno") Long rno) {
-        replyService.delete(rno);
+        replyService.deleteOne(rno);
         return new ResponseEntity<>("success",HttpStatus.OK);
     }
 

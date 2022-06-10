@@ -12,6 +12,7 @@ public interface ReplyService {
     public void modify(ReplyVO replyVO);
     public ReplyVO getOne(Long rno);
     public List<ReplyVO> getPageList(Criteria criteria, Long uNo);
-    public void delete(Long rNo);
+    public void deleteOne(Long rno);
+    public void deleteAll(Long bno);
     public int getTotal(Criteria criteria);
 }

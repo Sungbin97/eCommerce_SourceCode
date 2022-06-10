@@ -11,9 +11,10 @@ import java.util.List;
 public interface ReplyMapper {
     public void insert(ReplyVO vo);
     public void modify(ReplyVO vo);
-    public ReplyVO readOne(Long uNo);
+    public ReplyVO readOne(Long bno);
     public List<ReplyVO> replyList();
-    public void delete(Long rNo);
+    public void deleteOne(Long rno);
+    public void deleteAll(Long bno);
     public List<ReplyVO> getPageList(@Param("criteria") Criteria criteria,
                                      @Param("bno") Long bno);
     public int getTotalCount(Criteria criteria);

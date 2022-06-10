@@ -772,7 +772,7 @@ input:focus, textarea:focus {
     z-index: 1;
 }
 .page-banner-content::before {
-    border: 25px solid #f9f9fa;
+    /*border: 25px solid #f9f9fa;*/
     content: "";
     height: 155px;
     left: 0;
@@ -782,7 +782,7 @@ input:focus, textarea:focus {
     z-index: -1;
 }
 .page-banner-content h1 {
-    color: #4e4e4e;
+    color: #f0f0f0;
     font-family: "Montserrat",sans-serif;
     font-size: 36px;
     font-weight: 700;

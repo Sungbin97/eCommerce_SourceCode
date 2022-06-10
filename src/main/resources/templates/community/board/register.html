@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- head fragment -->
     <th:block th:replace="/fragments/common/header :: head"></th:block>
-    <title>Title</title>
+    <title>게시글 등록</title>
 </head>
 <body>
 <!-- header fragment -->
@@ -14,11 +14,15 @@
         <div class="row">
             <div class="col-lg-8 col-12 mx-auto">
                 <div class="login-reg-form">
-                    <form action="register" method="post" enctype="multipart/form-data">
+                    <form id="registerForm" action="register" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-xs-12 mb-20">
                                 <label for="title">제목 <span class="required">*</span></label>
                                 <input id="title" name="title" type="text"/>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label for="img">파일</label>
+                                <input id="img" name="img" type="file" multiple/>
                             </div>
                             <div class="col-xs-12 mb-20">
                                 <label for="content">내용</label>
@@ -34,13 +38,9 @@
                                 <label for="nonMemberPassword" th:if="${#authentication.name=='anonymousUser'}">비밀번호<span class="required">*</span></label>
                                 <input id="nonMemberPassword" name="nonMemberPassword" type="text" th:if="${#authentication.name=='anonymousUser'}"/>
                             </div>
-                            <div class="col-xs-12 mb-20">
-                                <label for="img">파일</label>
-                                <input id="img" name="img" type="file" multiple/>
-                            </div>
-                            <div class="col-xs-12">
-                                <a href="list"><button type="text">List</button></a>
-                                <input value="Register" type="submit">
+                            <div class="bs-div-btn">
+                                <button class="btn" id="register" type="button">등록</button>
+                                <a href="list"><button class="btn" type="button">목록</button></a>
                             </div>
                         </div>
                     </form>
@@ -53,4 +53,16 @@
 <!-- Body main wrapper end -->
 <!-- footer fragment -->
 <th:block th:replace="fragments/common/footer.html :: footerFragment"></th:block>
+<script>
+    $(document).ready(function () {
+        let registerForm = $('#registerForm');
+        let mnoSec=$('input[name=mnoSec]');
+        $('#register').on('click',function (e){
+            e.preventDefault();
+            let str = '<input type="hidden" name="mno" value="'+mnoSec.val()+'">'
+            registerForm.append(str);
+            registerForm.submit();
+        })
+    });
+</script>
 </html>
