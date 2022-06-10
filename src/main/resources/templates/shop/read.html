@@ -275,21 +275,21 @@
                                                 <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${related.pPrice}]]</strong><small>원</small></span></span>
                                             </div>
                                             <span class="ratting float-end related_star"  >
-<!--                                <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">-->
-<!--                                    <i class="fa fa-star active"-->
-<!--                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>-->
-<!--                                     <i class="fa fa-star"-->
-<!--                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>-->
-<!--                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>-->
-<!--                                </th:block>-->
-<!--                                </span>-->
-<!--                                    <span th:if="${#numbers.formatInteger(related.pRating,0)} ==0" class="ratting float-end">-->
-<!--                                        <i class="fa fa-star "></i>-->
-<!--                                        <i class="fa fa-star "></i>-->
-<!--                                        <i class="fa fa-star "></i>-->
-<!--                                        <i class="fa fa-star "></i>-->
-<!--                                        <i class="fa fa-star "></i>-->
-<!--                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>-->
+                                <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">
+                                    <i class="fa fa-star active"
+                                       th:each="star,numStat : ${#numbers.sequence(1, end)}" ></i>
+                                     <i class="fa fa-star" th:if="${end } !=5"
+                                        th:each="star : ${#numbers.sequence(1, end2)}"></i>
+                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>
+                                </th:block>
+                                </span>
+                                    <span th:if="${#numbers.formatInteger(related.pRating,0)} ==0" class="ratting float-end">
+                                        <i class="fa fa-star "></i>
+                                        <i class="fa fa-star "></i>
+                                        <i class="fa fa-star "></i>
+                                        <i class="fa fa-star "></i>
+                                        <i class="fa fa-star "></i>
+                                    <span class="reviewCnt_span" th:text="|(${related.pReviewCnt})|"></span>
                                 </span>
                                         </div>
                                     </div>
@@ -1199,10 +1199,10 @@
                              str2 += '<span style="font-size: 8px"><small>'+ obj.ioptionName2 +   ' : '  + obj.ioption2+'</small></span>\t'
                          }
                      str2 += '<span style="font-size: 8px"><small>수량 : '+obj.icount+'</small></span></span>'
-                    str2 +='<div class="pro-thumb-img-slider small_img_box">'
+                    str2 +='<div class="pro-thumb-img-slider small_img_box" style="width: 400px">'
                     if(data.reviewFilesList.length !=0) {
                         for (let i = 0; i < data.reviewFilesList.length; i++) {
-                            str2 += '<div class="abcdef"><a class="abcde" data-toggle="tab">'
+                            str2 += '<div style="float: left"><a  data-toggle="tab">'
                             str2 += '<img class="small_img" src="/display?fileName=' + obj.reviewFilesList[i].imageURL + '">'
                             str2 += '</a>'
                             str2 += '</div>'
