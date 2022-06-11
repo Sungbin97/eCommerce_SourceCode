@@ -23,7 +23,7 @@ public class Criteria {
 
     public Criteria(Long page, Long pageNum){
         if(page<0){
-            page=1L;
+            page=0L;
         }
         if(pageNum<=0){
             pageNum=10L;
