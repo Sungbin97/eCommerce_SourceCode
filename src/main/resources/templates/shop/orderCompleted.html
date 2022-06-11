@@ -33,15 +33,13 @@
 <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <!-- PAGE BANNER SECTION -->
 
-<div class="page-banner-section section">
+<div class="page-banner-section section" style="background-image: url('/mainPageImg/9.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="page-banner-content">
-                    <h1 th:text="${memName}+'님'"></h1>
+                    <h1>주문 완료</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li class="active">myPage</li>
                     </ul>
                 </div>
             </div>
@@ -71,7 +69,10 @@
                                 <td class="product-name" >
                                     <strong>주문</strong>
                                 </td>
-                                <td class="product-total" >
+                                <td class="product-total" th:if="${order.orders.size() ==1}" >
+                                    [[${order.orders.get(0).pName}]]
+                                </td>
+                                <td class="product-total" th:if="${order.orders.size() >1}">
                                     [[${order.orders.get(0).pName}]]  외&nbsp;&nbsp;<strong>[[${order.orders.size()-1}]]</strong>건
                                 </td>
                             </tr>
@@ -95,8 +96,8 @@
                                 <td class="product-name">
                                     <strong>결제 금액</strong>
                                 </td>
-                                <td class="product-total">
-                                    [[${order.tTotalPrice}]]원
+                                <td class="product-total" th:text="|${#numbers.formatInteger(order.tTotalPrice,0,'COMMA')}원|">
+
                                 </td>
                             </tr>
                             </tbody>

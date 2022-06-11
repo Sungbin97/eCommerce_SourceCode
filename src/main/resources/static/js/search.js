@@ -14,7 +14,7 @@ function loadGetListBysearch(){
             str += '<div class="single-cart clearfix">'
             str +='<div class="cart-image">'
             str +=	'<a style="width: 245px" href="/shop/read?pno='+this.pno+'">' +
-                '<img   class="search_img" src=/display?fileName='+this.pimage+' style="width: 350px; height:90;float: left;display: inline"></a>';
+                '<img   class="search_img" src="/display?fileName='+this.pimage+'" style="width: 350px; height:90;float: left;display: inline"></a>';
             str +=	'<span style="float: left"><a style="width: 200px;font-size: 15px;text-align: center;margin-left: 20px" class="search_Name"  href="/shop/read?pno='+this.pno+'">'+this.pname+'</a></span>';
             str += '</div>'
             str +='</div>'

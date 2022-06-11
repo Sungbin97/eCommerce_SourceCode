@@ -84,7 +84,7 @@
 <!-- mypage header fragment -->
 <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <!-- PAGE BANNER SECTION -->
-<div class="page-banner-section section">
+<div class="page-banner-section section" style="background-image: url('/mainPageImg/5.jpeg')">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -233,7 +233,7 @@
                                     </thead>
                                     <tbody >
                                     <tr >
-                                        <td  class=" product-name" style="width: 400px;text-align: center" ><img  class="" th:src="|/display?fileName=${product.pImage}|" style="width: 150px;height: 140px"></td>
+                                        <td  class="product-name" style="width: 400px;text-align: center" ><img th:src="|/display?fileName=${product.pImage}|" style="width: 150px;height: 140px"></td>
                                        <td  class="product-name" style="text-align: center;"  >
                                            <strong class="product_name_td" th:text="${product.pName}" th:value="${product.pName}"></strong>
                                         </td>
@@ -372,10 +372,8 @@
                                     <!--  사용한 쿠폰 번호-->
                                     <input type="hidden" name="tCpno" value="0"  >
                                 </form>
-                                <input type="submit" class="order_btn" value="결제하기" />
-                            </div>
-                            <div>
-                                <button onclick="requestPay()">아임포트 결제하기</button>
+                                <input type="submit" class="order_btn" value="결제하기(개발자용)" />
+                                <input type="submit" onclick="requestPay()" value="결제하기(아임포트)">
                             </div>
                             <div>
                             </div>
@@ -479,7 +477,15 @@
 
         });
         $(".order_form").append(form_contents);
-        let name=$(".product_name_td").text()
+        let name = "";
+        if($(".product_name_td").length ==1){
+             name = $(".product_name_td").text()
+        }
+        else{
+            let firstPname = $(".product_name_td").eq(0).text()
+            let pCount = $(".product_name_td").length-1
+            name = firstPname.concat(" 외",pCount,"건")
+        }
         console.log(name)
         //let receiverName =receiverName.val(),
         let postcode=addr1.val()
