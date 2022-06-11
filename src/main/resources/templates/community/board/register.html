@@ -5,6 +5,32 @@
     <!-- head fragment -->
     <th:block th:replace="/fragments/common/header :: head"></th:block>
     <title>게시글 등록</title>
+    <style>
+        label[for=img] {
+            display: inline-block;
+            padding: .5em .75em;
+            color: #999;
+            font-size: inherit;
+            line-height: normal;
+            vertical-align: middle;
+            background-color: transparent;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 0;
+            width: 85px;
+        }
+
+        #img{  /* 파일 필드 숨기기 */
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip:rect(0,0,0,0);
+            border: 0;
+        }
+    </style>
 </head>
 <body>
 <!-- header fragment -->
@@ -36,12 +62,12 @@
                                 <input id="title" name="title" type="text"/>
                             </div>
                             <div class="col-xs-12 mb-20">
-                                <label for="img">파일</label>
-                                <input id="img" name="img" type="file" multiple/>
-                            </div>
-                            <div class="col-xs-12 mb-20">
                                 <label for="content">내용</label>
                                 <textarea id="content" name="content"></textarea>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label for="img">파일 추가</label>
+                                <input id="img" name="img" type="file" multiple/>
                             </div>
                             <div class="col-xs-12 mb-20">
                                 <label for="nonMemberId" th:if="${#authentication.name=='anonymousUser'}">작성자<span class="required">*</span></label>
