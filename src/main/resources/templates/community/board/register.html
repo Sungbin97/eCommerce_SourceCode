@@ -9,6 +9,21 @@
 <body>
 <!-- header fragment -->
 <th:block th:replace="/fragments/common/header.html :: headerFragment"></th:block>
+<div class="page-banner-section section" style="background-image: url('/img/bg/5.jpeg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <a href="/community/main"><h1 th:text="'Community'"></h1></a>
+                    <ul class="breadcrumb">
+                        <li><a href="/community/board/list" th:id="goBack">sports</a></li>
+                        <li class="active">create</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="page-section section pt-120 pb-120">
     <div class="container">
         <div class="row">

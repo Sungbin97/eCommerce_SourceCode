@@ -5,76 +5,179 @@
     <title th:text="${item.title}"></title>
     <!-- head fragment -->
     <th:block th:replace="fragments/common/header :: head"></th:block>
+    <style>
+        #replyForm{
+            padding: 12px;
+        }
+        #replyForm .n_userInfo{
+            width: 142px;
+            height: 62px;
+        }
+        #replyForm .n_userInfo input{
+            height: 30px;
+            width: 120px;
+            border-color: #eee;
+            border-style: solid;
+            border-width: 1px 0px 1px 0px;
+            color: #aaa;
+            font-size: 12px;
+            padding: 0;
+            margin-bottom: 2px;
+        }
+        #replyForm .reply_txt_box textarea{
+            height: 100px;
+            border-color: #eee;
+            border-style: solid;
+            border-width: 1px 0px 1px 0px;
+            color: #aaa;
+            font-size: 12px;
+            padding: 0;
+            margin-bottom: 2px;
+        }
+        #replyForm .reply_txt_box button{
+            float: right;
+        }
+
+    </style>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
 <!-- header fragment -->
 <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
+<!-- banner -->
+<div class="page-banner-section section" style="background-image: url('/img/bg/5.jpeg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <a href="/community/main"><h1 th:text="'Community'"></h1></a>
+                    <ul class="breadcrumb">
+                        <li><a href="/community/board/list" th:id="goBack">sports</a></li>
+                        <li class="active">read</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- PAGE SECTION START -->
 <div class="page-section section pt-120 pb-45">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-12 mx-auto">
-                <!-- Blog Item -->
-                <div class="blog-item mb-75">
-                    <!-- Image -->
-                    <!-- Content -->
-                    <div class="content fix">
-                        <!-- Date -->
-                        <span th:if="${item.modDate==null}">
-                            <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}"></span>
-                        </span>
-                        <span th:if="${item.modDate!=null}">
-                            <span class="date" th:text="${#dates.format(item.modDate, 'MM-dd')}"></span>
-                        </span>
-                        <!-- Title -->
-                        <h4 class="title" th:text="${item.title}"></h4>
-                        <img style="width: 50%; height: 50%" th:src="|/display?fileName=${item.bImg}|" alt="첨부이미지" th:if="${item.bImg != null}" />
-                        <p th:text="${item.content}"></p>
-                    </div>
-                </div>
-                <div class="bs-div-btn">
-                    <!-- Button trigger modal -->
-                    <button type="button" id="modify" class="btn" data-bs-toggle="modal" data-bs-target="#modifyModal">
-                        수정
-                    </button>
-                    <button class="btn" id="list">목록</button>
-                </div>
-                <!-- Modal -->
-                <!-- NON MEMBER INFO MODAL START-->
-                <div class="modal fade" id="modifyModal" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered" style="width: 25%; height: 25%">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-xl-12 mb-40">
-                                            <div class="modify-modal-title">
-                                                <!-- Title -->
-                                                <h3 class="title">비밀번호를 입력하세요.</h3>
-                                                <!-- Price Ratting -->
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8 mb-40">
-                                            <div class="nonMember-certification">
-                                                <label for="nonMemberPassword">비밀번호</label>
-                                                <input type="password" id="nonMemberPassword">
-                                                <button id="certification">확인</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="col-lg-8 col-12 mb-20 mx-auto">
+                <div class="content-header">
+                    <h4 class="title" th:text="${item.title}"></h4>
 
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <!-- QUICK VIEW MODAL END-->
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div class="content-date">
+                    <span class="title" id="nickName" th:text="${item.nickName} " th:if="${item.nickName} != null"><a href="#"></a></span>
+                    <span class="title" id="nonMemberId" th:text="${item.nonMemberId} " th:if="${item.nickName} == null"><a href="#"></a></span>|
+                    <span th:if="${item.modDate==null}" th:text="${#dates.format(item.regDate,'MM-dd hh:mm')}" style=" display: inline"></span>
+                    <span th:if="${item.modDate!=null}" th:text="${#dates.format(item.modDate,'MM-dd hh:mm')}" style=" display: inline" ></span>
+                </div>
+            </div>
+            <div class="col-lg-8 col-12 mb-10 mx-auto">
+                <hr style="height: 2px">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 mt-10 mb-20 mx-auto">
+                <div class="content-body">
+                    <p>
+                        <img style="width: 100%; height: 100%; text-align: center" th:src="|/display?fileName=${item.bImg}|" alt="첨부이미지" th:if="${item.bImg != null}" />
+                    </p>
+                    <p>
+                        <span th:text="${item.content}"></span>
+                    </p>
+                </div>
+                <hr style="border: 2px" class="mt-150">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-12 mb-20 mx-auto">
+                <div class="content-footer">
+                    <!--      작성자       -->
+                    <div class="bs-div-btn">
+                        <!-- Button trigger modal -->
+                        <button type="button" id="modify" class="btn" data-bs-toggle="modal" data-bs-target="#modifyModal">수정</button>
+                        <button class="btn" id="list">목록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div>
+                    <hr style="height: 2px">
+                    <div>
+                        <!--        댓글 등록 -->
+                        <h4>Reply</h4>
+                        <form id="replyForm" method="post" action="read">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="n_userInfo ">
+                                        <input type="text" name="replyer" id="replyer" placeholder="작성자"><br>
+                                        <input type="password" name="replyPassword" id="replyPassword" placeholder="비밀번호">
+                                    </div>
+                                    <div class="reply_txt_box col-lg-9">
+                                        <textarea class="col-lg-12" name="reply" id="reply" placeholder="내용을 입력하세요"></textarea><br>
+                                        <button class="btn-small" type="button" id="replySubmit">등록</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                        <hr>
+                    </div>
+                    <!--        댓글 목록-->
+                    <div id="replyList">
+                    </div>
+
+                    <hr style="border: 2px" class="mt-150">
+                    <!--        댓글 페이징 -->
+                    <div id="pagination">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <!-- NON MEMBER INFO MODAL START-->
+        <div class="modal fade" id="modifyModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered" style="width: 25%; height: 25%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xl-12 mb-40">
+                                    <div class="modify-modal-title">
+                                        <!-- Title -->
+                                        <h3 class="title">비밀번호를 입력하세요.</h3>
+                                        <!-- Price Ratting -->
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 mb-40">
+                                    <div class="nonMember-certification">
+                                        <label for="nonMemberPassword">비밀번호</label>
+                                        <input type="password" id="nonMemberPassword">
+                                        <button id="certification">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <!-- QUICK VIEW MODAL END-->
     </div>
 
 </div>
@@ -88,8 +191,7 @@
                     <div class="home-blog-item">
                         <!-- Content -->
                             <!-- UserName : userid/상세정보등 mypage-blog로 연결 -->
-                            <h4 class="title" id="nickName" th:text="${item.nickName}" th:if="${item.nickName} != null"><a href="#"></a></h4>
-                            <h4 class="title" id="nonMemberId" th:text="${item.nonMemberId}" th:if="${item.nickName} == null"><a href="#"></a></h4>
+
                             <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>                     </div>
                             <!-- 비회원일 경우 mno을 못 받기 때문에 객체를 못 불러옴. 값이 있을 때만 생성 -->
                             <input type="hidden" id="idInput" th:if="${memberVO} != null" th:value="${memberVO.id}">
@@ -110,33 +212,7 @@
 <!-- reply section -->
 <div class="page-section section pt-120 pb-45">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-12 mx-auto">
-                <div>
-                    <hr>
-                    <div>
-                        <!--        댓글 등록 -->
-                        <h4>Reply</h4>
-                        <form id="replyForm" method="post" action="read">
-                            <input type="text" name="replyer" id="replyer">
-                            <input type="password" name="replyPassword" id="replyPassword"><br>
-                            <textarea name="reply" id="reply"></textarea>
-                            <button class="btn" type="button" id="replySubmit">등록</button>
-                        </form>
-                    </div>
-                    <!--        댓글 목록-->
-                    <hr>
-                    <div id="replyList">
-                    </div>
 
-                    <!--        댓글 페이징 -->
-                    <div id="pagination">
-                    </div>
-
-
-                </div>
-        </div>
-    </div>
 </div>
 </div>
 <!-- reply section End-->
