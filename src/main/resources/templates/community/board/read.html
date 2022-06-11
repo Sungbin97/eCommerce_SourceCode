@@ -5,20 +5,6 @@
     <title th:text="${item.title}"></title>
     <!-- head fragment -->
     <th:block th:replace="fragments/common/header :: head"></th:block>
-    <style>
-        .modal {
-            position: absolute;
-            top: 0;
-            left: 0;
-
-            width: 100%;
-            height: 100%;
-
-            display: none;
-
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-    </style>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
@@ -47,35 +33,41 @@
                         <p th:text="${item.content}"></p>
                     </div>
                 </div>
-                <div class="nonMember-certification">
-                    <input type="password" id="nonMemberPassword" th:if="${item.nickName} == null">
-                </div>
                 <div class="bs-div-btn">
                     <!-- Button trigger modal -->
-                    <button type="button" id="modify" class="btn" data-bs-toggle="modal" data-target="#modifyModal">
+                    <button type="button" id="modify" class="btn" data-bs-toggle="modal" data-bs-target="#modifyModal">
                         수정
                     </button>
                     <button class="btn" id="list">목록</button>
                 </div>
                 <!-- Modal -->
-                <!-- QUICK VIEW MODAL START-->
+                <!-- NON MEMBER INFO MODAL START-->
                 <div class="modal fade" id="modifyModal" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-dialog modal-dialog-centered" style="width: 25%; height: 25%">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-xl-7 col-md-6 col-12 mb-40">
-                                        <div class="product-details section">
-                                            <!-- Title -->
-                                            <h1 class="title">DSR Eiffel chair</h1>
-                                            <!-- Price Ratting -->
-
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-xl-12 mb-40">
+                                            <div class="modify-modal-title">
+                                                <!-- Title -->
+                                                <h3 class="title">비밀번호를 입력하세요.</h3>
+                                                <!-- Price Ratting -->
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 mb-40">
+                                            <div class="nonMember-certification">
+                                                <label for="nonMemberPassword">비밀번호</label>
+                                                <input type="password" id="nonMemberPassword">
+                                                <button id="certification">확인</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -97,9 +89,11 @@
                         <!-- Content -->
                             <!-- UserName : userid/상세정보등 mypage-blog로 연결 -->
                             <h4 class="title" id="nickName" th:text="${item.nickName}" th:if="${item.nickName} != null"><a href="#"></a></h4>
-                        <h4 class="title" id="nonMemberId" th:text="${item.nonMemberId}" th:if="${item.nickName} == null"><a href="#"></a></h4>
+                            <h4 class="title" id="nonMemberId" th:text="${item.nonMemberId}" th:if="${item.nickName} == null"><a href="#"></a></h4>
                             <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>                     </div>
-
+                            <!-- 비회원일 경우 mno을 못 받기 때문에 객체를 못 불러옴. 값이 있을 때만 생성 -->
+                            <input type="hidden" id="idInput" th:if="${memberVO} != null" th:value="${memberVO.id}">
+                            <input type="hidden" id="nonMemberPassWordInput" th:value="${item.nonMemberPassword}">
                     </div>
                 </div>
                 <!-- Home Blog Item -->
@@ -160,16 +154,33 @@
     // 본문수정
     $(document).ready(function (){
         let nonMemberPassword = $('#nonMemberPassword');
+        let nonMemberPasswordInput = $('#nonMemberPassWordInput');
+        let idInput = $('#idInput');
         let idSec = $('input[name=idSec]');
-        $("#modify").on("mouseover",function (){
-            console.log(idSec.val());
-        })
         $("#modify").on("click",function (e){
+            // 로그인 상태
+            if(idSec.val() === idInput.val()){
+                e.preventDefault();
+                $('#openForm').submit();
+                // 비회원 등록 게시물일 경우 modal창 나옴
+            }
+            // 비로그인 상태
+            else if(idSec.val() === 'anonymousUser'){
+                // 회원 게시글
+                if(idInput.val() !== undefined) {
+                    alert("로그인 후 수정 가능합니다.");
+                    location.href="/account/login";
+                }
+
+            }
+        })
+        $("#certification").on('click',function (e){
             e.preventDefault();
-            if(idSec.val() != 'anonymousUser'){
+            // modal에서 비밀번호 확인 버튼을 눌렀을 때
+            if(nonMemberPassword.val() === nonMemberPasswordInput.val()){
                 $('#openForm').submit();
             }
-            else{
+            else if(nonMemberPassword.val() !== nonMemberPasswordInput.val()){
                 alert("비밀번호를 잘못 입력하셨습니다.")
             }
         })

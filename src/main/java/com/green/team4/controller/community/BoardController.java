@@ -85,6 +85,9 @@ public class BoardController {
         log.info("read로 이동");
         log.info(boardService.getOne(bno));
         model.addAttribute("item", boardService.getOne(bno));
+        if(boardService.getOne(bno).getMno() != null){
+            model.addAttribute("memberVO", memberInfoService.getMemberInfo(Math.toIntExact((boardService.getOne(bno).getMno()))));
+        }
         model.addAttribute("cri",criteria);
     }
 
