@@ -75,7 +75,7 @@ create table tbl_product_cate(
     -- primary key(pCatecode)
 );
 
--- 상품 옵션 테이블 (옵션2 ,옵션2 이름 추가)
+-- 상품 옵션 테이블 (SW 추가: foreign key)
 create table tbl_product_opt(
     pcno int(5) auto_increment primary key,
     pno int(5),
@@ -85,7 +85,8 @@ create table tbl_product_opt(
     pOption2 varchar(30) default '없음', -- 옵션 기본값
     pOptionName2 varchar(30)  default '없음' , -- 옵션 기본값 이름
     pColor varchar(30) default '없음' , -- 색상
-    pOptionPrice int(11) default 0 -- 옵션 추가금액
+    pOptionPrice int(11) default 0, -- 옵션 추가금액
+    foreign key (pno) references tbl_product (pno)
 );
 
 -- 주문 테이블(tbl_orderItem과 set)
@@ -135,7 +136,7 @@ create table tbl_orderItem( -- SW 수정 reviewStatus 추가 20220530
 
 
 -- 리뷰 테이블
-create table tbl_review( -- 수정 SW 20220530 (rImageURL 삭제 => 이미지 별도 테이블로 분리, oINo 추가)
+create table tbl_review( -- 수정 SW: foreign key 추가
     rno int(10) not null auto_increment primary key, -- 리뷰번호
     pno int(10) not null, -- 상품번호
     mno int(10), -- 회원번호
@@ -145,7 +146,10 @@ create table tbl_review( -- 수정 SW 20220530 (rImageURL 삭제 => 이미지 �
     LIKEHIT int default 0, -- 좋아요 개수
     -- rImageURL varchar(150), -- 리뷰 첨부 이미지
     rRegdate TIMESTAMP not null default now(), -- 리뷰 등록일
-    rUpdatedate TIMESTAMP not null default now() -- 리뷰 수정일
+    rUpdatedate TIMESTAMP not null default now(), -- 리뷰 수정일
+    FOREIGN KEY (pno) REFERENCES tbl_product(pno),
+    FOREIGN KEY (mno) REFERENCES tbl_memberInfo(mno),
+    FOREIGN KEY (oINo) REFERENCES tbl_orderItem(oINo)
 );
 
 -- 리뷰 첨부파일 테이블 -- 신규 생성 SW 20220530
@@ -158,13 +162,16 @@ create table tbl_reviewFiles(
     foreign key (rno) references tbl_review (rno)
 );
 
--- 리뷰 추천 테이블
+-- 리뷰 추천 테이블 SW 수정: foreign key 추가
 create table tbl_review_LIKE(
     LIKENO int(10) NOT NULL PRIMARY KEY , -- 리뷰 좋아요 번호
     pno int(10), -- 상품 번호
     mno int(10) , -- 회원 번호
     rmno int(10) , --
-    RNO int(10) -- 리뷰 번호
+    RNO int(10), -- 리뷰 번호
+    FOREIGN KEY (pno) REFERENCES tbl_product(pno),
+    FOREIGN KEY (mno) REFERENCES tbl_memberInfo(mno),
+    FOREIGN KEY (RNO) REFERENCES tbl_review(RNO)
 );
 
 -- 회원 배송지 정보 테이블
@@ -255,23 +262,25 @@ create table tbl_mail(
     reception varchar(1000)
 );
 
--- 상품 이미지 테이블 -- SB
+-- 상품 이미지 테이블 -- SB   SW수정: foreign key 추가
 create table tbl_product_img(
     ino int primary key auto_increment,
     pno int,
     pName varchar(50),
     pThumbnail varchar(500),
     pImage varchar(300), -- 파일명
-    pImagePath varchar(500) -- 저장경로
+    pImagePath varchar(500), -- 저장경로
+    foreign key (pno) references tbl_product (pno)
 );
 
--- 상품 정보 이미지 테이블 -- SB
+-- 상품 정보 이미지 테이블 -- SB SW수정: foreign key 추가
 create table tbl_product_infoImg(
     infoNo int primary key auto_increment,
     pno int,
     pName varchar(50),
     pInformation varchar(300),
-    pInfoPath varchar(500) -- 저장경로
+    pInfoPath varchar(500), -- 저장경로
+    foreign key (pno) references tbl_product (pno)
 );
 
 -- 배송 현황 테이블 -- SW
@@ -324,7 +333,7 @@ create table tbl_board(
     bno int auto_increment primary key,
     mno int,
     title varchar(200),
-    content varchar(1000),
+    content varchar(10000),
     bImg varchar(200),
     regDate date,
     modDate date,
@@ -333,8 +342,6 @@ create table tbl_board(
     nonMemberPassword varchar(50),
     foreign key (mno) references tbl_memberinfo(mno)
 );
-
-alter table tbl_board modify content varchar(10000);
 
 -- BS reply
 create table tbl_board_reply(
@@ -361,15 +368,14 @@ create table tbl_coupon(
     expireDate timestamp default now() -- 만료
 );
 
--- 쿠폰 테이블2
+-- 쿠폰 테이블2 SW 추가: foreign key 추가
 create table tbl_MemberCoupon(
     mno int(10),
     cpNo int primary key,
     cpStatus varchar(10),
-    expireDate timestamp default now() -- 만료
+    expireDate timestamp default now(), -- 만료
+    foreign key (mno) references tbl_memberInfo(mno)
 );
-
-
 
 
 -- 카테고리 데이터

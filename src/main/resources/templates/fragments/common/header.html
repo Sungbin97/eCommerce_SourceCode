@@ -121,10 +121,6 @@
                             <div class="header-search">
                                 <button class="search-toggle"><i class="pe-7s-search"></i></button>
                                 <div class="header-search-form">
-                                    <!--                                    <form action="#">-->
-                                    <!--                                        <input type="text" placeholder="Search">-->
-                                    <!--                                        <button><i class="fa fa-long-arrow-right"></i></button>-->
-                                    <!--                                    </form>-->
                                     <form class="searchForm" action="/shop/list" method="get">
                                         <input type="text" placeholder="Search" id="keyword" name="keyword">
                                         <button id="findBtn"><i class="fa fa-long-arrow-right"></i></button>
@@ -133,8 +129,6 @@
                                 </div>
                             </div>
 
-                            <!-- header Account SW 내용 수정 0605 -->
-                            <!-- 추후 mno 고정 해제 예정 -->
                             <div class="header-account">
                                 <ul>
                                     <li><a href="#" class="account-toggle"><i class="pe-7s-config"></i></a>
@@ -160,12 +154,10 @@
                                                 <li><a th:href="@{/admin/mail/writeDirect}">mail write</a></li>
                                                 <li><a th:href="@{/admin/mail/list}">mail list</a></li>
                                             </ul>
-                                            <ul sec:authorize="isAnonymous() or hasAnyRole('ROLE_MEMBER')">
-                                            <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/mypage/main?mno=2">My Account</a></li>
-                                            <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/account/login">My Account</a></li>
-                                            <li><a id="mypageInterest" href="/mypage/interest/list?mno=2">Wish list</a></li>
-                                            <li><a id="mypageRegQ" href="/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
-<!--                                            <li><a href="">Checkout</a></li>--> <!-- 로그아웃 화면 연결 예정 -->
+                                            <ul sec:authorize="hasAnyRole('ROLE_MEMBER')">
+                                                <li><a id="mypageMain">My Account</a></li>
+                                                <li><a id="mypageInterest">Wish list</a></li>
+                                                <li><a id="mypageRegQ">1:1 inquiry</a></li>
                                             </ul>
                                         </ul>
                                     </li>
@@ -182,26 +174,21 @@
                                 <div class="mini-cart-brief text-left">
                                     <!-- Cart Products -->
                                     <h6>CART</h6>
-
                                     <input type="hidden" name="idSec" th:value="${#authentication.name}"/>
-<!--                                    <div sec:authentication="name"></div>-->
                                     <input type="hidden" name="mnoSec"/>
-
                                     <!-- 회원별 장바구니 데이터 들어오는 영역 -->
                                     <div class="all-cart-product clearfix uploadCartResult">
 
                                     </div>
                                     <!-- Cart Button -->
-                                    <div class="cart-bottom  clearfix">
-                                        <a href="/mypage/cart/list?mno=2">장바구니 전체 보기</a> <!-- mno 고정 풀어야함 -->
+                                    <div sec:authorize="hasAnyRole('ROLE_MEMBER')" class="cart-bottom  clearfix">
+                                        <a id="getCartListM">Go to Cart List</a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="mobile-menu"></div>
-
                 </div>
             </div>
         </header>

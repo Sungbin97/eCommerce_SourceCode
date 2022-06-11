@@ -85,7 +85,6 @@
     <script src="/js/search.js"></script>
     <!-- 카트 메뉴 데이터 (SW 추가 0605) -->
     <script>
-
         // Cart 관련 ---------------------------------------------------------------------------------
         $(".uploadCartResult").empty(); // 데이터 중복 방지
 
@@ -163,21 +162,12 @@
                     var getMno = $("input[name=mnoSec]").val();
                     console.log("mnoSec: "+getMno)
                     $("#mypageMain").attr("href","/mypage/main?mno="+getMno);
+                    $("#mypageInterest").attr("href","/mypage/interest/list?mno="+getMno);
                     $("#mypageRegQ").attr("href","/mypage/personalQ/regQ?mno="+getMno);
-                    $("#getCartListM").attr("href","/mypage/cart/list?mno="+getMno)
+                    $("#getCartListM").attr("href","/mypage/cart/list?mno="+getMno);
                 }
             })
         }
-
-        // 카트 관련 -----------------------------------------------------------------------
-
-        // 메뉴 버튼 클릭시 검증
-        $("#mypageMain").click(function (){
-            if(getMno === ""){
-                alert("로그인 후 사용해주세요")
-                window.location.replace('/account/login')
-            }
-        })
 
     </script>
 
