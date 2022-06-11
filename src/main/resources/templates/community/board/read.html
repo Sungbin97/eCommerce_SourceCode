@@ -191,9 +191,7 @@
                     <div class="home-blog-item">
                         <!-- Content -->
                             <!-- UserName : userid/상세정보등 mypage-blog로 연결 -->
-
-                            <p>All the Lorem Ipsum generators on tInntend to repeat predefined chunks as nessamaking this the first true generator Internet. It uses a dictionary. amar vanga tori.</p>                     </div>
-                            <!-- 비회원일 경우 mno을 못 받기 때문에 객체를 못 불러옴. 값이 있을 때만 생성 -->
+                         <!-- 비회원일 경우 mno을 못 받기 때문에 객체를 못 불러옴. 값이 있을 때만 생성 -->
                             <input type="hidden" id="idInput" th:if="${memberVO} != null" th:value="${memberVO.id}">
                             <input type="hidden" id="nonMemberPassWordInput" th:value="${item.nonMemberPassword}">
                     </div>
@@ -211,8 +209,6 @@
 
 <!-- reply section -->
 <div class="page-section section pt-120 pb-45">
-    <div class="container">
-
 </div>
 </div>
 <!-- reply section End-->
@@ -309,10 +305,10 @@
         })
 
         // reply 삭제
-        $('.replyDelete').click(function (e) {
+        $('.replyDelete img').on('click',function (e) {
             e.preventDefault();
-            console.log("work?")
-            deleteReply();
+            console.log($('.replyDelete').attr('href'));
+            deleteReply($('.replyDelete').attr('href'));
         })
 
         // pagination
@@ -320,7 +316,6 @@
             e.preventDefault();
             page = this.attr('href').val();
             console.log(page);
-            getList();
         })
 
 
@@ -338,7 +333,6 @@
                 }),
                 contentType: "application/json; charset=utf-8",
                 success: function () {
-                    $("#replyList").empty();
                 },
                 error: function () {
                     alert("등록에 실패했습니다.")
@@ -369,44 +363,36 @@
                 contentType: 'application/json; charset=utf-8',
                 success : function(result){
                     console.log("@getlist",result.list)
+                    $("#replyList").empty();
                     let list = "";
                     for (let i = 0; i < result.list.length; i++) {
-                        list = "<div class=\"comment\">";
-                        list += "<span name=\"rno\">" + result.list[i].rno + "</span>";
-                        list += "<span> " + result.list[i].replyer + "</span>";
-                        list += "<span> " + result.list[i].reply + "</span>";
-                        list += "<button type=\"button\" class=\"replyModify\">수정</button></div>"
+                        list = "<div class=\"comment-box\">";
+                            list += "<ul class='reply-ul'>";
+                                list += "<li class='row'>";
+                                    list += '<div class="col-lg-2">'
+                                    list += '<span> ' + result.list[i].replyer + '</span>'
+                                    list += '</div>'
+                                    list += '<div class="col-lg-8">'
+                                    list += '<span> ' + result.list[i].reply + '</span>'
+                                    list += '</div>'
+                                    list += '<div class="col-lg-2" style="float: right">'
+                                    list += result.list[i].replyDate+'<button href="#" class="replyDelete" style="float: right; padding: 0; background-color: transparent; border: none">' +
+                                        '<img src="/img/icon/close.png" style="border: none; background-color: grey; height: 10px; width: 10px" alt="삭제"></button>'
+                                    list += '</div>'
+                                list += "</li>";
+                            list += "</ul>";
                         list += "<hr>";
+                        list += "</div>";
+
+
+
                         $("#replyList").append(list);
                         }
                     }
-
-                    // printPage(result.pageMaker);
             })
         }
-        // 삭제 : "<button type=\"button\" class=\"replyDelete\">삭제</button>
 
-        // function appendReply(){
-        //     console.log("댓글 하나 추가")
-        //     $.ajax({
-        //         type: 'get',
-        //         data: {'rno' : rno},
-        //         url: '/community/reply/getOne',
-        //         contentType: 'application/json; charset=utf-8',
-        //         success: function (result){
-        //             let str = "";
-        //             str = "<div class=\"comment\">";
-        //             // str += "<span name=\"rno\">"+result.rno+"</span>"
-        //             str += "<span> "+result.replyer+"</span>"
-        //             str += "<span> "+result.reply+"</span>"
-        //             str += "<a href=\"#\" class=\"replyModify\">수정</a></div>"
-        //             str += "<hr>";
-        //             $("#replyList").append(str);
-        //         }
-        //     })
-        // }
-
-        function deleteReply(){
+        function deleteReply(rno){
             $.ajax({
                 type : 'delete',
                 url : '/community/reply/'+rno,
@@ -415,27 +401,26 @@
                 }
             })
         }
-        function listPage(page){
-            $.ajax()
-        }
 
-        function printPage(pageMaker){
-            let str="";
-            page = 0;
-            if(pageMaker.prev){
-                page = pageMaker.startPage-1;
-                str='<a href="#" onclick="listPage(page)">이전</a>'
-            }
-            for (let i = pageMaker.startPage; i<pageMaker.endPage; i++){
-                // str += "<li><a href=\"#\" onclick={listPage("+i+")} class=\"${currentPage === "+i+" ? \"active\" : \"\"}\"}></a></li>"
-            }
-
-            if(pageMaker.next){
-                page = pageMaker.endPage+1;
-                str='<a href="#" onclick="listPage(page)">다음</a>'
-            }
-            $("#pagination").append(str);
-        }
+        // 발표 후 개발
+        // function printPage(pageMaker){
+        //     let str="";
+        //     page = 0;
+        //     if(pageMaker.prev){
+        //         page = pageMaker.startPage-1;
+        //         str='<a href="#" onclick="listPage(page)">이전</a>'
+        //     }
+        //     for (let i = pageMaker.startPage; i<pageMaker.endPage; i++){
+        //         str += '<li><a href=\"#\" onclick={listPage('+i+ ')} class="${currentPage == "+i+" ? \"active\" : \"\"}\"}></a></li>'
+        //     }
+        //
+        //     if(pageMaker.next){
+        //         page = pageMaker.endPage+1;
+        //         str='<button type="button" class="arrow-next slick-arrow"><a th:href="${pageMaker.endPage + 1}" id="next">\n' +
+        //             '                        <i class="fa fa-angle-right"></i></a></button>'
+        //     }
+        //     $("#pagination").append(str);
+        // }
     })
 
 

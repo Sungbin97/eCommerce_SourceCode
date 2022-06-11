@@ -37,7 +37,7 @@ public class ReplyController {
     public ResponseEntity<Map<String,Object>> getCommentList(@PathVariable("bno") Long bno, @PathVariable("page") Long page){
         log.info("@@@@@@@@@@@@@@ getList 작동 bno :" + bno + "page :"+ page);
         Map<String,Object> map = new HashMap<>();
-        Criteria criteria = new Criteria(page*10-9,3L);
+        Criteria criteria = new Criteria(page*10-9,1000L);
         PageMaker pageMaker = new PageMaker(criteria, replyService.getTotal(criteria));
         map.put("pageMaker",pageMaker);
         map.put("list",replyService.getPageList(criteria,bno));
@@ -46,16 +46,6 @@ public class ReplyController {
         return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
-    @GetMapping(value = "getOne/{rno}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ReplyVO> getOne(@PathVariable("rno") Long rno){
-        try {
-            log.info(replyService.getOne(rno));
-            return new ResponseEntity<>(replyService.getOne(rno),HttpStatus.OK);
-        } catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-        }
-    }
 
     @PutMapping(value = "update/{rno}",
         produces = {

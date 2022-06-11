@@ -1,5 +1,6 @@
 package com.green.team4.vo.community;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ public class ReplyVO {
     private String replyPassword;
     private String reply;
     private String replyer;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd hh:mm")
     private Date replyDate;
     private Date modDate;
 }
