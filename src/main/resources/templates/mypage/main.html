@@ -12,7 +12,7 @@
     <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 
     <!-- PAGE BANNER SECTION -->
-    <div class="page-banner-section section" style='background-image: url("/img/bg/mypageBanner4.jpg")'>
+    <div class="page-banner-section section" style='background-image: url("/img/bg/mypageBanner10_2.jpg")'>
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -49,8 +49,6 @@
                     <h4 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s" ><span style="font-weight: bold" th:text="${#calendars.format(#calendars.createNow(),'MM')}+'월 '"></span>적립 포인트</h4>
                     <p style="color: #dc3545;font-weight: bold" class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s"
                        data-th-text="${'당월: '+#numbers.formatInteger(thisMPoint, 3, 'COMMA') + ' P' +'  /  '+'누적: '+#numbers.formatInteger(accuPoint, 3, 'COMMA') + ' P'}"></p>
-<!--                    <p style="color: #dc3545" class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s"-->
-<!--                       data-th-text="${'누적 적립 포인트: '+#numbers.formatInteger(accuPoint, 3, 'COMMA') + ' POINT'}"></p>-->
                 </div>
             </div>
         </div>
@@ -60,25 +58,6 @@
     <div class="page-section section pt-40"> <!-- class: pb-120 지움 -->
         <div class="container">
             <div class="isotope-grid row">
-
-                <!-- 개인정보관리 -->
-<!--                <div class="isotope-item ptable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">-->
-<!--                    <div class="product-item product-item-2 text-center">-->
-<!--                        &lt;!&ndash; Menu Image &ndash;&gt;-->
-<!--                        <div class="product-img">-->
-<!--                            &lt;!&ndash; Image &ndash;&gt;-->
-<!--                            <a class="image" th:href="@{/mypage/memberInfo/read(mno=${mno})}">-->
-<!--                                <img src="/icons_bootstrap/person-circle.svg" height="80" alt="">-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash; Menu Info &ndash;&gt;-->
-<!--                        <div class="product-info">-->
-<!--                            <h5 class="title">개인정보관리</h5>-->
-<!--                            <p><br/></p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-
 
                 <!-- 찜목록 -->
                 <div class="isotope-item ptable col-xl-3 col-lg-4 col-md-6 col-12 mb-50">
@@ -92,7 +71,7 @@
                         </div>
                         <!-- Menu Info -->
                         <div class="product-info">
-                            <h5 class="title">찜목록</h5>
+                            <h5 class="title">찜한 상품</h5>
                             <p>[[${itrCnt}]] 개</p>
                         </div>
                     </div>
@@ -128,7 +107,7 @@
                         </div>
                         <!-- Menu Info -->
                         <div class="product-info">
-                            <h5 class="title">주문목록</h5>
+                            <h5 class="title">주문 목록</h5>
                             <p>[[${orderCnt}]] 개</p>
                         </div>
                     </div>
@@ -164,7 +143,7 @@
                         </div>
                         <!-- Menu Info -->
                         <div class="product-info">
-                            <h5 class="title">내가 쓴 상품 리뷰</h5>
+                            <h5 class="title">내가 쓴 리뷰</h5>
                             <p>[[${rCnt}]] 개</p>
                         </div>
                     </div>
@@ -200,7 +179,7 @@
                         </div>
                         <!-- Menu Info -->
                         <div class="product-info">
-                            <h5 class="title">내가 쓴 커뮤니티 글</h5>
+                            <h5 class="title">내가 쓴 게시글</h5>
                             <p>[[${bCnt}]] 개</p>
                         </div>
                     </div>

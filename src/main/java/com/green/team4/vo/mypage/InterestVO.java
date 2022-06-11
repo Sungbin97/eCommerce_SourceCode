@@ -18,8 +18,6 @@ public class InterestVO {
     private LocalDateTime itrDate;
 
     // 상품 기본정보(tbl_product와 join해서 가져올 예정)
-    private String pMainCategory;
-    private String pSubCategory;
     private String pName;
     private int pPrice;
     private String pImage;
