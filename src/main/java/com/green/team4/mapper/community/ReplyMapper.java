@@ -22,4 +22,5 @@ public interface ReplyMapper {
 
     // SW 추가
     public int getCntByBno(Long bno); // 해당 게시글의 댓글 모두 가져오기
+    public List<ReplyVO> getAllByMno(int mno);
 }

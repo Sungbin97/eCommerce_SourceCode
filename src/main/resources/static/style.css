@@ -786,7 +786,7 @@ input:focus, textarea:focus {
 
 /*-- Page Banner Section --*/
 .page-banner-section {
-    background-image: url("/img/bg/bannerImg_test2.jpg");
+    background-image: url("/img/bg/5.jpeg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -800,7 +800,7 @@ input:focus, textarea:focus {
     z-index: 1;
 }
 .page-banner-content::before {
-    /*border: 25px solid #f9f9fa;*/
+    /*border: 5px solid #f9f9fa;*/
     content: "";
     height: 155px;
     left: 0;
@@ -843,6 +843,7 @@ input:focus, textarea:focus {
 .page-banner-content .breadcrumb li:hover a {
     color: #3f3f3f;
 }
+
 
 
 /* -----------------------------------

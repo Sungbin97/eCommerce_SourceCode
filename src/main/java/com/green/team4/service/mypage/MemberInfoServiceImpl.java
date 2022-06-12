@@ -2,7 +2,11 @@ package com.green.team4.service.mypage;
 
 import com.github.pagehelper.PageHelper;
 import com.green.team4.mapper.admin.MailMapper;
+import com.green.team4.mapper.community.BoardMapper;
+import com.green.team4.mapper.community.ReplyMapper;
 import com.green.team4.mapper.mypage.*;
+import com.green.team4.vo.community.BoardVO;
+import com.green.team4.vo.community.ReplyVO;
 import com.green.team4.vo.mypage.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +37,8 @@ public class MemberInfoServiceImpl implements MemberInfoService{
     private final DeleteMemMapper deleteMemMapper;
     private final PersonalQMapper personalQMapper;
     private final PersonalQFilesMapper personalQFilesMapper;
+    private final BoardMapper boardMapper;
+    private final ReplyMapper replyMapper;
 
 
     // 회원정보 전체 가져오기
@@ -91,10 +97,10 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         log.info("MemberInfoService => remove 실행 => 받은 delCategory: "+delCategory);
         log.info("MemberInfoService => remove 실행 => 받은 delContent: "+delContent);
 
-        // 탈퇴회원 데이터 입력(tbl_deleteMem) --------------------------------------------------------
+        // (1) 탈퇴회원 데이터 입력(tbl_deleteMem) --------------------------------------------------------
         MemberInfoVO memberInfoVO = memberInfoMapper.getOne(mno);
 
-        log.info("들어오나1");
+        log.info("기존 회원데이터 => 탈퇴 회원 데이터로 덮어쓰기 시작");
 
         // 기존 회원데이터 덮어쓰기
         DeleteMemVO deleteMemVO = new DeleteMemVO();
@@ -115,20 +121,35 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         deleteMemVO.setGrade(memberInfoVO.getGrade());
         deleteMemVO.setPoint(memberInfoVO.getPoint());
 
-        log.info("들어오나2");
-
         // 회원탈퇴 사유 가져와서 set
         deleteMemVO.setDMCategory(delCategory);
         deleteMemVO.setDMContent(delContent);
         deleteMemVO.setDMDate(LocalDateTime.now());
 
-        log.info("들어오나3");
+        log.info("기존 회원데이터 => 탈퇴 회원 데이터로 덮어쓰기 끝");
 
         // DB 저장
         int delSaveCnt = deleteMemMapper.insert(deleteMemVO);
         log.info("MemberInfoService => remove 실행 => deleteMemMapper 실행 후 입력된 데이터 개수: "+delSaveCnt);
 
-        // 회원 데이터 모두 삭제 ------------------------------------------------------------------------
+        // (2) 회원 데이터 모두 삭제 ------------------------------------------------------------------------
+
+        // (2-1) 커뮤니티 데이터 삭제 -----------------------------------------------------------------------
+        // 댓글 삭제
+        List<ReplyVO> replyList = replyMapper.getAllByMno(mno);
+        replyList.forEach(reply->{
+            replyMapper.delete(reply.getRno());
+        });
+        log.info("댓글 삭제 완료");
+
+        // 게시글 삭제
+        List<BoardVO> boardList = boardMapper.getAllByMno(mno);
+        boardList.forEach(board->{
+            boardMapper.delete(board.getBno());
+        });
+        log.info("게시글 삭제 완료");
+
+        // (2-2) 쇼핑 및 마이페이지 데이터 삭제 -----------------------------------------------------------------------
 
         // 찜목록 삭제
         List<InterestVO> interestList = interestMapper.getAll(mno);

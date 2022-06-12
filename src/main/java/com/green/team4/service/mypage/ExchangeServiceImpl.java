@@ -167,12 +167,6 @@ public class ExchangeServiceImpl implements ExchangeService{
             log.info("삭제대상 oldEno 2: "+oldEno);
             remove(oldEno); // 기존 미처리된 신청서는 바로 위에서 새로운 주문번호로 등록되었으니, 기존 주문번호로 신청된 내역은 삭제
         }
-//        newExList.forEach(exchangeVO->{
-//            exchangeVO.setOno(newOno); // 새로 발행될 주문서 번호로 업데이트
-//            register(exchangeVO); // 서비스 내 등록 서비스 호출 (첨부파일도 같이 업데이트 위해)
-//            remove(exchangeVO.getEno()); // 기존 미처리된 신청서는 바로 위에서 새로운 주문번호로 등록되었으니, 기존 주문번호로 신청된 내역은 삭제
-//        });
-
         return newOrderVO;
     }
 
@@ -211,6 +205,7 @@ public class ExchangeServiceImpl implements ExchangeService{
 
 
         // (3) 주문서 신규 생성
+        // -- 주문서 객체 생성 --
         OrderVO newOrderVO = new OrderVO();
         // -- 주문서 기본정보 업데이트 --
         newOrderVO.setMno(oldVO.getMno());
@@ -230,9 +225,7 @@ public class ExchangeServiceImpl implements ExchangeService{
         newOrderVO.setTTotalPrice(oldVO.getTTotalPrice());
         newOrderVO.setTSavePoint(oldVO.getTSavePoint()); // 적립 포인트
         // -- 주문상품 List 업데이트 --
-        for(OrderItemVO nItem : newItemlist){
-            nItem.setOno(newOno); // 주문상품 각 정보에 주문번호를 새 번호로 매핑
-        }
+        for(OrderItemVO nItem : newItemlist) nItem.setOno(newOno); // 주문상품 각 정보에 주문번호를 새 번호로 매핑
         newOrderVO.setOrderItemList(newItemlist);
 
         // DB에 새 주문서 등록
@@ -285,9 +278,6 @@ public class ExchangeServiceImpl implements ExchangeService{
 
         // 신청서 등록
         int result = exchangeMapper.insert(exchangeVO);
-//        if(exchangeVO.getEOption() == "" || exchangeVO.getEOption() == "없음") exchangeVO.setEOption(null);
-//        else if(exchangeVO.getEOption2() == "" || exchangeVO.getEOption2() == "없음") exchangeVO.setEOption2(null);
-//        else if(exchangeVO.getColor() == "" || exchangeVO.getColor() == "없음") exchangeVO.setColor(null);
         int key = exchangeVO.getEno();
         log.info("key: "+key);
 
@@ -425,7 +415,6 @@ public class ExchangeServiceImpl implements ExchangeService{
 
         // (3) 취소/반품 상품 재고 현황 원상복구
         List<Product_optVO> optList = productOptMapper.getProductOption(pno); // 취소상품 옵션 모두 가져오기
-//        List<OrderItemVO> cItemList = orderVO.getOrderItemList().stream().filter(i->i.getPno()==pno).collect(Collectors.toList()); // 취소 주문상품 가져오기
         OrderItemVO cItem = orderItemMapper.getOne(oINo); // 취소 주문상품 가져오기
         log.info("optList: "+optList);
         log.info("cItem: "+cItem);
@@ -447,7 +436,6 @@ public class ExchangeServiceImpl implements ExchangeService{
         if(orderVO.getOrderItemList().size()>1){
             // (4) 새로운 주문서 발행 *취소 상품 제외한 나머지 상품 포함한 주문서로 재발행
             OrderVO newOrderVO = getNewOrderVO(orderVO,oINo); // 신규 발행한 주문서(DB저장 완료)
-
             ExchangeVO exVO = exchangeMapper.getOne(eno); // 기존 취소/반품 신청서 가져오기
             exVO.setNewOno(newOrderVO.getOno()); // 신규발행 주문번호 반영
             exchangeMapper.update(exVO); // DB에 반영
@@ -475,7 +463,7 @@ public class ExchangeServiceImpl implements ExchangeService{
 
         if(exchangeVO.getExCategory().equals("취소")) exchangeVO.setExStatus("취소완료");
         else exchangeVO.setExStatus("반품완료");
-        exchangeVO.setExEndDate(LocalDateTime.now());
+        exchangeVO.setExEndDate(LocalDateTime.now()); // 처리 완료일 현재날짜로 저장
         exchangeMapper.update(exchangeVO);
     }
 
@@ -522,19 +510,12 @@ public class ExchangeServiceImpl implements ExchangeService{
         ExchangeVO trgExVO = exchangeMapper.getOne(eno); // 교환신청서 가져오기(안에 교환신청 상품 옵션 활용)
         log.info("trgExVO"+trgExVO);
 
-
-        optList.forEach(i->{
-            log.info("살려줘"+i);
-        });
-
-
-
         List<Product_optVO> newTrgOptList = optList.stream().filter(
                 opt->(String.valueOf(opt.getPOption())).equals(String.valueOf(trgExVO.getEOption()))
                     && (String.valueOf(opt.getPOption2())).equals(String.valueOf(trgExVO.getEOption2()))
                     && (String.valueOf(opt.getPColor())).equals(String.valueOf(trgExVO.getColor()))
         ).collect(Collectors.toList());
-        log.info("넘어오나 newTrgOptList"+newTrgOptList);
+        log.info("newTrgOptList"+newTrgOptList);
 
         int exItemCnt = cancelCnt; // 교환을 위해 반품받은 물건의 수량과 새로 출고해야할 물건 수량은 동일
         int exOriginalCnt = newTrgOptList.get(0).getPAmount(); // 출고 될 상품의 기존 재고
@@ -561,8 +542,6 @@ public class ExchangeServiceImpl implements ExchangeService{
         // (7) 새로 발행한 주문서 반환(교환배송 등록에 사용)
         return newOrderVO;
     }
-
-
 }
 
 

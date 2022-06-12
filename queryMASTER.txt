@@ -23,8 +23,6 @@ create table tbl_memberInfo(
     point int(100) default 0 -- 회원 보유 포인트
 );
 
-
-
 -- 탈퇴 회원 테이블
 create table tbl_deleteMem(
     dMNo int(30) primary key auto_increment, -- 탈퇴회원 번호
@@ -67,7 +65,6 @@ create table tbl_product(
     pStatus varchar(20) default '판매중' -- 판매상태
 );
 
-alter table tbl_product add pStatus varchar(20) default '판매중';
 
 -- 상품 카테고리 테이블
 create table tbl_product_cate(
@@ -78,7 +75,7 @@ create table tbl_product_cate(
     -- primary key(pCatecode)
 );
 
--- 상품 옵션 테이블 (옵션2 ,옵션2 이름 추가)
+-- 상품 옵션 테이블 (SW 추가: foreign key)
 create table tbl_product_opt(
     pcno int(5) auto_increment primary key,
     pno int(5),
@@ -88,7 +85,8 @@ create table tbl_product_opt(
     pOption2 varchar(30) default '없음', -- 옵션 기본값
     pOptionName2 varchar(30)  default '없음' , -- 옵션 기본값 이름
     pColor varchar(30) default '없음' , -- 색상
-    pOptionPrice int(11) default 0 -- 옵션 추가금액
+    pOptionPrice int(11) default 0, -- 옵션 추가금액
+    foreign key (pno) references tbl_product (pno)
 );
 
 -- 주문 테이블(tbl_orderItem과 set)
@@ -138,7 +136,7 @@ create table tbl_orderItem( -- SW 수정 reviewStatus 추가 20220530
 
 
 -- 리뷰 테이블
-create table tbl_review( -- 수정 SW 20220530 (rImageURL 삭제 => 이미지 별도 테이블로 분리, oINo 추가)
+create table tbl_review( -- 수정 SW: foreign key 추가
     rno int(10) not null auto_increment primary key, -- 리뷰번호
     pno int(10) not null, -- 상품번호
     mno int(10), -- 회원번호
@@ -148,7 +146,10 @@ create table tbl_review( -- 수정 SW 20220530 (rImageURL 삭제 => 이미지 �
     LIKEHIT int default 0, -- 좋아요 개수
     -- rImageURL varchar(150), -- 리뷰 첨부 이미지
     rRegdate TIMESTAMP not null default now(), -- 리뷰 등록일
-    rUpdatedate TIMESTAMP not null default now() -- 리뷰 수정일
+    rUpdatedate TIMESTAMP not null default now(), -- 리뷰 수정일
+    FOREIGN KEY (pno) REFERENCES tbl_product(pno),
+    FOREIGN KEY (mno) REFERENCES tbl_memberInfo(mno),
+    FOREIGN KEY (oINo) REFERENCES tbl_orderItem(oINo)
 );
 
 -- 리뷰 첨부파일 테이블 -- 신규 생성 SW 20220530
@@ -161,13 +162,16 @@ create table tbl_reviewFiles(
     foreign key (rno) references tbl_review (rno)
 );
 
--- 리뷰 추천 테이블
+-- 리뷰 추천 테이블 SW 수정: foreign key 추가
 create table tbl_review_LIKE(
     LIKENO int(10) NOT NULL PRIMARY KEY , -- 리뷰 좋아요 번호
     pno int(10), -- 상품 번호
     mno int(10) , -- 회원 번호
     rmno int(10) , --
-    RNO int(10) -- 리뷰 번호
+    RNO int(10), -- 리뷰 번호
+    FOREIGN KEY (pno) REFERENCES tbl_product(pno),
+    FOREIGN KEY (mno) REFERENCES tbl_memberInfo(mno),
+    FOREIGN KEY (RNO) REFERENCES tbl_review(RNO)
 );
 
 -- 회원 배송지 정보 테이블
@@ -258,23 +262,25 @@ create table tbl_mail(
     reception varchar(1000)
 );
 
--- 상품 이미지 테이블 -- SB
+-- 상품 이미지 테이블 -- SB   SW수정: foreign key 추가
 create table tbl_product_img(
     ino int primary key auto_increment,
     pno int,
     pName varchar(50),
     pThumbnail varchar(500),
     pImage varchar(300), -- 파일명
-    pImagePath varchar(500) -- 저장경로
+    pImagePath varchar(500), -- 저장경로
+    foreign key (pno) references tbl_product (pno)
 );
 
--- 상품 정보 이미지 테이블 -- SB
+-- 상품 정보 이미지 테이블 -- SB SW수정: foreign key 추가
 create table tbl_product_infoImg(
     infoNo int primary key auto_increment,
     pno int,
     pName varchar(50),
     pInformation varchar(300),
-    pInfoPath varchar(500) -- 저장경로
+    pInfoPath varchar(500), -- 저장경로
+    foreign key (pno) references tbl_product (pno)
 );
 
 -- 배송 현황 테이블 -- SW
@@ -327,7 +333,7 @@ create table tbl_board(
     bno int auto_increment primary key,
     mno int,
     title varchar(200),
-    content varchar(1000),
+    content varchar(10000),
     bImg varchar(200),
     regDate date,
     modDate date,
@@ -347,7 +353,8 @@ create table tbl_board_reply(
     replyPassword varchar(50),
     replyDate date,
     modDate date,
-    foreign key (bno) references tbl_board(bno)
+    foreign key (bno) references tbl_board(bno),
+    foreign key (mno) references tbl_memberInfo (mno)
 );
 
 -- 쿠폰 테이블
@@ -362,19 +369,17 @@ create table tbl_coupon(
     expireDate timestamp default now() -- 만료
 );
 
--- 쿠폰 테이블2
+-- 쿠폰 테이블2 SW 추가: foreign key 추가
 create table tbl_MemberCoupon(
     mno int(10),
     cpNo int primary key,
     cpStatus varchar(10),
-    expireDate timestamp default now() -- 만료
+    expireDate timestamp default now(), -- 만료
+    foreign key (mno) references tbl_memberInfo(mno)
 );
 
 
-
-
 -- 카테고리 데이터
-
 
 -- 카테고리 칼럼
 -- tier  (대분류 1 , 중분류 2 , 소분류 3)
@@ -571,9 +576,66 @@ insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, 
 insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '테니스 용품', '404004','404000');
 insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '기타', '404005','404000');
 
-insert into tbl_board (mno, title, content,
-                       regDate, community)
-values (1,'게시글 제목 테스트 입니다22242.','메롱',now(),'야구');
+-- Best Sellers
+insert into tbl_product_cate(tier, pCateName, pCatecode) values (1, 'BEST SELLERS', '500000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, 'MEN', '501000','500000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '의류', '501001','501000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '신발', '501002','501000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '용품', '501003','501000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '스포츠', '501004','501000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, 'WOMEN', '502000','500000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '의류', '502001','502000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '신발', '502002','502000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '용품', '502003','502000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '스포츠', '502004','502000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, 'NUTRITION', '503000','500000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '단백질', '503001','503000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '식품/간식', '503002','503000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '비타민/영양제', '503003','503000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '다이어트', '503004','503000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, 'ACCESSORIES', '504000','500000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '운동기구', '504001','504000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '헬스용품', '504002','504000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '머신', '504003','504000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '스포츠 용품', '504004','504000');
+
+
+-- 타임딜
+insert into tbl_product_cate(tier, pCateName, pCatecode) values (6, '타임딜', '600000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, 'MEN', '601000','600000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '의류', '601001','601000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '신발', '601002','601000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '용품', '601003','601000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '스포츠', '601004','601000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, 'WOMEN', '602000','600000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '의류', '602001','602000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '신발', '602002','602000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '용품', '602003','602000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '스포츠', '602004','602000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, 'NUTRITION', '603000','600000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '단백질', '603001','603000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '식품/간식', '603002','603000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '비타민/영양제', '603003','603000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '다이어트', '603004','603000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (2, 'ACCESSORIES', '604000','600000');
+
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '운동기구', '604001','604000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '헬스용품', '604002','604000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '머신', '604003','604000');
+insert into tbl_product_cate(tier, pCateName, pCatecode, cateParent) values (3, '스포츠 용품', '604004','604000');
 commit;
-
-

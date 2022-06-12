@@ -85,6 +85,7 @@
                 where eno=#{eno}
     </update>
 
+
     <update id="updateNull1">
         update tbl_exchange
         set eOption=null

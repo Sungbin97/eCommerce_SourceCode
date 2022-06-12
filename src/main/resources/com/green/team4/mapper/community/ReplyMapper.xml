@@ -53,4 +53,9 @@
     <select id="getCntByBno" resultType="int">
         select count(*) from tbl_board_reply where bno = #{bno}
     </select>
+
+    <!-- SW 추가: 회원이 작성한 댓글 모두 가져오기 -->
+    <select id="getAllByMno" resultType="com.green.team4.vo.community.ReplyVO">
+        select * from tbl_board_reply where mno = #{mno}
+    </select>
 </mapper>
