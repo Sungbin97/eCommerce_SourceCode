@@ -138,7 +138,7 @@ public class MemberInfoServiceImpl implements MemberInfoService{
         // 댓글 삭제
         List<ReplyVO> replyList = replyMapper.getAllByMno(mno);
         replyList.forEach(reply->{
-            replyMapper.delete(reply.getRno());
+            replyMapper.deleteOne(reply.getRno());
         });
         log.info("댓글 삭제 완료");
 

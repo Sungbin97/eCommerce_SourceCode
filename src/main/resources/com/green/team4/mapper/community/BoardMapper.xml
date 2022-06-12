@@ -35,9 +35,14 @@
         delete from tbl_board where bno=#{bno}
     </delete>
 
+<!--    <select id="readList" parameterType="com.green.team4.vo.community.BoardVO" resultType="com.green.team4.vo.community.BoardVO">-->
+<!--        select bno, title, content,nickName,nonMemberId, regDate, modDate from tbl_board,tbl_memberinfo;-->
+<!--    </select>-->
+
     <select id="readList" parameterType="com.green.team4.vo.community.BoardVO" resultType="com.green.team4.vo.community.BoardVO">
-        select bno, title, content,nickName,nonMemberId, regDate, modDate from tbl_board,tbl_memberinfo;
+        select * from tbl_board
     </select>
+
     <!--    include : sql 조각을 사용할 수 있게 해준다. id로 연결-->
     <select id="getPageList" parameterType="com.green.team4.vo.community.Criteria" resultType="com.green.team4.vo.community.BoardVO">
         select bno, title, content, nickName, nonMemberId, regDate, modDate
