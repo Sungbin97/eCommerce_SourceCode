@@ -133,6 +133,34 @@ p {
 .bs-paging{
     text-align: center;
 }
+.btn-small{
+    border: 1px solid;
+    border-radius: 0;
+    background-color: transparent;
+    font-size: 11px;
+    font-weight: 700;
+    color: black;
+    width: 83px;
+    height: 29px;
+    letter-spacing: 0.5px;
+    line-height: 24px;
+    padding: 0px 0px;
+    text-transform: uppercase;
+}
+.btn-small:hover {
+    background-color: #3f3f3f;
+    border: 1px solid #3f3f3f;
+    color: #fff;
+}
+.btn-small {
+    -webkit-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.btn-small:focus {
+    text-decoration: none;
+    outline: none;
+}
 /* BS ADD END */
 
 
@@ -772,7 +800,7 @@ input:focus, textarea:focus {
     z-index: 1;
 }
 .page-banner-content::before {
-    border: 25px solid #f9f9fa;
+    /*border: 25px solid #f9f9fa;*/
     content: "";
     height: 155px;
     left: 0;
@@ -782,7 +810,7 @@ input:focus, textarea:focus {
     z-index: -1;
 }
 .page-banner-content h1 {
-    color: #4e4e4e;
+    color: #f0f0f0;
     font-family: "Montserrat",sans-serif;
     font-size: 36px;
     font-weight: 700;

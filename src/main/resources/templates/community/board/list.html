@@ -6,6 +6,80 @@
     <!-- head fragment -->
     <th:block th:replace="fragments/common/header :: head"></th:block>
     <link id="contextPathHolder" th:data-contextPath="${#httpServletRequest.getContextPath()}"/>
+    <style>
+        .slick-arrow {
+            background-color: #fff;
+            border: medium none;
+            border-radius: 50%;
+            -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            color: #777777;
+            height: 25px;
+            margin-top: -20px;
+            opacity: 0;
+            padding: 0;
+            top: 50%;
+            width: 25px;
+            z-index: 9;
+        }
+        .arrow-prev {
+            left: -5px;
+
+        }
+        .arrow-next {
+            right: -5px;
+        }
+        .slick-arrow i {
+            font-size: 12px;
+            line-height: 28px;
+            text-align: center;
+        }
+        .slick-arrow {
+            opacity: 1;
+        }
+        .slick-arrow:hover {
+            background-color: #3f3f3f;
+            color: #fff;
+        }
+        .paginate_button{
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+        select {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(0, 0, 0, 0) url("/img/icon/select-arrow-down.png") no-repeat scroll right 5px center;
+            border: 1px solid #ddd;
+            padding-right: 30px;
+            padding-left: 15px;
+            text-transform: capitalize;
+            font-size: 5px;
+        }
+        #keyword{
+            border: 1px solid #ddd;
+            color: #666;
+            font-family: "Catamaran",sans-serif;
+            font-weight: 400;
+            font-size: 8px;
+            letter-spacing: 0.5px;
+            padding-right: 30px;
+            padding-left: 15px;
+        }
+        #btnSearch{
+            background-color: transparent;
+            border: 1px solid #ddd;
+            color: #666;
+            font-family: "Catamaran",sans-serif;
+            font-size: 8px;
+            font-weight: 400;
+            height: 27.97px;
+            width: 55.93px;
+        }
+        #regBtn{
+            background-color: transparent;
+        }
+    </style>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
@@ -13,15 +87,14 @@
 <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <!-- PAGE SECTION START -->
 <!-- banner -->
-<div class="page-banner-section section">
+<div class="page-banner-section section" style="background-image: url('/img/banner/nathan-dumlao-WyV_EOPHy6g-unsplash.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="page-banner-content">
-                    <h1 th:text="'Sports'"></h1>
+                    <a href="/community/main"><h1 th:text="'Community'"></h1></a>
                     <ul class="breadcrumb">
-                        <li><a href="#" th:id="goBack">community</a></li>
-                        <li class="active">Sports</li>
+                        <li><a href="#" th:id="goBack">sports</a></li>
                     </ul>
                 </div>
             </div>
@@ -33,33 +106,30 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <div class="mb-100">
+                <div class="mb-75">
                     <form method="get" action="register" id="registerForm">
+                        <h2 style="display: inline">글 목록</h2>
                         <!--  추후 넘어오는 데이터로 수정 -->
 <!--                        <input type="hidden" name="idSec" th:value="${#authentication.name}">-->
-                        <button type="submit" id="regBtn" style="float: right">게시글 등록</button>
+                        <button type="submit" id="regBtn" style="float: right; border: none; padding: 0px; display: inline"><img src="/img/icon/register.png" alt="글쓰기" width="30" height="30" >글쓰기</button>
                     </form>
                 </div>
-
+                <hr style="border: 3px">
             </div>
         </div>
     </div>
-    <div class="container" th:each="item : ${items}">
+    <div class="container mt-50 mb-50" th:each="item : ${items}">
         <p>
         <div class="row">
-
-            <div class="col-2 mx-auto">
-                <span th:text="${item.bno}" style="float: right"></span>
-            </div>
             <div class="col-8 mx-auto">
-                <div class="blog-item mb-100">
+                <span th:text="${item.bno}" style="display: inline"></span>
+                <div class="blog-item">
                     <a class="move" th:href="${item.bno}"><h4 class="title" th:text="${item.title}"></h4></a>
                     <span th:text="${item.nonMemberId}" th:if="${item.nickName}==null"></span>
                     <span th:text="${item.nickName}" th:if="${item.nickName}!=null"></span>
+                    <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}" style="display: inline; float: right"></span><br>
+                    <hr style="border: 1px">
                 </div>
-            </div>
-            <div class="col-2 mx-auto">
-                <span class="date" th:text="${#dates.format(item.regDate, 'MM-dd')}"></span>
             </div>
 
         </div>
@@ -67,15 +137,18 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-8 mb-75 mx-auto">
                 <!-- pagination -->
                 <div class="bs-paging">
                 <!--            th:block 사용시 selector 인식 못함-->
-                    <a th:href="${pageMaker.startPage - 1}" id="prev"><button class="btn" th:if="${pageMaker.prev}" >이전</button></a>
+                    <button type="button" class="arrow-prev slick-arrow" th:if="${pageMaker.prev}"><a th:href="${pageMaker.startPage - 1}" id="prev">
+                        <i class="fa fa-angle-left"></i></a></button>
                     <span class="paginate_button" th:each="num: ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}">
                         <a th:href="${num}" th:text="${num}"></a>
                     </span>
-                    <a th:href="${pageMaker.endPage + 1}" id="next"><button class="btn" th:if="${pageMaker.next}" >다음</button></a>
+                    <button type="button" class="arrow-next slick-arrow" th:if="${pageMaker.next}"><a th:href="${pageMaker.endPage + 1}" id="next">
+                        <i class="fa fa-angle-right"></i></a></button>
+
                 </div>
             </div>
         </div>
@@ -83,22 +156,20 @@
                 <!-- pagination end-->
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-8 mb-75 mx-auto">
                 <form id="actionForm" action="list" method="get">
-                    <div>
+                    <div class="mb-75">
                         <input type="hidden" name="page" th:value="${pageMaker.criteria.page/pageMaker.criteria.pageNum+1}">
                         <input type="hidden" name="pageNum" th:value="${pageMaker.criteria.pageNum}">
                     </div>
                     <!-- Search -->
-                    <div>
+                    <div style="text-align: center">
                         <div>
                             <select name="type" id="type" th:value="${pageMaker.criteria.type}">
                                 <option value="title">제목</option>
                                 <option value="content">내용</option>
                                 <option value="userName">작성자</option>
                             </select>
-                        </div>
-                        <div>
                             <input type="text" name="keyword" id="keyword" th:value="${pageMaker.criteria.keyword}">
                             <button name="btnSearch" id="btnSearch">검색</button>
                         </div>
