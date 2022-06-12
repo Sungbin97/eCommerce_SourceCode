@@ -353,7 +353,8 @@ create table tbl_board_reply(
     replyPassword varchar(50),
     replyDate date,
     modDate date,
-    foreign key (bno) references tbl_board(bno)
+    foreign key (bno) references tbl_board(bno),
+    foreign key (mno) references tbl_memberInfo (mno)
 );
 
 -- 쿠폰 테이블
