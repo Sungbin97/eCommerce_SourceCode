@@ -84,7 +84,7 @@
                                         할인률(%) <strong class="product-qty"></strong>
                                     </td>
                                     <td class="product-total">
-                                        <span class="amount" th:text="${orderItem.iDiscount * 100}+'%'"></span>
+                                        <span class="amount" th:text="${#numbers.formatInteger(orderItem.iDiscount*100, 2, 'COMMA')}+'%'"></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -196,7 +196,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-xs-12">
-                                    <input value="신청 등록" name="exRegister" type="submit">
+                                    <input value="신청하기" name="exRegister" type="submit">
                                 </div>
                             </div>
                         </form>

@@ -109,7 +109,6 @@ create table tbl_order(
     foreign key (mno) references tbl_memberInfo (mno)
 );
 
-
 -- 주문 상품 테이블
 create table tbl_orderItem( -- SW 수정 reviewStatus 추가 20220530
     ono varchar(50), -- 주문 번호
@@ -122,7 +121,7 @@ create table tbl_orderItem( -- SW 수정 reviewStatus 추가 20220530
     iOptionName2 varchar(50), -- 상품 옵션1 이름
     iColor varchar(50), -- 상품 색상명
     iPrice int(50), -- 상품 가격(순수 상품가격)
-    iDiscount int(30), -- 상품 할인률(%)
+    iDiscount float(10), -- 상품 할인률(%)
     iDisPrice int(50), -- 할인된 상품 가격 (상품 가격에 할인률 적용한 가격)
     iCount int(50), -- 상품 수량(주문한 상품 수량)
     iSavePoint int(50), -- 새로 추가(하나의 상품별 적립 포인트)!!!!!!!!!!!!!!

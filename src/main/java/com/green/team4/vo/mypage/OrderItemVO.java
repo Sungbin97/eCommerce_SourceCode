@@ -21,7 +21,7 @@ public class OrderItemVO {
     private String iOptionName2; // 상품 옵션2 이름
     private String iColor; // 상품 색상명
     private int iPrice; // 상품 가격
-    private int iDiscount; // 할인율
+    private float iDiscount; // 할인율
     private int iDisPrice; // 할인된 상품 가격
     private int iCount; // 상품 수량(주문한 상품 수량)
     private int iSavePoint; // 상품 적립포인트
