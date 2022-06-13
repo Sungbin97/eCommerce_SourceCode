@@ -60,6 +60,11 @@
             <br>
             <br>
         </div>
+        <div class="keyword_div" th:if="${cri.keyword != null && cri.keyword != ''}" >
+            <h4>"[[${cri.keyword}]]" 를 검색하신 결과입니다</h4>
+            <br>
+            <br>
+        </div>
         <div class="row justify-content-between">
 
             <div class="isotope-product-filter col-auto" >
@@ -108,7 +113,7 @@
                     <div class="product-info">
                         <!-- Title -->
                         <h5 class="title">
-                            <button th:if="${dto.pCateCode.substring(0,1)}=='5'"  class="product_BestLogo" style="font-size: 4px;float: left;">BEST</button><button th:if="${dto.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
+                            <button th:if="${dto.pCateCode.substring(0,1)}=='0'"  class="product_BestLogo" style="font-size: 4px;float: left;">BEST</button><button th:if="${dto.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
                             <a style="margin-right: 25px" th:href="@{/shop/read(pno=${dto?.pno})}">[[${dto?.pName}]]</a></h5>
                         <!-- Price -->
                         <div class="price-ratting fix"  th:if="${dto.pDiscount>0.0}">

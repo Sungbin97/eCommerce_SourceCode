@@ -121,7 +121,7 @@
 
                         </div>
                         <div class="product-info text-left">
-                            <h5 class="title"><button th:if="${dto.pCateCode.substring(0,1)}=='5'"  class="product_BestLogo" style="font-size: 4px;float: left;margin-left: 2px;">BEST</button><button th:if="${dto.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
+                            <h5 class="title"><button th:if="${dto.pCateCode.substring(0,1)}=='0'"  class="product_BestLogo" style="font-size: 4px;float: left;margin-left: 2px;">BEST</button><button th:if="${dto.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
                                 <a style="margin-right: 45px" th:href="@{/shop/read(pno=${dto.pno})}">[[${dto?.pName}]]</a></h5>
                             <div class="price-ratting fix"  th:if="${dto.pDiscount>0.0}">
                                 <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0,'COMMA')}원|"></span></strong><span class="old"><small th:text="|${#numbers.formatInteger(dto?.pPrice,0,'COMMA')}원|"></small></span></span>

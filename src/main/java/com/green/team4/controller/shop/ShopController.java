@@ -68,7 +68,6 @@ public class ShopController {
                             .equals("판매중"))
                             .collect(Collectors.toList());
         log.info("sort 완료한 list: "+finalList);
-
         pagingVO.setCri(cri);
         pagingVO.setTotalProductData(shopService.getTotaldatabyFind(cri));
         model.addAttribute("list",finalList);
