@@ -119,7 +119,7 @@
     <select id="getListWithBest" resultType="com.green.team4.vo.admin.ProductVO">
         select * from tbl_product P
         left outer join tbl_product_cate PC on P.pCateCode = PC.pCateCode
-          where  P.pCateCode like concat('5','%') and pStatus = '판매중'
+          where  P.pCateCode like concat('0','%') and pStatus = '판매중'
 
     </select>
     <select id="getListWithTimeDeal" resultType="com.green.team4.vo.admin.ProductVO">

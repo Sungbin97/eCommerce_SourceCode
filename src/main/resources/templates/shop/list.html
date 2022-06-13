@@ -36,14 +36,14 @@
 <!-- mypage header fragment -->
 <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <!-- PAGE BANNER SECTION -->
-<div class="page-banner-section section">
+<div class="page-banner-section section" style="background-image: url('/mainPageImg/15.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="page-banner-content">
+                <div class="page-banner-content" >
                     <h1>SHOP</h1>
                     <ul class="breadcrumb">
-                        <li><a onclick="history.back()">뒤로가기</a></li>
+                        <li><a style="color: black" onclick="history.back()">뒤로가기</a></li>
                     </ul>
                 </div>
             </div>
@@ -57,6 +57,11 @@
     <div class="container">
         <div class="cateName_div" th:if="${pCateName} != null">
             <h4>[[${pCateName.pCateName}]]</h4>
+            <br>
+            <br>
+        </div>
+        <div class="keyword_div" th:if="${cri.keyword != null && cri.keyword != ''}" >
+            <h4>"[[${cri.keyword}]]" 를 검색하신 결과입니다</h4>
             <br>
             <br>
         </div>
@@ -87,43 +92,7 @@
                         </ul>
 
                     </div>
-                    <!-- Product Filter -->
-                    <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
-                        <h5>color filters</h5>
-                        <ul class="color-filter">
-                            <li><a href="#"><i style="background-color: #000000;"></i>Black</a></li>
-                            <li><a href="#"><i style="background-color: #663300;"></i>Brown</a></li>
-                            <li><a href="#"><i style="background-color: #FF6801;"></i>Orange</a></li>
-                            <li><a href="#"><i style="background-color: #ff0000;"></i>red</a></li>
-                            <li><a href="#"><i style="background-color: #FFEE00;"></i>Yellow</a></li>
-                        </ul>
-                    </div>
-                    <!-- Product Filter -->
-                    <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
-                        <h5>product tags</h5>
-                        <div class="product-tags">
-                            <a href="#">New</a>,
-                            <a href="#">brand</a>,
-                            <a href="#">black</a>,
-                            <a href="#">white</a>,
-                            <a href="#">chire</a>,
-                            <a href="#">table</a>,
-                            <a href="#">Lorem</a>,
-                            <a href="#">ipsum</a>,
-                            <a href="#">dolor</a>,
-                            <a href="#">sit</a>,
-                            <a href="#">amet</a>
-                        </div>
-                    </div>
-                    <!-- Product Filter -->
-                    <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
-                        <h5>Filter by price</h5>
-                        <div id="price-range"></div>
-                        <div class="price-values">
-                            <span>Price:</span>
-                            <input type="text" class="price-amount">
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -144,14 +113,14 @@
                     <div class="product-info">
                         <!-- Title -->
                         <h5 class="title">
-                            <button th:if="${dto.pCateCode.substring(0,1)}=='5'"  class="product_BestLogo" style="font-size: 4px;float: left;">BEST</button><button th:if="${dto.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
+                            <button th:if="${dto.pCateCode.substring(0,1)}=='0'"  class="product_BestLogo" style="font-size: 4px;float: left;">BEST</button><button th:if="${dto.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
                             <a style="margin-right: 25px" th:href="@{/shop/read(pno=${dto?.pno})}">[[${dto?.pName}]]</a></h5>
                         <!-- Price -->
                         <div class="price-ratting fix"  th:if="${dto.pDiscount>0.0}">
-                            <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${dto?.pPrice}]]원</small></span></span>
+                            <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0,'COMMA')}원|"></span></strong><span class="old"><small th:text="|${#numbers.formatInteger(dto.pPrice,0,'COMMA')}원|"></small></span></span>
                         </div>
                         <div class="price-ratting fix" th:if="${dto.pDiscount==0.0}" >
-                            <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${dto.pPrice}]]</strong><small>원</small></span></span>
+                            <span  class="price"><span class="new" ><strong style="font-size: 19px" th:text="${#numbers.formatInteger(dto.pPrice,0,'COMMA')}"></strong><small>원</small></span></span>
                         </div>
                         <span class="ratting float-end" style="margin-left: 15px" >
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">

@@ -116,18 +116,18 @@
                 <div class="col-xs-12" th:each="dto : ${bestList}">
                     <div class="product-item text-center" >
                         <div class="product-img">
-                            <a class="image" th:href="@{/shop/read(pno=${dto.pno})}"><img th:src="|/display?fileName=${dto.pImage}|" alt=""/></a>
+                            <a class="image" th:href="@{/shop/read(pno=${dto.pno})}"><img style="width: 442px; height: 350px" th:src="|/display?fileName=${dto.pImage}|" alt=""/></a>
                             <a class="wishlist" href="#" title="Wishlist"><i class="pe-7s-like"></i></a>
 
                         </div>
                         <div class="product-info text-left">
-                            <h5 class="title"><button th:if="${dto.pCateCode.substring(0,1)}=='5'"  class="product_BestLogo" style="font-size: 4px;float: left;margin-left: 2px;">BEST</button><button th:if="${dto.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
-                                <a style="margin-right: 25px" th:href="@{/shop/read(pno=${dto.pno})}">[[${dto?.pName}]]</a></h5>
+                            <h5 class="title"><button th:if="${dto.pCateCode.substring(0,1)}=='0'"  class="product_BestLogo" style="font-size: 4px;float: left;margin-left: 2px;">BEST</button><button th:if="${dto.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
+                                <a style="margin-right: 45px" th:href="@{/shop/read(pno=${dto.pno})}">[[${dto?.pName}]]</a></h5>
                             <div class="price-ratting fix"  th:if="${dto.pDiscount>0.0}">
-                                <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${dto?.pPrice}]]원</small></span></span>
+                                <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0,'COMMA')}원|"></span></strong><span class="old"><small th:text="|${#numbers.formatInteger(dto?.pPrice,0,'COMMA')}원|"></small></span></span>
                             </div>
                             <div class="price-ratting fix" th:if="${dto.pDiscount==0.0}" >
-                                <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${dto.pPrice}]]</strong><small>원</small></span></span>
+                                <span  class="price"><span class="new" ><strong style="font-size: 19px" th:text="|${#numbers.formatInteger(dto?.pPrice,0,'COMMA')}|"></strong><small>원</small></span></span>
                             </div>
                             <span class="ratting float-end "  >
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
@@ -161,7 +161,7 @@
 </div>
 <!-- BEST 끝 -->
 <br>
-<!-- MD -->
+<!-- TD -->
 <div class="product-section section pb-120" id="timeDeal" style="margin-top: 250px" >
     <div class="container">
 
@@ -182,17 +182,17 @@
                 <div class="col-xs-12" th:each="dto : ${TDList}">
                     <div class="product-item text-center" >
                         <div class="product-img">
-                            <a class="image" th:href="@{/shop/read(pno=${dto.pno})}"><img th:src="|/display?fileName=${dto.pImage}|" alt=""/></a>
+                            <a class="image" th:href="@{/shop/read(pno=${dto.pno})}"><img style="width: 442px; height: 350px" th:src="|/display?fileName=${dto.pImage}|" alt=""/></a>
 
 
                         </div>
                         <div class="product-info text-left">
                             <h5 class="title"><button th:if="${dto.pCateCode.substring(0,1)}=='6'" class="product_TimeDealLogo" style="font-size: 4px;float: left;margin-left: 2px;color: red">타임딜</button><a style="margin-right: 10px;text-align: center" th:href="@{/shop/read(pno=${dto.pno})}">[[${dto?.pName}]]</a></h5>
                             <div class="price-ratting fix" style="margin: 5px"  th:if="${dto.pDiscount>0.0}">
-                                <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${dto?.pPrice}]]원</small></span></span>
+                                <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(dto.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(dto.pPrice-dto.pPrice*dto.pDiscount,0,'COMMA')}원|"></span></strong><span class="old"><small th:text="|${#numbers.formatInteger(dto?.pPrice,0,'COMMA')}원|"></small></span></span>
                             </div>
                             <div class="price-ratting fix" th:if="${dto.pDiscount==0.0}" >
-                                <span  class="price"><span class="new" ><strong style="font-size: 19px;margin-left: 3px">[[${dto.pPrice}]]</strong><small>원</small></span></span>
+                                <span  class="price"><span class="new" ><strong style="font-size: 19px;margin-left: 3px" th:text="|${#numbers.formatInteger(dto?.pPrice,0,'COMMA')}|"></strong><small>원</small></span></span>
                             </div>
                             <span class="ratting float-end "  >
                                 <th:block th:if="${#numbers.formatInteger(dto.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(dto.pRating,0)}, end2 = 5-${#numbers.formatInteger(dto.pRating,0)}">
@@ -228,7 +228,7 @@
         </div>
     </div>
 </div>
-<!-- MD끝 -->
+<!-- TD끝 -->
 
 <!-- BLOG SECTION START -->
 <div class="blog-section section pb-80" style="margin-top: 250px">
@@ -285,55 +285,7 @@
 <th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
 </body>
 <script>
-    const countDownTimer = function (id, date) {
-        var _vDate = new Date(date); // 전달 받은 일자
-        var _second = 1000;
-        var _minute = _second * 60;
-        var _hour = _minute * 60;
-        var _day = _hour * 24;
-        var timer;
 
-        function showRemaining() {
-            var now = new Date();
-            var distDt = _vDate - now;
-
-            if (distDt < 0) {
-                clearInterval(timer);
-                document.getElementById(id).textContent = '해당 이벤트가 종료 되었습니다!';
-                $.ajax({
-                    type : "POST",
-                    url : "/rest/updateTimeDeal",
-                    data : {pCatecode : '600000'},
-                    success : function(result) {
-                        console.log("할인종료")
-                    }
-
-                })
-                return;
-            }
-
-            var days = Math.floor(distDt / _day);
-            var hours = Math.floor((distDt % _day) / _hour);
-            var minutes = Math.floor((distDt % _hour) / _minute);
-            var seconds = Math.floor((distDt % _minute) / _second);
-
-            //document.getElementById(id).textContent = date.toLocaleString() + "까지 : ";
-            document.getElementById(id).textContent =  ' ';
-            document.getElementById(id).textContent += hours + ': ';
-            document.getElementById(id).textContent += minutes + ': ';
-            document.getElementById(id).textContent += seconds + '';
-        }
-
-        timer = setInterval(showRemaining, 1000);
-    }
-
-    var dateObj = new Date();
-    dateObj.setDate(dateObj.getDate() + 1);
-
-    countDownTimer('sample01', '06/20/2022 11:10 AM');
-    // countDownTimer('sample02', '04/01/2024 00:00 AM'); // 2024년 4월 1일까지, 시간을 표시하려면 01:00 AM과 같은 형식을 사용한다.
-    // countDownTimer('sample03', '04/01/2024'); // 2024년 4월 1일까지
-    // countDownTimer('sample04', '04/01/2019'); // 2024년 4월 1일까지
 
 
 

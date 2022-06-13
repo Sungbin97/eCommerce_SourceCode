@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="/css/responsive.css">
         <!-- 페이징 별도 css (SW추가) -->
         <link rel="stylesheet" href="/paginationCustom.css">
+
     </head>
 </div>
 
@@ -42,61 +43,52 @@
                     <div class="col-auto">
                         <!-- logo -->
                         <div class="header-logo">
-                            <a th:href="@{/mainPage}"><img style="width: 135px;height: 21px" src="/img/logoCrossLine2.png" alt="main logo"></a>
+                            <a th:href="@{/mainPage}"><img src="/img/logo.png" alt="main logo"></a>
                         </div>
+<!--                        src="/img/logo.png"-->
                     </div>
                     <div class="col-auto d-flex">
                         <!-- header-search & total-cart -->
                         <nav class="main-menu">
-                            <ul>
-                                <li><a th:href="@{/shop/list(pCateCode='500000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">Best Sellers</a>
-                                    <ul class="sub-menu shopCategory bestSellerCategory">
+                            <ul class="mainCatecory_ul">
 
-                                    </ul>
-                                </li>
-                                <li><a th:href="@{/shop/list(pCateCode='100000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">MEN</a>
-                                    <ul class="sub-menu shopCategory firstCategory">
-
-                                    </ul>
-                                </li>
-                                <li ><a th:href="@{/shop/list(pCateCode='200000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">WOMEN</a>
-                                    <ul class="sub-menu shopCategory secondCategory">
-
-                                    </ul>
-                                </li>
-                                <li><a th:href="@{/shop/list(pCateCode='300000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">Nutrition</a>
-                                    <ul class="sub-menu shopCategory thirdCategory">
-
-                                    </ul>
-                                </li>
-                                <li><a th:href="@{/shop/list(pCateCode='400000',tier=1,page=1,numPerPage=10,sort='',keyword='')}">accessories</a>
-                                    <ul class="sub-menu shopCategory fourthCategory">
-
-                                    </ul>
-                                </li>
-                                <li><a th:href="@{/community/main}">Community</a>
+                                <li><a href="#">Pages</a>
                                     <ul class="sub-menu">
-                                        <li><a th:href="@{/community/board/list}">Sports</a></li>
+                                        <li><a href="cart.html">cart</a></li>
+                                        <li><a href="checkout.html">checkout</a></li>
+                                        <li><a href="login.html">login</a></li>
+                                        <li><a href="register.html">register</a></li>
+                                        <li><a href="wishlist.html">wishlist</a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="@{/community/board/list}">Community</a>
+                                    <ul class="sub-menu">
                                         <li><a href="#">Health</a></li>
+                                        <li><a href="#">Sports</a></li>
                                         <li><a href="#">Fashion</a></li>
                                         <li><a href="#">Life Hacks</a></li>
                                     </ul>
                                 </li>
-                                <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a href="/admin/adpage">Admin</a>
+                                <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a href="blog.html">Admin</a>
                                     <ul class="sub-menu">
-                                        <li><a th:href="@{/admin/member/member(mno=1)}">member</a></li>
+                                        <li><a th:href="@{/admin/member/member?mno=1}">member</a></li>
                                         <li><a th:href="@{/admin/product/upload}">product upload</a></li>
                                         <li><a th:href="@{/admin/product/list(pno=1)}">product list</a></li>
+
                                         <li><a th:href="@{/admin/order/list}">order List</a></li>
                                         <li><a th:href="@{/admin/order/cancelList}">cancel List</a></li>
                                         <li><a th:href="@{/admin/order/changeList}">change List</a></li>
+                                        <li><a th:href="@{/admin/order/deliveryReg}">deliveryReg</a></li>
                                         <li><a th:href="@{/admin/order/normalList}">normal List</a></li>
                                         <li><a th:href="@{/admin/order/returnList}">return List</a></li>
+
                                         <li><a th:href="@{/admin/personalQ/listM}">customer inquiry</a></li>
+
                                         <li><a th:href="@{/admin/mail/writeDirect}">mail write</a></li>
                                         <li><a th:href="@{/admin/mail/list}">mail list</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </nav>
                         <!-- header-search & total-cart -->
@@ -105,6 +97,10 @@
                             <div class="header-search">
                                 <button class="search-toggle"><i class="pe-7s-search"></i></button>
                                 <div class="header-search-form">
+                                    <!--                                    <form action="#">-->
+                                    <!--                                        <input type="text" placeholder="Search">-->
+                                    <!--                                        <button><i class="fa fa-long-arrow-right"></i></button>-->
+                                    <!--                                    </form>-->
                                     <form class="searchForm" action="/shop/list" method="get">
                                         <input type="text" placeholder="Search" id="keyword" name="keyword">
                                         <button id="findBtn"><i class="fa fa-long-arrow-right"></i></button>
@@ -113,6 +109,8 @@
                                 </div>
                             </div>
 
+                            <!-- header Account SW 내용 수정 0605 -->
+                            <!-- 추후 mno 고정 해제 예정 -->
                             <div class="header-account">
                                 <ul>
                                     <li><a href="#" class="account-toggle"><i class="pe-7s-config"></i></a>
@@ -122,66 +120,64 @@
                                                 <li><a sec:authorize="isAnonymous()" th:href="@{/account/login}" type="submit">Login</a></li>
                                             </form>
                                             <ul sec:authorize="hasAnyRole('ROLE_ADMIN')">
-                                                <li><a th:href="@{/admin/member/member(mno=1)}">member</a></li>
+                                                <li><a th:href="@{/admin/member/member?mno=1}">member</a></li>
                                                 <li><a th:href="@{/admin/product/upload}">product upload</a></li>
                                                 <li><a th:href="@{/admin/product/list(pno=1)}">product list</a></li>
+
+                                                <li><a th:href="@{/admin/order/list}">order List</a></li>
                                                 <li><a th:href="@{/admin/order/cancelList}">cancel List</a></li>
                                                 <li><a th:href="@{/admin/order/changeList}">change List</a></li>
+                                                <li><a th:href="@{/admin/order/deliveryReg}">deliveryReg</a></li>
                                                 <li><a th:href="@{/admin/order/normalList}">normal List</a></li>
                                                 <li><a th:href="@{/admin/order/returnList}">return List</a></li>
+
+                                                <li><a th:href="@{/admin/personalQ/listM}">customer inquiry</a></li>
+
                                                 <li><a th:href="@{/admin/mail/writeDirect}">mail write</a></li>
                                                 <li><a th:href="@{/admin/mail/list}">mail list</a></li>
                                             </ul>
-                                            <ul sec:authorize="hasAnyRole('ROLE_MEMBER')">
-                                                <li><a id="mypageMain">My Account</a></li>
-                                                <li><a id="mypageInterest">Wish list</a></li>
-                                                <li><a id="mypageRegQ">1:1 inquiry</a></li>
+                                            <ul sec:authorize="isAnonymous() or hasAnyRole('ROLE_MEMBER')">
+                                            <li><a th:if="${#authentication.name != 'anonymousUser'}" id="mypageMain" href="/mypage/main?mno=2">My Account</a></li>
+                                            <li><a th:if="${#authentication.name == 'anonymousUser'}" href="/account/login">My Account</a></li>
+                                            <li><a id="mypageInterest" href="/mypage/interest/list?mno=2">Wish list</a></li>
+                                            <li><a id="mypageRegQ" href="/mypage/personalQ/regQ?mno=2">1:1문의하기</a></li>
+<!--                                            <li><a href="">Checkout</a></li>--> <!-- 로그아웃 화면 연결 예정 -->
                                             </ul>
                                         </ul>
                                     </li>
                                 </ul>
                             </div>
+                            <!-- Header Cart -->
+                            <div class="header-cart">
+                                <!-- Cart Toggle -->
+                                <a class="cart-toggle">
+                                    <i class="pe-7s-cart"></i>
+                                    <span id="cartCntSpan"></span>
+                                </a>
+                                <!-- Mini Cart Brief -->
+                                <div class="mini-cart-brief text-left">
+                                    <!-- Cart Products -->
+                                    <h6>CART</h6>
 
-                            <!-- 장바구니 드롭다운 화면 -->
-                            <ul sec:authorize="hasAnyRole('ROLE_MEMBER') or isAnonymous()">
-                                <!-- Header Cart -->
-                                <div class="header-cart">
-                                    <!-- Cart Toggle -->
-                                    <a class="cart-toggle">
-                                        <i class="pe-7s-cart"></i>
-                                        <span id="cartCntSpan"></span>
-                                    </a>
-                                    <!-- Mini Cart Brief -->
-                                    <div class="mini-cart-brief text-left">
-                                        <!-- Cart Products -->
-                                        <h6>CART</h6>
-                                        <input type="hidden" name="idSec" th:value="${#authentication.name}"/>
-                                        <input type="hidden" name="mnoSec"/>
-                                        <!-- 회원별 장바구니 데이터 들어오는 영역 -->
-                                        <div class="all-cart-product clearfix uploadCartResult">
+                                    <input type="hidden" name="idSec" th:value="${#authentication.name}"/>
+<!--                                    <div sec:authentication="name"></div>-->
+                                    <input type="hidden" name="mnoSec"/>
 
-                                        </div>
-                                        <!-- Cart Button -->
-                                        <div sec:authorize="hasAnyRole('ROLE_MEMBER')" class="cart-bottom  clearfix">
-                                            <a id="getCartListM">Go to Cart List</a>
-                                        </div>
+                                    <!-- 회원별 장바구니 데이터 들어오는 영역 -->
+                                    <div class="all-cart-product clearfix uploadCartResult">
+
                                     </div>
-                                </div>
-                            </ul>
+                                    <!-- Cart Button -->
+                                    <div class="cart-bottom  clearfix">
+                                        <a href="/mypage/cart/list?mno=2">장바구니 전체 보기</a> <!-- mno 고정 풀어야함 -->
+                                    </div>
 
-                            <!-- 관리자 접속 시 카트 아이콘 대신 클립보드 아이콘 활성화 -->
-                            <ul sec:authorize="hasAnyRole('ROLE_ADMIN')">
-                                <!-- Header Cart -->
-                                <div class="header-cart">
-                                    <a href="/admin/adpage">
-                                        <img src="/icons_bootstrap/clipboard-check.svg">
-                                    </a>
                                 </div>
-                            </ul>
-
+                            </div>
                         </div>
                     </div>
                     <div class="mobile-menu"></div>
+
                 </div>
             </div>
         </header>

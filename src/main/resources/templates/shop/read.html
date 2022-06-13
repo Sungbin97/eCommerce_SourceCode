@@ -109,13 +109,28 @@
     .short-desc{
         margin-bottom: 8px;
     }
+    .product_TimeDealLogo{
+        border: solid 1px red;
+        color: red;
+        background-color: white;
+    }
+    .product_BestLogo{
+        border: solid 1px blue;
+        color: blue;
+        background-color: white;
+    }
+    .product_HotDealLogo{
+        border: solid 1px hotpink;
+        color: hotpink;
+        background-color: white;
+    }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <body>
 <!-- mypage header fragment -->
 <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
 <!-- PAGE BANNER SECTION -->
-<div class="page-banner-section section">
+<div class="page-banner-section section" style="background-image: url('/mainPageImg/9.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -153,15 +168,19 @@
                 <div class="product-details section">
                     <!-- Title -->
                     <h1 class="title">[[${pvo.pName}]]</h1>
+                    <div th:if="${pvo.pCateCode.substring(0,1)}=='6'">
+                        <span style="color: red">타임딜</span>
+                        <span style="color: red;margin-left: 5px" id="sample01"></span>
+                    </div>
                     <!-- Price Ratting -->
                     <div class="price-ratting section">
                         <!-- Price -->
                         <div class="price_div" th:if="${pvo.pDiscount>0.0}">
                             <span  style="color: red;float: left;font-size: 30px"><strong th:text="${#numbers.formatInteger(pvo.pDiscount*100,0)}"></strong><small style="font-size: 15px">%</small></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span class="price"><strong style="font-size: 30px"><span class="new" th:text="|${#numbers.formatInteger(pvo.pPrice-pvo.pPrice*pvo.pDiscount,0)}원|"></span></strong><span class="old"><small style="font-size: 15px">[[${pvo?.pPrice}]]원</small></span></span>
+                            <span class="price"><strong style="font-size: 30px"><span class="new" th:text="|${#numbers.formatInteger(pvo.pPrice-pvo.pPrice*pvo.pDiscount,0,'COMMA')}원|"></span></strong><span class="old"><small style="font-size: 15px" th:text="|${#numbers.formatInteger(pvo.pPrice,0,'COMMA')}원|"></small></span></span>
                         </div>
                         <div class="price_div" th:if="${pvo.pDiscount==0.0}">
-                            <span  class="price"><span class="new" ><strong style="font-size: 30px">[[${pvo.pPrice}]]</strong><small>원</small></span></span>
+                            <span  class="price"><span class="new" ><strong style="font-size: 30px" th:text="|${#numbers.formatInteger(pvo.pPrice,0,'COMMA')}|"></strong><small>원</small></span></span>
                         </div>
                         <!-- Ratting -->
                         <span class="ratting float-end">
@@ -264,15 +283,19 @@
                             <div class="col-xs-12" th:each="related : ${relatedList}">
                                 <div class="product-item text-center" >
                                     <div class="product-img">
-                                        <a class="image" th:href="@{/shop/read(pno=${related.pno})}"><img th:src="|/display?fileName=${related.pImage}|" alt=""/></a>
+                                        <a class="image" th:href="@{/shop/read(pno=${related.pno})}"><img th:src="|/display?fileName=${related.pImage}|" style="width: 442px; height: 350px" alt=""/></a>
                                     </div>
                                     <div class="product-info text-left">
-                                        <h5 class="title" th:text="${related.pName}"><a href="product-details.html"></a></h5>
+                                        <h5 class="title" >
+                                            <button th:if="${related.pCateCode.substring(0,1)}=='6'" class="product_TimeDealLogo" style="font-size: 4px;float: left;margin-left: 2px;color: red">타임딜</button>
+                                            <button th:if="${related.pDiscount>0.0}"  class="product_HotDealLogo" style="font-size: 4px;float: left;margin-left: 2px;">핫딜</button>
+                                            <button th:if="${related.pCateCode.substring(0,1)}=='0'"  class="product_BestLogo" style="font-size: 4px;float: left;">BEST</button>
+                                            <a th:text="${related.pName}"></a></h5>
                                         <div class="price-ratting fix"  th:if="${related.pDiscount>0.0}">
-                                            <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(related.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(related.pPrice-related.pPrice*related.pDiscount,0)}원|"></span></strong><span class="old"><small>[[${related?.pPrice}]]원</small></span></span>
+                                            <span  style="color: red;float: left;font-size: 20px"><strong th:text="${#numbers.formatInteger(related.pDiscount*100,0)}"></strong><small>%</small></span><span class="price"><strong style="font-size: 19px"><span class="new" th:text="|${#numbers.formatInteger(related.pPrice-related.pPrice*related.pDiscount,0,'COMMA')}원|"></span></strong><span class="old"><small th:text="|${#numbers.formatInteger(related.pPrice,0,'COMMA')}원|"></small></span></span>
                                             </div>
                                             <div class="price-ratting fix" th:if="${related.pDiscount==0.0}" >
-                                                <span  class="price"><span class="new" ><strong style="font-size: 19px">[[${related.pPrice}]]</strong><small>원</small></span></span>
+                                                <span  class="price"><span class="new" ><strong style="font-size: 19px" th:text="|${#numbers.formatInteger(related.pPrice,0,'COMMA')}|"></strong><small>원</small></span></span>
                                             </div>
                                             <span class="ratting float-end related_star"  >
                                 <th:block th:if="${#numbers.formatInteger(related.pRating,0)} !=0" th:with="end = ${#numbers.formatInteger(related.pRating,0)}, end2 = 5-${#numbers.formatInteger(related.pRating,0)}">
@@ -527,12 +550,13 @@
 
     $(document).ready(function (){
         // //리뷰 좋아요 데이터 가져오기
-        //
+        // let mno2 =  $("input[name=mnoSec]").val()
+        // let rno = 1
         //     $.ajax({
         //         type:"post",
         //         contentType: "application/json;charset=UTF-8",
         //         url :"/rest/commentLikeCheck",
-        //         data:JSON.stringify({rno: rno, mno:mno,rmno:rmno}),
+        //         data:JSON.stringify({rno: rno, mno:mno2}),
         //         success:function (result){
         //             console.log("result      ",result)
         //             if(result==0){
@@ -625,7 +649,7 @@
                     $(".color_name").html("")
                 }
                 else{
-                    colorStr += "<button  style='background-color:"+ obj +"' class='colorBtn' value=" +obj +"><i class='fa fa-check'></i></button>"
+                    colorStr += "<button  style='background-color:"+ obj +"' class='colorBtn' value=" +obj +"><i  class='fa fa-check'></i></button>"
                 }
 
             })
@@ -974,6 +998,7 @@
                 pageMaker.html('');
             }
             else {
+
                 review_not_div.html('');
                 qlistInfo.html('')
                 detailInfo.html('')

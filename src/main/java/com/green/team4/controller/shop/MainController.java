@@ -20,6 +20,7 @@ public class MainController {
 
     @Autowired
     private BoardService boardService;
+
     @GetMapping("/mainPage")
     public String  mainPage(@ModelAttribute("cri") ItemPageCriteria cri, Model model){
         log.info("메인페이지 입장");

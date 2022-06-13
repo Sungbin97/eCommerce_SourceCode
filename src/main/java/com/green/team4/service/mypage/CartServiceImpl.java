@@ -21,39 +21,22 @@ public class CartServiceImpl implements CartService{
     public String register(CartVO cartVO) {
         log.info("CartService => register 실행 => 받은 cartVO: "+cartVO);
         List<CartVO> overlapCartList = new ArrayList<>();
-        try{
-            // 옵션이 없을때 중복데이터 검토
-            if(cartVO.getCColor() ==null && cartVO.getCOption() == null && cartVO.getCOption2() ==null){
-                List<CartVO> cartList = cartMapper.getAll(cartVO.getMno()); // 해당 회원 장바구니 다 가져오기
-                //System.out.println(cartList);
-                overlapCartList = cartList.stream().filter(cart->( // 하나씩 꺼내서 중복 List 산출
-                        cart.getPno() == cartVO.getPno()
-                )).collect(Collectors.toList());
-            }
-            else{
-                // 옵션이 존재할때 중복 데이터 검토
-                List<CartVO> cartList = cartMapper.getAll(cartVO.getMno()); // 해당 회원 장바구니 다 가져오기
-                System.out.println(cartList);
-                overlapCartList = cartList.stream().filter(cart->( // 하나씩 꺼내서 중복 List 산출
-                        cart.getPno() == cartVO.getPno()
-                                && cart.getCOption().equals(cartVO.getCOption())
-                                && cart.getCOption2().equals(cartVO.getCOption2())
-                                && cart.getCColor().equals(cartVO.getCColor())
-                )).collect(Collectors.toList());
-            }
-            // 장바구니 신규 추가
-            if(overlapCartList.size()==0){ // 중복되는 상품이 없으면
+        // 옵션이 존재할때 중복 데이터 검토
+        List<CartVO> cartList = cartMapper.getAll(cartVO.getMno()); // 해당 회원 장바구니 다 가져오기
+        System.out.println(cartList);
+        overlapCartList = cartList.stream().filter(cart->( // 하나씩 꺼내서 중복 List 산출
+                cart.getPno() == cartVO.getPno()
+                        && (String.valueOf(cart.getCOption())).equals((String.valueOf(cartVO.getCOption())))
+                        && (String.valueOf(cart.getCOption2())).equals((String.valueOf(cartVO.getCOption2())))
+                        && (String.valueOf(cart.getCColor())).equals((String.valueOf(cartVO.getCColor())))
+        )).collect(Collectors.toList());
+
+        if(overlapCartList.size()==0){ // 중복되는 상품이 없으면
                 int result = cartMapper.insert(cartVO);
                 log.info("CartService => register 실행 후 등록된 데이터 개수: "+result);
                 return "등록 완료되었습니다.";
             }
             else return "이미 장바구니에 추가되어있습니다.";
-
-        }
-        catch (Exception e){
-            return "이미 장바구니에 추가되어있습니다.";
-        }
-
     }
 
     @Override

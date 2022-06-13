@@ -164,7 +164,7 @@ create table tbl_reviewFiles(
 
 -- 리뷰 추천 테이블 SW 수정: foreign key 추가
 create table tbl_review_LIKE(
-    LIKENO int(10) NOT NULL PRIMARY KEY , -- 리뷰 좋아요 번호
+    LIKENO int(10) NOT NULL auto_increment PRIMARY KEY , -- 리뷰 좋아요 번호
     pno int(10), -- 상품 번호
     mno int(10) , -- 회원 번호
     rmno int(10) , --

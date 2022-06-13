@@ -1,7 +1,9 @@
 package com.green.team4.mapperTests;
 
 import com.green.team4.mapper.shop.ReviewMapper;
+import com.green.team4.service.mypage.ReviewMpService;
 import com.green.team4.service.shop.ReviewService;
+import com.green.team4.vo.mypage.ReviewMpVO;
 import com.green.team4.vo.shop.ReviewVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class ReviewMapperTest {
 
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private ReviewMpService reviewMpService;
 
     @Test
     public void testGetList(){
@@ -34,14 +38,13 @@ public class ReviewMapperTest {
 
 
         for (int i = 0; i < 1000; i++) {
-            ReviewVO rvo = new ReviewVO();
+            ReviewMpVO rvo = new ReviewMpVO();
             rvo.setMno(i);
             rvo.setPno((int)(Math.random()*20));
             rvo.setRContent("참 잘샀어요!" + i);
             rvo.setRRating((int)(Math.random()*5));
-            rvo.setRRegdate(new Date());
-            rvo.setRUpdatedate(new Date());
-            reviewService.write(rvo);
+            rvo.setOINo(i);
+            reviewMpService.register(rvo);
         }
     }
     @Test
@@ -51,11 +54,12 @@ public class ReviewMapperTest {
         for (int i = 0; i < 20; i++) {
             ReviewVO rvo = new ReviewVO();
             rvo.setMno(i);
-            rvo.setPno(201);
+            rvo.setPno(1);
             rvo.setRContent("참 잘샀어요!" + i);
             rvo.setRRating((int)(Math.random()*5));
             rvo.setRRegdate(new Date());
             rvo.setRUpdatedate(new Date());
+            rvo.setRImageURL("하이");
             reviewService.write(rvo);
         }
     }
