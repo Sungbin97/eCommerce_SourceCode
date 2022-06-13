@@ -43,7 +43,7 @@
                tbl_product.pImage from tbl_cart
         left outer join tbl_product on tbl_cart.pno = tbl_product.pno
         where mno=#{mno}
-        order by tbl_cart.cno
+        order by tbl_cart.cno desc
     </select>
 
     <update id="update">

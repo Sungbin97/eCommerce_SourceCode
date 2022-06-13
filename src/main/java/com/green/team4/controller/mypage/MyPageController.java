@@ -75,7 +75,6 @@ public class MyPageController {
         for (OrderVO order : orderListOnlyPay) accuPoint += order.getTSavePoint();
         model.addAttribute("accuPoint",accuPoint);
 
-
         // 취소/반품/교환 신청 건 수 가져오기
         int exCnt = exchangeService.readAllCnt(mno);
         model.addAttribute("exCnt",exCnt);
