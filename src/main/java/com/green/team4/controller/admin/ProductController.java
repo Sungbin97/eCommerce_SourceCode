@@ -10,6 +10,7 @@ import com.green.team4.mapper.admin.ProductOptMapper;
 import com.green.team4.paging.PagingEntity;
 import com.green.team4.service.mypage.CartService;
 import com.green.team4.service.mypage.InterestService;
+import com.green.team4.service.shop.CategoryService;
 import com.green.team4.vo.admin.SearchVO;
 import com.green.team4.service.admin.PagingService;
 import com.green.team4.service.admin.ProductService;
@@ -48,6 +49,8 @@ import java.util.UUID;
 public class ProductController {
     @Value("${com.green.upload.path}") //application.properties 변수
     private String uploadPath;
+
+    private final CategoryService categoryService;
     private final ProductService productService;
     private final ProductOptMapper productOptMapper;
     private final ProductImgMapper productImgMapper;
@@ -84,8 +87,9 @@ public class ProductController {
     }
 
     @GetMapping("/upload")
-    public void uploadGet(){
+    public void uploadGet(Model model){
         log.info("uploadGet.......");
+        model.addAttribute("categoryList", categoryService.cateList());
     }
     @PostMapping("/upload")
     public String uploadPost(ProductVO vo, Model model,

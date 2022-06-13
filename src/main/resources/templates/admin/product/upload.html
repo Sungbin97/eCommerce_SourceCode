@@ -44,8 +44,12 @@
               <p>판매할 상품을 등록하세요</p>
               <div class="col-sm-6 col-xs-12 mb-20">
                 <div class="inputArea">
-                  <h7>카테고리 코드<span class="required">*</span></h7>
-                  <input type="text" th:name="pCateCode">
+                  <h7>카테고리<span class="required">*</span></h7>
+                  <select th:name="pCateCode">
+                    <div th:each="category : ${categoryList}">
+                      <option th:value="${category.pCateCode}">[[${category.pCateName}]]</option>
+                    </div>
+                  </select>
                 </div>
               </div>
               <div class="col-sm-6 col-xs-12 mb-20">

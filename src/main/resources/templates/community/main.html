@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="hero-slider-content col-sm-8 col-xs-12">
                     <h1 class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">인기글</h1>
-                    <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s"><span th:text="${VO.title}"></span></p>
+                    <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="1s"><span th:if="${VO} != null" th:text="${VO.title}"></span></p>
                     <a th:href="@{board/read(bno=${VO.bno})}" class="wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="1s">보러가기</a>
                 </div>
             </div>
