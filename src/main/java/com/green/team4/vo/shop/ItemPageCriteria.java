@@ -20,7 +20,7 @@ public class ItemPageCriteria {
     private int pno;
     public ItemPageCriteria(){
         this.page=1;
-        this.numPerPage=10;
+        this.numPerPage=8;
     }
 
     public void setPage(int page){
@@ -32,7 +32,7 @@ public class ItemPageCriteria {
     }
     public void setNumPerPage(int numPerPage){
         if(numPerPage<=0 || numPerPage>100){
-            this.numPerPage=10;
+            this.numPerPage=8;
             return;
         }
         this.numPerPage=numPerPage;

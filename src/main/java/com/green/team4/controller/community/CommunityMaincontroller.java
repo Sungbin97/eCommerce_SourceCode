@@ -16,7 +16,9 @@ public class CommunityMaincontroller {
     @GetMapping("main")
     public void communityMain(Model model){
         Criteria criteria = new Criteria();
-        Long rand = (long)(Math.random()*boardService.getTotal(criteria));
+        Long rand = (long)(Math.random()*boardService.getTotal(criteria))+1;
+        System.out.println("rand: "+rand);
+        System.out.println("rand result: "+boardService.getOne(rand));
         model.addAttribute("VO",boardService.getOne(rand));
     }
 }

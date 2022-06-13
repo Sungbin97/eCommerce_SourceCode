@@ -30,7 +30,7 @@ $("#findBtn").click(function (e){
     e.preventDefault()
     let form = $(".searchForm")
     let keyword=$("input[name='keyword']").val()
-    form.attr("action","/shop/list?pCateCode=''&tier=''&page=1&numPerPage=10&sort=''&keyword="+ keyword)
+    form.attr("action","/shop/list?pCateCode=''&tier=''&page=1&numPerPage=8&sort=''&keyword="+ keyword)
     form.attr("method","get")
     form.submit()
 })
