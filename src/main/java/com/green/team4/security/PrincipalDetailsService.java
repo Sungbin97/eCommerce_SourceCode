@@ -13,7 +13,6 @@ public class PrincipalDetailsService implements UserDetailsService {
     @Autowired
     private MemberInfoService memberInfoService;
 
-
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException{
         MemberInfoVO member = memberInfoService.findById(id);
         if(member != null){

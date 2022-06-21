@@ -62,13 +62,12 @@ public class ProductController {
     private final InterestService interestService;
     private final ProductMapper productMapper;
 
-    private String makeFolder(){ // 파일 저장 폴더 만들기(탐색기)
-        String str = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+    private String makeFolder(){
+        String str = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         String folderPath = str.replace("\\", File.separator);
-        // 폴더 생성
         File uploadFolder = new File(uploadPath, folderPath);
         if(uploadFolder.exists()==false) uploadFolder.mkdirs();
-
         return folderPath;
     }
 
@@ -78,11 +77,9 @@ public class ProductController {
         String originalImg = img.getOriginalFilename();
         String imgFileName = originalImg.substring(originalImg.lastIndexOf("\\") + 1);
         String saveImgName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + imgFileName;
-        //String saveImgUrl = File.separator + folderPath + File.separator + uuid + "_" + imgFileName;
         String saveImgUrl = "/" + folderPath + "/" + uuid + "_" + imgFileName;
         Path saveImgPath = Paths.get(saveImgName);
         img.transferTo(saveImgPath);
-
         return saveImgUrl;
     }
 

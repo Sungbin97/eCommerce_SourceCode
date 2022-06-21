@@ -187,7 +187,7 @@ public class ExchangeServiceImpl implements ExchangeService{
 
         // (2) 승계되어야할 취소/반품/교환 처리 건 정리
         List<ExchangeVO> oldExList = readAllByOno(oldVO.getOno()); // 취소/반품/교환 신청건 가져오기(기존 주문서 기준)
-        List<ExchangeVO> newExList = oldExList // 미처리된 취소/반품/교환 건만 가져오기
+        List<ExchangeVO> newExList = oldExList // 미처리된 취소/반품/교환 건만 가져오기,
                 .stream()
                 .filter(i->i.getOINo()!=oINo)
                 .collect(Collectors.toList());
@@ -401,7 +401,7 @@ public class ExchangeServiceImpl implements ExchangeService{
 
         // 해당 주문서 상태 변경 및 새로운 주문서 발행
         // (1) 기존 주문서 취소/반품 상태 처리
-        OrderVO orderVO = orderService.readOne(ono); // 해당 주문서 가져오기
+        OrderVO orderVO = orderService.readOne(ono);
         if(category.contains("취소")) orderVO.setTPayStatus("주문취소완료");
         else orderVO.setTPayStatus("주문반품완료");
         orderService.modifyStatus(orderVO);
